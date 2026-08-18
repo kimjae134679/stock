@@ -1,0 +1,10 @@
+{
+  "name": "Market Radar",
+  "short_name": "MarketRadar",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071018",
+  "theme_color": "#08111d",
+  "description": "미국 주식·ETF 시장 Phase, 테마, 리밸런싱 대시보드"
+}
