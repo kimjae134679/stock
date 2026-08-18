@@ -1,0 +1,16 @@
+{
+  "version":"2026-08-19-v1",
+  "visibility":"PRIVATE - never deploy this directory to Pages",
+  "purpose":"매일 미국 주식/ETF를 분석해 시장 Phase, 테마, 종목, 역사적 유사구간, 리서치 컨센서스, 모델 리밸런싱을 갱신하고 앱에서 확인",
+  "daily_output":"US_Market_Daily_YYYY-MM-DD.html + public/data/latest.json + public/data/archive/YYYY-MM-DD.json",
+  "timezone":"Asia/Seoul",
+  "daily_window":"07:00-08:00 KST first check",
+  "phase_system":["🔥 극단 저점/투매","🟢 저점 후보","🟢 바닥 형성/확인","🟡 저점에서 상승 중","🟡 중간 상승추세","🟠 고점 근처/조정","🔴 과열/분배","🔴 추세 붕괴/급락","⚪ 횡보/불명확"],
+  "theme_colors":{"software":"🟦","compute":"🟪","network":"🟧","power":"🟩","defense":"🟨","aggressive":"🟥","index":"⬜"},
+  "fixed_history_dates":["2023-10-26","2024-04-17","2024-07-11","2024-08-02","2025-04-07","2026-03-31","2026-06-03","2026-07-29"],
+  "display_rules":["모든 종목은 티커 — 한글 이름","가능한 모든 순위는 점수 내림차순","모바일 우선","전일과 달라진 것 최상단","거시/국제경제는 맨 아래","매수타이밍과 부의성장잠재력 분리"],
+  "must_track":["QQQ","QLD","TQQQ","SOXL","SMH","SOXX","NVDA","AVGO","PLTR","NBIS","SNDK","ANET","ORCL","ADBE","CRM","GOOGL","AMZN","MSFT","CEG","VST","GEV","ETN","VRT","PWR","NEE","BWXT","LEU","AMAT","LRCX","KLAC","MU","AMD","MRVL","CRDO","LITE","COHR","CRWV","FTNT","CRWD","PANW","AVAV","KTOS","IGV","CIBR","HACK","GRID","ZAP","NLR","AIQ","BOTZ","PAVE","SHLD","ITA","XAR","XBI","IWM","RSP","SCHG","XLK","MOD","NVT","FIX","HUBB","EME","POWL","CCJ","NXE","BE","CMI","CAT"],
+  "research_sources":["SEC/기업IR/Fed/Treasury/CBOE/Reuters","삼성증권","미래에셋증권","NH투자증권(원문 접근 가능 시)","토스증권 리서치","BlackRock","J.P. Morgan Asset Management","Fidelity","Goldman Sachs"],
+  "security_rules":["저장소 Private 유지","Pages는 public/만 배포","개인 실제 보유비중은 앱 localStorage에만 저장","PAT/API secret을 APK/public에 넣지 않음","private/는 Pages 제외"],
+  "automation_id":"6a847ce3f5dc81918ccab0a7bafaa8fe"
+}
