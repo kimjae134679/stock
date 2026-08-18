@@ -7,6 +7,12 @@
       "time": "02:39",
       "market": {"buy_timing":55,"risk":63,"bottom":26,"top_risk":66,"trend":54},
       "prices": {"ADBE":265.83,"CRM":198.21,"QQQ":719.37,"NVDA":220.36,"SMH":568.29,"ORCL":143.83,"CEG":277.21,"QLD":91.16,"TQQQ":73.15,"SOXL":126.9,"ANET":191.82,"VST":144.17}
+    },
+    {
+      "time": "03:36",
+      "market": {"buy_timing":55,"risk":63,"bottom":26,"top_risk":66,"trend":54},
+      "prices": {"ADBE":265.83,"CRM":198.21,"QQQ":719.37,"NVDA":220.36,"SMH":568.29,"ORCL":143.83,"CEG":277.21,"QLD":91.16,"TQQQ":73.15,"SOXL":126.9,"ANET":191.82,"VST":144.17},
+      "data_status": "실시간 외부 가격 피드 지연으로 마지막 검증 스냅샷 유지; 미확인 가격 추정 금지"
     }
   ]
 }
