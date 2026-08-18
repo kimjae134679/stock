@@ -1,4 +1,4 @@
-const CACHE='market-radar-v3';
+const CACHE='market-radar-v4';
 const STATIC=['./','./index.html','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC)).catch(()=>{}));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
@@ -9,7 +9,7 @@ self.addEventListener('fetch',e=>{
     return;
   }
   if(e.request.mode==='navigate'){
-    e.respondWith(fetch(e.request).catch(()=>caches.match('./index.html')));
+    e.respondWith(fetch(e.request,{cache:'no-store'}).catch(()=>caches.match('./index.html')));
     return;
   }
   e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
