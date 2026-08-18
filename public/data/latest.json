@@ -1,6 +1,9 @@
 {
-  "version": 1,
-  "updated_at": "2026-08-19T02:24:00+09:00",
+  "schema_version": 2,
+  "app_version": "0.2.0",
+  "updated_at": "2026-08-19T02:39:00+09:00",
+  "report_path": "reports/2026/08/US_Market_Daily_2026-08-19.html",
+  "report_latest_path": "reports/latest.html",
   "market": {
     "phase": "🟠 고점권 조정·내부 로테이션",
     "risk": 63,
@@ -9,7 +12,9 @@
     "trend_confirmation": 54,
     "buy_timing": 55,
     "action": "공격 대기 + 선택적 분할매수",
-    "summary": "시장 전체는 대바닥보다 고점권 조정에 가깝다. 상대강도가 살아난 소프트웨어와 구조적 전력 수혜를 분할하고 현금을 남긴다. QQQ higher-low, 20/50DMA 회복, breadth 개선, 장기금리 안정이 확인되면 공격비중을 높인다."
+    "summary": "시장 전체는 대바닥보다 고점권 조정에 가깝다. 상대강도가 살아난 소프트웨어와 구조적 전력 수혜를 분할하고 현금을 남긴다. QQQ higher-low, 20/50DMA 회복, breadth 개선, 장기금리 안정이 확인되면 공격비중을 높인다.",
+    "next_trigger": "QQQ higher-low + 20/50DMA 회복 + breadth 확산 + 장기금리 안정",
+    "avoid": "급락 중인 반도체/광통신 3x 추격"
   },
   "analogs": [
     {"date":"2024-07-11","similarity":80,"reason":"고점권 기술주 약화 + 내부 로테이션"},
@@ -17,13 +22,13 @@
     {"date":"2024-08-02","similarity":36,"reason":"기술주 급락은 비슷하지만 당시 공포가 훨씬 극단적"}
   ],
   "themes": [
-    {"key":"software","name":"소프트웨어/SaaS","emoji":"🟦","score":81,"phase":"🟡 저점 → 상승 중","popularity":"회복초기→인기상승","overheat":32,"upside":79,"action":"현재 가장 보기 좋은 반전 테마"},
-    {"key":"power","name":"AI 전력·원전·그리드","emoji":"🟩","score":73,"phase":"🟡 중간상승·조정","popularity":"주도테마","overheat":62,"upside":67,"action":"핵심 구조테마·가격 선별"},
-    {"key":"index","name":"지수·분산","emoji":"⬜","score":66,"phase":"🟠 고점권 조정","popularity":"중립","overheat":46,"upside":54,"action":"코어 분할만"},
-    {"key":"compute","name":"AI 컴퓨트·GPU·반도체","emoji":"🟪","score":64,"phase":"🔴 고점권 → 급조정","popularity":"과열 해소","overheat":78,"upside":48,"action":"산업은 핵심·바닥 확인 먼저"},
-    {"key":"defense","name":"방어·헬스·다음테마","emoji":"🟨","score":62,"phase":"🟡 중간/로테이션","popularity":"인기상승","overheat":48,"upside":60,"action":"선별"},
-    {"key":"network","name":"AI 네트워크·광통신","emoji":"🟧","score":52,"phase":"🔴 과열 → 급락 중","popularity":"지나친 관심","overheat":93,"upside":37,"action":"바닥 확인 대기"},
-    {"key":"aggressive","name":"공격형·레버리지","emoji":"🟥","score":34,"phase":"🔴 기초자산 조정","popularity":"과열 해소","overheat":92,"upside":55,"action":"추세 확인 대기"}
+    {"key":"software","name":"소프트웨어/SaaS","emoji":"🟦","score":81,"timing":79,"phase":"🟡 저점 → 상승 중","popularity":"회복초기→인기상승","overheat":32,"upside":79,"action":"현재 가장 보기 좋은 반전 테마"},
+    {"key":"power","name":"AI 전력·원전·그리드","emoji":"🟩","score":73,"timing":67,"phase":"🟡 중간상승·조정","popularity":"주도테마","overheat":62,"upside":67,"action":"핵심 구조테마·가격 선별"},
+    {"key":"index","name":"지수·분산","emoji":"⬜","score":66,"timing":55,"phase":"🟠 고점권 조정","popularity":"중립","overheat":46,"upside":54,"action":"코어 분할만"},
+    {"key":"compute","name":"AI 컴퓨트·GPU·반도체","emoji":"🟪","score":64,"timing":48,"phase":"🔴 고점권 → 급조정","popularity":"과열 해소","overheat":78,"upside":48,"action":"산업은 핵심·바닥 확인 먼저"},
+    {"key":"defense","name":"방어·헬스·다음테마","emoji":"🟨","score":62,"timing":60,"phase":"🟡 중간/로테이션","popularity":"인기상승","overheat":48,"upside":60,"action":"선별"},
+    {"key":"network","name":"AI 네트워크·광통신","emoji":"🟧","score":52,"timing":37,"phase":"🔴 과열 → 급락 중","popularity":"지나친 관심","overheat":93,"upside":37,"action":"바닥 확인 대기"},
+    {"key":"aggressive","name":"공격형·레버리지","emoji":"🟥","score":34,"timing":24,"phase":"🔴 기초자산 조정","popularity":"과열 해소","overheat":92,"upside":55,"action":"추세 확인 대기"}
   ],
   "top_picks": [
     {"ticker":"ADBE","name":"어도비","theme":"software","score":85,"timing":82,"wealth":78,"phase":"🟡 저점에서 상승 중","action":"분할","note":"AI 대체위험은 실제 존재하지만 가격에 상당 부분 반영됐을 가능성"},
@@ -39,35 +44,65 @@
     {"ticker":"SOXL","name":"디렉시온 반도체 불 3X","theme":"aggressive","score":18,"timing":10,"wealth":100,"phase":"🔴 추세 붕괴·급락","action":"현재 대기","note":"반도체 자체의 바닥 확인 후만 공격"}
   ],
   "hidden_themes": [
-    {"rank":1,"name":"데이터센터 냉각·열관리","score":84,"tickers":["MOD","NVT","VRT","FIX"]},
-    {"rank":2,"name":"변압기·스위치기어·전기부품","score":82,"tickers":["HUBB","NVT","POWL","ETN"]},
-    {"rank":3,"name":"오프그리드·현장발전","score":80,"tickers":["BE","GEV","CMI","CAT"]},
-    {"rank":4,"name":"데이터센터 전기·기계 시공","score":77,"tickers":["FIX","EME","PWR"]},
-    {"rank":5,"name":"핵연료·우라늄 공급망","score":75,"tickers":["CCJ","LEU","NXE","NLR"]}
+    {"rank":1,"name":"데이터센터 냉각·열관리","score":84,"tickers":["MOD","NVT","VRT","FIX"],"state":"구조 성장·조정"},
+    {"rank":2,"name":"변압기·스위치기어·전기부품","score":82,"tickers":["HUBB","NVT","POWL","ETN"],"state":"핵심 병목"},
+    {"rank":3,"name":"오프그리드·현장발전","score":80,"tickers":["BE","GEV","CMI","CAT"],"state":"인기 급상승·과열주의"},
+    {"rank":4,"name":"데이터센터 전기·기계 시공","score":77,"tickers":["FIX","EME","PWR"],"state":"주도 확산"},
+    {"rank":5,"name":"핵연료·우라늄 공급망","score":75,"tickers":["CCJ","LEU","NXE","NLR"],"state":"구조적 부족·고변동"}
   ],
   "model_allocation": [
-    {"asset":"현금·초단기 대기자금","weight":20},
-    {"asset":"QQQ — 인베스코 QQQ","weight":10},
-    {"asset":"QLD — 프로셰어즈 울트라 QQQ","weight":5},
-    {"asset":"ADBE — 어도비","weight":8},
-    {"asset":"CRM — 세일즈포스","weight":6},
-    {"asset":"IGV — 소프트웨어 ETF","weight":6},
-    {"asset":"ORCL — 오라클","weight":6},
-    {"asset":"GOOGL — 알파벳","weight":4},
-    {"asset":"NVDA — 엔비디아","weight":4},
-    {"asset":"SMH — 반도체 ETF","weight":3},
-    {"asset":"ANET — 아리스타 네트웍스","weight":3},
-    {"asset":"CEG — 콘스텔레이션 에너지","weight":6},
-    {"asset":"VST — 비스트라","weight":4},
-    {"asset":"GRID — 스마트그리드 ETF","weight":4},
-    {"asset":"NLR — 원자력 ETF","weight":3},
-    {"asset":"NVT — 엔벤트","weight":3},
-    {"asset":"MOD — 모딘","weight":1},
-    {"asset":"XBI — 바이오텍 ETF","weight":4}
+    {"asset":"현금·초단기 대기자금","weight":20,"category":"cash"},
+    {"asset":"QQQ — 인베스코 QQQ","weight":10,"category":"index"},
+    {"asset":"QLD — 프로셰어즈 울트라 QQQ","weight":5,"category":"aggressive"},
+    {"asset":"ADBE — 어도비","weight":8,"category":"software"},
+    {"asset":"CRM — 세일즈포스","weight":6,"category":"software"},
+    {"asset":"IGV — 소프트웨어 ETF","weight":6,"category":"software"},
+    {"asset":"ORCL — 오라클","weight":6,"category":"compute"},
+    {"asset":"GOOGL — 알파벳","weight":4,"category":"compute"},
+    {"asset":"NVDA — 엔비디아","weight":4,"category":"compute"},
+    {"asset":"SMH — 반도체 ETF","weight":3,"category":"compute"},
+    {"asset":"ANET — 아리스타 네트웍스","weight":3,"category":"network"},
+    {"asset":"CEG — 콘스텔레이션 에너지","weight":6,"category":"power"},
+    {"asset":"VST — 비스트라","weight":4,"category":"power"},
+    {"asset":"GRID — 스마트그리드 ETF","weight":4,"category":"power"},
+    {"asset":"NLR — 원자력 ETF","weight":3,"category":"power"},
+    {"asset":"NVT — 엔벤트","weight":3,"category":"power"},
+    {"asset":"MOD — 모딘","weight":1,"category":"power"},
+    {"asset":"XBI — 바이오텍 ETF","weight":4,"category":"defense"}
   ],
+  "risk_on_allocation": [
+    {"category":"현금/대기","weight":10},
+    {"category":"코어 Nasdaq/레버리지","weight":23},
+    {"category":"소프트웨어","weight":18},
+    {"category":"AI 컴퓨트/반도체","weight":18},
+    {"category":"전력/그리드/원전","weight":14},
+    {"category":"네트워크","weight":6},
+    {"category":"숨은 인프라","weight":4},
+    {"category":"분산/XBI","weight":4},
+    {"category":"SOXL 전술","weight":3}
+  ],
+  "research": [
+    {"org":"삼성증권","score":82,"take":"AI 밸류체인·전력 인프라 긍정, 차입/과열 경계"},
+    {"org":"미래에셋증권","score":81,"take":"AI 네트워크·반도체 투자여력 긍정, 장기금리 하락 제한"},
+    {"org":"토스증권 리서치","score":77,"take":"AI 경쟁이 모델에서 인프라·플랫폼·서비스 생태계로 확장"},
+    {"org":"BlackRock","score":85,"take":"AI 물리 인프라·전력과 헬스케어 확장, 장기채 신중"},
+    {"org":"Goldman Sachs","score":83,"take":"AI CAPEX는 매우 크나 부채조달이 금리·credit 비용의 리스크"},
+    {"org":"J.P. Morgan / Fidelity","score":72,"take":"시장 리더십 확산·가치/산업재/에너지 상대강도 확인"},
+    {"org":"NH투자증권","score":null,"take":"공개 원문 접근 제한 시 가중치 낮춤"}
+  ],
+  "strategy_validation": {
+    "type":"event-study",
+    "summary":"8개 지정 변곡점 중 7개 방향적으로 유용, 1개 부분성공",
+    "scores":[
+      {"date":"2026-03-31","score":95},{"date":"2026-07-29","score":94},{"date":"2025-04-07","score":92},
+      {"date":"2024-07-11","score":90},{"date":"2026-06-03","score":90},{"date":"2023-10-26","score":88},
+      {"date":"2024-08-02","score":80},{"date":"2024-04-17","score":62}
+    ]
+  },
   "macro": [
     {"title":"미 장기금리","value":"10Y 약 4.71% / 30Y 약 5.29%","meaning":"높은 장기금리는 고PER·대규모 AI CAPEX 기업의 할인율을 압박"},
     {"title":"VIX","value":"약 15.7","meaning":"전형적인 공포·대바닥 수준은 아님"},
-    {"title":"이란·호르무즈·유가","value":"Brent 90달러대","meaning":"유가→인플레 기대→장기금리→성장주 압박 경로 확인"}
+    {"title":"이란·호르무즈·유가","value":"Brent 90달러대","meaning":"유가→인플레 기대→장기금리→성장주 압박 경로 확인"},
+    {"title":"AI CAPEX 부채조달","value":"확대 추세","meaning":"AI 기업 회사채 공급과 국채 공급이 장기금리/credit 비용에 압력"}
   ]
 }
