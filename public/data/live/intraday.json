@@ -1,0 +1,12 @@
+{
+  "date": "2026-08-19",
+  "timezone": "Asia/Seoul",
+  "note": "당일 시간별 파일은 하나만 유지. 다음 날짜 시작 시 reset; 전일은 daily archive 최종 snapshot만 보존.",
+  "points": [
+    {
+      "time": "02:39",
+      "market": {"buy_timing":55,"risk":63,"bottom":26,"top_risk":66,"trend":54},
+      "prices": {"ADBE":265.83,"CRM":198.21,"QQQ":719.37,"NVDA":220.36,"SMH":568.29,"ORCL":143.83,"CEG":277.21,"QLD":91.16,"TQQQ":73.15,"SOXL":126.9,"ANET":191.82,"VST":144.17}
+    }
+  ]
+}
