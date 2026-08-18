@@ -1,0 +1,30 @@
+# Dependencies / generated files
+node_modules/
+dist/
+build/
+android/
+.gradle/
+
+# Android outputs
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Local secrets / env
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temp / logs
+*.log
+tmp/
+.cache/
