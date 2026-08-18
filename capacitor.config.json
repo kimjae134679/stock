@@ -1,0 +1,8 @@
+{
+  "appId": "com.market.radar",
+  "appName": "Market Radar",
+  "webDir": "public",
+  "server": {
+    "androidScheme": "https"
+  }
+}
