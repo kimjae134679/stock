@@ -1,10 +1,10 @@
 {
   "name": "market-radar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "cap:add:android": "npx cap add android",
-    "cap:sync": "npx cap sync android"
+    "android:add": "npx cap add android",
+    "android:sync": "npx cap sync android"
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
