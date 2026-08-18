@@ -1,68 +1,51 @@
 {
-  "version": "2026-08-19-public-v2",
+  "version": "2026-08-19-public-v11",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
-  "purpose": "매일 미국 주식/ETF 분석을 HTML+JSON으로 갱신하고 PWA/APK에서 확인",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
   "timezone": "Asia/Seoul",
-  "daily_window": "07:00-08:00 KST first check",
+  "update_frequency": "hourly (maximum supported automation frequency)",
   "paths": {
     "latest_json": "public/data/latest.json",
+    "intraday": "public/data/live/intraday.json",
     "archive_json": "public/data/archive/YYYY/MM/YYYY-MM-DD.json",
     "latest_report": "public/reports/latest.html",
     "archive_report": "public/reports/YYYY/MM/US_Market_Daily_YYYY-MM-DD.html",
     "handoff": "ops/handoff/current.json"
   },
   "security": [
-    "Public 저장소이므로 개인 실제 보유종목/비율 저장 금지",
+    "Public 저장소이므로 실제 사용자 보유수량/보유비중/계정정보 저장 금지",
     "PAT/API secret/비밀번호/OTP/private key 저장 금지",
-    "개인 입력 보유비중은 브라우저/app localStorage에만 저장",
-    "HTML 숨은 인수인계는 공개 가능한 운영규칙만"
+    "수동 보유량 입력 UI를 만들지 않음"
   ],
-  "display_rules": [
-    "모든 종목은 티커 — 한글 이름",
-    "가능한 모든 순위는 점수 내림차순; Phase/연대기만 예외",
-    "모바일 우선",
-    "역사적 현재 위치를 최상단",
-    "현재 테마 흐름을 크게 표시",
-    "현재 행동 결론 명확히",
-    "매수타이밍 vs 부의성장잠재력 비교 그래프",
-    "추천비중 정확히 합계100",
-    "거시·국제경제는 맨 아래",
-    "전일 대비 달라진 것 우선"
+  "ui_rules": [
+    "PC와 모바일 정보량 동일",
+    "APK 상단/하단 safe-area + 추가 여백",
+    "페이지 전체 가로밀림 금지; 표/필터만 로컬 가로스크롤",
+    "대형 섹션은 접기/펼치기 가능",
+    "터치 안내문은 짧게 '터치'로 통일",
+    "ETF/테마/종목 카드 클릭은 무반응 없이 상세 또는 추적중 모달을 열 것",
+    "TradingView 실패 시 Finviz 이미지/내부 시간그래프/외부링크 fallback",
+    "HTML 저장 버튼 유지"
   ],
-  "phase_system": [
-    "🔥 극단 저점/투매",
-    "🟢 저점 후보",
-    "🟢 바닥 형성/확인",
-    "🟡 저점에서 상승 중",
-    "🟡 중간 상승추세",
-    "🟠 고점 근처/조정",
-    "🔴 과열/분배",
-    "🔴 추세 붕괴/급락",
-    "⚪ 횡보/불명확"
+  "coverage_groups": [
+    "Magnificent 7",
+    "유명·초대형 핵심주: MSFT/AAPL/NVDA/AMZN/GOOGL/META/TSLA/AMD/AVGO/PLTR/TSM/CPNG/ANET/ORCL/NFLX/COST",
+    "AI 메모리·DRAM·HBM·스토리지",
+    "AI 컴퓨트·반도체",
+    "AI 소프트웨어·클라우드",
+    "AI 전력·데이터센터",
+    "네트워크·광통신",
+    "Physical AI·로봇",
+    "사이버보안",
+    "방산 AI·드론"
   ],
-  "fixed_history_dates": [
-    "2023-10-26",
-    "2024-04-17",
-    "2024-07-11",
-    "2024-08-02",
-    "2025-04-07",
-    "2026-03-31",
-    "2026-06-03",
-    "2026-07-29"
-  ],
-  "research_sources": [
-    "SEC/기업IR/Fed/Treasury/CBOE/Reuters",
-    "삼성증권",
-    "미래에셋증권",
-    "NH투자증권(원문 접근 가능 시)",
-    "토스증권 리서치",
-    "BlackRock",
-    "J.P. Morgan Asset Management",
-    "Fidelity",
-    "Goldman Sachs"
-  ],
-  "app_version": "0.2.0",
-  "app_rule": "일일 데이터 변경은 APK 재빌드 안 함. UI/app source 변경 때만 VERSION 증가 및 Actions APK 빌드."
+  "compounder_screen": {
+    "purpose": "장기 우상향/복리 특성이 강한 주식·ETF를 별도 탐색",
+    "rules": ["5Y+ 장기추세", "200DMA 기울기/신고가", "매출·EPS·FCF 성장", "고점 회복력/최대낙폭", "ROIC·마진", "부채·희석", "QQQ/SPY 상대강도", "forward revisions"],
+    "starter_candidates": ["ANET","QQQ","MSFT","AVGO","COST","V","MA","SPGI","PWR","ETN","WM","RSG","ORLY","AZO","VGT","XLK","SCHG"]
+  },
+  "replay_rule": "현재 추천은 과거 2~5년 point-in-time replay로 false-positive를 검증. 매수 후 추가 -15%/-25% 하락 사례는 원인분류 후 모델 감점/veto 규칙에 반영.",
+  "file_rule": "시간별 HTML/JSON 복사본 금지. 같은 날 latest/intraday/당일 archive만 갱신하고 날짜가 바뀌면 전날 최종본 1개를 남김.",
+  "app_rule": "시장 데이터 갱신은 APK 재빌드 없이 Pages/JSON으로 반영. 앱 UI/index/manifest/sw가 바뀔 때만 Android workflow 재빌드."
 }
