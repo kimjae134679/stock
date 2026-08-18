@@ -1,13 +1,72 @@
 name: Build Market Radar Android APK
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'VERSION'
+      - 'package.json'
+      - 'capacitor.config.json'
+      - 'public/index.html'
+      - 'public/manifest.webmanifest'
+      - 'public/sw.js'
+      - '.github/workflows/android.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: android-build
+  cancel-in-progress: true
+
 jobs:
-  paused:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Setup in progress"
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Read app version
+        id: ver
+        shell: bash
+        run: echo "version=$(tr -d '\r\n ' < VERSION)" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Generate Android project
+        run: npx cap add android
+
+      - name: Sync web assets
+        run: npx cap sync android
+
+      - name: Build debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Rename APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk "MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MarketRadar-v${{ steps.ver.outputs.version }}-debug-apk
+          path: MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk
+          retention-days: 90
