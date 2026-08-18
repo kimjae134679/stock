@@ -1,0 +1,68 @@
+{
+  "version": "2026-08-19-public-v2",
+  "repository": "kimjae134679/stock",
+  "visibility": "PUBLIC",
+  "purpose": "매일 미국 주식/ETF 분석을 HTML+JSON으로 갱신하고 PWA/APK에서 확인",
+  "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
+  "timezone": "Asia/Seoul",
+  "daily_window": "07:00-08:00 KST first check",
+  "paths": {
+    "latest_json": "public/data/latest.json",
+    "archive_json": "public/data/archive/YYYY/MM/YYYY-MM-DD.json",
+    "latest_report": "public/reports/latest.html",
+    "archive_report": "public/reports/YYYY/MM/US_Market_Daily_YYYY-MM-DD.html",
+    "handoff": "ops/handoff/current.json"
+  },
+  "security": [
+    "Public 저장소이므로 개인 실제 보유종목/비율 저장 금지",
+    "PAT/API secret/비밀번호/OTP/private key 저장 금지",
+    "개인 입력 보유비중은 브라우저/app localStorage에만 저장",
+    "HTML 숨은 인수인계는 공개 가능한 운영규칙만"
+  ],
+  "display_rules": [
+    "모든 종목은 티커 — 한글 이름",
+    "가능한 모든 순위는 점수 내림차순; Phase/연대기만 예외",
+    "모바일 우선",
+    "역사적 현재 위치를 최상단",
+    "현재 테마 흐름을 크게 표시",
+    "현재 행동 결론 명확히",
+    "매수타이밍 vs 부의성장잠재력 비교 그래프",
+    "추천비중 정확히 합계100",
+    "거시·국제경제는 맨 아래",
+    "전일 대비 달라진 것 우선"
+  ],
+  "phase_system": [
+    "🔥 극단 저점/투매",
+    "🟢 저점 후보",
+    "🟢 바닥 형성/확인",
+    "🟡 저점에서 상승 중",
+    "🟡 중간 상승추세",
+    "🟠 고점 근처/조정",
+    "🔴 과열/분배",
+    "🔴 추세 붕괴/급락",
+    "⚪ 횡보/불명확"
+  ],
+  "fixed_history_dates": [
+    "2023-10-26",
+    "2024-04-17",
+    "2024-07-11",
+    "2024-08-02",
+    "2025-04-07",
+    "2026-03-31",
+    "2026-06-03",
+    "2026-07-29"
+  ],
+  "research_sources": [
+    "SEC/기업IR/Fed/Treasury/CBOE/Reuters",
+    "삼성증권",
+    "미래에셋증권",
+    "NH투자증권(원문 접근 가능 시)",
+    "토스증권 리서치",
+    "BlackRock",
+    "J.P. Morgan Asset Management",
+    "Fidelity",
+    "Goldman Sachs"
+  ],
+  "app_version": "0.2.0",
+  "app_rule": "일일 데이터 변경은 APK 재빌드 안 함. UI/app source 변경 때만 VERSION 증가 및 Actions APK 빌드."
+}
