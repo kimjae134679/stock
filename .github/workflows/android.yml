@@ -75,6 +75,11 @@ jobs:
           test -s android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
           grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
           grep -q '__MR_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
+      - name: Restore persistent debug signing key
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: market-radar-debug-keystore-v1
       - name: Build debug APK
         run: |
           cd android
@@ -100,7 +105,7 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s",\n  "signing_cache": "market-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
           git add ops/android-latest-run.json
           git commit -m "Mark Android build ${{ github.run_id }} successful" || true
           git push || true
