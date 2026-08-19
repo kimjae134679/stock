@@ -38,11 +38,14 @@ jobs:
           test -s public/reports/latest.html
           test -s public/assets/full-recovery-v22.js
           test -s public/assets/evaluation-v26.js
+          test -s public/assets/interval-fix-v27.js
           grep -q 'Market Radar Daily · v' public/reports/latest.html
           grep -q 'full-recovery-v22.js?v=' public/reports/latest.html
           grep -q 'evaluation-v26.js?v=' public/reports/latest.html
+          grep -q 'interval-fix-v27.js?v=' public/reports/latest.html
           node --check public/assets/full-recovery-v22.js
           node --check public/assets/evaluation-v26.js
+          node --check public/assets/interval-fix-v27.js
           echo 'Committed Market Radar dashboard verified.'
 
       - name: Configure Pages
