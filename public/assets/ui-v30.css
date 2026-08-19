@@ -1,0 +1,42 @@
+/* Market Radar v0.3.0 UI hardening.
+   Purpose: keep dynamic buttons styled, make charts genuinely large on mobile/PC,
+   and preserve modal isolation/back-navigation behavior. */
+.fold-panel{border:1px solid #2a3c50;border-radius:18px;padding:14px;margin:16px 0;background:#0a141f}
+.fold-head{display:flex;align-items:center;gap:12px;border-bottom:1px solid #243548;padding-bottom:10px;margin-bottom:12px}
+.fold-head h2{margin:0;flex:1}
+.fold-btn{appearance:none;-webkit-appearance:none;border:1px solid #3d5570!important;background:#142335!important;color:#e8f4ff!important;border-radius:999px!important;padding:8px 13px!important;font-weight:850!important;cursor:pointer!important;line-height:1.2}
+.is-folded .fold-body{display:none}.is-folded .fold-head{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.chips{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px!important;margin-top:10px}
+.ticker-chip,button.ticker-chip,#mr-famous button[data-ticker],#mr-universe button[data-ticker],#expanded button[data-ticker]{appearance:none;-webkit-appearance:none;display:flex!important;min-width:0;width:100%;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:#101e2c!important;color:#eaf2fb!important;border:1px solid #35506a!important;border-radius:12px!important;padding:10px 12px!important;cursor:pointer!important;box-shadow:none!important;font:inherit}
+.ticker-chip b,button.ticker-chip b,#mr-famous button[data-ticker] b{color:#f4f8fb!important;font-size:14px}.ticker-chip span,button.ticker-chip span,#mr-famous button[data-ticker] span{color:#9fb2c6}
+.v26-badge{display:inline-flex!important;width:auto!important;max-width:100%;white-space:normal!important;margin-top:6px;padding:5px 8px;border-radius:999px;border:1px solid #3a526a;background:#132333!important;color:#bfe4ff!important;font-size:10px!important;font-weight:800;line-height:1.25}
+#mr-famous .chips,#expanded .chips{align-items:stretch}
+#mr-famous .fold-body{overflow:hidden}
+.v28-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.v28-tabs button{appearance:none;-webkit-appearance:none;border:1px solid #33465d!important;background:#152334!important;color:#fff!important;border-radius:999px!important;padding:8px 13px!important;font-weight:800!important;cursor:pointer}.v28-tabs button.active{background:#263b50!important;outline:2px solid #7dd3fc}
+.v28-rank-row{appearance:none;-webkit-appearance:none;background:#101e2b!important;color:#eaf2fb!important;border:1px solid #30465d!important;border-radius:12px!important}
+.sheet{width:min(1500px,96vw)!important;max-width:96vw!important;max-height:94dvh!important;overscroll-behavior:contain!important;background:#0b1621!important}
+.modal{overscroll-behavior:contain!important}.modal.open{overflow:hidden!important}
+.big-tv{width:100%!important;height:min(74vh,860px)!important;min-height:600px!important;border-radius:14px;overflow:hidden;border:1px solid #33465d;background:#06101a}
+.big-tv iframe{width:100%!important;height:100%!important;display:block;border:0!important}
+#charts .chartgrid{grid-template-columns:1fr!important;gap:16px!important}
+#charts .chartbox{min-height:420px!important;padding:16px!important}
+#charts .chartbox svg{height:340px!important}
+#charts .realchart{margin-top:16px!important}
+#charts .realchart .big-tv,#charts .tvwrap{height:min(76vh,880px)!important;min-height:620px!important}
+.chart-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 12px;padding:0 2px}.chart-toolbar b{font-size:16px}.chart-toolbar span{color:#9fb2c6}
+.chart-toolbar button,[data-int]{display:none!important}
+.v28-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.v28-rank-card{min-width:0;background:#0d1722;border:1px solid #263548;border-radius:14px;padding:13px}.v28-mini-tv{width:100%!important;height:390px!important;border:1px solid #2b4056;border-radius:12px;overflow:hidden;background:#06101a}.v28-mini-tv iframe{width:100%!important;height:100%!important;display:block;border:0!important}
+.phase-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.phase-card{min-width:0}.phase-card.active{outline:2px solid #f6d46b;background:#211d0d}.v28-do{margin-top:9px;padding-top:9px;border-top:1px dashed #30465d}.v28-do b{display:block;color:#fde68a;margin-bottom:3px}.v28-do span{color:#c8d6e4}
+@media(max-width:1000px){.phase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v28-chart-grid{grid-template-columns:1fr}.big-tv{min-height:560px}}
+@media(max-width:700px){
+  .fold-panel{padding:12px;border-radius:16px}.fold-head{gap:8px}.fold-head h2{font-size:22px!important}.fold-btn{padding:8px 12px!important;font-size:13px!important;flex:0 0 auto}
+  .chips{grid-template-columns:1fr!important}.ticker-chip,button.ticker-chip,#mr-famous button[data-ticker],#mr-universe button[data-ticker],#expanded button[data-ticker]{min-height:64px!important;padding:11px 12px!important}
+  .sheet{width:100vw!important;max-width:100vw!important;max-height:calc(100dvh - env(safe-area-inset-top))!important;border-radius:18px 18px 0 0!important;padding-left:14px!important;padding-right:14px!important;padding-bottom:calc(40px + env(safe-area-inset-bottom))!important}
+  .big-tv{height:62vh!important;min-height:520px!important;max-height:760px!important}
+  #charts .chartbox{min-height:360px!important;padding:13px!important}#charts .chartbox svg{height:280px!important}
+  #charts .realchart .big-tv,#charts .tvwrap{height:64vh!important;min-height:540px!important;max-height:780px!important}
+  .v28-mini-tv{height:420px!important}
+  .v28-rank-list{grid-template-columns:1fr!important}.v28-rank-row{grid-template-columns:84px 1fr!important;gap:6px!important;padding:11px!important}.v28-rank-row em,.v29-rowret{grid-column:1/-1!important}
+  .phase-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:430px){.big-tv{height:58vh!important;min-height:460px!important}.v28-mini-tv{height:360px!important}#charts .realchart .big-tv,#charts .tvwrap{height:60vh!important;min-height:480px!important}}
