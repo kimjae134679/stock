@@ -11,6 +11,8 @@
   "root_entry": "public/index.html",
   "deployment": {
     "pages": "Directly upload committed public/ with no brittle verification gate.",
+    "hourly_data": "market-radar-control.yml commits JSON and deploys Pages in the same workflow.",
+    "cycle_history": "cycle-history.yml rebuilds historical cycle data and deploys Pages in the same workflow.",
     "android": "Capacitor syncs public/, applies native icon/back fallback, then Gradle builds APK."
   },
   "ui_assets": [
@@ -28,10 +30,11 @@
     "data": "public/data/cycle-history.json",
     "builder": "scripts/build-cycle-history.mjs",
     "workflow": ".github/workflows/cycle-history.yml",
-    "lookback_years": 10,
+    "history_span": "maximum available daily history from the data source",
     "method": "zigzag reversal",
     "thresholds": {"etf_pct": 8, "stock_pct": 12, "leveraged_3x_pct": 18},
-    "shows": ["historical start/end dates", "trading/calendar days", "move percent", "mean/median duration", "current day count", "duration progress", "magnitude progress", "combined progress", "rough position text"],
+    "shows": ["all completed historical start/end dates recent-first", "trading/calendar days", "move percent", "mean/median duration by direction", "mean/median move by direction", "current day count", "duration progress", "magnitude progress", "combined progress", "rough position text"],
+    "phase_proxies": {"US broad":"SPY","Nasdaq/growth":"QQQ","semiconductors":"SMH","network/optical":"ANET","software/cloud":"IGV","power/datacenter":"GRID","leverage":"TQQQ"},
     "warning": "Historical averages are descriptive comparisons, not a forecast of the next turning date."
   },
   "cache_rule": [
@@ -56,14 +59,16 @@
     "ETF/allocation/research/smart-money/sources/validation/replay/macro",
     "fold/unfold",
     "modal scroll lock",
-    "native Back behavior"
+    "native Back behavior",
+    "historical cycle progress on ticker details and independent phase cards"
   ],
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "qa": [
     "stable-v034.html always shows at least the protection Hero; total black blank page is failure.",
     "Successful render ends with 정상 · v0.3.4 전체 대시보드 로드 완료.",
     "No old v0.3.0-v0.3.3 UI after v0.3.4 deployment.",
-    "Cycle data appears in ticker/theme detail when available.",
+    "Cycle data appears in ticker/theme detail and phase cards when available.",
+    "Cycle detail shows current N trading days, mean/median, duration/magnitude/combined progress and complete historical rows.",
     "No white browser-default buttons, overlaps, horizontal drift, or tiny actual charts."
   ]
 }
