@@ -1,0 +1,6 @@
+{
+  "generated_at": null,
+  "source": "Yahoo Finance chart API via GitHub Actions",
+  "periods": ["1Y", "2Y", "3Y", "5Y"],
+  "assets": {}
+}
