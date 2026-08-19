@@ -8,17 +8,18 @@ on:
       - 'scripts/build-static-report.mjs'
       - 'scripts/finalize-static-report.mjs'
       - 'scripts/validate-static-report.mjs'
+      - 'VERSION'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: market-radar-pages
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -29,6 +30,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -48,14 +51,27 @@ jobs:
           node scripts/finalize-static-report.mjs
           node scripts/validate-static-report.mjs
 
+      - name: Persist generated FULL HTML in repository
+        if: github.actor != 'github-actions[bot]'
+        run: |
+          if git diff --quiet -- public/reports; then
+            echo 'Generated report already matches repository.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/reports
+          git commit -m 'build: persist generated Market Radar report [skip ci]'
+          git push origin HEAD:main
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload public site only
+      - name: Upload generated public site
         uses: actions/upload-pages-artifact@v4
         with:
           path: public
 
-      - name: Deploy
+      - name: Deploy generated FULL site
         id: deployment
         uses: actions/deploy-pages@v4
