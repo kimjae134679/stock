@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-19-public-v11",
+  "version": "2026-08-19-public-v11-safe",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
@@ -11,8 +11,12 @@
     "archive_json": "public/data/archive/YYYY/MM/YYYY-MM-DD.json",
     "latest_report": "public/reports/latest.html",
     "archive_report": "public/reports/YYYY/MM/US_Market_Daily_YYYY-MM-DD.html",
-    "handoff": "ops/handoff/current.json"
+    "handoff": "ops/handoff/current.json",
+    "safe_ui_js": "public/assets/report-safe-v11.js",
+    "safe_ui_css": "public/assets/report-safe-v11.css",
+    "safe_hotfix": "public/assets/report-safe-v11-hotfix.js"
   },
+  "rollback_rule": "핵심 report.js/report-enhancements.js를 직접 갈아엎지 않고 새 기능은 safe additive layer로 붙인다. 문제가 생기면 safe 파일 참조만 제거해 기존 UI로 복귀한다.",
   "security": [
     "Public 저장소이므로 실제 사용자 보유수량/보유비중/계정정보 저장 금지",
     "PAT/API secret/비밀번호/OTP/private key 저장 금지",
@@ -43,7 +47,7 @@
   "compounder_screen": {
     "purpose": "장기 우상향/복리 특성이 강한 주식·ETF를 별도 탐색",
     "rules": ["5Y+ 장기추세", "200DMA 기울기/신고가", "매출·EPS·FCF 성장", "고점 회복력/최대낙폭", "ROIC·마진", "부채·희석", "QQQ/SPY 상대강도", "forward revisions"],
-    "starter_candidates": ["ANET","QQQ","MSFT","AVGO","COST","V","MA","SPGI","PWR","ETN","WM","RSG","ORLY","AZO","VGT","XLK","SCHG"]
+    "starter_candidates": ["ANET","QQQ","MSFT","AVGO","COST","V","MA","SPGI","MCO","CTAS","PWR","ETN","WM","RSG","ORLY","AZO","VGT","XLK","SCHG"]
   },
   "replay_rule": "현재 추천은 과거 2~5년 point-in-time replay로 false-positive를 검증. 매수 후 추가 -15%/-25% 하락 사례는 원인분류 후 모델 감점/veto 규칙에 반영.",
   "file_rule": "시간별 HTML/JSON 복사본 금지. 같은 날 latest/intraday/당일 archive만 갱신하고 날짜가 바뀌면 전날 최종본 1개를 남김.",
