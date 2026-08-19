@@ -10,6 +10,10 @@ on:
       - 'public/index.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
+      - 'public/assets/static-report-runtime.js'
+      - 'scripts/build-static-report.mjs'
+      - 'scripts/finalize-static-report.mjs'
+      - 'scripts/validate-static-report.mjs'
       - '.github/workflows/android.yml'
   workflow_dispatch:
 
@@ -48,6 +52,16 @@ jobs:
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+
+      - name: Build validated static FULL dashboard
+        run: |
+          node --check scripts/build-static-report.mjs
+          node --check scripts/finalize-static-report.mjs
+          node --check scripts/validate-static-report.mjs
+          node --check public/assets/static-report-runtime.js
+          node scripts/build-static-report.mjs
+          node scripts/finalize-static-report.mjs
+          node scripts/validate-static-report.mjs
 
       - name: Generate Android project
         run: npx cap add android
