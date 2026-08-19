@@ -1,4 +1,4 @@
-/* Small hotfixes for v11 safe layer. Intentionally additive and rollback-friendly. */
+/* Small hotfixes for v15 safe layer. Intentionally additive and rollback-friendly. */
 (function(){
   'use strict';
   function list(v){return Array.isArray(v)?v:[]}
@@ -10,9 +10,9 @@
     sec.dataset.mrCollapse='1';
     const body=document.createElement('div');body.className='mr-collapse-body';[...sec.children].filter(x=>x!==head).forEach(x=>body.appendChild(x));sec.appendChild(body);
     const btn=document.createElement('button');btn.type='button';btn.className='mr-collapse-btn';
-    const key='mr-collapse-'+(sec.id||'section');const defaultClosed=['expanded','research','history','false-positive-replay','macro','sources'].includes(sec.id);let open=!defaultClosed;
+    const key='mr-collapse-'+(sec.id||'section');const defaultClosed=sec.dataset.mrDefaultClosed==='1'||['expanded','research','history','false-positive-replay','macro','sources','mr-universe','mr-sources','mr-smart-money'].includes(sec.id);let open=!defaultClosed;
     try{const s=localStorage.getItem(key);if(s!==null)open=s==='1'}catch(_){}
-    const apply=()=>{body.hidden=!open;btn.textContent=open?'접기':'펼치기';try{localStorage.setItem(key,open?'1':'0')}catch(_){}};btn.onclick=()=>{open=!open;apply()};
+    const apply=()=>{body.hidden=!open;btn.textContent=open?'접기':'펼치기';btn.setAttribute('aria-expanded',String(open));try{localStorage.setItem(key,open?'1':'0')}catch(_){}};btn.onclick=()=>{open=!open;apply()};
     if(head.classList?.contains('sectionhead'))head.appendChild(btn);else head.insertAdjacentElement('afterend',btn);apply();
   }
   function collapseLate(){document.querySelectorAll('section.sec').forEach(collapseOne)}
@@ -25,10 +25,10 @@
   }
 
   function patchETFOnce(){
-    if(typeof openETF!=='function'||openETF.__mrHotfix)return;
+    if(typeof openETF!=='function'||openETF.__mrHotfix||window.__MR_ETF_V15)return;
     const base=openETF;
     const wrapped=function(kind,id){
-      const arr=list(d().etf_lists?.[kind]);const x=arr.find(v=>(v.ticker||v.code)===id);
+      const map=d().etf_lists||{};const arr=list(map[kind]).length?list(map[kind]):list(kind==='us'?map.us_listed:map.kr_listed);const x=arr.find(v=>(v.ticker||v.code)===id);
       const fallback=()=>{
         const name=x?.name||'ETF';let chart='';try{if(kind==='us'&&typeof tvFrame==='function')chart=tvFrame(id)}catch(_){}
         if(typeof showModal==='function')showModal(`${id} — ${name}`,'ETF 상세',`${chart?`<div class="detailblock"><h4>실제 ETF 차트</h4>${chart}</div>`:''}<div class="detailblock"><h4>상태</h4><div>${x?'기본 상세로 표시합니다.':'현재 테마 추적 대상이며 세부 데이터는 다음 자동 갱신에서 보강합니다.'}</div></div>`);
