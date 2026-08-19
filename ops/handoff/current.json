@@ -1,38 +1,20 @@
 {
-  "version": "2026-08-19-public-v17-data-guard",
+  "version": "2026-08-19-public-v18-static-full",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
   "timezone": "Asia/Seoul",
   "update_frequency": "hourly (maximum supported automation frequency)",
-  "paths": {
-    "latest_json": "public/data/latest.json",
-    "intraday": "public/data/live/intraday.json",
-    "archive_json": "public/data/archive/YYYY/MM/YYYY-MM-DD.json",
-    "latest_report": "public/reports/latest.html",
-    "archive_report": "public/reports/YYYY/MM/US_Market_Daily_YYYY-MM-DD.html",
-    "handoff": "ops/handoff/current.json",
-    "data_guard": "public/assets/report-data-guard-v17.js",
-    "boot_guard": "public/assets/report-boot-guard.js",
-    "safe_ui_js": "public/assets/report-safe-v11.js",
-    "safe_ui_css": "public/assets/report-safe-v11.css",
-    "safe_hotfix": "public/assets/report-safe-v11-hotfix.js",
-    "integrity_layer": "public/assets/report-integrity-v15.js"
+  "architecture": {
+    "source_of_truth": "public/data/latest.json + public/data/live/intraday.json",
+    "pages_build": "scripts/build-static-report.mjs -> scripts/finalize-static-report.mjs -> scripts/validate-static-report.mjs",
+    "runtime": "public/assets/static-report-runtime.js",
+    "reason": "클라이언트 fetch/render 실패가 Hero만 남기거나 JSON 오류로 전체 UI를 지우는 문제를 제거. GitHub Actions가 배포 전에 FULL HTML을 정적으로 생성하고 검증한다.",
+    "important": "시장 데이터 갱신 시 reports/latest.html을 사람이/자동화가 직접 재설계하지 말고 JSON만 갱신한다. Pages workflow가 최신 FULL HTML을 생성한다."
   },
-  "rollback_rule": "핵심 report.js는 가능한 한 유지하고 새 기능은 additive layer로 붙인다. data guard는 반드시 report.js보다 먼저 로드한다. boot guard는 reduced first-paint를 최종 화면으로 오인하지 않고 FULL renderer를 재시도하고, integrity layer는 core render 이후 필요한 보드를 재검증/복구한다.",
-  "integrity_findings_fixed": [
-    "JSON 요청이 GitHub Pages 404/HTML 응답을 받아 <!DOCTYPE... 를 JSON.parse 하며 실패하던 문제를 v17 data guard로 수정",
-    "data guard는 Pages JSON을 먼저 검증하고 유효하지 않으면 동일 저장소 raw.githubusercontent.com public/data 경로를 자동 fallback으로 사용",
-    "v15 latest.html의 static first-paint가 3개 테마/4개 종목만 가진 축약 화면이라 메인 render 실패 시 이것이 완성본처럼 남던 문제를 v16에서 수정",
-    "boot guard가 과거에는 불러오는 중 텍스트만 검사해 이미 내용이 있는 축약 first-paint를 복구하지 않던 문제 수정: data-failsafe 또는 핵심 섹션 누락도 복구 조건으로 사용",
-    "first-paint는 hero만 남겨 legacy enhancement가 너무 일찍 설치되지 않게 하고 FULL 복구 재시도",
-    "latest.json의 etf_lists 키 us_listed/kr_listed와 core UI us/kr schema mismatch를 compatibility layer로 수정",
-    "reference_sources가 core references/sources와 이름이 달라 참고사이트 섹션이 누락될 수 있던 문제를 복구",
-    "대표주/우상향/핵심그룹/오판방지 Replay가 core rerender 후 사라지지 않도록 영구 재검증",
-    "ETF 카드가 alias 때문에 빈 목록 또는 무반응이 되는 경우 수정"
-  ],
+  "rollback_rule": "핵심 데이터와 UI를 분리한다. UI 변경은 builder/runtime/workflow에서만 하고, 시장 데이터 자동화는 JSON만 갱신한다. 배포 전 validate-static-report가 필수 섹션과 최소 HTML 크기를 검사해 실패 시 새 배포를 막는다.",
   "security": [
-    "Public 저장소이므로 실제 사용자 보유수량/보유비중/계정정보 저장 금지",
+    "Public 저장소에 실제 사용자 보유수량/보유비중/계정정보 저장 금지",
     "PAT/API secret/비밀번호/OTP/private key 저장 금지",
     "수동 보유량 입력 UI를 만들지 않음"
   ],
@@ -40,32 +22,31 @@
     "PC와 모바일 정보량 동일",
     "APK 상단/하단 safe-area + 추가 여백",
     "페이지 전체 가로밀림 금지; 표/필터만 로컬 가로스크롤",
-    "상단 부제에는 최신 KST 날짜·시간을 표시",
+    "상단 부제에는 최신 KST 날짜·시간 표시",
     "대형 섹션은 접기/펼치기 가능하고 제목+본문 전체를 둥근 패널 안에 묶음",
     "긴 반복 터치 안내는 '터치'로 통일",
-    "ETF/테마/종목/대표주/우상향/전체추적 카드는 무반응 없이 상세 또는 추적중 모달을 열 것",
-    "TradingView 실패 시 대체 차트/내부 시간그래프/외부링크 fallback",
+    "종목/테마/ETF/리서치/대표주/우상향/전체추적 터치 무반응 금지",
+    "TradingView 기본 + Finviz/Google Finance/TradingView 링크 fallback",
     "HTML 저장 버튼 유지",
-    "3개 테마/4개 종목만 보이는 reduced first-paint를 FULL 완료상태로 취급하지 않음",
-    "JSON 응답은 파싱 전 본문이 실제 JSON인지 검증하고 HTML 응답을 그대로 JSON.parse하지 않음"
+    "사용자 실제 보유량 입력 기능 없음"
   ],
   "must_render_sections": [
-    "역사적 시장 위치 Hero",
+    "역사적 시장 위치 Hero + 과거 유사구간",
     "오늘 달라진 것",
     "현재 테마 흐름 전체",
     "행동/Phase 가이드",
-    "시간별 모델점수 및 QQQ 가격 그래프",
-    "실제 주식/ETF 차트",
-    "매수타이밍 vs 부의성장 / 테마 비교그래프",
+    "시간별 모델점수 + QQQ 가격 그래프",
+    "실제 주식/ETF 차트 + fallback",
+    "매수타이밍 vs 부의성장 + 테마 비교그래프",
     "종목·ETF 핵심표 + 검색/테마필터",
-    "핵심 커버리지 그룹",
+    "Magnificent 7 및 핵심 커버리지 그룹",
     "유명·초대형 핵심주",
     "장기 복리·우상향 품질 후보",
-    "전체 추적 유니버스",
+    "전체 추적 유니버스 최소 100개",
     "숨은 수혜/다음테마",
-    "국내/미국 ETF",
-    "모델 추천비중과 조건부 Risk-on",
-    "국내외 리서치 + 그래서 어떻게 할까",
+    "미국/국내 상장 해외테마 ETF",
+    "시장 기준 모델 추천비중 + 조건부 Risk-on",
+    "국내외 리서치 + 총합 행동결론",
     "기관·스마트머니 추적",
     "참고사이트·원문·데이터",
     "지정 변곡점 전략검증",
@@ -74,9 +55,9 @@
     "보고서 끝"
   ],
   "coverage_groups": [
-    "Magnificent 7",
-    "유명·초대형 핵심주: MSFT/AAPL/NVDA/AMZN/GOOGL/META/TSLA/AMD/AVGO/PLTR/TSM/CPNG/ANET/ORCL/NFLX/COST",
-    "AI 메모리·DRAM·HBM·스토리지",
+    "Magnificent 7: MSFT/AAPL/NVDA/AMZN/GOOGL/META/TSLA",
+    "유명·초대형: MSFT/AAPL/NVDA/AMZN/GOOGL/META/TSLA/AMD/AVGO/PLTR/TSM/CPNG/ANET/ORCL/NFLX/COST",
+    "AI 메모리·DRAM·HBM·스토리지: MU/005930/000660/SNDK/WDC",
     "AI 컴퓨트·반도체",
     "AI 소프트웨어·클라우드",
     "AI 전력·데이터센터",
@@ -86,11 +67,10 @@
     "방산 AI·드론"
   ],
   "compounder_screen": {
-    "purpose": "장기 우상향/복리 특성이 강한 주식·ETF를 별도 탐색",
-    "rules": ["5Y+ 장기추세", "200DMA 기울기/신고가", "매출·EPS·FCF 성장", "고점 회복력/최대낙폭", "ROIC·마진", "부채·희석", "QQQ/SPY 상대강도", "forward revisions"],
+    "rules": ["5Y+ 장기추세","200DMA/신고가","매출·EPS·FCF 성장","최대낙폭·회복속도","ROIC·마진","부채·희석","QQQ/SPY 상대강도","forward revisions","구조적 성장전망"],
     "starter_candidates": ["ANET","QQQ","MSFT","AVGO","COST","V","MA","SPGI","MCO","CTAS","PWR","ETN","WM","RSG","ORLY","AZO","VGT","XLK","SCHG"]
   },
-  "replay_rule": "현재 추천은 과거 2~5년 point-in-time replay로 false-positive를 검증. 매수 후 추가 -15%/-25% 하락 사례는 원인분류 후 모델 감점/veto 규칙에 반영.",
-  "file_rule": "시간별 HTML/JSON 복사본 금지. 같은 날 latest/intraday/당일 archive만 갱신하고 날짜가 바뀌면 전날 최종본 1개를 남김.",
-  "app_rule": "시장 데이터 갱신은 APK 재빌드 없이 Pages/JSON으로 반영. 앱 UI/index/manifest/sw가 바뀔 때만 Android workflow 재빌드."
+  "replay_rule": "현재 추천은 과거 2~5년 point-in-time replay로 false-positive 검증. 매수 후 추가 -15%/-25% 하락 사례는 원인분류 후 모델 감점/veto 규칙 반영. ADBE 2024-03/2024-09/2025-06, CRM 2024-05 포함.",
+  "file_rule": "시간별 HTML/JSON 복사본 금지. 같은 날 latest/intraday/당일 archive만 갱신하고 다음날 전날 최종본 1개를 남김. UI HTML은 Pages build에서 생성.",
+  "app_rule": "시장 데이터 변경은 APK 재빌드 불필요. 앱 UI/index/runtime/builder/workflow 변경 때만 Android workflow가 새 APK를 빌드."
 }
