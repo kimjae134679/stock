@@ -1,48 +1,56 @@
-# Automation Architecture
+# Automation Architecture — v0.3.0
 
-## Daily
+## Hourly market automation
 
-한국시간 07:00~08:00 첫 점검:
+자동화 지원 최대 빈도인 **매시간** 실행한다.
 
-- 시장/테마/종목/ETF/기관/거시 조사
-- `public/data/latest.json` 갱신
-- `public/data/archive/YYYY/MM/YYYY-MM-DD.json` 생성
-- `public/reports/YYYY/MM/US_Market_Daily_YYYY-MM-DD.html` 생성
-- `public/reports/latest.html`을 당일 보고서로 갱신
-- `ops/handoff/current.json` 갱신
-- GitHub Pages 자동 배포
+갱신 대상:
 
-## Hourly
+- `public/data/latest.json`
+- `public/data/live/intraday.json`
+- `public/data/live/phase-status.json`
+- `public/data/archive/YYYY/MM/YYYY-MM-DD.json` (같은 날 최신 상태)
 
-큰 변화가 있을 때만:
+매 실행마다 `updated_at`을 실제 완료 KST로 기록한다. 좌측 상단은 이 값을 읽어 `YYYY.MM.DD H시 업데이트` 형식으로 보여준다.
 
-- 짧은 채팅 경보
-- 필요하면 `public/data/latest.json`도 갱신해 앱 홈을 최신화
-- 전체 HTML은 매시간 새로 만들지 않음
+## 가장 중요한 경계
+
+**시간별 시장 자동화는 HTML/JS/CSS를 수정하지 않는다.**
+
+현재 Pages는 `.github/workflows/pages.yml`에서 커밋된 `public/` 폴더를 그대로 배포한다. 데이터 JSON이 바뀌면 Pages 재배포는 일어나지만 UI 파일 내용은 바뀌지 않는다.
+
+UI 변경은 사용자가 명시적으로 요청했을 때 별도 버전 릴리스로 수행한다.
+
+## Phase 자동화
+
+시장 전체 하나로 퉁치지 않고 최소 다음을 독립 평가한다.
+
+- 미국 전체시장
+- Nasdaq/성장주
+- 반도체
+- AI 네트워크·광통신
+- AI 소프트웨어·클라우드
+- AI 전력·데이터센터
+- 레버리지
+- 주요 테마/종목
+
+각 상태에 `그래서 지금은?` 행동 코멘트를 기록한다. 구조성장/품질형 자산은 억지로 사이클에 넣지 않는다.
+
+## Alert
+
+평소 데이터 갱신은 조용히 수행하고, 주요 지수/테마/종목 급변, 금리·유가·거시 충격, Phase 전환 등 의미 있는 변화가 있을 때만 사용자에게 짧게 알린다.
 
 ## APK
 
-매일 데이터 업데이트는 APK를 다시 빌드하지 않습니다.
-
-APK는 다음 파일이 바뀔 때만 Actions에서 빌드합니다.
-
-- `public/index.html`
-- `public/manifest.webmanifest`
-- `public/sw.js`
-- `package.json`
-- `capacitor.config.json`
-- `VERSION`
-- `.github/workflows/android.yml`
+시장 데이터 갱신만으로 APK를 다시 빌드할 필요는 없다. UI/index/assets/manifest/Capacitor/VERSION 등 앱 구성 변경 때만 Android 빌드를 수행한다.
 
 ## Archive retention
 
-루트에 날짜별 파일을 쌓지 않습니다.
-
-- JSON: `public/data/archive/YYYY/MM/`
-- HTML: `public/reports/YYYY/MM/`
-- 운영 인수인계: `ops/handoff/current.json` 하나를 최신본으로 유지
-- 필요할 때만 `ops/handoff/archive/YYYY/MM/`에 스냅샷
+- 시간별 별도 HTML/JSON 복사본 금지
+- 당일 시간 변화는 `live/intraday.json` 한 파일
+- 날짜별 최종 데이터는 `archive/YYYY/MM/YYYY-MM-DD.json`
+- 인수인계 최신본은 `ops/handoff/CURRENT.md`와 `ops/handoff/current.json`
 
 ## Public repository warning
 
-모든 커밋은 누구나 볼 수 있습니다. 개인 자산정보나 비밀키를 GitHub에 넣지 않습니다.
+개인 자산정보, 계정정보, 비밀키, PAT/API secret, 비밀번호, OTP/private key를 GitHub에 저장하지 않는다.
