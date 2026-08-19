@@ -9,7 +9,7 @@ on:
       - 'capacitor.config.json'
       - 'public/index.html'
       - 'public/reports/latest.html'
-      - 'public/reports/stable-v034.html'
+      - 'public/reports/stable-v035.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
       - 'public/assets/**'
@@ -43,11 +43,13 @@ jobs:
       - run: npm install --no-audit --no-fund
       - name: Basic dashboard checks
         run: |
-          test -s public/reports/stable-v034.html
-          test -s public/assets/app-runtime-v34.js
+          test -s public/reports/stable-v035.html
+          test -s public/assets/app-runtime-v35.js
           test -s public/assets/cycle-history-v34.js
-          grep -q 'Market Radar Daily · v0.3.4' public/reports/stable-v034.html
-          node --check public/assets/app-runtime-v34.js
+          grep -q 'Market Radar Daily · v0.3.5' public/reports/stable-v035.html
+          grep -q '00.001%' public/reports/stable-v035.html
+          grep -q '실제 완료된 데이터' public/reports/stable-v035.html
+          node --check public/assets/app-runtime-v35.js
           node --check public/assets/cycle-history-v34.js
           node --check scripts/apply-android-branding.mjs
       - run: npx cap add android
