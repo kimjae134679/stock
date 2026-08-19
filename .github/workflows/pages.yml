@@ -5,23 +5,18 @@ on:
     branches: [main]
     paths:
       - 'public/**'
-      - 'scripts/build-static-report.mjs'
-      - 'scripts/finalize-static-report.mjs'
-      - 'scripts/validate-static-report.mjs'
       - 'VERSION'
       - '.github/workflows/pages.yml'
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
   group: market-radar-pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -32,48 +27,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Syntax check static builder
+      - name: Verify committed dashboard
         run: |
-          node --check scripts/build-static-report.mjs
-          node --check scripts/finalize-static-report.mjs
-          node --check scripts/validate-static-report.mjs
-          node --check public/assets/static-report-runtime.js
-
-      - name: Build self-contained FULL report
-        run: |
-          node scripts/build-static-report.mjs
-          node scripts/finalize-static-report.mjs
-          node scripts/validate-static-report.mjs
-
-      - name: Persist generated FULL HTML in repository
-        if: github.actor != 'github-actions[bot]'
-        run: |
-          if git diff --quiet -- public/reports; then
-            echo 'Generated report already matches repository.'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add public/reports
-          git commit -m 'build: persist generated Market Radar report [skip ci]'
-          git push origin HEAD:main
+          test -f public/reports/latest.html
+          test -f public/assets/full-recovery-v22.js
+          grep -q 'Market Radar Daily · v0.2.2' public/reports/latest.html
+          grep -q 'full-recovery-v22.js' public/reports/latest.html
+          echo 'Committed v0.2.2 full dashboard verified.'
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload generated public site
+      - name: Upload committed public site
         uses: actions/upload-pages-artifact@v4
         with:
           path: public
 
-      - name: Deploy generated FULL site
+      - name: Deploy committed dashboard
         id: deployment
         uses: actions/deploy-pages@v4
