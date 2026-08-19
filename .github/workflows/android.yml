@@ -10,7 +10,7 @@ on:
       - 'public/index.html'
       - 'public/app-live.html'
       - 'public/reports/latest.html'
-      - 'public/reports/stable-v036.html'
+      - 'public/reports/stable-v037.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
       - 'public/assets/**'
@@ -54,15 +54,14 @@ jobs:
       - name: Basic dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v036.html
-          test -s public/assets/app-runtime-v36.js
+          test -s public/reports/stable-v037.html
           test -s public/assets/layout-v36.js
           test -s public/assets/returns-v36.js
-          grep -q 'Market Radar Daily · v0.3.6' public/reports/stable-v036.html
-          grep -q '00.001%' public/reports/stable-v036.html
+          grep -q 'Market Radar Daily · v0.3.7' public/reports/stable-v037.html
+          grep -q '00.001%' public/reports/stable-v037.html
+          grep -q 'panel.style.display=.none.' public/reports/stable-v037.html
           grep -q 'app-live.html' public/index.html
           grep -q 'allowNavigation' capacitor.config.json
-          node --check public/assets/app-runtime-v36.js
           node --check public/assets/layout-v36.js
           node --check public/assets/returns-v36.js
           node --check scripts/apply-android-branding.mjs
