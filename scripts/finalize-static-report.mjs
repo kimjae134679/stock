@@ -5,19 +5,15 @@ const latestData=JSON.parse(fs.readFileSync(path.join(root,'public/data/latest.j
 const latest=path.join(root,'public/reports/latest.html');
 const archiveRel=String(latestData.report_path||'').replace(/^\/+/, '');
 const archive=archiveRel?path.join(root,'public',archiveRel):null;
-let displayVersion='v18';
-try{
-  const handoff=JSON.parse(fs.readFileSync(path.join(root,'ops/handoff/current.json'),'utf8').replace(/^\uFEFF/,''));
-  const match=String(handoff.version||'').match(/\bv\d+(?:\.\d+)*\b/i);
-  if(match)displayVersion=match[0].toLowerCase();
-}catch{}
+const rawVersion=String(latestData.app_version||'0.2.0').trim().replace(/^v/i,'');
+const displayVersion='v'+rawVersion;
 function finalize(file,depth){
   if(!file||!fs.existsSync(file))return;
   let h=fs.readFileSync(file,'utf8');
   const assetPrefix=depth==='latest'?'../assets/':'../../../assets/';
   const indexHref=depth==='latest'?'../index.html':'../../../index.html';
   h=h.replace(/<script>\s*\(\(\)=>\{'use strict';const DATA=.*?<\/script>(?=<script type="application\/json" id="investment-handoff-data">)/s,
-    `<script src="${assetPrefix}static-report-runtime.js?v=18"></script>`);
+    `<script src="${assetPrefix}static-report-runtime.js?v=${rawVersion}"></script>`);
   h=h.replace(/Market Radar Daily · (?:FULL|v\d+(?:\.\d+)*)/g,`Market Radar Daily · ${displayVersion}`);
   h=h.replace(/Market Radar Daily (?:FULL|v\d+(?:\.\d+)*)/g,`Market Radar Daily ${displayVersion}`);
   if(depth!=='latest'){
