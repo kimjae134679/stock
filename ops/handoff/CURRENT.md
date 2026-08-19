@@ -1,6 +1,6 @@
 # Market Radar 운영 인수인계 — CURRENT
 
-기준 버전: **v0.3.5**  
+기준 버전: **v0.3.6**  
 기준일: **2026-08-20 KST**  
 저장소: `kimjae134679/stock` (Public)
 
@@ -11,96 +11,106 @@
 1. 매시간 시장 자동화는 JSON만 갱신한다. HTML/JS/CSS/VERSION을 수정하지 않는다.
 2. 안정화한다고 기존 기능을 삭제하거나 Hero 하나짜리로 단순화하지 않는다.
 3. 현재 VERSION보다 낮은 버전이 사용자 화면에 보이면 정상본이 아니다.
-4. APK는 Actions 성공 + Artifact 실제 존재 + APK 직접 확보 전에는 완료라고 말하지 않는다.
+4. APK 수정은 Actions 성공 + Artifact 실제 존재 + APK 직접 확보 전에는 완료라고 말하지 않는다.
 5. 모바일/PC 정보량은 동일하다.
-6. 작동하지 않는 자체 `1시간/일봉/주봉/월봉` 버튼은 다시 만들지 않는다.
-7. 로딩 문구만 띄우고 무한 대기시키지 않는다. **실제 진행 단계와 실패 지점을 사용자에게 보여준다.**
+6. 작동하지 않는 자체 `1시간/일봉/주봉/월봉` 버튼은 다시 만들지 않는다. `ui-v30.js`가 해당 버튼을 제거한다.
+7. 로딩은 `00.001%` 형식의 실제 단계 기반 진행률과 bar를 표시하고, 실패 지점을 숨기지 않는다.
 
-## 1. 현재 진입 구조
+## 1. v0.3.6에서 확인된 실제 원인
 
-- 기본 진입: `public/index.html`
-- 최신 호환 주소: `public/reports/latest.html` → `stable-v035.html`로 이동
-- **현재 안정 진입: `public/reports/stable-v035.html`**
-- 렌더러: `public/assets/full-recovery-v22.js`
+사용자 APK 캡처에 **`Market Radar Daily · v0.3.2`**가 보였고 `대시보드 준비 중…`에서 멈췄다.
+
+원인은 두 가지다.
+
+### A. APK가 웹 최신판을 자동으로 따라가지 못하던 구조
+
+기존 Capacitor APK는 `public/`을 APK 안에 그대로 묶는다. 따라서 v0.3.2 APK를 설치하면 웹이 v0.3.5로 올라가도 앱 내부 화면은 v0.3.2에 머물 수 있다.
+
+v0.3.6부터:
+- `public/app-live.html`을 **영구 온라인 진입점**으로 사용한다.
+- APK의 `public/index.html`은 온라인 `https://kimjae134679.github.io/stock/app-live.html`로 이동한다.
+- `capacitor.config.json`의 `allowNavigation`에 `kimjae134679.github.io`를 허용한다.
+- 앞으로 웹 UI가 v0.3.7, v0.3.8로 바뀌어도 `app-live.html`만 새 안정판으로 연결하면 v0.3.6 APK 이후는 새 UI를 따라갈 수 있다.
+- 네트워크 문제 때 사용할 내장 fallback으로 `stable-v036.html` 링크를 남긴다.
+
+### B. 현재 웹 자체도 실제로 너무 무거워진 부분이 있었다
+
+`layout-v28.js`는 우상향 섹션을 시작부터 강제로 펼치고 **19개의 TradingView 주봉 iframe을 한꺼번에 생성**했다.
+
+`returns-v29.js`는 19개 종목 × 1Y/2Y/3Y/5Y = **최대 76회의 Yahoo 시세 요청을 클라이언트에서 직접 실행**했다.
+
+이 둘은 모바일 WebView 초기 로딩에 불필요하게 큰 부담이다.
+
+v0.3.6 조치:
+- `layout-v28.js` 대신 **`layout-v36.js`** 사용.
+- 우상향 섹션은 기본 접힘 상태를 유지.
+- 19개 그래프는 `data-src` 상태로 만들고 **섹션을 펼친 뒤 화면 근처에 들어온 카드부터 IntersectionObserver로 실제 iframe을 로드**한다.
+- `returns-v29.js` 대신 **`returns-v36.js`** 사용.
+- 1Y/2Y/3Y/5Y 수익률은 GitHub Actions가 서버에서 미리 계산해 `public/data/compounder-returns.json` 한 파일로 저장한다.
+- 모바일은 이 JSON **1회 요청만** 하고 76회 Yahoo 요청을 하지 않는다.
+- 생성기: `scripts/build-compounder-returns.mjs`
+- workflow: `.github/workflows/compounder-returns.yml`
+
+## 2. 현재 진입 구조
+
+- 웹 기본: `public/index.html`
+- APK/PWA 영구 온라인 진입: **`public/app-live.html`**
+- 최신 호환: `public/reports/latest.html` → v0.3.6 안정판
+- 현재 안정판: **`public/reports/stable-v036.html`**
+- 메인 렌더러: `public/assets/full-recovery-v22.js`
 - 평가: `public/assets/evaluation-v26.js`
-- 전체추적/우상향/모달: `public/assets/layout-v28.js`
-- 우상향 1Y/2Y/3Y/5Y 수익률: `public/assets/returns-v29.js`
 - 독립 Phase: `public/assets/phase-status-v29.js`
-- UI: `public/assets/ui-v30.css`, `public/assets/ui-v30.js`
+- UI/기간버튼 제거: `public/assets/ui-v30.js`, `public/assets/ui-v30.css`
+- 경량 전체추적/우상향/모달: **`public/assets/layout-v36.js`**
+- 경량 1/2/3/5년 수익률: **`public/assets/returns-v36.js`**
 - 역사 주기: `public/assets/cycle-history-v34.js`
-- **v0.3.5 완료검사/네이티브 Back 브리지: `public/assets/app-runtime-v35.js`**
+- 최종 로드검사/네이티브 Back 브리지: **`public/assets/app-runtime-v36.js`**
 
-## 2. v0.3.5 실제 로드 진행률 — 고정 요구
+`stable-v036.html`은 초기 핵심 화면을 먼저 완성하고, 우상향 수익률/역사 주기 같은 부가 분석은 핵심 화면이 사용 가능해진 뒤 연결한다.
 
-사용자가 `로딩 중` 화면에서 실제로 진행 중인지 알 수 없다고 지적했다. v0.3.5부터 안정 페이지 자체에 진행바를 내장한다.
+## 3. v0.3.6 로딩 진행률 규칙
 
 표시 예:
 - `00.001%`
-- `05.000%`
-- `43.000%`
+- `01.001%`
+- `16.000%`
+- `58.000%`
 - `98.500%`
 - `100.000%`
 
-중요: **시간 경과에 따라 가짜로 숫자를 올리지 않는다. 실제 이벤트가 끝날 때만 증가한다.**
+시간이 흘렀다는 이유만으로 숫자를 올리지 않는다.
 
-현재 단계 가중치:
-1. HTML 셸 준비
-2. 기존 service worker / CacheStorage / last-good 캐시 제거
-3. `latest.json` preflight 성공
-4. `intraday.json` preflight 성공
-5. `phase-status.json` 확인(선택)
-6. `cycle-history.json` 확인(선택)
-7. `full-recovery-v22.js` 실제 script `onload`
-8. 메인 렌더러가 실제 DOM에 최소 8개 주요 섹션을 생성했는지 대기/확인
-9. evaluation/layout/returns/phase/ui/cycle-history 런타임을 순차 로드
-10. `app-runtime-v35.js`가 섹션 수 + 페이지 높이 검증
-11. 성공 시 `100.000%` + `정상 · v0.3.5 전체 대시보드 로드 완료`
+현재 핵심 단계:
+1. HTML shell 준비
+2. v0.3.6 최초 1회에만 구버전 cache/service worker 정리
+3. `full-recovery-v22.js` 실제 load
+4. 실제 DOM에서 주요 섹션 개수를 관찰
+5. evaluation / phase / UI / layout-v36 순차 연결
+6. app-runtime-v36 최종 DOM 검사
+7. 성공하면 `100.000%` + `정상 · v0.3.6 핵심 대시보드 로드 완료`
+8. `returns-v36.js`, `cycle-history-v34.js`는 핵심 화면 이후 백그라운드 보강
 
-실패하면 진행률을 멈추고 빨간 bar + 정확한 실패 단계/파일/HTTP 오류를 표시한다. 검은 화면이나 무한 `로딩 중`을 정상으로 취급하지 않는다.
+v0.3.5처럼 매번 모든 cache를 지우고 4개 JSON을 preflight한 뒤 다시 renderer가 같은 JSON을 받는 중복 구조는 사용하지 않는다.
 
-## 3. v0.3.4~v0.3.5 캐시/배포 회귀 대응
-
-실제 사용자 화면에서 저장소보다 낮은 v0.3.0 셸이 다시 나타나거나 완전 빈 화면이 나온 적이 있다.
-
-현재 대응:
-- 새 파일명 `stable-v035.html` 사용.
-- `index.html`은 모든 기존 service worker를 unregister하고 CacheStorage와 `mr:last-good*`를 지운 뒤 `stable-v035.html?fresh=<timestamp>`로 이동.
-- 안정 페이지는 service worker를 새로 등록하지 않는다.
-- `latest.html`은 안정 파일로 이동하는 호환 진입점만 담당.
-- JS는 안정 페이지의 인라인 로더가 **순차적으로** 로드하고 각각 실제 `onload/onerror`를 진행률에 반영.
-- 메인 렌더가 10초 내 최소 8개 섹션을 만들지 못하면 실패로 표시하고 자동 무한 reload하지 않는다.
-- `public/sw.js`는 레거시 cache killer일 뿐이며 데이터를 캐시하지 않는다.
-
-## 4. 역사적 상승/하락 주기 분석 — 필수 기능
+## 4. 역사적 상승/하락 주기 분석 — 고정 기능
 
 데이터: `public/data/cycle-history.json`  
 생성기: `scripts/build-cycle-history.mjs`  
 Workflow: `.github/workflows/cycle-history.yml`
 
-목표:
-- QQQ 및 가능한 추적 종목/ETF의 최대 가용 일별 이력을 분석.
-- 과거 상승/하락 구간을 시작일/종료일/거래일/달력일/등락률로 최근순 저장.
-- 현재 `상승 N거래일차` 또는 `하락 N거래일차` 표시.
-- 같은 방향의 과거 평균/중앙값 기간 표시.
-- 기간 진행도 / 변화폭 진행도 / 종합 진행도 표시.
-- `상승 초반/중반/후반·고점 접근/평균기간 초과 연장상승`, 하락 대응 문구 표시.
-- 이력 전체를 상세 모달에서 날짜순 확인.
+표시:
+- 현재 `상승 N거래일차` / `하락 N거래일차`
+- 과거 같은 방향 평균·중앙값 거래일
+- 기간 진행도 / 변화폭 진행도 / 종합 진행도
+- `상승 초반 / 중반 / 후반·고점 접근 / 평균기간 초과 연장상승` 및 하락 대응
+- 과거 모든 완료 구간의 시작일/종료일/거래일/달력일/등락률
 
-현재 기본 ZigZag reversal threshold:
+기본 ZigZag reversal 기준:
 - 일반 ETF 약 8%
 - 일반주 약 12%
 - 3x 레버리지 약 18%
 
-이는 미래 종료일 예측값이 아니라 역사 비교 기준이다.
-
-Phase proxy:
-- 미국 전체시장 → SPY
-- Nasdaq/성장주 → QQQ
-- 반도체 → SMH
-- 네트워크·광통신 → ANET
-- 소프트웨어·클라우드 → IGV
-- 전력·데이터센터 → GRID
-- 레버리지 → TQQQ
+이는 미래 전환 날짜 확정값이 아니라 역사 비교 설명치다.
 
 ## 5. 절대 삭제 금지 기능
 
@@ -111,8 +121,12 @@ Phase proxy:
 - 큰 실제 TradingView 차트
 - 종목/ETF 상세
 - 유명·초대형 핵심주
-- 안정적·꾸준한 우상향 후보: 테마별 + 순위별 + 주봉 + 1/2/3/5년 누적수익률
-- 전체추적: `테마별 / 전부 모아보기`
+- 안정적·꾸준한 우상향 후보
+  - 테마별
+  - 순위별
+  - 주봉 그래프
+  - 1/2/3/5년 누적수익률
+- 전체추적 `테마별 / 전부 모아보기`
 - 숨은테마
 - ETF/비중/리서치/기관/원문/검증/Replay/거시
 - 접기/펼치기
@@ -120,7 +134,7 @@ Phase proxy:
 - 상세 모달 Android Back → 모달 닫기
 - 루트 Android Back → `앱을 종료하시겠습니까?`
 - 역사 주기 현재 일차/평균/진행률/과거 이력
-- **v0.3.5 실제 로드 퍼센트 + 진행바 + 실패 지점 표시**
+- 실제 단계 기반 퍼센트 + 진행bar + 실패 위치
 
 ## 6. 매시간 자동화
 
@@ -132,31 +146,30 @@ Phase proxy:
 - `public/data/live/phase-status.json`
 - 당일 archive
 
-`cycle-history.json`은 별도 일 단위 GitHub Action이 계산. 시간별 자동화가 덮어쓰지 않는다.
+자동화는 UI 파일과 VERSION을 건드리지 않는다.
 
-데이터 갱신 시 HTML/JS/CSS/VERSION을 수정하지 않는다. 좌측 상단은 실제 `updated_at`을 `YYYY.MM.DD H시 업데이트`로 표시.
+별도 일 단위 데이터:
+- `cycle-history.json`
+- `compounder-returns.json`
 
 ## 7. QA 합격 기준
 
-- 직접 진입: `reports/stable-v035.html`
-- 화면 버전 `v0.3.5`
-- 로드 패널이 즉시 `00.001%` 근처에서 표시
-- 실제 단계가 완료될 때만 퍼센트 상승
-- 핵심 데이터/스크립트 실패 시 정확한 실패 지점 표시
+- 안정 주소: `reports/stable-v036.html`
+- 화면 버전 `v0.3.6`
+- `00.001%` 진행bar 즉시 표시
+- 핵심 화면은 우상향 19개 TradingView iframe 로딩을 기다리지 않고 먼저 사용 가능
+- 우상향은 기본 접힘 유지
+- 우상향 펼침 후 화면 근처 차트부터 lazy load
+- 브라우저에서 19×4 Yahoo 요청을 직접 하지 않음
+- `compounder-returns.json` 1회로 1Y/2Y/3Y/5Y 표시
 - 정상 시 `100.000%`
-- 최종 상태 `정상 · v0.3.5 전체 대시보드 로드 완료`
-- Hero 하나로 끝나지 않고 최소 8개 주요 섹션 렌더
-- 구버전 v0.3.0 등으로 되돌아가지 않음
-- 버튼 기본 흰색/겹침 없음
-- 실제 차트 크게 유지
-- 자체 기간변경 버튼 없음
-- 종목 상세에 역사 주기 데이터 표시(데이터 존재 시)
+- Hero 하나가 아니라 최소 8개 주요 섹션 렌더
+- 자체 1시간/일봉/주봉/월봉 버튼 없음
 - Android Back 계약 유지
+- APK v0.3.6 이후 앱 진입은 `app-live.html`을 통해 온라인 최신판을 따라감
 
-## 8. 배포/APK
+## 8. APK 완료 정의
 
-Pages: `.github/workflows/pages.yml`은 committed `public/`을 직접 배포.
+`.github/workflows/android.yml`이 v0.3.6 안정판을 검증하고 Capacitor sync + 간략 아이콘 + 네이티브 Back 패치 후 APK를 만든다.
 
-Android: `.github/workflows/android.yml`은 `stable-v035.html`, `app-runtime-v35.js` 존재와 로딩 진행률 문구를 검증하고 Capacitor sync + 네이티브 Back 패치 후 APK를 빌드한다.
-
-APK 완료 정의: Actions 성공 → Artifact 확인 → APK 다운로드 → 사용자에게 파일 직접 제공.
+**완료 = Actions 성공 → Artifact 확인 → APK 다운로드 → 사용자에게 파일 직접 제공.**
