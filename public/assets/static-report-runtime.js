@@ -6,7 +6,7 @@
   try{DATA=JSON.parse(dataEl.textContent||'{}')}catch(err){console.error('[Market Radar] embedded data parse failed',err);return}
   const qs=(s,r=document)=>r.querySelector(s);
   const qsa=(s,r=document)=>[...r.querySelectorAll(s)];
-  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const modal=qs('#modal'),body=qs('#modalBody');
   const names=window.MR_NAMES||{};
   const details=DATA.details||{};
