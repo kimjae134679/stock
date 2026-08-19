@@ -1,76 +1,102 @@
 {
-  "version": "2026-08-19-public-v18-static-full",
+  "version": "0.3.0",
+  "updated_kst": "2026-08-19",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
   "timezone": "Asia/Seoul",
   "update_frequency": "hourly (maximum supported automation frequency)",
+  "authoritative_handoff": "ops/handoff/CURRENT.md",
   "architecture": {
-    "source_of_truth": "public/data/latest.json + public/data/live/intraday.json",
-    "pages_build": "scripts/build-static-report.mjs -> scripts/finalize-static-report.mjs -> scripts/validate-static-report.mjs",
-    "runtime": "public/assets/static-report-runtime.js",
-    "reason": "클라이언트 fetch/render 실패가 Hero만 남기거나 JSON 오류로 전체 UI를 지우는 문제를 제거. GitHub Actions가 배포 전에 FULL HTML을 정적으로 생성하고 검증한다.",
-    "important": "시장 데이터 갱신 시 reports/latest.html을 사람이/자동화가 직접 재설계하지 말고 JSON만 갱신한다. Pages workflow가 최신 FULL HTML을 생성한다."
+    "deployment": "GitHub Pages uploads the committed public/ directory directly. No static-report builder is run in the current pages workflow.",
+    "entry": "public/index.html -> public/reports/latest.html",
+    "ui_html": "public/reports/latest.html",
+    "data_source_of_truth": [
+      "public/data/latest.json",
+      "public/data/live/intraday.json",
+      "public/data/live/phase-status.json"
+    ],
+    "ui_assets": [
+      "public/assets/report.css",
+      "public/assets/mobile-fixes.css",
+      "public/assets/full-recovery-v22.js",
+      "public/assets/evaluation-v26.js",
+      "public/assets/layout-v28.js",
+      "public/assets/returns-v29.js",
+      "public/assets/phase-status-v29.js",
+      "public/assets/ui-v30.css",
+      "public/assets/ui-v30.js"
+    ],
+    "important": "Hourly market automation updates data JSON only. It must not rewrite HTML/JS/CSS. UI changes are explicit versioned changes only."
   },
-  "rollback_rule": "핵심 데이터와 UI를 분리한다. UI 변경은 builder/runtime/workflow에서만 하고, 시장 데이터 자동화는 JSON만 갱신한다. 배포 전 validate-static-report가 필수 섹션과 최소 HTML 크기를 검사해 실패 시 새 배포를 막는다.",
-  "security": [
-    "Public 저장소에 실제 사용자 보유수량/보유비중/계정정보 저장 금지",
-    "PAT/API secret/비밀번호/OTP/private key 저장 금지",
-    "수동 보유량 입력 UI를 만들지 않음"
+  "v030_regressions_fixed": [
+    "Restored persistent dynamic-button styles after v0.2.9 lost required v0.2.8 inline styles",
+    "Removed broken custom 1h/daily/weekly/monthly interval buttons",
+    "TradingView detail charts default to daily and are enlarged on mobile and PC",
+    "QQQ actual-price chart enlarged",
+    "Compounder weekly charts enlarged",
+    "Modal background scroll isolation/back-navigation behavior preserved"
   ],
-  "ui_rules": [
-    "PC와 모바일 정보량 동일",
-    "APK 상단/하단 safe-area + 추가 여백",
-    "페이지 전체 가로밀림 금지; 표/필터만 로컬 가로스크롤",
-    "상단 부제에는 최신 KST 날짜·시간 표시",
-    "대형 섹션은 접기/펼치기 가능하고 제목+본문 전체를 둥근 패널 안에 묶음",
-    "긴 반복 터치 안내는 '터치'로 통일",
-    "종목/테마/ETF/리서치/대표주/우상향/전체추적 터치 무반응 금지",
-    "TradingView 기본 + Finviz/Google Finance/TradingView 링크 fallback",
-    "HTML 저장 버튼 유지",
-    "사용자 실제 보유량 입력 기능 없음"
+  "ui_invariants": [
+    "PC and mobile expose the same information",
+    "No browser-default white rectangular buttons in dynamic sections",
+    "No full-page horizontal drift",
+    "Large sections are rounded foldable panels",
+    "All stock/theme/ETF/research/famous/compounder/universe targets react to touch",
+    "Modal open locks background scroll",
+    "Android/browser back while modal is open closes modal instead of leaving app/page",
+    "Custom interval buttons are not shown",
+    "Actual charts are large enough to inspect without opening a separate page",
+    "Left-top subtitle shows actual latest data update as YYYY.MM.DD H시 업데이트"
   ],
   "must_render_sections": [
-    "역사적 시장 위치 Hero + 과거 유사구간",
-    "오늘 달라진 것",
-    "현재 테마 흐름 전체",
-    "행동/Phase 가이드",
-    "시간별 모델점수 + QQQ 가격 그래프",
-    "실제 주식/ETF 차트 + fallback",
-    "매수타이밍 vs 부의성장 + 테마 비교그래프",
-    "종목·ETF 핵심표 + 검색/테마필터",
-    "Magnificent 7 및 핵심 커버리지 그룹",
-    "유명·초대형 핵심주",
-    "장기 복리·우상향 품질 후보",
-    "전체 추적 유니버스 최소 100개",
-    "숨은 수혜/다음테마",
-    "미국/국내 상장 해외테마 ETF",
-    "시장 기준 모델 추천비중 + 조건부 Risk-on",
-    "국내외 리서치 + 총합 행동결론",
-    "기관·스마트머니 추적",
-    "참고사이트·원문·데이터",
-    "지정 변곡점 전략검증",
-    "과거 오판·폭락 방지 Replay",
-    "거시·국제경제",
-    "보고서 끝"
+    "market hero",
+    "independent market/theme phase board",
+    "themes",
+    "action/phase guide with 그래서 지금은?",
+    "hourly buy-timing and QQQ price charts",
+    "large actual TradingView charts",
+    "stock/ETF table and search",
+    "famous mega-cap core",
+    "stable long-term compounders grouped by theme and rank",
+    "compounder 1Y/2Y/3Y/5Y cumulative price returns",
+    "universe split into theme/all tabs",
+    "hidden themes",
+    "US/KR ETFs",
+    "allocation",
+    "research/smart money/sources",
+    "validation/replay",
+    "macro"
   ],
-  "coverage_groups": [
-    "Magnificent 7: MSFT/AAPL/NVDA/AMZN/GOOGL/META/TSLA",
-    "유명·초대형: MSFT/AAPL/NVDA/AMZN/GOOGL/META/TSLA/AMD/AVGO/PLTR/TSM/CPNG/ANET/ORCL/NFLX/COST",
-    "AI 메모리·DRAM·HBM·스토리지: MU/005930/000660/SNDK/WDC",
-    "AI 컴퓨트·반도체",
-    "AI 소프트웨어·클라우드",
-    "AI 전력·데이터센터",
-    "네트워크·광통신",
-    "Physical AI·로봇",
-    "사이버보안",
-    "방산 AI·드론"
-  ],
-  "compounder_screen": {
-    "rules": ["5Y+ 장기추세","200DMA/신고가","매출·EPS·FCF 성장","최대낙폭·회복속도","ROIC·마진","부채·희석","QQQ/SPY 상대강도","forward revisions","구조적 성장전망"],
-    "starter_candidates": ["ANET","QQQ","MSFT","AVGO","COST","V","MA","SPGI","MCO","CTAS","PWR","ETN","WM","RSG","ORLY","AZO","VGT","XLK","SCHG"]
+  "phase_rule": {
+    "independent_segments": [
+      "US broad market",
+      "Nasdaq/growth",
+      "semiconductors",
+      "AI networking/optical",
+      "AI software/cloud",
+      "AI power/datacenter",
+      "leverage",
+      "major themes and stocks"
+    ],
+    "stages": [
+      "🔥 극단저점/투매",
+      "🟢 저점후보",
+      "🟢 바닥형성/확인",
+      "🟡 저점에서 상승중",
+      "🟡 중간상승",
+      "🟠 고점근처/조정",
+      "🔴 과열/분배",
+      "🔴 추세붕괴/급락",
+      "⚪ 횡보/불명확"
+    ],
+    "comment_required": "Every phase/state must include 그래서 지금은? action guidance. Non-cyclical structural/quality assets use current-state evaluation instead of forced cycle labels."
   },
-  "replay_rule": "현재 추천은 과거 2~5년 point-in-time replay로 false-positive 검증. 매수 후 추가 -15%/-25% 하락 사례는 원인분류 후 모델 감점/veto 규칙 반영. ADBE 2024-03/2024-09/2025-06, CRM 2024-05 포함.",
-  "file_rule": "시간별 HTML/JSON 복사본 금지. 같은 날 latest/intraday/당일 archive만 갱신하고 다음날 전날 최종본 1개를 남김. UI HTML은 Pages build에서 생성.",
-  "app_rule": "시장 데이터 변경은 APK 재빌드 불필요. 앱 UI/index/runtime/builder/workflow 변경 때만 Android workflow가 새 APK를 빌드."
+  "automation_rule": "Every hourly run updates latest.json, intraday.json, phase-status.json and same-day archive with verified data; writes updated_at in KST; never invents prices; does not rewrite UI files.",
+  "security": [
+    "No actual user holdings/weights/account information in this public repo",
+    "No tokens, passwords, OTPs, private keys, or secrets",
+    "No manual user holdings input UI"
+  ],
+  "release_rule": "For UI releases, keep VERSION, public/index.html, public/reports/latest.html, cache keys, and pages.yml verification in sync."
 }
