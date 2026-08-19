@@ -1,0 +1,94 @@
+name: Apply Market Radar data refresh
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ops/market-radar-refresh.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Apply verified refresh control
+        shell: python
+        run: |
+          import json, pathlib
+
+          root = pathlib.Path('.')
+          ctl = json.loads((root / 'ops/market-radar-refresh.json').read_text(encoding='utf-8'))
+          latest_p = root / 'public/data/latest.json'
+          intraday_p = root / 'public/data/live/intraday.json'
+          phase_p = root / 'public/data/live/phase-status.json'
+          archive_p = root / ctl['archive_path']
+
+          latest = json.loads(latest_p.read_text(encoding='utf-8'))
+          intraday = json.loads(intraday_p.read_text(encoding='utf-8'))
+          phase = json.loads(phase_p.read_text(encoding='utf-8'))
+
+          ts = ctl['updated_at']
+          latest['updated_at'] = ts
+          latest['market']['summary'] = ctl['market_summary']
+          latest['market']['final_action'] = ctl['market_final_action']
+          latest['market']['phase'] = ctl['market_phase']
+          latest['data_status'] = ctl['data_status']
+          if latest.get('changes'):
+              latest['changes'][0]['title'] = ctl['change_title']
+              latest['changes'][0]['detail'] = ctl['change_detail']
+          if latest.get('research'):
+              latest['research'][0]['take'] = ctl['research_take']
+              latest['research'][0]['action'] = ctl['research_action']
+          if latest.get('research_consensus'):
+              latest['research_consensus']['conclusion'] = ctl['research_consensus']
+              latest['research_consensus']['action'] = ctl['research_consensus_action']
+          if latest.get('macro'):
+              latest['macro']['Treasury'] = ctl['treasury_note']
+              latest['macro']['breadth'] = ctl['breadth_note']
+
+          phase['updated_at'] = ts
+          phase['market_phase'] = ctl['market_phase']
+          phase['summary'] = ctl['phase_summary']
+          phase['segments'] = ctl['segments']
+          phase['sources'] = ctl['sources']
+          phase['data_status'] = ctl['data_status']
+
+          intraday['date'] = ctl['date']
+          intraday['timezone'] = 'Asia/Seoul'
+          pts = intraday.setdefault('points', [])
+          point = ctl['intraday_point']
+          if not any(p.get('time') == point.get('time') for p in pts):
+              pts.append(point)
+          else:
+              for i,p in enumerate(pts):
+                  if p.get('time') == point.get('time'):
+                      pts[i] = point
+
+          latest_txt = json.dumps(latest, ensure_ascii=False, separators=(',', ':'))
+          phase_txt = json.dumps(phase, ensure_ascii=False, separators=(',', ':'))
+          intraday_txt = json.dumps(intraday, ensure_ascii=False, separators=(',', ':'))
+          latest_p.write_text(latest_txt, encoding='utf-8')
+          phase_p.write_text(phase_txt, encoding='utf-8')
+          intraday_p.write_text(intraday_txt, encoding='utf-8')
+          archive_p.parent.mkdir(parents=True, exist_ok=True)
+          archive_p.write_text(latest_txt, encoding='utf-8')
+
+      - name: Commit refreshed market data
+        run: |
+          git config user.name "Market Radar Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/data/latest.json public/data/live/intraday.json public/data/live/phase-status.json public/data/archive
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "Hourly Market Radar verified refresh"
+            git push origin main
+          fi
