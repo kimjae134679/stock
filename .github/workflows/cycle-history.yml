@@ -1,0 +1,40 @@
+name: Update Market Radar Cycle History
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build-cycle-history.mjs'
+      - '.github/workflows/cycle-history.yml'
+  schedule:
+    - cron: '20 22 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-radar-cycle-history
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build historical cycle data
+        run: node scripts/build-cycle-history.mjs
+      - name: Commit cycle history if changed
+        run: |
+          if git diff --quiet -- public/data/cycle-history.json; then
+            echo 'No cycle-history change.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/data/cycle-history.json
+          git commit -m 'data: refresh historical cycle durations'
+          git push
