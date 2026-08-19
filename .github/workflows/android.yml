@@ -55,15 +55,16 @@ jobs:
       - name: Verify committed dashboard
         run: |
           test -s public/reports/latest.html
-          test -s public/assets/app-back-v31.js
+          test -s public/assets/app-runtime-v32.js
           test -s public/assets/ui-v30.css
           test -s public/assets/ui-v30.js
-          node --check public/assets/app-back-v31.js
+          node --check public/assets/app-runtime-v32.js
           node --check public/assets/ui-v30.js
           node --check scripts/apply-android-branding.mjs
-          grep -q 'Market Radar Daily · v0.3.1' public/reports/latest.html
-          grep -q 'app-back-v31.js?v=31' public/reports/latest.html
-          echo 'Committed v0.3.1 dashboard verified.'
+          grep -q 'Market Radar Daily · v0.3.2' public/reports/latest.html
+          grep -q 'app-runtime-v32.js?v=32' public/reports/latest.html
+          ! grep -q 'app-back-v31.js' public/reports/latest.html
+          echo 'Committed v0.3.2 dashboard verified.'
 
       - name: Generate Android project
         run: npx cap add android
@@ -71,14 +72,16 @@ jobs:
       - name: Sync web assets and native plugins
         run: npx cap sync android
 
-      - name: Apply minimal launcher icon
+      - name: Apply minimal launcher icon and native back fallback
         run: node scripts/apply-android-branding.mjs
 
-      - name: Verify Android back plugin and icon resources
+      - name: Verify Android native resources
         run: |
           test -s android/app/src/main/res/drawable/market_radar_icon_foreground.xml
           test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
-          grep -R "capacitor-app" -n android/app/src/main android/app/build.gradle* android/capacitor.settings.gradle >/dev/null || true
+          test -s android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
+          grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
+          grep -q '__MR_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
 
       - name: Build debug APK
         run: |
