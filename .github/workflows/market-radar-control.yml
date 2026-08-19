@@ -9,9 +9,18 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: market-radar-hourly-refresh
+  cancel-in-progress: true
 
 jobs:
   apply:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,18 +32,15 @@ jobs:
         shell: python
         run: |
           import json, pathlib
-
           root = pathlib.Path('.')
           ctl = json.loads((root / 'ops/market-radar-refresh.json').read_text(encoding='utf-8'))
           latest_p = root / 'public/data/latest.json'
           intraday_p = root / 'public/data/live/intraday.json'
           phase_p = root / 'public/data/live/phase-status.json'
           archive_p = root / ctl['archive_path']
-
           latest = json.loads(latest_p.read_text(encoding='utf-8'))
           intraday = json.loads(intraday_p.read_text(encoding='utf-8'))
           phase = json.loads(phase_p.read_text(encoding='utf-8'))
-
           ts = ctl['updated_at']
           latest['updated_at'] = ts
           latest['market']['summary'] = ctl['market_summary']
@@ -53,25 +59,22 @@ jobs:
           if latest.get('macro'):
               latest['macro']['Treasury'] = ctl['treasury_note']
               latest['macro']['breadth'] = ctl['breadth_note']
-
           phase['updated_at'] = ts
           phase['market_phase'] = ctl['market_phase']
           phase['summary'] = ctl['phase_summary']
           phase['segments'] = ctl['segments']
           phase['sources'] = ctl['sources']
           phase['data_status'] = ctl['data_status']
-
           intraday['date'] = ctl['date']
           intraday['timezone'] = 'Asia/Seoul'
           pts = intraday.setdefault('points', [])
           point = ctl['intraday_point']
-          if not any(p.get('time') == point.get('time') for p in pts):
-              pts.append(point)
+          for i,p in enumerate(pts):
+              if p.get('time') == point.get('time'):
+                  pts[i] = point
+                  break
           else:
-              for i,p in enumerate(pts):
-                  if p.get('time') == point.get('time'):
-                      pts[i] = point
-
+              pts.append(point)
           latest_txt = json.dumps(latest, ensure_ascii=False, separators=(',', ':'))
           phase_txt = json.dumps(phase, ensure_ascii=False, separators=(',', ':'))
           intraday_txt = json.dumps(intraday, ensure_ascii=False, separators=(',', ':'))
@@ -92,3 +95,15 @@ jobs:
             git commit -m "Hourly Market Radar verified refresh"
             git push origin main
           fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload refreshed public site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+
+      - name: Deploy refreshed dashboard
+        id: deployment
+        uses: actions/deploy-pages@v4
