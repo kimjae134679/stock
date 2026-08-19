@@ -3,6 +3,7 @@
   "appName": "Market Radar",
   "webDir": "public",
   "server": {
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "allowNavigation": ["kimjae134679.github.io"]
   }
 }
