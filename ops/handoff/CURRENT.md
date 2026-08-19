@@ -1,175 +1,97 @@
 # Market Radar 운영 인수인계 — CURRENT
 
-기준 버전: **v0.3.6**  
+기준 버전: **v0.3.7**  
 기준일: **2026-08-20 KST**  
 저장소: `kimjae134679/stock` (Public)
 
 > 다음 작업자는 반드시 이 문서를 먼저 읽는다. 시장 데이터 자동화와 UI 개발을 섞지 않는다.
 
 ## 0. 절대 원칙
-
 1. 매시간 시장 자동화는 JSON만 갱신한다. HTML/JS/CSS/VERSION을 수정하지 않는다.
 2. 안정화한다고 기존 기능을 삭제하거나 Hero 하나짜리로 단순화하지 않는다.
-3. 현재 VERSION보다 낮은 버전이 사용자 화면에 보이면 정상본이 아니다.
-4. APK 수정은 Actions 성공 + Artifact 실제 존재 + APK 직접 확보 전에는 완료라고 말하지 않는다.
-5. 모바일/PC 정보량은 동일하다.
-6. 작동하지 않는 자체 `1시간/일봉/주봉/월봉` 버튼은 다시 만들지 않는다. `ui-v30.js`가 해당 버튼을 제거한다.
-7. 로딩은 `00.001%` 형식의 실제 단계 기반 진행률과 bar를 표시하고, 실패 지점을 숨기지 않는다.
+3. APK 수정은 Actions 성공 + Artifact 실제 존재 + APK 직접 확보 전에는 완료라고 말하지 않는다.
+4. 모바일/PC 정보량은 동일하다.
+5. 자체 `1시간/일봉/주봉/월봉` 버튼은 다시 만들지 않는다.
+6. 로딩은 실제 단계 기반 `00.001%` 형식으로 표시한다.
+7. **핵심 대시보드가 이미 렌더되었으면 부가 JS 때문에 로딩바를 계속 붙잡아두지 않는다.**
+8. **100.000%가 되면 로딩 패널은 약 0.4초 뒤 완전히 사라진다.**
 
-## 1. v0.3.6에서 확인된 실제 원인
+## 1. v0.3.7 수정 이유
+사용자 v0.3.6 APK에서 전체 대시보드는 이미 보였고 `정상 · 전체 대시보드 고정 완료`까지 나왔지만, 로딩바는 `72.000% phase-status-v29.js 로드 완료`에서 멈춰 있었다.
 
-사용자 APK 캡처에 **`Market Radar Daily · v0.3.2`**가 보였고 `대시보드 준비 중…`에서 멈췄다.
+즉 메인 렌더러 실패가 아니라 **로딩 완료 조건을 evaluation/phase/ui/layout 등 부가 런타임까지 직렬로 묶어놓은 설계 문제**였다. 어느 부가 스크립트가 지연되면 이미 사용 가능한 화면인데도 진행률이 멈춘 것처럼 보였다.
 
-원인은 두 가지다.
-
-### A. APK가 웹 최신판을 자동으로 따라가지 못하던 구조
-
-기존 Capacitor APK는 `public/`을 APK 안에 그대로 묶는다. 따라서 v0.3.2 APK를 설치하면 웹이 v0.3.5로 올라가도 앱 내부 화면은 v0.3.2에 머물 수 있다.
-
-v0.3.6부터:
-- `public/app-live.html`을 **영구 온라인 진입점**으로 사용한다.
-- APK의 `public/index.html`은 온라인 `https://kimjae134679.github.io/stock/app-live.html`로 이동한다.
-- `capacitor.config.json`의 `allowNavigation`에 `kimjae134679.github.io`를 허용한다.
-- 앞으로 웹 UI가 v0.3.7, v0.3.8로 바뀌어도 `app-live.html`만 새 안정판으로 연결하면 v0.3.6 APK 이후는 새 UI를 따라갈 수 있다.
-- 네트워크 문제 때 사용할 내장 fallback으로 `stable-v036.html` 링크를 남긴다.
-
-### B. 현재 웹 자체도 실제로 너무 무거워진 부분이 있었다
-
-`layout-v28.js`는 우상향 섹션을 시작부터 강제로 펼치고 **19개의 TradingView 주봉 iframe을 한꺼번에 생성**했다.
-
-`returns-v29.js`는 19개 종목 × 1Y/2Y/3Y/5Y = **최대 76회의 Yahoo 시세 요청을 클라이언트에서 직접 실행**했다.
-
-이 둘은 모바일 WebView 초기 로딩에 불필요하게 큰 부담이다.
-
-v0.3.6 조치:
-- `layout-v28.js` 대신 **`layout-v36.js`** 사용.
-- 우상향 섹션은 기본 접힘 상태를 유지.
-- 19개 그래프는 `data-src` 상태로 만들고 **섹션을 펼친 뒤 화면 근처에 들어온 카드부터 IntersectionObserver로 실제 iframe을 로드**한다.
-- `returns-v29.js` 대신 **`returns-v36.js`** 사용.
-- 1Y/2Y/3Y/5Y 수익률은 GitHub Actions가 서버에서 미리 계산해 `public/data/compounder-returns.json` 한 파일로 저장한다.
-- 모바일은 이 JSON **1회 요청만** 하고 76회 Yahoo 요청을 하지 않는다.
-- 생성기: `scripts/build-compounder-returns.mjs`
-- workflow: `.github/workflows/compounder-returns.yml`
+v0.3.7 조치:
+- 안정 진입: `public/reports/stable-v037.html`
+- `full-recovery-v22.js`가 최소 8개 주요 섹션을 실제 DOM에 만들면 **핵심 로드 완료**로 판정한다.
+- 진행률을 100.000%로 만든 뒤 로딩 패널을 fade 후 `display:none` 처리한다.
+- evaluation / phase / ui / layout / returns / cycle-history는 **핵심 화면 이후 백그라운드 보강**으로 이동했다.
+- 각 부가 script는 4초 timeout을 가지며 실패해도 핵심 화면/로딩 완료 상태를 되돌리지 않는다.
+- Android Back 브리지는 안정 페이지 인라인에 먼저 정의해 부가 런타임 실패와 독립시켰다.
+- v0.3.6 APK의 영구 온라인 진입점 `public/app-live.html`이 v0.3.7로 연결되므로 기존 v0.3.6 APK도 웹 배포 후 새 UI를 받을 수 있다.
 
 ## 2. 현재 진입 구조
-
 - 웹 기본: `public/index.html`
-- APK/PWA 영구 온라인 진입: **`public/app-live.html`**
-- 최신 호환: `public/reports/latest.html` → v0.3.6 안정판
-- 현재 안정판: **`public/reports/stable-v036.html`**
+- APK/PWA 영구 온라인 진입: `public/app-live.html`
+- 최신 호환: `public/reports/latest.html` → `stable-v037.html`
+- 안정판: **`public/reports/stable-v037.html`**
 - 메인 렌더러: `public/assets/full-recovery-v22.js`
 - 평가: `public/assets/evaluation-v26.js`
 - 독립 Phase: `public/assets/phase-status-v29.js`
 - UI/기간버튼 제거: `public/assets/ui-v30.js`, `public/assets/ui-v30.css`
-- 경량 전체추적/우상향/모달: **`public/assets/layout-v36.js`**
-- 경량 1/2/3/5년 수익률: **`public/assets/returns-v36.js`**
+- 경량 전체추적/우상향/모달: `public/assets/layout-v36.js`
+- 경량 1/2/3/5년 수익률: `public/assets/returns-v36.js`
 - 역사 주기: `public/assets/cycle-history-v34.js`
-- 최종 로드검사/네이티브 Back 브리지: **`public/assets/app-runtime-v36.js`**
 
-`stable-v036.html`은 초기 핵심 화면을 먼저 완성하고, 우상향 수익률/역사 주기 같은 부가 분석은 핵심 화면이 사용 가능해진 뒤 연결한다.
+## 3. 성능 규칙
+- 우상향 19개 TradingView iframe은 초기 로드 금지. 섹션 펼침 + viewport 접근 시 lazy load.
+- 19종목 × 4기간 Yahoo 직접 요청 금지. `public/data/compounder-returns.json` 1회 요청 사용.
+- 매 실행 전체 cache purge 금지. 새 release 최초 1회만 잔여 cache 정리.
+- 핵심 렌더와 선택적 분석을 분리한다.
 
-## 3. v0.3.6 로딩 진행률 규칙
-
-표시 예:
-- `00.001%`
-- `01.001%`
-- `16.000%`
-- `58.000%`
-- `98.500%`
-- `100.000%`
-
-시간이 흘렀다는 이유만으로 숫자를 올리지 않는다.
-
-현재 핵심 단계:
-1. HTML shell 준비
-2. v0.3.6 최초 1회에만 구버전 cache/service worker 정리
-3. `full-recovery-v22.js` 실제 load
-4. 실제 DOM에서 주요 섹션 개수를 관찰
-5. evaluation / phase / UI / layout-v36 순차 연결
-6. app-runtime-v36 최종 DOM 검사
-7. 성공하면 `100.000%` + `정상 · v0.3.6 핵심 대시보드 로드 완료`
-8. `returns-v36.js`, `cycle-history-v34.js`는 핵심 화면 이후 백그라운드 보강
-
-v0.3.5처럼 매번 모든 cache를 지우고 4개 JSON을 preflight한 뒤 다시 renderer가 같은 JSON을 받는 중복 구조는 사용하지 않는다.
-
-## 4. 역사적 상승/하락 주기 분석 — 고정 기능
-
-데이터: `public/data/cycle-history.json`  
-생성기: `scripts/build-cycle-history.mjs`  
-Workflow: `.github/workflows/cycle-history.yml`
-
-표시:
-- 현재 `상승 N거래일차` / `하락 N거래일차`
-- 과거 같은 방향 평균·중앙값 거래일
-- 기간 진행도 / 변화폭 진행도 / 종합 진행도
-- `상승 초반 / 중반 / 후반·고점 접근 / 평균기간 초과 연장상승` 및 하락 대응
-- 과거 모든 완료 구간의 시작일/종료일/거래일/달력일/등락률
-
-기본 ZigZag reversal 기준:
-- 일반 ETF 약 8%
-- 일반주 약 12%
-- 3x 레버리지 약 18%
-
-이는 미래 전환 날짜 확정값이 아니라 역사 비교 설명치다.
+## 4. 역사적 상승/하락 주기 분석 — 유지
+데이터: `public/data/cycle-history.json`
+- 현재 상승/하락 N거래일차
+- 과거 평균/중앙값 거래일
+- 기간/변화폭/종합 진행도
+- 상승·하락 초반/중반/후반/평균기간 초과
+- 과거 시작일/종료일/거래일/달력일/등락률 전체 이력
+- 평균치는 미래 전환일 확정값이 아니라 역사 비교 설명치
 
 ## 5. 절대 삭제 금지 기능
-
 - 시장 Hero + 위험/저점/고점위험/추세확인/매수타이밍
-- 시장/테마 독립 Phase
-- 각 상태의 `그래서 지금은?`
+- 시장/테마 독립 Phase와 `그래서 지금은?`
 - 시간별 매수타이밍 + QQQ 가격
 - 큰 실제 TradingView 차트
 - 종목/ETF 상세
 - 유명·초대형 핵심주
-- 안정적·꾸준한 우상향 후보
-  - 테마별
-  - 순위별
-  - 주봉 그래프
-  - 1/2/3/5년 누적수익률
-- 전체추적 `테마별 / 전부 모아보기`
-- 숨은테마
-- ETF/비중/리서치/기관/원문/검증/Replay/거시
+- 안정적·꾸준한 우상향 후보: 테마별/순위별/주봉/1Y·2Y·3Y·5Y
+- 전체추적: 테마별 / 전부 모아보기
+- 숨은테마, ETF, 비중, 리서치, 기관, 원문, 검증, Replay, 거시
 - 접기/펼치기
-- 모달 배경 스크롤 잠금
-- 상세 모달 Android Back → 모달 닫기
+- 모달 스크롤 잠금
+- 상세에서 Android Back → 닫기
 - 루트 Android Back → `앱을 종료하시겠습니까?`
-- 역사 주기 현재 일차/평균/진행률/과거 이력
-- 실제 단계 기반 퍼센트 + 진행bar + 실패 위치
+- 역사 주기 평가
+- 실제 진행률과 실패 지점 표시
 
 ## 6. 매시간 자동화
-
 자동화 ID: `6a847ce3f5dc81918ccab0a7bafaa8fe`
+매시간 갱신은 `latest.json`, `intraday.json`, `phase-status.json`, 당일 archive만 수정한다. UI/VERSION 수정 금지.
+`cycle-history.json`, `compounder-returns.json`은 별도 GitHub Actions가 계산한다.
 
-매시간 갱신:
-- `public/data/latest.json`
-- `public/data/live/intraday.json`
-- `public/data/live/phase-status.json`
-- 당일 archive
-
-자동화는 UI 파일과 VERSION을 건드리지 않는다.
-
-별도 일 단위 데이터:
-- `cycle-history.json`
-- `compounder-returns.json`
-
-## 7. QA 합격 기준
-
-- 안정 주소: `reports/stable-v036.html`
-- 화면 버전 `v0.3.6`
-- `00.001%` 진행bar 즉시 표시
-- 핵심 화면은 우상향 19개 TradingView iframe 로딩을 기다리지 않고 먼저 사용 가능
-- 우상향은 기본 접힘 유지
-- 우상향 펼침 후 화면 근처 차트부터 lazy load
-- 브라우저에서 19×4 Yahoo 요청을 직접 하지 않음
-- `compounder-returns.json` 1회로 1Y/2Y/3Y/5Y 표시
-- 정상 시 `100.000%`
-- Hero 하나가 아니라 최소 8개 주요 섹션 렌더
-- 자체 1시간/일봉/주봉/월봉 버튼 없음
+## 7. QA
+- `stable-v037.html` 진입
+- 화면 버전 v0.3.7
+- 진행바 즉시 표시
+- 최소 8개 섹션 생성 후 100.000%
+- **100% 직후 로딩 패널이 사라짐**
+- 부가 script 지연/실패가 핵심 로드 완료를 막지 않음
+- 우상향 iframe lazy load
+- 브라우저 76회 Yahoo 요청 없음
+- 자체 기간변경 버튼 없음
 - Android Back 계약 유지
-- APK v0.3.6 이후 앱 진입은 `app-live.html`을 통해 온라인 최신판을 따라감
 
 ## 8. APK 완료 정의
-
-`.github/workflows/android.yml`이 v0.3.6 안정판을 검증하고 Capacitor sync + 간략 아이콘 + 네이티브 Back 패치 후 APK를 만든다.
-
+`.github/workflows/android.yml`은 v0.3.7 안정판 기준으로 빌드한다.
 **완료 = Actions 성공 → Artifact 확인 → APK 다운로드 → 사용자에게 파일 직접 제공.**
