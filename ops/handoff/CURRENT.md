@@ -28,6 +28,7 @@ v0.3.4 조치:
 - `public/reports/stable-v034.html`은 렌더링 JS를 복잡한 동적 로더 대신 순서가 고정된 일반 `<script src>`로 직접 로드한다.
 - `public/assets/app-runtime-v34.js`는 화면이 덜 그려져도 자동 reload로 화면을 날리지 않는다. 현재 보이는 내용은 유지하고 오류 문구만 표시한다.
 - Pages workflow에서 brittle한 node/grep 검증 단계를 제거하고 committed `public/` 직접 배포만 남겼다.
+- `market-radar-control.yml`은 시간별 데이터 JSON을 커밋한 뒤 **같은 실행에서 Pages까지 직접 배포**한다. `GITHUB_TOKEN` 커밋에 후속 workflow 재실행을 기대하지 않는다.
 
 정상 문구: `정상 · v0.3.4 전체 대시보드 로드 완료`
 
@@ -47,22 +48,25 @@ v0.3.4 조치:
 
 ## 3. 역사적 상승/하락 주기 분석 — 새 고정 기능
 
-데이터: `public/data/cycle-history.json`
-생성기: `scripts/build-cycle-history.mjs`
+데이터: `public/data/cycle-history.json`  
+생성기: `scripts/build-cycle-history.mjs`  
 Workflow: `.github/workflows/cycle-history.yml`
 
 목표:
-- QQQ 포함 가능한 모든 추적 종목/ETF에 대해 과거 상승/하락 스윙을 날짜순으로 저장한다.
+- QQQ 포함 가능한 모든 추적 종목/ETF에 대해 **데이터 공급원이 제공하는 최대 가용 일별 이력**을 사용한다.
+- 과거 상승/하락 스윙을 최근순으로 전부 저장한다.
 - 현재가 상승 몇 거래일차/하락 몇 거래일차인지 표시한다.
 - 과거 같은 방향의 평균/중앙값 거래일을 표시한다.
-- 현재 변화율과 과거 평균 변화폭을 비교한다.
+- 현재 변화율과 과거 평균/중앙 변화폭을 비교한다.
 - 기간 진행도 %, 변화폭 진행도 %, 두 값의 종합 진행도 %를 표시한다.
 - `상승 초반 / 상승 중반 / 상승 후반·고점 접근 / 평균기간 초과 연장상승` 또는 하락 대응 문구를 표시한다.
-- 과거 이력은 시작일/종료일/거래일/달력일/등락률 순으로 보여준다.
+- 과거 이력 전체를 시작일/종료일/거래일/달력일/등락률로 날짜순 확인 가능하게 한다.
 
 현재 알고리즘:
-- 10년 일별 가격을 기준으로 ZigZag reversal을 계산한다.
+- 가능한 최대 가용 일별 가격을 기준으로 ZigZag reversal을 계산한다.
 - 일반 ETF 약 8%, 일반주 약 12%, 3x 레버리지 약 18% 반전을 기본 threshold로 사용한다.
+- 평균/중앙값은 상승과 하락을 별도로 계산한다.
+- 진행도는 `기간 진행도`와 `변화폭 진행도`를 각각 보여주고 두 값을 합친 `종합 진행도`도 표시한다.
 - 이 수치는 미래 종료일 예측값이 아니라 **현재 구간을 과거 이력과 비교하는 설명용 기준**이다.
 
 테마는 가능한 경우 대표 proxy를 사용한다:
@@ -73,6 +77,15 @@ Workflow: `.github/workflows/cycle-history.yml`
 - defense → SHLD
 - aggressive/레버리지 → SOXL
 - index → QQQ
+
+독립 Phase 카드의 역사 주기 proxy:
+- 미국 전체시장 → SPY
+- Nasdaq/성장주 → QQQ
+- 반도체 → SMH
+- 네트워크·광통신 → ANET
+- 소프트웨어·클라우드 → IGV
+- 전력·데이터센터 → GRID
+- 레버리지 → TQQQ
 
 ## 4. 기존 필수 기능 — 절대 삭제 금지
 
@@ -111,13 +124,15 @@ Workflow: `.github/workflows/cycle-history.yml`
 
 시장 자동화는 `cycle-history.json`을 매번 재계산하지 않는다. 역사적 주기 데이터는 별도 GitHub Action에서 일 단위로 갱신한다. UI 파일은 어떤 자동화도 수정하지 않는다.
 
+시간별 데이터 workflow는 JSON 반영 후 같은 workflow에서 Pages를 직접 재배포한다.
+
 좌측 상단 업데이트 표시는 데이터의 실제 `updated_at`을 `YYYY.MM.DD H시 업데이트`로 표시한다.
 
 ## 6. Phase/상태 규칙
 
 시장 전체 하나로 모든 자산을 묶지 않는다. 미국 전체시장 / Nasdaq·성장주 / 반도체 / 네트워크·광통신 / AI SW·클라우드 / AI 전력·데이터센터 / 레버리지 / 주요 테마 / 주요 종목을 독립 평가한다.
 
-사이클형이면 저점→반등→상승→고점·조정→하락·붕괴 위치를 표시한다. 구조성장/품질형이면 억지 사이클 대신 현재 상태 평가를 쓴다. 여기에 v0.3.4 역사적 주기 데이터가 있으면 `현재 N거래일차 / 평균 M일 / 약 P% 진행`을 함께 붙인다.
+사이클형이면 저점→반등→상승→고점·조정→하락·붕괴 위치를 표시한다. 구조성장/품질형이면 억지 사이클 대신 현재 상태 평가를 쓴다. 여기에 v0.3.4 역사적 주기 데이터가 있으면 `현재 N거래일차 / 평균 M일 / 약 P% 진행 / 상승·하락 초·중·후반`을 함께 붙인다.
 
 ## 7. QA 합격 기준
 
@@ -129,12 +144,17 @@ Workflow: `.github/workflows/cycle-history.yml`
 - 버튼 흰색 기본 스타일/겹침 없음.
 - 실제 차트 크게 유지.
 - 자체 기간변경 버튼 없음.
-- 종목 상세에 역사적 주기 데이터가 있으면 현재 일차/평균/진행률/과거 이력 표시.
+- 종목 상세에 역사적 주기 데이터가 있으면 현재 일차/평균/중앙값/진행률/과거 이력 전체 표시.
+- 독립 Phase 카드에도 proxy가 있으면 역사 주기 일차/평균/진행률 표시.
 - Android Back 계약 유지.
 
 ## 8. 배포/APK
 
 Pages: `.github/workflows/pages.yml`은 committed `public/`을 검증 없이 직접 업로드/배포한다. 배포를 막는 과도한 grep/node-check를 다시 넣지 않는다.
+
+시간별 데이터: `.github/workflows/market-radar-control.yml`이 데이터 갱신 후 직접 Pages 배포까지 한다.
+
+역사 주기: `.github/workflows/cycle-history.yml`이 주기 데이터를 재계산하고 직접 Pages 배포까지 한다.
 
 Android: `.github/workflows/android.yml`은 v0.3.4 안정 진입 파일을 포함해 Capacitor sync 후 네이티브 Back 패치 및 APK를 빌드한다.
 
