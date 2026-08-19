@@ -1,18 +1,18 @@
 {
-  "version": "0.3.4",
+  "version": "0.3.5",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
   "hourly_automation_rule": "Update market JSON only; never rewrite UI files or VERSION.",
-  "stable_entry": "public/reports/stable-v034.html",
-  "compat_entry": "public/reports/latest.html",
+  "stable_entry": "public/reports/stable-v035.html",
+  "compat_entry": "public/reports/latest.html redirects to stable-v035.html",
   "root_entry": "public/index.html",
   "deployment": {
-    "pages": "Directly upload committed public/ with no brittle verification gate.",
-    "hourly_data": "market-radar-control.yml commits JSON and deploys Pages in the same workflow.",
-    "cycle_history": "cycle-history.yml rebuilds historical cycle data and deploys Pages in the same workflow.",
+    "pages": "Directly upload committed public/.",
+    "hourly_data": "Market data automation updates JSON only; Pages is refreshed by deployment workflow/control workflow.",
+    "cycle_history": "cycle-history.yml rebuilds historical cycle data.",
     "android": "Capacitor syncs public/, applies native icon/back fallback, then Gradle builds APK."
   },
   "ui_assets": [
@@ -24,8 +24,17 @@
     "public/assets/ui-v30.css",
     "public/assets/ui-v30.js",
     "public/assets/cycle-history-v34.js",
-    "public/assets/app-runtime-v34.js"
+    "public/assets/app-runtime-v35.js"
   ],
+  "real_loading_progress": {
+    "required": true,
+    "initial_display": "00.001%",
+    "precision_decimals": 3,
+    "fake_timer_progress_forbidden": true,
+    "basis": ["shell ready", "legacy cache purge", "JSON preflight fetch+parse", "script onload/onerror", "actual DOM section count", "final DOM height verification"],
+    "success": "100.000% and 정상 · v0.3.5 전체 대시보드 로드 완료",
+    "failure": "Stop progress, turn bar red, show exact failed file/data/stage; never leave an endless loading message."
+  },
   "cycle_history": {
     "data": "public/data/cycle-history.json",
     "builder": "scripts/build-cycle-history.mjs",
@@ -33,15 +42,15 @@
     "history_span": "maximum available daily history from the data source",
     "method": "zigzag reversal",
     "thresholds": {"etf_pct": 8, "stock_pct": 12, "leveraged_3x_pct": 18},
-    "shows": ["all completed historical start/end dates recent-first", "trading/calendar days", "move percent", "mean/median duration by direction", "mean/median move by direction", "current day count", "duration progress", "magnitude progress", "combined progress", "rough position text"],
-    "phase_proxies": {"US broad":"SPY","Nasdaq/growth":"QQQ","semiconductors":"SMH","network/optical":"ANET","software/cloud":"IGV","power/datacenter":"GRID","leverage":"TQQQ"},
+    "shows": ["all completed historical start/end dates recent-first", "trading/calendar days", "move percent", "mean/median duration by direction", "current day count", "duration progress", "magnitude progress", "combined progress", "rough position text"],
     "warning": "Historical averages are descriptive comparisons, not a forecast of the next turning date."
   },
   "cache_rule": [
     "Any user-visible release below VERSION means stale cache/deploy failure.",
-    "sw.js stores nothing and unregisters after deleting caches.",
-    "stable-v034.html uses a new filename so old latest.html cache cannot satisfy it.",
-    "app-runtime-v34 never auto-reloads an incomplete screen into a blank page."
+    "stable-v035.html uses a new filename.",
+    "index.html unregisters existing service workers and clears CacheStorage before entering stable-v035.",
+    "stable-v035 does not register a service worker.",
+    "No automatic reload loop on incomplete render."
   ],
   "android_back_contract": [
     "Open detail/modal -> hardware Back closes it.",
@@ -60,15 +69,16 @@
     "fold/unfold",
     "modal scroll lock",
     "native Back behavior",
-    "historical cycle progress on ticker details and independent phase cards"
+    "historical cycle progress",
+    "real load percent + progress bar + exact failure stage"
   ],
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "qa": [
-    "stable-v034.html always shows at least the protection Hero; total black blank page is failure.",
-    "Successful render ends with 정상 · v0.3.4 전체 대시보드 로드 완료.",
-    "No old v0.3.0-v0.3.3 UI after v0.3.4 deployment.",
-    "Cycle data appears in ticker/theme detail and phase cards when available.",
-    "Cycle detail shows current N trading days, mean/median, duration/magnitude/combined progress and complete historical rows.",
+    "stable-v035.html immediately displays the loading progress panel.",
+    "Progress advances only on real completed stages.",
+    "Full renderer creates at least 8 major sections.",
+    "Successful render reaches 100.000%.",
+    "No old v0.3.0-v0.3.4 UI after v0.3.5 deployment.",
     "No white browser-default buttons, overlaps, horizontal drift, or tiny actual charts."
   ]
 }
