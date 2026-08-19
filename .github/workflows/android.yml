@@ -8,12 +8,11 @@ on:
       - 'package.json'
       - 'capacitor.config.json'
       - 'public/index.html'
+      - 'public/reports/latest.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
-      - 'public/assets/static-report-runtime.js'
-      - 'scripts/build-static-report.mjs'
-      - 'scripts/finalize-static-report.mjs'
-      - 'scripts/validate-static-report.mjs'
+      - 'public/assets/**'
+      - 'scripts/apply-android-branding.mjs'
       - '.github/workflows/android.yml'
   workflow_dispatch:
 
@@ -53,21 +52,33 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build validated static FULL dashboard
+      - name: Verify committed dashboard
         run: |
-          node --check scripts/build-static-report.mjs
-          node --check scripts/finalize-static-report.mjs
-          node --check scripts/validate-static-report.mjs
-          node --check public/assets/static-report-runtime.js
-          node scripts/build-static-report.mjs
-          node scripts/finalize-static-report.mjs
-          node scripts/validate-static-report.mjs
+          test -s public/reports/latest.html
+          test -s public/assets/app-back-v31.js
+          test -s public/assets/ui-v30.css
+          test -s public/assets/ui-v30.js
+          node --check public/assets/app-back-v31.js
+          node --check public/assets/ui-v30.js
+          node --check scripts/apply-android-branding.mjs
+          grep -q 'Market Radar Daily · v0.3.1' public/reports/latest.html
+          grep -q 'app-back-v31.js?v=31' public/reports/latest.html
+          echo 'Committed v0.3.1 dashboard verified.'
 
       - name: Generate Android project
         run: npx cap add android
 
-      - name: Sync web assets
+      - name: Sync web assets and native plugins
         run: npx cap sync android
+
+      - name: Apply minimal launcher icon
+        run: node scripts/apply-android-branding.mjs
+
+      - name: Verify Android back plugin and icon resources
+        run: |
+          test -s android/app/src/main/res/drawable/market_radar_icon_foreground.xml
+          test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+          grep -R "capacitor-app" -n android/app/src/main android/app/build.gradle* android/capacitor.settings.gradle >/dev/null || true
 
       - name: Build debug APK
         run: |
