@@ -2,7 +2,7 @@
   "name": "Market Radar",
   "short_name": "MarketRadar",
   "id": "./",
-  "start_url": "./reports/stable-v034.html?from=pwa",
+  "start_url": "./reports/stable-v035.html?from=pwa",
   "scope": "./",
   "display": "standalone",
   "background_color": "#071018",
