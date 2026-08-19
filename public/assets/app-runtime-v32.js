@@ -40,7 +40,6 @@ function fullEnough(){
 }
 function setLoadText(t){const el=document.getElementById('loadState');if(el)el.textContent=t;}
 
-let reloadDone=false;
 async function probeData(){
   const urls=['../data/latest.json','../data/live/intraday.json'];
   for(const u of urls){
@@ -57,14 +56,14 @@ async function watchdog(){
   if(fullEnough()){setLoadText('정상 · 전체 대시보드 로드 완료');return;}
   setLoadText('전체 화면 재확인 중…');
   const ok=await probeData();
-  if(ok&&!reloadDone){
-    reloadDone=true;
-    const u=new URL(location.href);
+  const u=new URL(location.href);
+  const alreadyRecovered=u.searchParams.has('recover');
+  if(ok&&!alreadyRecovered){
     u.searchParams.set('recover','32-'+Date.now());
     location.replace(u.toString());
     return;
   }
-  setLoadText(ok?'일부 화면만 로드됨 · 새로고침 필요':'내장 데이터 로드 실패 · APK 재설치 필요');
+  setLoadText(ok?'일부 화면만 로드됨 · 앱을 다시 열어 주세요':'내장 데이터 로드 실패 · APK 재설치 필요');
 }
 
 window.addEventListener('popstate',()=>{ if(modalOpen())closeVisibleLayer(); });
