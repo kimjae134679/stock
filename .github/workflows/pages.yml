@@ -32,9 +32,9 @@ jobs:
         run: |
           test -f public/reports/latest.html
           test -f public/assets/full-recovery-v22.js
-          grep -q 'Market Radar Daily · v0.2.2' public/reports/latest.html
-          grep -q 'full-recovery-v22.js' public/reports/latest.html
-          echo 'Committed v0.2.2 full dashboard verified.'
+          grep -q 'Market Radar Daily · v0.2.3' public/reports/latest.html
+          grep -q 'full-recovery-v22.js?v=23' public/reports/latest.html
+          echo 'Committed v0.2.3 full dashboard verified.'
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
