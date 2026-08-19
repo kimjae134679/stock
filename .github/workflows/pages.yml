@@ -10,6 +10,8 @@ on:
       - 'scripts/validate-static-report.mjs'
       - 'VERSION'
       - '.github/workflows/pages.yml'
+  schedule:
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
