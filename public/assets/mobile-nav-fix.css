@@ -1,0 +1,13 @@
+/* Mobile quick-nav hardening: never squeeze pills below their text width. */
+.quicknav{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;gap:8px!important;scroll-snap-type:x proximity;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding-bottom:10px!important}
+.quicknav .pill{flex:0 0 auto!important;min-width:max-content!important;width:auto!important;max-width:none!important;white-space:nowrap!important;overflow:visible!important;text-overflow:clip!important;scroll-snap-align:start;padding:9px 13px!important;line-height:1.2!important}
+@media(max-width:700px){
+  .quicknav{margin-left:-2px;margin-right:-2px;padding-left:2px;padding-right:18px!important}
+  .quicknav .pill{font-size:13px!important;font-weight:800!important}
+  .top{gap:10px!important}
+  .top>div:first-child{min-width:0;max-width:calc(100% - 72px)}
+  .top b{overflow-wrap:anywhere}
+}
+@media(max-width:430px){
+  .quicknav .pill{padding:9px 12px!important;font-size:12px!important}
+}
