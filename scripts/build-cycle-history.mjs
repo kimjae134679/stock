@@ -1,3 +1,4 @@
+// Market Radar v0.3.4 historical cycle builder. Push changes intentionally trigger cycle-history.yml.
 import fs from 'node:fs/promises';
 
 const latest=JSON.parse(await fs.readFile('public/data/latest.json','utf8'));
