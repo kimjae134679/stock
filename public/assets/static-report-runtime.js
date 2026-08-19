@@ -6,7 +6,7 @@
   try{DATA=JSON.parse(dataEl.textContent||'{}')}catch(err){console.error('[Market Radar] embedded data parse failed',err);return}
   const qs=(s,r=document)=>r.querySelector(s);
   const qsa=(s,r=document)=>[...r.querySelectorAll(s)];
-  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
   const modal=qs('#modal'),body=qs('#modalBody');
   const names=window.MR_NAMES||{};
   const details=DATA.details||{};
@@ -45,7 +45,7 @@
     const x=(DATA.expanded_themes||[]).find(y=>(y.key||y.name)===el.dataset.expanded);if(!x)return;
     show(x.name,x.phase,`<div class="metrics"><div class="metric">점수<b>${esc(x.score??'—')}</b></div><div class="metric">순위<b>#${esc(x.rank??'—')}</b></div></div><div class="detailblock"><h4>핵심 논리</h4><div>${esc(x.thesis||'')}</div></div><div class="detailblock"><h4>대표 종목</h4>${(x.tickers||[]).map(t=>`<button class="pill modalTicker" data-x="${esc(t)}">${esc(t)}</button>`).join(' ')}</div><div class="detailblock"><h4>위험</h4><div>${esc(x.risk||'')}</div></div>`);
     qsa('.modalTicker',body).forEach(b=>b.onclick=()=>openTicker(b.dataset.x));
-  };
+  });
   qsa('[data-etf-tab]').forEach(b=>b.onclick=()=>{
     qsa('[data-etf-tab]').forEach(x=>x.classList.toggle('active',x===b));
     const us=qs('#usEtfGrid'),kr=qs('#krEtfGrid');if(us)us.hidden=b.dataset.etfTab!=='us';if(kr)kr.hidden=b.dataset.etfTab!=='kr';
