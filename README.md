@@ -37,10 +37,11 @@ public/
   index.html                APK/PWA 외곽 셸
   assets/
     report.css              기본 FULL UI
-    mobile-fixes.css        APK safe-area / 가로밀림 방지 / 접기 UI
-    report.js               메인 대시보드
-    report-enhancements.js  그룹 / Replay / HTML 저장 / 그래프 설명
-    report-polish.js        대표주 / 우상향 후보 / ETF 클릭 복구 / 차트 fallback
+    mobile-fixes.css        APK safe-area / 가로밀림 방지
+    report.js               메인 대시보드 렌더러
+    report-enhancements.js  기존 그룹 / Replay / HTML 저장 / 그래프 설명
+    report-safe-v11.css     롤백 후 안전하게 덧붙이는 v11 UI 스타일
+    report-safe-v11.js      대표주 / 우상향 / 접기 / ETF 클릭 복구 / 차트 대체
   data/
     latest.json             항상 최신 분석
     live/intraday.json      오늘 시간 포인트
@@ -54,15 +55,20 @@ public/
 VERSION
 ```
 
+## 롤백 이후 변경 원칙
+
+핵심 `report.js`는 최대한 건드리지 않고, 새 기능은 `report-safe-v11.*`에서 **추가 레이어 방식**으로 붙입니다. 문제가 생기면 이 두 파일 참조만 제거하면 기존 FULL 화면으로 바로 돌아갈 수 있습니다.
+
 ## 핵심 UI
 
 - PC와 모바일 **정보량 동일**
 - APK 상단 상태바/하단 내비게이션 safe-area 확보
 - 페이지 전체 좌우 밀림 금지; 표/필터만 로컬 가로스크롤
 - 큰 섹션 `접기 / 펼치기`
-- 실제 TradingView 차트 + 대체 Finviz/내부 그래프 fallback
+- 실제 TradingView 차트 + 대체 Finviz/내부 그래프/외부 링크 fallback
 - 종목/테마/ETF/리서치 클릭 상세
 - 클릭이 실패해도 아무 반응 없이 끝나지 않고 최소 추적중 상세를 표시
+- 반복되는 `터치 → ...` 안내는 `터치`로 축약
 - HTML 저장 버튼
 - 사용자 실제 보유량 입력 UI 없음
 
@@ -86,7 +92,7 @@ VERSION
 
 완전히 안 떨어지는 주식은 없으므로 `5Y+ 가격추세 / 200DMA / 매출·EPS·FCF / 최대낙폭과 회복속도 / ROIC·마진 / 부채·희석 / 상대강도 / forward revisions`를 같이 봅니다.
 
-초기 추적 후보: ANET, QQQ, MSFT, AVGO, COST, V, MA, SPGI, PWR, ETN, WM, RSG, ORLY, AZO, VGT, XLK, SCHG.
+초기 추적 후보: ANET, QQQ, MSFT, AVGO, COST, V, MA, SPGI, MCO, CTAS, PWR, ETN, WM, RSG, ORLY, AZO, VGT, XLK, SCHG.
 
 ## 과거 오판 방지
 
