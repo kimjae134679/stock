@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "0.3.2",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
@@ -7,11 +7,18 @@
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
   "automation_rule": "Hourly automation updates JSON data only and never rewrites HTML/JS/CSS/VERSION.",
   "deployment": {
-    "pages": "Deploy committed public/ directly. Do not rebuild the report in Pages workflow.",
-    "android": "Generate Android with Capacitor, sync committed public/, apply native branding script, then Gradle build.",
+    "pages": "Deploy committed public/ directly.",
+    "android": "Capacitor generates Android, syncs committed public/, branding script writes icon + MainActivity native Back fallback, then Gradle builds APK.",
     "android_workflow": ".github/workflows/android.yml",
     "branding_script": "scripts/apply-android-branding.mjs"
   },
+  "v032_fixes": [
+    "Clear stale mr:last-good cache before dashboard renderer starts so a partial old screen cannot replace the full dashboard.",
+    "app-runtime-v32.js verifies the dashboard has many rendered sections and enough height; it probes bundled JSON and allows only one cache-busting recovery reload.",
+    "Native Android MainActivity now owns hardware Back fallback: page modal first, otherwise native 앱을 종료하시겠습니까? confirmation.",
+    "Do not rely only on Capacitor App JS listener for hardware Back.",
+    "Broken custom interval buttons remain removed."
+  ],
   "ui_assets": [
     "public/assets/report.css",
     "public/assets/mobile-fixes.css",
@@ -22,7 +29,7 @@
     "public/assets/phase-status-v29.js",
     "public/assets/ui-v30.css",
     "public/assets/ui-v30.js",
-    "public/assets/app-back-v31.js"
+    "public/assets/app-runtime-v32.js"
   ],
   "data_source_of_truth": [
     "public/data/latest.json",
@@ -30,54 +37,22 @@
     "public/data/live/phase-status.json",
     "public/data/archive/YYYY/MM/YYYY-MM-DD.json"
   ],
-  "apk_icon": {
-    "design": "Very minimal dark navy background with one mint rising line; no text or decorative clutter.",
-    "background": "#071018",
-    "foreground": "#5EEAD4",
-    "generated_after_cap_sync": true,
-    "adaptive_icon": true
-  },
   "android_back_contract": [
-    "If a Market Radar modal/popup is open, Back closes it and does not exit the app.",
-    "If no modal is open and WebView can go back, Back navigates history.",
-    "If there is nowhere to go back, show 앱을 종료하시겠습니까? confirmation.",
-    "Exit only after user confirmation through Capacitor App.exitApp()."
-  ],
-  "dependencies": {
-    "capacitor_app": "@capacitor/app ^8.0.0"
-  },
-  "removed_ui": [
-    "Custom 1시간/일봉/주봉/월봉 interval buttons. Keep them removed."
-  ],
-  "must_preserve": [
-    "market hero and scores",
-    "independent market/theme phase board",
-    "theme flow",
-    "phase action guidance with 그래서 지금은?",
-    "hourly timing and QQQ charts",
-    "large actual TradingView charts",
-    "stock/ETF details",
-    "famous mega-cap core",
-    "compounders grouped by theme and rank with weekly charts and 1Y/2Y/3Y/5Y returns",
-    "universe theme/all tabs",
-    "hidden themes",
-    "ETF/allocation/research/smart-money/sources/validation/replay/macro",
-    "fold/unfold",
-    "modal background scroll lock",
-    "Android back behavior contract"
+    "If a detail/modal/popup is open, hardware Back closes it and consumes the event.",
+    "At the root screen, hardware Back shows 앱을 종료하시겠습니까? with 취소/종료.",
+    "Only 종료 closes the app.",
+    "Native MainActivity fallback is mandatory in APK builds."
   ],
   "qa": [
-    "No browser-default white buttons",
-    "No overlapping ticker buttons",
-    "No full-page horizontal drift",
-    "Charts are large on mobile and desktop",
-    "Back closes modal first",
-    "Root Back asks before exit",
-    "PC and mobile show the same information"
+    "Full dashboard renders beyond Hero/action only; at least 8 major sections exist and page height exceeds two viewports.",
+    "No stale last-good partial screen is restored.",
+    "Hardware Back closes a visible detail modal.",
+    "Hardware Back at root shows native exit confirmation.",
+    "No browser-default white buttons, no overlap, no horizontal drift, large charts preserved."
   ],
   "release_sync": [
     "VERSION",
-    "package.json version",
+    "package.json",
     "public/index.html",
     "public/reports/latest.html",
     "asset cache keys",
