@@ -12,6 +12,8 @@ function finalize(file,depth){
   const indexHref=depth==='latest'?'../index.html':'../../../index.html';
   h=h.replace(/<script>\s*\(\(\)=>\{'use strict';const DATA=.*?<\/script>(?=<script type="application\/json" id="investment-handoff-data">)/s,
     `<script src="${assetPrefix}static-report-runtime.js?v=18"></script>`);
+  h=h.replaceAll('Market Radar Daily · FULL','Market Radar Daily · v18');
+  h=h.replaceAll('Market Radar Daily FULL','Market Radar Daily v18');
   if(depth!=='latest'){
     h=h.replaceAll('href="../assets/','href="../../../assets/');
     h=h.replaceAll('src="../assets/','src="../../../assets/');
