@@ -1,5 +1,5 @@
 {
-  "version": "0.3.2",
+  "version": "0.3.3",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
@@ -12,12 +12,12 @@
     "android_workflow": ".github/workflows/android.yml",
     "branding_script": "scripts/apply-android-branding.mjs"
   },
-  "v032_fixes": [
-    "Clear stale mr:last-good cache before dashboard renderer starts so a partial old screen cannot replace the full dashboard.",
-    "app-runtime-v32.js verifies the dashboard has many rendered sections and enough height; it probes bundled JSON and allows only one cache-busting recovery reload.",
-    "Native Android MainActivity now owns hardware Back fallback: page modal first, otherwise native 앱을 종료하시겠습니까? confirmation.",
-    "Do not rely only on Capacitor App JS listener for hardware Back.",
-    "Broken custom interval buttons remain removed."
+  "v033_root_cause": [
+    "User screenshot showed Market Radar v0.3.0 safe shell although repository was already v0.3.2; treat any older version shown to the user as stale deployed/cached content, not a successful release.",
+    "Legacy service worker cached reports/latest.html and old assets. v0.3.3 replaces sw.js with a cache-killer that deletes every origin cache and unregisters itself.",
+    "public/index.html also unregisters every service worker, clears every CacheStorage entry and removes old mr:last-good caches before redirecting with a fresh query string.",
+    "public/reports/latest.html now boots v0.3.3 assets sequentially with a timestamp on every script URL, then app-runtime-v33 verifies the complete dashboard.",
+    "app-runtime-v33 allows at most one recovery reload and marks an incomplete screen as an error instead of pretending it is normal."
   ],
   "ui_assets": [
     "public/assets/report.css",
@@ -29,7 +29,7 @@
     "public/assets/phase-status-v29.js",
     "public/assets/ui-v30.css",
     "public/assets/ui-v30.js",
-    "public/assets/app-runtime-v32.js"
+    "public/assets/app-runtime-v33.js"
   ],
   "data_source_of_truth": [
     "public/data/latest.json",
@@ -44,7 +44,9 @@
     "Native MainActivity fallback is mandatory in APK builds."
   ],
   "qa": [
+    "The first visible version label must match VERSION. Showing v0.3.0/v0.3.1/v0.3.2 after v0.3.3 is released is a failure.",
     "Full dashboard renders beyond Hero/action only; at least 8 major sections exist and page height exceeds two viewports.",
+    "loadState must end at 정상 · v0.3.3 전체 대시보드 로드 완료 for a successful render.",
     "No stale last-good partial screen is restored.",
     "Hardware Back closes a visible detail modal.",
     "Hardware Back at root shows native exit confirmation.",
@@ -55,6 +57,7 @@
     "package.json",
     "public/index.html",
     "public/reports/latest.html",
+    "public/sw.js",
     "asset cache keys",
     ".github/workflows/pages.yml",
     ".github/workflows/android.yml",
