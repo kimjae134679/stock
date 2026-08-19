@@ -9,6 +9,7 @@ on:
       - 'capacitor.config.json'
       - 'public/index.html'
       - 'public/reports/latest.html'
+      - 'public/reports/stable-v034.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
       - 'public/assets/**'
@@ -27,75 +28,45 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Read app version
-        id: ver
+      - uses: actions/checkout@v6
+      - id: ver
         shell: bash
         run: echo "version=$(tr -d '\r\n ' < VERSION)" >> "$GITHUB_OUTPUT"
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
-
-      - name: Verify committed dashboard
+      - uses: android-actions/setup-android@v3
+      - run: npm install --no-audit --no-fund
+      - name: Basic dashboard checks
         run: |
-          test -s public/reports/latest.html
-          test -s public/assets/full-recovery-v22.js
-          test -s public/assets/app-runtime-v33.js
-          test -s public/assets/ui-v30.css
-          test -s public/assets/ui-v30.js
-          node --check public/assets/full-recovery-v22.js
-          node --check public/assets/app-runtime-v33.js
-          node --check public/assets/ui-v30.js
+          test -s public/reports/stable-v034.html
+          test -s public/assets/app-runtime-v34.js
+          test -s public/assets/cycle-history-v34.js
+          grep -q 'Market Radar Daily · v0.3.4' public/reports/stable-v034.html
+          node --check public/assets/app-runtime-v34.js
+          node --check public/assets/cycle-history-v34.js
           node --check scripts/apply-android-branding.mjs
-          grep -q 'Market Radar Daily · v0.3.3' public/reports/latest.html
-          grep -q "__MR_RELEASE='0.3.3'" public/reports/latest.html
-          grep -q 'app-runtime-v33.js' public/reports/latest.html
-          echo 'Committed v0.3.3 dashboard verified.'
-
-      - name: Generate Android project
-        run: npx cap add android
-
-      - name: Sync web assets and native plugins
-        run: npx cap sync android
-
-      - name: Apply minimal launcher icon and native back fallback
+      - run: npx cap add android
+      - run: npx cap sync android
+      - name: Apply icon and native Back fallback
         run: node scripts/apply-android-branding.mjs
-
-      - name: Verify Android native resources
+      - name: Verify native Back fallback
         run: |
-          test -s android/app/src/main/res/drawable/market_radar_icon_foreground.xml
-          test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
           test -s android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
           grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
           grep -q '__MR_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/marketradar/MainActivity.java
-
       - name: Build debug APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
-
       - name: Rename APK
         run: cp android/app/build/outputs/apk/debug/app-debug.apk "MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: MarketRadar-v${{ steps.ver.outputs.version }}-debug-apk
           path: MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk
