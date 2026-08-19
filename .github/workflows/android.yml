@@ -33,6 +33,15 @@ jobs:
       - id: ver
         shell: bash
         run: echo "version=$(tr -d '\r\n ' < VERSION)" >> "$GITHUB_OUTPUT"
+      - name: Publish build run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "building",\n  "artifact": "MarketRadar-v%s-debug-apk"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/android-latest-run.json
+          git commit -m "Record Android build run ${{ github.run_id }}" || true
+          git push || true
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -86,3 +95,12 @@ jobs:
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
           gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Market Radar Android debug APK. v0.3.6+ uses the permanent online app-live entry so market/UI updates can be received without rebuilding the APK for every web change."
           gh release upload "$TAG" "$APK" --clobber
+      - name: Mark build success
+        if: success()
+        run: |
+          git pull --rebase || true
+          mkdir -p ops
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
+          git add ops/android-latest-run.json
+          git commit -m "Mark Android build ${{ github.run_id }} successful" || true
+          git push || true
