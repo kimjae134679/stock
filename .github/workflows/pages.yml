@@ -28,13 +28,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: Verify committed dashboard
         run: |
-          test -f public/reports/latest.html
-          test -f public/assets/full-recovery-v22.js
-          grep -q 'Market Radar Daily · v0.2.3' public/reports/latest.html
-          grep -q 'full-recovery-v22.js?v=23' public/reports/latest.html
-          echo 'Committed v0.2.3 full dashboard verified.'
+          test -s public/reports/latest.html
+          test -s public/assets/full-recovery-v22.js
+          grep -q 'Market Radar Daily · v' public/reports/latest.html
+          grep -q 'full-recovery-v22.js?v=' public/reports/latest.html
+          node --check public/assets/full-recovery-v22.js
+          echo 'Committed Market Radar dashboard verified.'
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
