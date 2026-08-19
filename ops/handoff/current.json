@@ -1,36 +1,40 @@
 {
-  "version": "0.3.7",
+  "version": "0.3.8",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
   "hourly_automation_rule": "Update market JSON only; never rewrite UI files or VERSION.",
-  "stable_entry": "public/reports/stable-v037.html",
+  "stable_entry": "public/reports/stable-v038.html",
   "live_entry": "public/app-live.html",
-  "compat_entry": "public/reports/latest.html redirects to stable-v037.html",
+  "compat_entry": "public/reports/latest.html redirects to stable-v038.html",
   "root_entry": "public/index.html redirects to the permanent online live entry",
-  "v037_issue": "In v0.3.6 the full dashboard was already rendered but progress could remain at 72.000% because non-critical enhancement scripts were still on the blocking critical path.",
-  "v037_fix": [
-    "Core completion is based on full-recovery producing at least 8 real dashboard sections.",
-    "After core completion progress becomes 100.000% and the loading panel fades then display:none after about 420ms.",
-    "evaluation/phase/ui/layout/returns/cycle-history load after the core screen and no longer block the progress bar.",
-    "Optional scripts have a 4-second timeout and cannot revert a completed core screen to loading.",
-    "Native Android Back bridge is defined inline before optional enhancements."
+  "v038_issue": "Current theme section could show only the evaluation card and a large blank area while real theme cards were missing.",
+  "v038_root_cause": [
+    "full-recovery-v22 still reads legacy localStorage cache mr:last-good:v025 before fresh network data.",
+    "v0.3.7 cache cleanup did not validate/remove an incomplete last-good object.",
+    "A stale partial cached object can therefore leave themes/top_picks incomplete when fresh refresh is delayed or fails."
   ],
+  "v038_fix": [
+    "cache-guard-v38.js validates legacy cache before full-recovery and removes it unless market exists, themes>=4 and top_picks>=5.",
+    "integrity-v38.js compares window.__MR_D.themes with actual #themes theme cards and rebuilds missing cards.",
+    "Theme fold-body height/min-height/overflow are normalized so blank clipped regions cannot remain.",
+    "stable-v038 does not reach 100% until the theme-card count matches the current data count.",
+    "MutationObserver rechecks the theme section after later optional scripts mutate the DOM."
+  ],
+  "screenshot_build_mark": {
+    "text": "MR038",
+    "location": "fixed at the extreme top-left of stable-v038.html",
+    "purpose": "Low-contrast micro text for identifying the exact UI build from user screenshots.",
+    "rule": "Increment with every UI version, e.g. v0.3.9 -> MR039."
+  },
   "performance_rules": [
     "Compounder TradingView charts remain lazy-loaded only after unfold and viewport approach.",
-    "1Y/2Y/3Y/5Y returns come from one public/data/compounder-returns.json request, not 76 client Yahoo requests.",
-    "Stale cache purge occurs only once per release.",
-    "Core rendering and optional analytics must remain separated."
+    "1Y/2Y/3Y/5Y returns come from one compounder-returns.json request, not 76 browser-side Yahoo requests.",
+    "Core rendering and optional analytics remain separated.",
+    "Theme integrity checks add no external data requests."
   ],
-  "cycle_history": {
-    "data": "public/data/cycle-history.json",
-    "builder": "scripts/build-cycle-history.mjs",
-    "workflow": ".github/workflows/cycle-history.yml",
-    "shows": ["current up/down trading day count", "historical mean/median", "duration/magnitude/combined progress", "rough early/mid/late position", "full dated history"],
-    "warning": "Historical averages are descriptive comparisons, not a forecast of the next turning date."
-  },
   "android_back_contract": [
     "Open detail/modal -> hardware Back closes it.",
     "Root -> ask 앱을 종료하시겠습니까?.",
@@ -38,6 +42,7 @@
   ],
   "must_preserve": [
     "full dashboard sections",
+    "all current theme cards under the theme evaluation",
     "independent phases and action comments",
     "large charts",
     "famous stocks",
@@ -49,15 +54,17 @@
     "modal scroll lock",
     "native Back behavior",
     "historical cycle progress",
-    "real load percent + progress bar + exact failure stage"
+    "real load percent + progress bar + exact failure stage",
+    "screenshot micro build mark"
   ],
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "qa": [
-    "stable-v037.html immediately displays progress.",
-    "At least 8 major sections causes core success without waiting on optional scripts.",
-    "Successful core render reaches 100.000%.",
-    "The loading panel disappears after success.",
-    "Optional script delay/failure does not leave the UI stuck at 72% or another intermediate value.",
-    "APK v0.3.6+ follows public/app-live.html and therefore receives v0.3.7 online UI."
+    "stable-v038.html displays v0.3.8 and contains MR038.",
+    "At least 8 major sections render.",
+    "Actual theme card count equals window.__MR_D.themes.length before core success.",
+    "The theme evaluation card is followed by visible real theme cards, not a blank area.",
+    "Incomplete mr:last-good:v025 cache is removed.",
+    "Successful core render reaches 100.000% and the loading panel disappears.",
+    "APK v0.3.6+ follows public/app-live.html and therefore receives v0.3.8 online UI."
   ]
 }
