@@ -1,11 +1,12 @@
 {
   "name": "market-radar",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "private": true,
   "scripts": {
     "android:add": "npx cap add android",
     "android:sync": "npx cap sync android",
-    "android:brand": "node scripts/apply-android-branding.mjs"
+    "android:brand": "node scripts/apply-android-branding.mjs",
+    "cycle:build": "node scripts/build-cycle-history.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
