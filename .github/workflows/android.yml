@@ -56,15 +56,16 @@ jobs:
         run: |
           test -s public/reports/latest.html
           test -s public/assets/full-recovery-v22.js
-          test -s public/assets/app-runtime-v32.js
+          test -s public/assets/app-runtime-v33.js
           test -s public/assets/ui-v30.css
           test -s public/assets/ui-v30.js
           node --check public/assets/full-recovery-v22.js
-          node --check public/assets/app-runtime-v32.js
+          node --check public/assets/app-runtime-v33.js
           node --check public/assets/ui-v30.js
           node --check scripts/apply-android-branding.mjs
           grep -q 'Market Radar Daily · v0.3.3' public/reports/latest.html
           grep -q "__MR_RELEASE='0.3.3'" public/reports/latest.html
+          grep -q 'app-runtime-v33.js' public/reports/latest.html
           echo 'Committed v0.3.3 dashboard verified.'
 
       - name: Generate Android project
