@@ -1,102 +1,89 @@
 {
-  "version": "0.3.0",
-  "updated_kst": "2026-08-19",
+  "version": "0.3.1",
+  "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
-  "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
-  "timezone": "Asia/Seoul",
-  "update_frequency": "hourly (maximum supported automation frequency)",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
-  "architecture": {
-    "deployment": "GitHub Pages uploads the committed public/ directory directly. No static-report builder is run in the current pages workflow.",
-    "entry": "public/index.html -> public/reports/latest.html",
-    "ui_html": "public/reports/latest.html",
-    "data_source_of_truth": [
-      "public/data/latest.json",
-      "public/data/live/intraday.json",
-      "public/data/live/phase-status.json"
-    ],
-    "ui_assets": [
-      "public/assets/report.css",
-      "public/assets/mobile-fixes.css",
-      "public/assets/full-recovery-v22.js",
-      "public/assets/evaluation-v26.js",
-      "public/assets/layout-v28.js",
-      "public/assets/returns-v29.js",
-      "public/assets/phase-status-v29.js",
-      "public/assets/ui-v30.css",
-      "public/assets/ui-v30.js"
-    ],
-    "important": "Hourly market automation updates data JSON only. It must not rewrite HTML/JS/CSS. UI changes are explicit versioned changes only."
+  "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
+  "automation_rule": "Hourly automation updates JSON data only and never rewrites HTML/JS/CSS/VERSION.",
+  "deployment": {
+    "pages": "Deploy committed public/ directly. Do not rebuild the report in Pages workflow.",
+    "android": "Generate Android with Capacitor, sync committed public/, apply native branding script, then Gradle build.",
+    "android_workflow": ".github/workflows/android.yml",
+    "branding_script": "scripts/apply-android-branding.mjs"
   },
-  "v030_regressions_fixed": [
-    "Restored persistent dynamic-button styles after v0.2.9 lost required v0.2.8 inline styles",
-    "Removed broken custom 1h/daily/weekly/monthly interval buttons",
-    "TradingView detail charts default to daily and are enlarged on mobile and PC",
-    "QQQ actual-price chart enlarged",
-    "Compounder weekly charts enlarged",
-    "Modal background scroll isolation/back-navigation behavior preserved"
+  "ui_assets": [
+    "public/assets/report.css",
+    "public/assets/mobile-fixes.css",
+    "public/assets/full-recovery-v22.js",
+    "public/assets/evaluation-v26.js",
+    "public/assets/layout-v28.js",
+    "public/assets/returns-v29.js",
+    "public/assets/phase-status-v29.js",
+    "public/assets/ui-v30.css",
+    "public/assets/ui-v30.js",
+    "public/assets/app-back-v31.js"
   ],
-  "ui_invariants": [
-    "PC and mobile expose the same information",
-    "No browser-default white rectangular buttons in dynamic sections",
-    "No full-page horizontal drift",
-    "Large sections are rounded foldable panels",
-    "All stock/theme/ETF/research/famous/compounder/universe targets react to touch",
-    "Modal open locks background scroll",
-    "Android/browser back while modal is open closes modal instead of leaving app/page",
-    "Custom interval buttons are not shown",
-    "Actual charts are large enough to inspect without opening a separate page",
-    "Left-top subtitle shows actual latest data update as YYYY.MM.DD H시 업데이트"
+  "data_source_of_truth": [
+    "public/data/latest.json",
+    "public/data/live/intraday.json",
+    "public/data/live/phase-status.json",
+    "public/data/archive/YYYY/MM/YYYY-MM-DD.json"
   ],
-  "must_render_sections": [
-    "market hero",
+  "apk_icon": {
+    "design": "Very minimal dark navy background with one mint rising line; no text or decorative clutter.",
+    "background": "#071018",
+    "foreground": "#5EEAD4",
+    "generated_after_cap_sync": true,
+    "adaptive_icon": true
+  },
+  "android_back_contract": [
+    "If a Market Radar modal/popup is open, Back closes it and does not exit the app.",
+    "If no modal is open and WebView can go back, Back navigates history.",
+    "If there is nowhere to go back, show 앱을 종료하시겠습니까? confirmation.",
+    "Exit only after user confirmation through Capacitor App.exitApp()."
+  ],
+  "dependencies": {
+    "capacitor_app": "@capacitor/app ^8.0.0"
+  },
+  "removed_ui": [
+    "Custom 1시간/일봉/주봉/월봉 interval buttons. Keep them removed."
+  ],
+  "must_preserve": [
+    "market hero and scores",
     "independent market/theme phase board",
-    "themes",
-    "action/phase guide with 그래서 지금은?",
-    "hourly buy-timing and QQQ price charts",
+    "theme flow",
+    "phase action guidance with 그래서 지금은?",
+    "hourly timing and QQQ charts",
     "large actual TradingView charts",
-    "stock/ETF table and search",
+    "stock/ETF details",
     "famous mega-cap core",
-    "stable long-term compounders grouped by theme and rank",
-    "compounder 1Y/2Y/3Y/5Y cumulative price returns",
-    "universe split into theme/all tabs",
+    "compounders grouped by theme and rank with weekly charts and 1Y/2Y/3Y/5Y returns",
+    "universe theme/all tabs",
     "hidden themes",
-    "US/KR ETFs",
-    "allocation",
-    "research/smart money/sources",
-    "validation/replay",
-    "macro"
+    "ETF/allocation/research/smart-money/sources/validation/replay/macro",
+    "fold/unfold",
+    "modal background scroll lock",
+    "Android back behavior contract"
   ],
-  "phase_rule": {
-    "independent_segments": [
-      "US broad market",
-      "Nasdaq/growth",
-      "semiconductors",
-      "AI networking/optical",
-      "AI software/cloud",
-      "AI power/datacenter",
-      "leverage",
-      "major themes and stocks"
-    ],
-    "stages": [
-      "🔥 극단저점/투매",
-      "🟢 저점후보",
-      "🟢 바닥형성/확인",
-      "🟡 저점에서 상승중",
-      "🟡 중간상승",
-      "🟠 고점근처/조정",
-      "🔴 과열/분배",
-      "🔴 추세붕괴/급락",
-      "⚪ 횡보/불명확"
-    ],
-    "comment_required": "Every phase/state must include 그래서 지금은? action guidance. Non-cyclical structural/quality assets use current-state evaluation instead of forced cycle labels."
-  },
-  "automation_rule": "Every hourly run updates latest.json, intraday.json, phase-status.json and same-day archive with verified data; writes updated_at in KST; never invents prices; does not rewrite UI files.",
-  "security": [
-    "No actual user holdings/weights/account information in this public repo",
-    "No tokens, passwords, OTPs, private keys, or secrets",
-    "No manual user holdings input UI"
+  "qa": [
+    "No browser-default white buttons",
+    "No overlapping ticker buttons",
+    "No full-page horizontal drift",
+    "Charts are large on mobile and desktop",
+    "Back closes modal first",
+    "Root Back asks before exit",
+    "PC and mobile show the same information"
   ],
-  "release_rule": "For UI releases, keep VERSION, public/index.html, public/reports/latest.html, cache keys, and pages.yml verification in sync."
+  "release_sync": [
+    "VERSION",
+    "package.json version",
+    "public/index.html",
+    "public/reports/latest.html",
+    "asset cache keys",
+    ".github/workflows/pages.yml",
+    ".github/workflows/android.yml",
+    "ops/handoff/CURRENT.md",
+    "ops/handoff/current.json"
+  ]
 }
