@@ -43,10 +43,11 @@ jobs:
           test -s public/assets/phase-status-v29.js
           test -s public/assets/ui-v30.css
           test -s public/assets/ui-v30.js
-          test -s public/assets/app-back-v31.js
-          grep -q 'Market Radar Daily · v0.3.1' public/reports/latest.html
-          grep -q 'ui-v30.css?v=31' public/reports/latest.html
-          grep -q 'app-back-v31.js?v=31' public/reports/latest.html
+          test -s public/assets/app-runtime-v32.js
+          grep -q 'Market Radar Daily · v0.3.2' public/reports/latest.html
+          grep -q 'ui-v30.css?v=32' public/reports/latest.html
+          grep -q 'app-runtime-v32.js?v=32' public/reports/latest.html
+          ! grep -q 'app-back-v31.js' public/reports/latest.html
           ! grep -q 'interval-fix-v27.js' public/reports/latest.html
           node --check public/assets/full-recovery-v22.js
           node --check public/assets/evaluation-v26.js
@@ -54,8 +55,8 @@ jobs:
           node --check public/assets/returns-v29.js
           node --check public/assets/phase-status-v29.js
           node --check public/assets/ui-v30.js
-          node --check public/assets/app-back-v31.js
-          echo 'Committed Market Radar v0.3.1 dashboard verified.'
+          node --check public/assets/app-runtime-v32.js
+          echo 'Committed Market Radar v0.3.2 dashboard verified.'
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
