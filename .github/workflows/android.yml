@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: android-build
@@ -78,3 +78,11 @@ jobs:
           name: MarketRadar-v${{ steps.ver.outputs.version }}-debug-apk
           path: MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk
           retention-days: 90
+      - name: Publish APK release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v${{ steps.ver.outputs.version }}"
+          APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Market Radar Android debug APK. v0.3.6+ uses the permanent online app-live entry so market/UI updates can be received without rebuilding the APK for every web change."
+          gh release upload "$TAG" "$APK" --clobber
