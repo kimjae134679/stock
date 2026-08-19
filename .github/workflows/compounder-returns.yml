@@ -1,0 +1,45 @@
+name: Build compounder returns
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build-compounder-returns.mjs'
+      - '.github/workflows/compounder-returns.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '30 22 * * 1-5'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: compounder-returns
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build one-file return snapshot
+        run: node scripts/build-compounder-returns.mjs
+      - name: Commit updated return data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/data/compounder-returns.json
+          git diff --cached --quiet || git commit -m 'Update compounder 1Y 2Y 3Y 5Y returns'
+          git push
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
