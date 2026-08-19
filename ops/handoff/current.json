@@ -1,27 +1,19 @@
 {
-  "version": "0.3.3",
+  "version": "0.3.4",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
-  "automation_rule": "Hourly automation updates JSON data only and never rewrites HTML/JS/CSS/VERSION.",
+  "hourly_automation_rule": "Update market JSON only; never rewrite UI files or VERSION.",
+  "stable_entry": "public/reports/stable-v034.html",
+  "compat_entry": "public/reports/latest.html",
+  "root_entry": "public/index.html",
   "deployment": {
-    "pages": "Deploy committed public/ directly.",
-    "android": "Capacitor generates Android, syncs committed public/, branding script writes icon + MainActivity native Back fallback, then Gradle builds APK.",
-    "android_workflow": ".github/workflows/android.yml",
-    "branding_script": "scripts/apply-android-branding.mjs"
+    "pages": "Directly upload committed public/ with no brittle verification gate.",
+    "android": "Capacitor syncs public/, applies native icon/back fallback, then Gradle builds APK."
   },
-  "v033_root_cause": [
-    "User screenshot showed Market Radar v0.3.0 safe shell although repository was already v0.3.2; treat any older version shown to the user as stale deployed/cached content, not a successful release.",
-    "Legacy service worker cached reports/latest.html and old assets. v0.3.3 replaces sw.js with a cache-killer that deletes every origin cache and unregisters itself.",
-    "public/index.html also unregisters every service worker, clears every CacheStorage entry and removes old mr:last-good caches before redirecting with a fresh query string.",
-    "public/reports/latest.html now boots v0.3.3 assets sequentially with a timestamp on every script URL, then app-runtime-v33 verifies the complete dashboard.",
-    "app-runtime-v33 allows at most one recovery reload and marks an incomplete screen as an error instead of pretending it is normal."
-  ],
   "ui_assets": [
-    "public/assets/report.css",
-    "public/assets/mobile-fixes.css",
     "public/assets/full-recovery-v22.js",
     "public/assets/evaluation-v26.js",
     "public/assets/layout-v28.js",
@@ -29,39 +21,49 @@
     "public/assets/phase-status-v29.js",
     "public/assets/ui-v30.css",
     "public/assets/ui-v30.js",
-    "public/assets/app-runtime-v33.js"
+    "public/assets/cycle-history-v34.js",
+    "public/assets/app-runtime-v34.js"
   ],
-  "data_source_of_truth": [
-    "public/data/latest.json",
-    "public/data/live/intraday.json",
-    "public/data/live/phase-status.json",
-    "public/data/archive/YYYY/MM/YYYY-MM-DD.json"
+  "cycle_history": {
+    "data": "public/data/cycle-history.json",
+    "builder": "scripts/build-cycle-history.mjs",
+    "workflow": ".github/workflows/cycle-history.yml",
+    "lookback_years": 10,
+    "method": "zigzag reversal",
+    "thresholds": {"etf_pct": 8, "stock_pct": 12, "leveraged_3x_pct": 18},
+    "shows": ["historical start/end dates", "trading/calendar days", "move percent", "mean/median duration", "current day count", "duration progress", "magnitude progress", "combined progress", "rough position text"],
+    "warning": "Historical averages are descriptive comparisons, not a forecast of the next turning date."
+  },
+  "cache_rule": [
+    "Any user-visible release below VERSION means stale cache/deploy failure.",
+    "sw.js stores nothing and unregisters after deleting caches.",
+    "stable-v034.html uses a new filename so old latest.html cache cannot satisfy it.",
+    "app-runtime-v34 never auto-reloads an incomplete screen into a blank page."
   ],
   "android_back_contract": [
-    "If a detail/modal/popup is open, hardware Back closes it and consumes the event.",
-    "At the root screen, hardware Back shows 앱을 종료하시겠습니까? with 취소/종료.",
-    "Only 종료 closes the app.",
-    "Native MainActivity fallback is mandatory in APK builds."
+    "Open detail/modal -> hardware Back closes it.",
+    "Root -> ask 앱을 종료하시겠습니까?.",
+    "Only explicit 종료 exits."
   ],
+  "must_preserve": [
+    "full dashboard sections",
+    "independent phases and action comments",
+    "large charts",
+    "famous stocks",
+    "compounders grouped by theme/rank with weekly charts and 1Y/2Y/3Y/5Y returns",
+    "universe theme/all tabs",
+    "hidden themes",
+    "ETF/allocation/research/smart-money/sources/validation/replay/macro",
+    "fold/unfold",
+    "modal scroll lock",
+    "native Back behavior"
+  ],
+  "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "qa": [
-    "The first visible version label must match VERSION. Showing v0.3.0/v0.3.1/v0.3.2 after v0.3.3 is released is a failure.",
-    "Full dashboard renders beyond Hero/action only; at least 8 major sections exist and page height exceeds two viewports.",
-    "loadState must end at 정상 · v0.3.3 전체 대시보드 로드 완료 for a successful render.",
-    "No stale last-good partial screen is restored.",
-    "Hardware Back closes a visible detail modal.",
-    "Hardware Back at root shows native exit confirmation.",
-    "No browser-default white buttons, no overlap, no horizontal drift, large charts preserved."
-  ],
-  "release_sync": [
-    "VERSION",
-    "package.json",
-    "public/index.html",
-    "public/reports/latest.html",
-    "public/sw.js",
-    "asset cache keys",
-    ".github/workflows/pages.yml",
-    ".github/workflows/android.yml",
-    "ops/handoff/CURRENT.md",
-    "ops/handoff/current.json"
+    "stable-v034.html always shows at least the protection Hero; total black blank page is failure.",
+    "Successful render ends with 정상 · v0.3.4 전체 대시보드 로드 완료.",
+    "No old v0.3.0-v0.3.3 UI after v0.3.4 deployment.",
+    "Cycle data appears in ticker/theme detail when available.",
+    "No white browser-default buttons, overlaps, horizontal drift, or tiny actual charts."
   ]
 }
