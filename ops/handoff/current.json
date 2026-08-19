@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-19-public-v15-integrity",
+  "version": "2026-08-19-public-v16-full-recovery",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
@@ -12,18 +12,21 @@
     "latest_report": "public/reports/latest.html",
     "archive_report": "public/reports/YYYY/MM/US_Market_Daily_YYYY-MM-DD.html",
     "handoff": "ops/handoff/current.json",
+    "boot_guard": "public/assets/report-boot-guard.js",
     "safe_ui_js": "public/assets/report-safe-v11.js",
     "safe_ui_css": "public/assets/report-safe-v11.css",
     "safe_hotfix": "public/assets/report-safe-v11-hotfix.js",
     "integrity_layer": "public/assets/report-integrity-v15.js"
   },
-  "rollback_rule": "핵심 report.js는 가능한 한 유지하고 새 기능은 additive layer로 붙인다. v15 integrity layer는 core render 이후에도 필요한 보드를 재검증/복구한다.",
+  "rollback_rule": "핵심 report.js는 가능한 한 유지하고 새 기능은 additive layer로 붙인다. boot guard는 reduced first-paint를 최종 화면으로 오인하지 않고 FULL renderer를 강제로 재시도한다. integrity layer는 core render 이후 필요한 보드를 재검증/복구한다.",
   "integrity_findings_fixed": [
-    "static first-paint가 먼저 존재해 enhancement/safe layer가 너무 일찍 설치된 뒤 core render에서 보드가 사라질 수 있던 race를 post-render integrity verifier로 수정",
-    "latest.json의 etf_lists 키가 us_listed/kr_listed인데 core UI는 us/kr을 기대하던 schema mismatch를 UI compatibility layer로 수정",
-    "latest.json의 reference_sources가 core references/sources와 이름이 달라 참고사이트 섹션이 누락될 수 있던 문제를 복구",
+    "v15 latest.html의 static first-paint가 3개 테마/4개 종목만 가진 축약 화면이라 메인 render 실패 시 이것이 완성본처럼 남던 문제를 v16에서 수정",
+    "boot guard가 과거에는 '불러오는 중' 텍스트만 검사해 이미 내용이 있는 축약 first-paint를 복구하지 않던 문제 수정: data-failsafe 또는 핵심 섹션 누락도 복구 조건으로 사용",
+    "first-paint는 hero만 남겨 legacy enhancement가 너무 일찍 설치되지 않게 하고 0.55s/1.8s/4.5s에 FULL 복구 재시도",
+    "latest.json의 etf_lists 키 us_listed/kr_listed와 core UI us/kr schema mismatch를 compatibility layer로 수정",
+    "reference_sources가 core references/sources와 이름이 달라 참고사이트 섹션이 누락될 수 있던 문제를 복구",
     "대표주/우상향/핵심그룹/오판방지 Replay가 core rerender 후 사라지지 않도록 영구 재검증",
-    "ETF 카드가 데이터 alias 때문에 빈 목록 또는 무반응이 되는 경우를 수정"
+    "ETF 카드가 alias 때문에 빈 목록 또는 무반응이 되는 경우 수정"
   ],
   "security": [
     "Public 저장소이므로 실제 사용자 보유수량/보유비중/계정정보 저장 금지",
@@ -39,12 +42,13 @@
     "긴 반복 터치 안내는 '터치'로 통일",
     "ETF/테마/종목/대표주/우상향/전체추적 카드는 무반응 없이 상세 또는 추적중 모달을 열 것",
     "TradingView 실패 시 대체 차트/내부 시간그래프/외부링크 fallback",
-    "HTML 저장 버튼 유지"
+    "HTML 저장 버튼 유지",
+    "3개 테마/4개 종목만 보이는 reduced first-paint를 FULL 완료상태로 취급하지 않음"
   ],
   "must_render_sections": [
     "역사적 시장 위치 Hero",
     "오늘 달라진 것",
-    "현재 테마 흐름",
+    "현재 테마 흐름 전체",
     "행동/Phase 가이드",
     "시간별 모델점수 및 QQQ 가격 그래프",
     "실제 주식/ETF 차트",
