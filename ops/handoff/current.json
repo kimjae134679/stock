@@ -1,39 +1,55 @@
 {
-  "version": "0.3.5",
+  "version": "0.3.6",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
   "hourly_automation_rule": "Update market JSON only; never rewrite UI files or VERSION.",
-  "stable_entry": "public/reports/stable-v035.html",
-  "compat_entry": "public/reports/latest.html redirects to stable-v035.html",
-  "root_entry": "public/index.html",
-  "deployment": {
-    "pages": "Directly upload committed public/.",
-    "hourly_data": "Market data automation updates JSON only; Pages is refreshed by deployment workflow/control workflow.",
-    "cycle_history": "cycle-history.yml rebuilds historical cycle data.",
-    "android": "Capacitor syncs public/, applies native icon/back fallback, then Gradle builds APK."
-  },
+  "stable_entry": "public/reports/stable-v036.html",
+  "live_entry": "public/app-live.html",
+  "compat_entry": "public/reports/latest.html redirects to stable-v036.html",
+  "root_entry": "public/index.html redirects to the permanent online live entry",
+  "root_causes_v036": [
+    "User APK showed v0.3.2 because old Capacitor builds bundled public/ statically and therefore could not automatically follow newer web UI releases.",
+    "layout-v28 forced the compounder section open and created 19 TradingView iframes at initial load.",
+    "returns-v29 performed up to 76 Yahoo requests in the client for 19 tickers x 1Y/2Y/3Y/5Y."
+  ],
+  "fixes_v036": [
+    "APK/root shell navigates to permanent public/app-live.html so v0.3.6 APK and later can follow future web UI releases without rebuilding for every UI version.",
+    "capacitor allowNavigation permits kimjae134679.github.io inside the app WebView.",
+    "layout-v36 keeps compounders folded and lazy-loads each TradingView iframe only when its card approaches the viewport.",
+    "returns-v36 reads one precomputed public/data/compounder-returns.json instead of issuing 76 browser-side Yahoo requests.",
+    "compounder returns are generated in GitHub Actions by scripts/build-compounder-returns.mjs.",
+    "v0.3.6 does stale-cache cleanup once per release instead of wiping every cache on every launch.",
+    "v0.3.6 removes duplicate JSON preflight requests before full-recovery fetches the same data."
+  ],
   "ui_assets": [
     "public/assets/full-recovery-v22.js",
     "public/assets/evaluation-v26.js",
-    "public/assets/layout-v28.js",
-    "public/assets/returns-v29.js",
     "public/assets/phase-status-v29.js",
     "public/assets/ui-v30.css",
     "public/assets/ui-v30.js",
+    "public/assets/layout-v36.js",
+    "public/assets/returns-v36.js",
     "public/assets/cycle-history-v34.js",
-    "public/assets/app-runtime-v35.js"
+    "public/assets/app-runtime-v36.js"
   ],
+  "compounder_returns": {
+    "data": "public/data/compounder-returns.json",
+    "builder": "scripts/build-compounder-returns.mjs",
+    "workflow": ".github/workflows/compounder-returns.yml",
+    "periods": ["1Y", "2Y", "3Y", "5Y"],
+    "client_rule": "One JSON request only; do not restore 19x4 Yahoo client requests."
+  },
   "real_loading_progress": {
     "required": true,
     "initial_display": "00.001%",
     "precision_decimals": 3,
     "fake_timer_progress_forbidden": true,
-    "basis": ["shell ready", "legacy cache purge", "JSON preflight fetch+parse", "script onload/onerror", "actual DOM section count", "final DOM height verification"],
-    "success": "100.000% and 정상 · v0.3.5 전체 대시보드 로드 완료",
-    "failure": "Stop progress, turn bar red, show exact failed file/data/stage; never leave an endless loading message."
+    "basis": ["shell ready", "one-time release cleanup", "main renderer script load", "actual DOM section count", "critical enhancement script load", "final DOM verification"],
+    "success": "100.000% and 정상 · v0.3.6 핵심 대시보드 로드 완료",
+    "failure": "Stop progress, turn bar red, and show the exact failed stage."
   },
   "cycle_history": {
     "data": "public/data/cycle-history.json",
@@ -42,16 +58,9 @@
     "history_span": "maximum available daily history from the data source",
     "method": "zigzag reversal",
     "thresholds": {"etf_pct": 8, "stock_pct": 12, "leveraged_3x_pct": 18},
-    "shows": ["all completed historical start/end dates recent-first", "trading/calendar days", "move percent", "mean/median duration by direction", "current day count", "duration progress", "magnitude progress", "combined progress", "rough position text"],
+    "shows": ["all historical start/end dates", "trading/calendar days", "move percent", "mean/median duration", "current day count", "duration/magnitude/combined progress", "rough position text"],
     "warning": "Historical averages are descriptive comparisons, not a forecast of the next turning date."
   },
-  "cache_rule": [
-    "Any user-visible release below VERSION means stale cache/deploy failure.",
-    "stable-v035.html uses a new filename.",
-    "index.html unregisters existing service workers and clears CacheStorage before entering stable-v035.",
-    "stable-v035 does not register a service worker.",
-    "No automatic reload loop on incomplete render."
-  ],
   "android_back_contract": [
     "Open detail/modal -> hardware Back closes it.",
     "Root -> ask 앱을 종료하시겠습니까?.",
@@ -74,11 +83,13 @@
   ],
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "qa": [
-    "stable-v035.html immediately displays the loading progress panel.",
+    "stable-v036.html immediately displays the loading progress panel.",
     "Progress advances only on real completed stages.",
-    "Full renderer creates at least 8 major sections.",
-    "Successful render reaches 100.000%.",
-    "No old v0.3.0-v0.3.4 UI after v0.3.5 deployment.",
-    "No white browser-default buttons, overlaps, horizontal drift, or tiny actual charts."
+    "Full renderer creates at least 8 major sections before optional heavy analytics.",
+    "Compounder section is not force-opened on first load.",
+    "Compounder TradingView iframes load lazily only after unfold and near viewport.",
+    "No browser-side 76-request return calculation.",
+    "Successful core render reaches 100.000%.",
+    "APK v0.3.6+ follows public/app-live.html for future online UI releases."
   ]
 }
