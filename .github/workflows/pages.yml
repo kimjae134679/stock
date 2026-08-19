@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'public/**'
+      - 'scripts/build-static-report.mjs'
+      - 'scripts/finalize-static-report.mjs'
+      - 'scripts/validate-static-report.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -26,12 +29,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Syntax check static builder
+        run: |
+          node --check scripts/build-static-report.mjs
+          node --check scripts/finalize-static-report.mjs
+          node --check scripts/validate-static-report.mjs
+          node --check public/assets/static-report-runtime.js
+
+      - name: Build self-contained FULL report
+        run: |
+          node scripts/build-static-report.mjs
+          node scripts/finalize-static-report.mjs
+          node scripts/validate-static-report.mjs
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
       - name: Upload public site only
         uses: actions/upload-pages-artifact@v4
         with:
           path: public
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
