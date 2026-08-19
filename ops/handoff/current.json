@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-19-public-v11-safe",
+  "version": "2026-08-19-public-v14-rounded-panels",
   "repository": "kimjae134679/stock",
   "visibility": "PUBLIC",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
@@ -26,7 +26,10 @@
     "PC와 모바일 정보량 동일",
     "APK 상단/하단 safe-area + 추가 여백",
     "페이지 전체 가로밀림 금지; 표/필터만 로컬 가로스크롤",
+    "상단 부제에는 'PC 내용 유지' 같은 문구를 쓰지 않고 최신 KST 날짜·시간을 표시",
+    "안전 초기화/복구 안내 배너는 정상 화면에서 보이지 않게 유지",
     "대형 섹션은 접기/펼치기 가능",
+    "접기/펼치기 대상 섹션은 제목과 본문 전체를 하나의 둥근 모서리 패널 안에 묶음",
     "터치 안내문은 짧게 '터치'로 통일",
     "ETF/테마/종목 카드 클릭은 무반응 없이 상세 또는 추적중 모달을 열 것",
     "TradingView 실패 시 Finviz 이미지/내부 시간그래프/외부링크 fallback",
