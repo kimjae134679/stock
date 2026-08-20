@@ -10,7 +10,7 @@ on:
       - 'public/index.html'
       - 'public/app-live.html'
       - 'public/reports/latest.html'
-      - 'public/reports/stable-v040.html'
+      - 'public/reports/stable-v041.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
       - 'public/assets/**'
@@ -54,16 +54,16 @@ jobs:
       - name: Basic dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v040.html
-          test -s public/assets/interaction-v40.js
+          test -s public/reports/stable-v041.html
+          test -s public/assets/interaction-v41.js
           test -s public/assets/layout-v36.js
           test -s public/assets/returns-v36.js
-          grep -q 'Market Radar Daily · v0.4.0' public/reports/stable-v040.html
-          grep -q 'MR040' public/reports/stable-v040.html
-          grep -q 'interaction-v40.js' public/reports/stable-v040.html
-          grep -q 'stable-v040.html' public/app-live.html
+          grep -q 'Market Radar Daily · v0.4.1' public/reports/stable-v041.html
+          grep -q 'MR041' public/reports/stable-v041.html
+          grep -q 'interaction-v41.js' public/reports/stable-v041.html
+          grep -q 'stable-v041.html' public/app-live.html
           grep -q 'allowNavigation' capacitor.config.json
-          node --check public/assets/interaction-v40.js
+          node --check public/assets/interaction-v41.js
           node --check public/assets/layout-v36.js
           node --check public/assets/returns-v36.js
           node --check scripts/apply-android-branding.mjs
