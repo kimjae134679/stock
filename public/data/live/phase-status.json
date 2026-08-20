@@ -1,22 +1,22 @@
 {
-  "updated_at": "2026-08-20T20:12:00+09:00",
+  "updated_at": "2026-08-20T22:06:18+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미10Y 4.67%, 미30Y 5.217%로 장기금리 부담이 이어지고 Brent는 $94.06까지 상승했다. S&P500 선물 -0.07%, Nasdaq100 선물 +0.04%로 혼조이며 독립 Phase 전환 신호는 아직 없다.",
+  "summary": "최신 검증값은 미10Y 4.67%, 미30Y 5.217%, Brent $94.06다. S&P500 선물 -0.07%, Nasdaq100 선물 +0.04% 이후 더 새로운 신뢰 가능한 수치를 확인하지 못해 독립 Phase를 유지한다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정","action":"코어만 소규모 분할. 유가·장기금리와 정규장 breadth를 함께 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 🔴 추세훼손 경계","action":"선물은 보합권. AI 기대는 버티지만 금리·유가 부담 속 추격은 피한다."},
-    {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계","action":"NVDA 프리마켓 소폭 강세만으로 회복 확정 금지. SOX 상대강도 회복을 먼저 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 🔴 추세훼손 경계","action":"AI 기대는 버티지만 금리·유가 부담 속 추격은 피한다."},
+    {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계","action":"SOX 상대강도와 중기 추세 회복을 먼저 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"개별 계약 호재와 테마 회복을 분리하고 실적·상대강도로 선별."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟡 중간상승 · 상대강도 관찰","action":"금리 부담은 지속. 실적·추정치 유지 종목만 분할하고 추격은 피한다."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟡 중간상승 · 상대강도 관찰","action":"실적·추정치 유지 종목만 분할하고 금리 재상승 때 추격은 피한다."},
     {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정","action":"구조수요는 유지. 유가·금리 동반 상승 시 고밸류 확대는 보류."},
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"신규 확대 보류. Nasdaq·미국 반도체 중기 추세 회복 후 재평가."}
   ],
   "sources": [
     "Reuters 2026-08-20 U.S. stock futures muted as bond yields resume uptrend",
     "Reuters 2026-08-20 Oil hits 3-week high on Middle East supply concerns",
+    "Reuters 2026-08-20 Global Markets",
     "Reuters 2026-08-19 Wall St close",
-    "Reuters 2026-08-19 Marvell-Google AI chip deal",
     "Federal Reserve 2026-08-19 July FOMC minutes"
   ],
-  "data_status": "2026-08-20 20:12 KST 재검증. Reuters 19:18 KST 보도 기준 미10Y 4.67%, 미30Y 5.217%, Dow 선물 -0.17%, S&P500 선물 -0.07%, Nasdaq100 선물 +0.04%. Reuters 최신 원유 보도에서 Brent $94.06, WTI 9월물 $87.67로 5거래일 연속 상승. 전일 미국 최종 S&P500 +0.21%, Nasdaq +0.16%, Dow +0.22%, SOX -2.0%, Nasdaq breadth 1.45:1, NYSE 1.9:1, MRVL +9.9%는 마지막 정규장 검증값으로 유지. 새 Phase 전환은 없음. cycle-history/compounder-returns 미수정. 실제 주문 없음."
+  "data_status": "2026-08-20 22:06 KST 재검증. Reuters 19:18 KST의 미10Y 4.67%, 미30Y 5.217%, Dow 선물 -0.17%, S&P500 선물 -0.07%, Nasdaq100 선물 +0.04%와 최신 원유 보도의 Brent $94.06, WTI 9월물 $87.67이 여전히 가장 최근의 신뢰 가능한 검증값이다. 이후 독립 Phase를 바꿀 새 확정 신호는 확인하지 못했다. cycle-history/compounder-returns 미수정. 실제 주문 없음."
 }
