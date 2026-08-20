@@ -7,7 +7,7 @@ await fs.mkdir('qa-artifacts',{recursive:true});
 
 async function run(name,viewport){
   const browser=await chromium.launch({headless:true});
-  const page=await browser.newPage({viewportSize:viewport});
+  const page=await browser.newPage({viewport});
   await page.route('https://s.tradingview.com/**',route=>route.abort());
   const errors=[];
   page.on('pageerror',e=>errors.push('pageerror: '+e.message));
@@ -32,9 +32,11 @@ async function run(name,viewport){
       missing,loadHeight:load?.height??-1,actionTextLength:actionText.length,actionHeight:Math.round(action?.getBoundingClientRect().height||0),foldCount:foldButtons.length,blankButtons,suspicious,foldedBad,
       version:q('.top b')?.textContent||'',mark:q('.mr-buildmark')?.textContent||'',
       readabilityLoaded:css.some(x=>x.includes('readability-v42.css')),
-      heroDisplay:hs?.display||'',heroColumns:hs?.gridTemplateColumns||'',summaryBg:ss?.backgroundColor||'',finalBg:fs?.backgroundColor||'',overflow,isMobile
+      heroDisplay:hs?.display||'',heroColumns:hs?.gridTemplateColumns||'',summaryBg:ss?.backgroundColor||'',finalBg:fs?.backgroundColor||'',overflow,isMobile,
+      innerWidth:window.innerWidth
     };
   },{ids,isMobile:viewport.width<=700});
+  if(result.innerWidth!==viewport.width)throw new Error(`${name}: viewport mismatch ${result.innerWidth} != ${viewport.width}`);
   if(!result.version.includes('v0.4.2'))throw new Error(`${name}: version mismatch ${result.version}`);
   if(result.mark!=='MR042')throw new Error(`${name}: mark mismatch ${result.mark}`);
   if(result.missing.length)throw new Error(`${name}: missing ${result.missing.join(',')}`);
