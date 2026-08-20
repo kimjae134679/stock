@@ -32,8 +32,7 @@ async function run(name,viewport){
       missing,loadHeight:load?.height??-1,actionTextLength:actionText.length,actionHeight:Math.round(action?.getBoundingClientRect().height||0),foldCount:foldButtons.length,blankButtons,suspicious,foldedBad,
       version:q('.top b')?.textContent||'',mark:q('.mr-buildmark')?.textContent||'',
       readabilityLoaded:css.some(x=>x.includes('readability-v42.css')),
-      heroDisplay:hs?.display||'',summaryBg:ss?.backgroundColor||'',finalBg:fs?.backgroundColor||'',overflow,
-      expectedHeroDisplay:isMobile?'block':'grid'
+      heroDisplay:hs?.display||'',heroColumns:hs?.gridTemplateColumns||'',summaryBg:ss?.backgroundColor||'',finalBg:fs?.backgroundColor||'',overflow,isMobile
     };
   },{ids,isMobile:viewport.width<=700});
   if(!result.version.includes('v0.4.2'))throw new Error(`${name}: version mismatch ${result.version}`);
@@ -46,7 +45,8 @@ async function run(name,viewport){
   if(result.suspicious.length)throw new Error(`${name}: suspicious blank panels ${JSON.stringify(result.suspicious)}`);
   if(result.foldedBad.length)throw new Error(`${name}: folded panels retain height ${JSON.stringify(result.foldedBad)}`);
   if(!result.readabilityLoaded)throw new Error(`${name}: readability-v42.css not loaded`);
-  if(result.heroDisplay!==result.expectedHeroDisplay)throw new Error(`${name}: hero layout ${result.heroDisplay}, expected ${result.expectedHeroDisplay}`);
+  if(!result.isMobile&&result.heroDisplay!=='grid')throw new Error(`${name}: desktop hero must be grid, got ${result.heroDisplay}`);
+  if(result.isMobile&&result.heroDisplay==='grid'&&result.heroColumns.includes(' '))throw new Error(`${name}: mobile hero grid is not one-column: ${result.heroColumns}`);
   if(!result.summaryBg||result.summaryBg==='rgba(0, 0, 0, 0)')throw new Error(`${name}: hero summary is not visually separated`);
   if(!result.finalBg||result.finalBg==='rgba(0, 0, 0, 0)')throw new Error(`${name}: hero action is not visually separated`);
   if(result.overflow>2)throw new Error(`${name}: horizontal overflow ${result.overflow}px`);
