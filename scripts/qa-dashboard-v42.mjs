@@ -14,7 +14,7 @@ async function run(name,viewport){
   page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text())});
   await page.goto(base,{waitUntil:'domcontentloaded',timeout:30000});
   await page.waitForFunction(()=>document.querySelector('#loadWrap')?.hidden===true,{timeout:15000});
-  const result=await page.evaluate(ids=>{
+  const result=await page.evaluate(({ids,isMobile})=>{
     const q=s=>document.querySelector(s);
     const missing=ids.filter(id=>!document.getElementById(id));
     const load=q('#loadWrap')?.getBoundingClientRect();
@@ -24,8 +24,18 @@ async function run(name,viewport){
     const blankButtons=foldButtons.filter(b=>!(b.textContent||'').trim()).map(b=>b.dataset.fold);
     const suspicious=[...document.querySelectorAll('.mr-section')].map(s=>{const r=s.getBoundingClientRect(),body=s.querySelector('.mr-body'),txt=(body?.textContent||'').trim();return{id:s.id,h:Math.round(r.height),text:txt.length,folded:s.classList.contains('is-folded')}}).filter(x=>x.h>350&&x.text<30);
     const foldedBad=[...document.querySelectorAll('.mr-section.is-folded')].map(s=>({id:s.id,h:Math.round(s.getBoundingClientRect().height),body:Math.round((s.querySelector('.mr-body')?.getBoundingClientRect().height)||0)})).filter(x=>x.h>150||x.body>1);
-    return {missing,loadHeight:load?.height??-1,actionTextLength:actionText.length,actionHeight:Math.round(action?.getBoundingClientRect().height||0),foldCount:foldButtons.length,blankButtons,suspicious,foldedBad,version:q('.top b')?.textContent||'',mark:q('.mr-buildmark')?.textContent||''};
-  },ids);
+    const css=[...document.styleSheets].map(x=>x.href||'');
+    const hero=q('#market'),summary=q('#market>p'),final=q('#market>.hero-final');
+    const hs=hero?getComputedStyle(hero):null,ss=summary?getComputedStyle(summary):null,fs=final?getComputedStyle(final):null;
+    const overflow=document.documentElement.scrollWidth-window.innerWidth;
+    return {
+      missing,loadHeight:load?.height??-1,actionTextLength:actionText.length,actionHeight:Math.round(action?.getBoundingClientRect().height||0),foldCount:foldButtons.length,blankButtons,suspicious,foldedBad,
+      version:q('.top b')?.textContent||'',mark:q('.mr-buildmark')?.textContent||'',
+      readabilityLoaded:css.some(x=>x.includes('readability-v42.css')),
+      heroDisplay:hs?.display||'',summaryBg:ss?.backgroundColor||'',finalBg:fs?.backgroundColor||'',overflow,
+      expectedHeroDisplay:isMobile?'block':'grid'
+    };
+  },{ids,isMobile:viewport.width<=700});
   if(!result.version.includes('v0.4.2'))throw new Error(`${name}: version mismatch ${result.version}`);
   if(result.mark!=='MR042')throw new Error(`${name}: mark mismatch ${result.mark}`);
   if(result.missing.length)throw new Error(`${name}: missing ${result.missing.join(',')}`);
@@ -35,6 +45,11 @@ async function run(name,viewport){
   if(result.blankButtons.length)throw new Error(`${name}: blank fold buttons ${result.blankButtons.join(',')}`);
   if(result.suspicious.length)throw new Error(`${name}: suspicious blank panels ${JSON.stringify(result.suspicious)}`);
   if(result.foldedBad.length)throw new Error(`${name}: folded panels retain height ${JSON.stringify(result.foldedBad)}`);
+  if(!result.readabilityLoaded)throw new Error(`${name}: readability-v42.css not loaded`);
+  if(result.heroDisplay!==result.expectedHeroDisplay)throw new Error(`${name}: hero layout ${result.heroDisplay}, expected ${result.expectedHeroDisplay}`);
+  if(!result.summaryBg||result.summaryBg==='rgba(0, 0, 0, 0)')throw new Error(`${name}: hero summary is not visually separated`);
+  if(!result.finalBg||result.finalBg==='rgba(0, 0, 0, 0)')throw new Error(`${name}: hero action is not visually separated`);
+  if(result.overflow>2)throw new Error(`${name}: horizontal overflow ${result.overflow}px`);
 
   const actionBtn=page.locator('#action [data-fold="action"]');
   await actionBtn.click();
