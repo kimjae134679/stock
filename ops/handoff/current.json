@@ -1,72 +1,57 @@
 {
-  "version": "0.4.3",
+  "version": "0.4.4",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
-  "current_stable_entry": "public/reports/stable-v043.html",
-  "current_build_mark": "MR043",
+  "current_stable_entry": "public/reports/stable-v044.html",
+  "current_build_mark": "MR044",
   "known_good_rollback": {
     "version": "0.4.2",
     "mark": "MR042",
     "entry": "public/reports/stable-v042-baseline.html",
-    "renderer": "public/assets/app-v42.js",
-    "css": "public/assets/app-v42.css",
-    "reason": "User directly confirmed v0.4.2 rendered fully and correctly after repeated earlier failures."
+    "reason": "User directly confirmed v0.4.2 rendered fully and correctly."
   },
-  "architecture": "single-owner renderer; v0.4.3 renderer plus v0.4.2 base CSS and v0.4.3 visual polish CSS",
-  "ui_assets": ["public/assets/app-v42.css", "public/assets/app-v43.css", "public/assets/app-v43.js"],
-  "required_sections": ["themes","action","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
-  "dedup_rules": [
-    "Do not repeat the formatted update time as a raw ISO timestamp inside Hero.",
-    "Do not render phase-status.summary under the Hero market summary.",
-    "Only the current action regime is expanded; the other 7 regime rules live under details.",
-    "Do not repeat generic inactive-card filler such as '이 구간에 들어오면...'.",
-    "Top-pick list shows phase/action badges; long note stays in modal detail.",
-    "Macro objects render as key/value UI, never JSON.stringify walls.",
-    "Historical cycle swing table stays under details.",
-    "Do not show meaningless final render-complete endmark."
-  ],
-  "loading": {
-    "real_progress_only": true,
-    "success": "100.000% then remove whole #loadWrap",
-    "no_gap_rule": true,
-    "optional_data_never_blocks_completion": true
+  "architecture": "single-owner renderer with compact historical cycle SVG visualization",
+  "ui_assets": ["public/assets/app-v42.css", "public/assets/app-v43.css", "public/assets/app-v44.css", "public/assets/app-v44.js"],
+  "required_sections": ["themes","action","cycle-visual","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
+  "cycle": {
+    "builder": "scripts/build-cycle-history.mjs",
+    "workflow": ".github/workflows/cycle-history.yml",
+    "data": "public/data/cycle-history.json",
+    "assets": 92,
+    "errors": 0,
+    "bytes": 3054462,
+    "payload_limit_bytes": 8000000,
+    "all_swing_metadata_preserved": true,
+    "visual_paths": "current + 8 largest declines + 8 largest rallies per asset, max 60 points each",
+    "current_fields": ["direction","start_date","end_date","trading_days","calendar_days","move_pct","duration_progress_pct","magnitude_progress_pct","progress_pct","position_text"],
+    "chart": "custom SVG: current path vs representative historical paths with median duration/magnitude guides",
+    "theme_proxies": {"index":"QQQ","compute":"SMH","network":"ANET","software":"IGV","power":"GRID","aggressive":"SOXL","defense":"SHLD"},
+    "forecast_rule": "historical comparison only; never present mean/median as guaranteed future turning date"
   },
-  "fold_contract": {
-    "prefix": "mr:fold:v043:",
-    "delegated_click": true,
-    "collapsed_body_zero_height": true,
-    "no_transform_gap_repair": true
-  },
-  "performance": [
-    "TradingView lazy-load only near viewport and not while section is folded",
-    "compounder returns use one precomputed JSON",
-    "cycle history reads precomputed JSON only",
-    "optional phase/cycle/returns failure cannot remove core UI"
-  ],
   "browser_qa": {
-    "workflow": ".github/workflows/dashboard-qa-v43.yml",
-    "script": "scripts/qa-dashboard-v43.mjs",
-    "run_id": 32329459767,
+    "workflow": ".github/workflows/dashboard-qa-v44.yml",
+    "script": "scripts/qa-dashboard-v44.mjs",
+    "run_id": 32333966715,
     "status": "success",
+    "cycle_bytes": 3054462,
     "viewports": ["1440x1000", "390x844"],
-    "checks": ["desktop","mobile","load-collapse","compact-hero","phase-dedup","action-compact","fold-toggle","modal","blank-panel","overflow"]
+    "checks": ["desktop","mobile","load-collapse","compact-hero","action-compact","cycle-trajectory","cycle-days-pct","cycle-extreme-paths","cycle-payload-size","cycle-modal","fold-toggle","blank-panel","overflow"]
   },
   "android_build": {
-    "run_id": 32329693158,
+    "run_id": 32333998658,
     "status": "success",
-    "artifact_id": 9392640230,
-    "artifact": "MarketRadar-v0.4.3-debug-apk",
-    "apk_sha256": "84a62ea739ed6f0879209a0f327b8261ab6ffc0e09657f2a84383c017e1861d0",
-    "verified_embedded_files": ["assets/public/reports/stable-v043.html","assets/public/reports/stable-v042-baseline.html","assets/public/assets/app-v43.js","assets/public/assets/app-v43.css","assets/public/assets/app-v42.css","assets/public/index.html"]
+    "artifact_id": 9394014652,
+    "artifact": "MarketRadar-v0.4.4-debug-apk",
+    "apk_sha256": "1b36ad432147bd8b57cd906a3fb47e163ff086b2181e324f4b0909c7e679ef77",
+    "embedded_cycle_bytes": 3054462,
+    "verified_embedded_files": ["assets/public/reports/stable-v044.html","assets/public/reports/stable-v042-baseline.html","assets/public/assets/app-v44.js","assets/public/assets/app-v44.css","assets/public/data/cycle-history.json","assets/public/app-live.html","assets/public/index.html"]
   },
-  "android_back_contract": [
-    "modal open -> hardware Back closes modal",
-    "root -> ask 앱을 종료하시겠습니까?",
-    "only explicit 종료 exits"
-  ],
-  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION. Keep UI-visible prose compact and move detailed evidence into detail fields.",
+  "loading": {"success": "100.000% then remove whole #loadWrap", "no_gap_rule": true},
+  "fold_contract": {"prefix": "mr:fold:v044:", "delegated_click": true, "collapsed_body_zero_height": true, "no_transform_gap_repair": true},
+  "android_back_contract": ["modal open -> hardware Back closes modal", "root -> ask 앱을 종료하시겠습니까?", "only explicit 종료 exits"],
+  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION or cycle-history.json. Keep UI-visible prose compact.",
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "apk_done_definition": "Browser QA success -> Android Actions success -> Artifact exists -> APK downloaded and integrity checked -> provide file directly to user"
 }
