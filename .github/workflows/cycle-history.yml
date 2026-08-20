@@ -27,6 +27,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Publish cycle run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "0.4.4",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/cycle-history-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/cycle-history-latest.json
+          git commit -m "Record cycle-history run ${{ github.run_id }}" || true
+          git push || true
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -43,21 +52,32 @@ jobs:
           if(Object.keys(j.assets||{}).length<5) throw new Error('too few cycle assets');
           console.log('cycle assets',Object.keys(j.assets).length,'errors',Object.keys(j.errors||{}).length);
           NODE
-      - name: Commit cycle history if changed
+      - name: Commit cycle history and success pointer
         run: |
-          if git diff --quiet -- public/data/cycle-history.json; then
-            echo 'No cycle-history change.'
-          else
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git pull --rebase --autostash || true
-            git add public/data/cycle-history.json
-            git commit -m 'data: refresh historical cycle durations and paths'
-            git push
-          fi
+          git pull --rebase --autostash || true
+          mkdir -p ops
+          ASSETS=$(node -e "const j=require('./public/data/cycle-history.json');process.stdout.write(String(Object.keys(j.assets||{}).length))")
+          ERRORS=$(node -e "const j=require('./public/data/cycle-history.json');process.stdout.write(String(Object.keys(j.errors||{}).length))")
+          printf '{\n  "version": "0.4.4",\n  "run_id": %s,\n  "status": "success",\n  "assets": %s,\n  "errors": %s\n}\n' "${{ github.run_id }}" "$ASSETS" "$ERRORS" > ops/cycle-history-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/data/cycle-history.json ops/cycle-history-latest.json
+          git commit -m 'data: refresh historical cycle durations and paths' || true
+          git push || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
           path: public
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Mark cycle build failed
+        if: failure()
+        run: |
+          git pull --rebase --autostash || true
+          mkdir -p ops
+          printf '{\n  "version": "0.4.4",\n  "run_id": %s,\n  "status": "failed"\n}\n' "${{ github.run_id }}" > ops/cycle-history-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/cycle-history-latest.json
+          git commit -m "Mark cycle-history run ${{ github.run_id }} failed" || true
+          git push || true
