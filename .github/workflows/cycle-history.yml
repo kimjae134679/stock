@@ -45,12 +45,16 @@ jobs:
         run: |
           node - <<'NODE'
           const fs=require('fs');
-          const j=JSON.parse(fs.readFileSync('public/data/cycle-history.json','utf8'));
+          const p='public/data/cycle-history.json';
+          const j=JSON.parse(fs.readFileSync(p,'utf8'));
           if(!j.assets?.QQQ?.current) throw new Error('QQQ current cycle missing');
           if(!Array.isArray(j.assets.QQQ.current.path) || j.assets.QQQ.current.path.length<2) throw new Error('QQQ current path missing');
           if(!Array.isArray(j.assets.QQQ.history) || j.assets.QQQ.history.length<4) throw new Error('QQQ historical swings insufficient');
+          if(!Array.isArray(j.assets.QQQ.extremes?.largest_declines?.[0]?.path) || j.assets.QQQ.extremes.largest_declines[0].path.length<2) throw new Error('QQQ visual historical path missing');
           if(Object.keys(j.assets||{}).length<5) throw new Error('too few cycle assets');
-          console.log('cycle assets',Object.keys(j.assets).length,'errors',Object.keys(j.errors||{}).length);
+          const bytes=fs.statSync(p).size;
+          if(bytes>8_000_000) throw new Error('cycle payload too large: '+bytes);
+          console.log('cycle assets',Object.keys(j.assets).length,'errors',Object.keys(j.errors||{}).length,'bytes',bytes);
           NODE
       - name: Commit cycle history and success pointer
         run: |
@@ -58,11 +62,12 @@ jobs:
           mkdir -p ops
           ASSETS=$(node -e "const j=require('./public/data/cycle-history.json');process.stdout.write(String(Object.keys(j.assets||{}).length))")
           ERRORS=$(node -e "const j=require('./public/data/cycle-history.json');process.stdout.write(String(Object.keys(j.errors||{}).length))")
-          printf '{\n  "version": "0.4.4",\n  "run_id": %s,\n  "status": "success",\n  "assets": %s,\n  "errors": %s\n}\n' "${{ github.run_id }}" "$ASSETS" "$ERRORS" > ops/cycle-history-latest.json
+          BYTES=$(wc -c < public/data/cycle-history.json | tr -d ' ')
+          printf '{\n  "version": "0.4.4",\n  "run_id": %s,\n  "status": "success",\n  "assets": %s,\n  "errors": %s,\n  "bytes": %s\n}\n' "${{ github.run_id }}" "$ASSETS" "$ERRORS" "$BYTES" > ops/cycle-history-latest.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add public/data/cycle-history.json ops/cycle-history-latest.json
-          git commit -m 'data: refresh historical cycle durations and paths' || true
+          git commit -m 'data: refresh compact historical cycle paths' || true
           git push || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
