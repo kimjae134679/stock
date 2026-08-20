@@ -1,167 +1,197 @@
 # Market Radar 운영 인수인계 — CURRENT
 
-기준 버전: **v0.4.3 / MR043**  
+기준 배포: **v0.4.4 / MR044**  
 기준일: **2026-08-20 KST**  
 저장소: `kimjae134679/stock` (Public)
 
-> **v0.4.2 / MR042는 사용자가 직접 “오랜만에 다 잘 보인다”고 확인한 immutable Known-Good 롤백 기준판이다.** v0.4.3은 그 구조를 유지한 채 정보 고봉밥·중복을 정리하고 desktop/mobile QA를 통과한 현재 배포판이다.
+> **v0.4.2 / MR042는 사용자가 직접 정상 작동을 확인한 immutable Known-Good 롤백 기준판이다.** v0.4.4는 그 단일-renderer 원칙을 유지하면서 고봉밥 정리와 역사 상승·하락 사이클 시각화를 추가한 현재 배포판이다.
 
 ## 0. 기준판
-- 현재 배포: **v0.4.3 / MR043**
-- 현재 안정 진입: `public/reports/stable-v043.html`
-- 현재 renderer: `public/assets/app-v43.js`
-- CSS: `public/assets/app-v42.css` + `public/assets/app-v43.css`
-- **절대 보존 롤백:** `public/reports/stable-v042-baseline.html`
-- Known-Good renderer/CSS: `public/assets/app-v42.js`, `public/assets/app-v42.css`
-
-v0.4.3에서 문제가 생기면 복구 스크립트를 추가하지 말고 v0.4.2 baseline과 비교/회귀한다.
+- 현재 배포: **v0.4.4 / MR044**
+- 현재 진입: `public/reports/stable-v044.html`
+- renderer: `public/assets/app-v44.js`
+- CSS: `app-v42.css` + `app-v43.css` + `app-v44.css`
+- live: `public/app-live.html` → `stable-v044.html`
+- latest: `public/reports/latest.html` → `stable-v044.html`
+- **immutable rollback:** `public/reports/stable-v042-baseline.html`
 
 ## 1. 절대 원칙
 1. 매시간 시장 자동화는 JSON만 갱신한다. HTML/JS/CSS/VERSION 수정 금지.
 2. 기능 삭제로 안정화하지 않는다.
-3. 모바일/PC 정보량은 동일하다.
-4. 자체 `1시간/일봉/주봉/월봉` 버튼은 다시 만들지 않는다.
-5. 로딩은 실제 단계 기반이며 100% 뒤 `#loadWrap` 전체가 높이 0으로 사라진다.
-6. 최상단 micro build mark 유지. v0.4.3 = `MR043`, 롤백 v0.4.2 = `MR042`.
-7. UI 변경은 desktop + mobile Chromium QA 통과 전 완료로 판단하지 않는다.
-8. APK 완료 = Browser QA 성공 + Android Actions 성공 + Artifact 확인 + APK 직접 확보 후 사용자 제공.
-9. 여러 DOM 보정/복구 스크립트를 다시 겹쳐 올리지 않는다.
+3. 모바일/PC 정보량 동일.
+4. 자체 `1시간/일봉/주봉/월봉` 버튼은 복원하지 않는다.
+5. 로딩 100% 뒤 `#loadWrap` 전체가 높이 0으로 사라져 빈 칸을 남기지 않는다.
+6. micro build mark 유지: 현재 `MR044`, 롤백 `MR042`.
+7. UI 변경은 desktop 1440×1000 + mobile 390×844 Chromium QA 통과 전 완료로 판단하지 않는다.
+8. APK 완료 = Browser QA 성공 + Android Actions 성공 + Artifact 확인 + APK 직접 확보/검증 + 사용자에게 직접 파일 제공.
+9. 과거처럼 full-recovery/evaluation/layout/integrity/flow-guard를 안정 진입점에 겹쳐 올리지 않는다.
+10. section 위치를 transform/translate로 보정해 빈 공간을 숨기지 않는다.
 
-## 2. 구조
-v0.4.3은 **단일 renderer 소유권**을 유지한다.
-- `app-v43.js`: 데이터 로드, 16개 섹션 렌더, quicknav, fold, modal, Android Back bridge, tabs, lazy TradingView, optional phase/cycle/returns, progress, 구조검증 전부 소유.
-- `app-v42.css`: v0.4.2 Known-Good 기본 레이아웃.
-- `app-v43.css`: 정보 계층/밀도만 보강. section 위치를 transform/translate로 보정하지 않는다.
+## 2. 단일 renderer 구조
+`app-v44.js` 한 파일이 핵심 DOM 생성과 interaction을 소유한다.
+- latest/intraday 핵심 데이터 로드
+- 전체 17개 섹션 렌더
+- quicknav
+- fold/unfold
+- ticker/theme click
+- modal + scroll lock
+- Android Back bridge
+- universe tabs
+- lazy TradingView
+- optional phase/cycle/returns 보강
+- progress / 구조 검증
 
-안정 진입점에 다시 올리면 안 되는 레거시 체인:
-`full-recovery-v22.js`, `evaluation-v26.js`, `ui-v30.js`, `layout-v36.js`, `phase-status-v29.js`, `interaction-v40/v41`, `flow-guard-v40`, `integrity-v38/v39/v40`, 과거 cache/watchdog DOM mutator.
+v0.4.2 Known-Good의 핵심 원칙인 **DOM 생성 주체와 interaction 주체 동일**을 유지한다.
 
-## 3. 필수 16개 섹션
-`themes, action, charts, picks, mr-famous, mr-compounders, mr-universe, expanded, etfs, allocation, research, smart-money, sources, history, replay, macro`
+## 3. 필수 17개 섹션
+`themes, action, cycle-visual, charts, picks, mr-famous, mr-compounders, mr-universe, expanded, etfs, allocation, research, smart-money, sources, history, replay, macro`
 
-모두 실제 DOM에 존재해야 한다.
+## 4. 고봉밥 / 중복 방지
+정보를 삭제하지 않고 첫 화면을 스캔 가능하게 만든다.
+- Hero: `시장 핵심 평가`, `지금 할 일`, `피할 것`, 5개 score.
+- 유사 장세는 details 아래.
+- 독립 Phase는 Hero 요약을 반복하지 않는다.
+- 행동 가이드는 현재 구간만 강조하고 나머지 7개 규칙은 details.
+- 종목판은 phase/action badge 중심, 긴 note는 modal.
+- 숨은테마는 `핵심 / 위험` 분리.
+- 리서치는 기관/신뢰/근거/행동 구분.
+- Macro object는 raw JSON 문자열 대신 key/value UI.
+- 사용자에게 의미 없는 `렌더링 완료` 문구 금지.
 
-## 4. v0.4.3 고봉밥/중복 정리 규칙
-정보는 삭제하지 않고 **첫 화면은 스캔 가능하게, 상세는 필요할 때 펼쳐서** 보이게 한다.
+자동화가 생성하는 UI 직접 노출 문장은 짧게 유지하고 상세 근거는 `changes`, `research`, `data_status`, `reference_sources`에 보존한다.
 
-### 상단 Hero
-- header에 이미 갱신시각이 있으므로 Hero 안의 raw ISO `최신 데이터 · 2026-...T...` 중복 표시 금지.
-- `시장 핵심 평가`와 `지금 할 일`을 분리.
-- 운용모드는 작은 badge.
-- 유사 장세는 `<details>`로 접어 보존.
+## 5. 역사 상승·하락 사이클 시각화 — v0.4.4
+사용자 요구: 과거 상승장/폭락장이 **몇 거래일 지속됐고 몇 % 움직였는지**, 현재가 **몇 거래일차·몇 %인지**, 과거 대비 어디쯤인지 숫자와 그래프로 보여준다.
 
-### 독립 Phase
-- Hero 시장요약과 중복되는 `phase-status.summary`를 다시 표시하지 않는다.
-- 각 segment는 `이름 / Phase / 그래서 지금은?`만 짧게 표시.
+### 데이터
+- builder: `scripts/build-cycle-history.mjs`
+- output: `public/data/cycle-history.json`
+- workflow: `.github/workflows/cycle-history.yml`
+- source 우선순위: Yahoo Finance query1 → query2 → Stooq fallback
+- 가능한 전체 일별 adjusted-close history 사용.
+- ZigZag 반전 기준:
+  - 일반 ETF 약 8%
+  - 일반 종목 약 12%
+  - TQQQ/SOXL 3x 약 18%
+- 이는 미래 예측이 아니라 과거 구간을 동일 규칙으로 나누기 위한 설명용 기준이다.
 
-### 행동 가이드
-- 현재 구간만 크게 표시.
-- `확대 조건`, `피할 것`을 별도 칸으로 표시.
-- 나머지 7개 시장 구간은 `<details>` 아래에 보존.
-- 모든 카드에 `이 구간에 들어오면...` 같은 무의미한 반복 문구를 쓰지 않는다.
+### 보존 데이터
+모든 확정 swing에 대해 다음 metadata를 보존한다.
+- 상승/하락 방향
+- 시작일/종료일
+- 거래일/달력일
+- 전체 등락률
 
-### 종목판
-- 목록에서는 `Phase + 행동`만 badge로 표시.
-- 긴 `note`는 종목 상세 modal에 남긴다.
+통계:
+- 평균/중앙값 거래일
+- p25/p75 거래일
+- 평균/중앙값 등락폭
+- p25/p75 등락폭
+- 현재 N거래일차
+- 기간 진행도 / 변화폭 진행도 / 종합 진행도
+- 상승/하락 초반·중반·후반·평균기간 초과 위치
 
-### 기타
-- 숨은테마: `핵심 / 위험` 구분.
-- 리서치: `기관 / 신뢰 / 근거 / 지금` 구분.
-- Macro object를 `JSON.stringify` 원문 덩어리로 표시하지 않고 key/value 구조로 렌더.
-- 역사 cycle의 과거 30개 swing table은 상세 `<details>`에 보존.
-- 페이지 끝의 `✓ 전체 대시보드 렌더링 완료` 같은 사용자에게 의미 없는 완료문구는 제거.
+### 그래프
+`app-v44.js`가 데이터에서 SVG를 직접 그린다. 외부 chart iframe에 의존하지 않는다.
+- X축: 시작 후 거래일
+- Y축: 시작점 대비 누적 등락률 %
+- 현재 경로: 밝은 선
+- 대표 과거 같은 방향 swing: 회색 다중선
+- 과거 중앙 기간/등락폭: 점선 기준
+- 현재 위치 점 표시
+- 기간/등락폭을 나란히 비교하는 bar rows 제공
+- QQQ/SPY/SMH/SOXX/SOXL/TQQQ 등과 테마 proxy를 지원
+- ticker/theme 상세 modal에도 동일 cycle chart 제공
+- 과거 swing 날짜/거래일/등락률 표는 details 아래 보존
 
-## 5. 생성 텍스트 길이 규칙
-UI 직접 노출 텍스트는 짧게 작성하고 상세 근거는 `changes`, `research`, `data_status`, `reference_sources`에 둔다.
-- `market.summary`: 2~3문장, 약 220자 이내
-- `market.final_action`: 행동 최대 3개, 약 180자 이내
-- `market.next_trigger`: 한 줄
-- `themes[].action`: 약 70자 이내
-- `expanded_themes[].thesis/risk`: 각 1문장
-- `research[].take`: 약 180자 이내
-- `research[].action`: 약 90자 이내
-- `research_consensus.conclusion`: 약 220자 이내
-- `research_consensus.action`: 약 120자 이내
-- `macro` 각 항목: 약 180자 이내
-- phase segment action: 약 80자 이내
+Theme proxy:
+- index → QQQ
+- compute → SMH
+- network → ANET
+- software → IGV
+- power → GRID
+- aggressive → SOXL
+- defense → SHLD
 
-## 6. 접기/펼치기 계약
-- `document` delegated click 한 계층.
-- v0.4.3 fold prefix: `mr:fold:v043:`.
-- collapsed body = display:none + 높이 0.
-- expanded = normal document flow.
-- transform/translate/absolute gap repair 금지.
+## 6. cycle payload 성능 규칙
+초기 v0.4.4 검토에서 모든 swing에 path를 중복 저장해 payload가 약 **45MB**까지 커지는 문제를 발견했다. 모바일에 부적합하므로 즉시 수정했다.
 
-## 7. 로딩 계약
-1. 실제 단계만 % 증가.
-2. 16개 섹션 + Hero 요약 + action focus + fold buttons 검증.
-3. `100.000%`.
-4. 약 0.26초 뒤 `#loadWrap` 전체 hidden/display:none + margin/padding/height 0.
-5. phase/cycle/returns optional 데이터는 core 완료를 막지 않는다.
+현재 규칙:
+- 모든 swing의 날짜/기간/등락률 metadata는 **전부 보존**.
+- 그래프용 path는 `current` + 최대 8개 largest declines + 최대 8개 largest rallies만 보존.
+- path는 최대 60포인트 샘플.
+- JSON minify.
+- workflow에서 **8MB 초과 시 실패**.
 
-## 8. 성능 계약
-- TradingView iframe 초기 대량 생성 금지.
-- folded section 내부 chart 미생성.
-- viewport 근처 lazy load.
-- 1Y/2Y/3Y/5Y 수익률은 `compounder-returns.json` 1회.
-- cycle은 `cycle-history.json` 읽기 전용.
-- optional 실패가 core UI를 제거하면 안 된다.
+현재 검증값:
+- assets: **92**
+- errors: **0**
+- cycle-history payload: **3,054,462 bytes (~3.05MB)**
+- cycle build run: **32333739866**, success.
 
-## 9. Browser QA
-### v0.4.3 candidate QA
-Workflow: `.github/workflows/dashboard-qa-v43.yml`  
-Script: `scripts/qa-dashboard-v43.mjs`  
-성공 run: **32329459767**
+## 7. 현재 Browser QA
+Workflow: `.github/workflows/dashboard-qa-v44.yml`  
+Script: `scripts/qa-dashboard-v44.mjs`
 
-Desktop `1440×1000`, Mobile `390×844` Chromium에서 확인:
-- 16개 섹션
-- loadWrap 실제 높이 0
-- compact Hero 구조
-- raw ISO 중복 없음
-- 유사장세 기본 접힘
-- phase summary 중복 제거
-- action compact guide
-- 종목 badge 구조
-- Macro raw JSON 없음
-- 의미없는 endmark 없음
-- fold 실제 클릭
-- modal 실제 열기/닫기
-- blank panel 없음
-- horizontal overflow 없음
+최신 성공 run: **32333966715**
+- desktop/mobile
+- load-collapse
+- compact-hero
+- action-compact
+- cycle-trajectory
+- cycle-days-pct
+- cycle-extreme-paths
+- cycle-payload-size
+- cycle-modal
+- fold-toggle
+- blank-panel
+- overflow
 
-## 10. Android Back
-- modal 열림 → hardware Back = modal 닫기
+QA는 cycle payload 8MB 이하, QQQ current path, historical decline/rally visual path, swing metadata까지 검증한다.
+
+## 8. Android / APK
+Android workflow는 v0.4.4 standalone assets와 compact cycle payload를 검증한 뒤 빌드한다.
+
+최신 compact-payload 포함 Android run: **32333998658**, success.  
+Artifact ID: **9394014652**  
+Artifact: `MarketRadar-v0.4.4-debug-apk`
+
+검증된 APK 내부 필수 파일:
+- `assets/public/reports/stable-v044.html`
+- `assets/public/reports/stable-v042-baseline.html`
+- `assets/public/assets/app-v44.js`
+- `assets/public/assets/app-v44.css`
+- `assets/public/data/cycle-history.json` = 3,054,462 bytes
+- `assets/public/app-live.html`
+- `assets/public/index.html`
+
+APK SHA-256: `1b36ad432147bd8b57cd906a3fb47e163ff086b2181e324f4b0909c7e679ef77`
+
+## 9. Android Back 계약
+- modal open → hardware Back = modal 닫기
 - root → `앱을 종료하시겠습니까?`
-- 명시적 종료만 exit
+- 명시적 `종료`만 exit
 
-## 11. 진입 구조
-- `public/index.html`
-- `public/app-live.html`
-- `public/reports/latest.html`
-- 현재: `public/reports/stable-v043.html`
-- immutable rollback: `public/reports/stable-v042-baseline.html`
-
-## 12. 데이터 자동화
+## 10. 데이터 자동화
 Automation ID: `6a847ce3f5dc81918ccab0a7bafaa8fe`
 
 매시간 수정 가능:
 - `public/data/latest.json`
 - `public/data/live/intraday.json`
 - `public/data/live/phase-status.json`
-- 당일 archive
+- 당일 archive JSON
 
-수정 금지:
+매시간 자동화 수정 금지:
 - HTML/JS/CSS/VERSION
+- `cycle-history.json`
+- `compounder-returns.json`
 - `stable-v042-baseline.html`
 - handoff UI 구조
 
-## 13. 절대 삭제 금지 기능
-시장 Hero, 독립 Phase, `그래서 지금은?`, 현재 테마, 시장 구간 행동 가이드, 시간별 매수타이밍/QQQ 가격, 큰 TradingView, 종목/ETF, 유명주, 우상향 후보와 1/2/3/5년 수익률, 전체추적 테마별/전체, 숨은테마, ETF, 비중, 리서치, 기관, 원문, 검증, Replay, 거시, fold, modal, Android Back, 역사 cycle, 실제 progress, micro build mark.
-
-## 14. 회귀 절차
-새 UI가 깨지면:
-1. `stable-v042-baseline.html` + `app-v42.js/app-v42.css`와 비교.
-2. 복구 script를 새로 얹지 않는다.
-3. 문제 변경만 제거하거나 v0.4.2로 회귀.
-4. desktop/mobile Browser QA 재통과.
-5. 그 뒤에만 배포.
+## 11. 회귀 절차
+새 UI에서 렌더가 깨지면 복구 스크립트를 추가하지 않는다.
+1. `stable-v042-baseline.html` / `app-v42.js` / `app-v42.css`와 비교.
+2. 최근 변경점만 격리.
+3. desktop/mobile QA 통과.
+4. cycle 기능 변경 시 path/metadata/payload-size QA도 통과.
+5. Android 변경 시 APK 직접 확보 후 내부 assets와 SHA까지 검증.
