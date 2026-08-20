@@ -80,10 +80,17 @@ jobs:
           node --check scripts/apply-android-branding.mjs
           node - <<'NODE'
           const fs=require('fs');
-          const j=JSON.parse(fs.readFileSync('public/data/cycle-history.json','utf8'));
+          const p='public/data/cycle-history.json';
+          const j=JSON.parse(fs.readFileSync(p,'utf8'));
           if(!j.assets?.QQQ?.current) throw new Error('QQQ cycle data missing');
-          if(!Array.isArray(j.assets.QQQ.current.path)||j.assets.QQQ.current.path.length<2) throw new Error('QQQ cycle path missing');
+          if(!Array.isArray(j.assets.QQQ.current.path)||j.assets.QQQ.current.path.length<2) throw new Error('QQQ current cycle path missing');
+          if(!Array.isArray(j.assets.QQQ.extremes?.largest_declines?.[0]?.path)||j.assets.QQQ.extremes.largest_declines[0].path.length<2) throw new Error('QQQ historical decline path missing');
+          if(!Array.isArray(j.assets.QQQ.extremes?.largest_rallies?.[0]?.path)||j.assets.QQQ.extremes.largest_rallies[0].path.length<2) throw new Error('QQQ historical rally path missing');
+          if(!Array.isArray(j.assets.QQQ.history)||j.assets.QQQ.history.length<4) throw new Error('QQQ historical swing metadata missing');
           if(Object.keys(j.assets||{}).length<5) throw new Error('cycle assets insufficient');
+          const bytes=fs.statSync(p).size;
+          if(bytes>8_000_000) throw new Error('cycle payload too large for mobile APK: '+bytes);
+          console.log('cycle payload bytes',bytes,'assets',Object.keys(j.assets||{}).length);
           NODE
       - run: npx cap add android
       - run: npx cap sync android
@@ -124,7 +131,8 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s",\n  "signing_cache": "market-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
+          CYCLE_BYTES=$(wc -c < public/data/cycle-history.json | tr -d ' ')
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s",\n  "cycle_bytes": %s,\n  "signing_cache": "market-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" "$CYCLE_BYTES" > ops/android-latest-run.json
           git add ops/android-latest-run.json
           git commit -m "Mark Android build ${{ github.run_id }} successful" || true
           git push || true
