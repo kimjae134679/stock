@@ -1,50 +1,15 @@
 {
-  "updated_at": "2026-08-20T12:52:28+09:00",
+  "updated_at": "2026-08-20T13:50:06+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "지수는 소폭 반등했지만 SOX -2.0%로 반도체 약세가 지속됐다. 달러·장기금리는 완화됐으나 Brent $91.87와 FOMC 긴축 경계가 남아 있다. 독립 Phase 변화는 없다.",
+  "summary": "지수는 8월 19일 소폭 반등했지만 SOX -2.0%로 반도체 약세가 지속됐다. 달러·장기금리는 완화됐으나 Brent $91.87와 FOMC 긴축 경계가 남아 있다. 독립 Phase 변화는 없다.",
   "segments": [
-    {
-      "key": "us_market",
-      "name": "미국 전체시장",
-      "phase": "🟠 고점근처/조정",
-      "action": "QQQ/SPY 코어만 소규모 분할. 신규 추격은 줄이고 금리·유가 안정과 higher-low 확인."
-    },
-    {
-      "key": "nasdaq",
-      "name": "Nasdaq·성장주",
-      "phase": "🟠 고점근처/조정 · 🔴 추세훼손 경계",
-      "action": "20/50DMA·breadth 개선과 반도체 동반 회복이 이어질 때까지 신규 진입을 서두르지 않는다."
-    },
-    {
-      "key": "semiconductor",
-      "name": "반도체",
-      "phase": "🔴 추세붕괴/급락 경계",
-      "action": "낙폭만 보고 매수·레버리지 확대 금지. 중기 추세와 상대강도 회복을 기다린다."
-    },
-    {
-      "key": "network",
-      "name": "AI 네트워크·광통신",
-      "phase": "🔴 과열/분배 이후 급락 · 종목분화",
-      "action": "MRVL 개별 호재와 테마 회복을 분리하고 계약·실적·상대강도로 종목별 판단."
-    },
-    {
-      "key": "software",
-      "name": "AI 소프트웨어·클라우드",
-      "phase": "🟡 중간상승 · 상대강도 관찰",
-      "action": "실적·추정치 유지 종목만 분할 접근. 장기금리와 유가 재상승 여부도 확인."
-    },
-    {
-      "key": "power",
-      "name": "AI 전력·데이터센터",
-      "phase": "🟡 구조성장·조정",
-      "action": "수주·실적 유지 종목을 눌림에서 선별. 고밸류 추격매수는 피한다."
-    },
-    {
-      "key": "leveraged",
-      "name": "TQQQ·SOXL 등 레버리지",
-      "phase": "🔴 고위험·추세훼손",
-      "action": "TQQQ/SOXL 신규 확대 보류. 기초지수의 중기 추세 회복 후 재평가한다."
-    }
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정","action":"QQQ/SPY 코어만 소규모 분할. 신규 추격은 줄이고 금리·유가 안정과 higher-low 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 🔴 추세훼손 경계","action":"20/50DMA·breadth 개선과 반도체 동반 회복이 이어질 때까지 신규 진입을 서두르지 않는다."},
+    {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계","action":"낙폭만 보고 매수·레버리지 확대 금지. 중기 추세와 상대강도 회복을 기다린다."},
+    {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"MRVL 개별 호재와 테마 회복을 분리하고 계약·실적·상대강도로 종목별 판단."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟡 중간상승 · 상대강도 관찰","action":"실적·추정치 유지 종목만 분할 접근. 장기금리와 유가 재상승 여부도 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정","action":"수주·실적 유지 종목을 눌림에서 선별. 고밸류 추격매수는 피한다."},
+    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"TQQQ/SOXL 신규 확대 보류. 기초지수의 중기 추세 회복 후 재평가한다."}
   ],
   "sources": [
     "Reuters 2026-08-19 Wall St close",
@@ -53,5 +18,5 @@
     "Reuters 2026-08-20 Oil prices steady as investors assess US-Iran war outlook",
     "Reuters 2026-08-20 Dollar hugs three-month lows as Treasury seeks to soothe bond market"
   ],
-  "data_status": "2026-08-20 12:52:28 KST 재검증. Reuters 최신 아시아 오전 자료에서 달러지수 98.938, 미30Y 약 5.184%, Brent $91.87를 유지한다. 미국 최종 검증값 S&P500 +0.21%, Nasdaq +0.16%, Dow +0.22%, SOX -2.0%, Nasdaq breadth 1.45:1, NYSE 1.9:1, MRVL +9.9% 이후 새 Phase 전환 신호는 확인되지 않았다. 미확인 시간외·아시아 개별 ETF/종목 절대가격은 추정하지 않음. cycle-history.json assets는 비어 있음. 실제 주문 없음."
+  "data_status": "2026-08-20 13:50:06 KST 재검증. Reuters 최신 아시아 자료에서 달러지수 98.938, 미30Y 약 5.184%, Brent $91.87를 유지한다. 미국 8월 19일 최종 마감은 S&P500 +0.21%, Nasdaq +0.16%, Dow +0.22%, SOX -2.0%, Nasdaq breadth 1.45:1, NYSE 1.9:1, MRVL +9.9%. 새 Phase 전환 신호 없음. cycle-history 빌드는 92개 자산/오류 0으로 성공했으나, 역사 평균은 미래 종료일 확정값으로 해석하지 않는다. 미확인 시간외·아시아 개별 ETF/종목 절대가격은 추정하지 않음. 실제 주문 없음."
 }
