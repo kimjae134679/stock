@@ -1,5 +1,8 @@
 {
   "version": "0.4.4",
   "run_id": 32333739866,
-  "status": "building"
+  "status": "success",
+  "assets": 92,
+  "errors": 0,
+  "bytes": 3054462
 }
