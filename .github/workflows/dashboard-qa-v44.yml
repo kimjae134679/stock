@@ -59,9 +59,16 @@ jobs:
           ! grep -q 'integrity-v' public/reports/stable-v044.html
           node - <<'NODE'
           const fs=require('fs');
-          const j=JSON.parse(fs.readFileSync('public/data/cycle-history.json','utf8'));
-          if(!j.assets?.QQQ?.current?.path?.length) throw new Error('cycle-history visual path not ready');
+          const p='public/data/cycle-history.json';
+          const j=JSON.parse(fs.readFileSync(p,'utf8'));
+          if(!j.assets?.QQQ?.current?.path?.length) throw new Error('cycle-history current visual path not ready');
+          if(!j.assets?.QQQ?.extremes?.largest_declines?.[0]?.path?.length) throw new Error('cycle-history decline visual path not ready');
+          if(!j.assets?.QQQ?.extremes?.largest_rallies?.[0]?.path?.length) throw new Error('cycle-history rally visual path not ready');
+          if(!Array.isArray(j.assets?.QQQ?.history)||j.assets.QQQ.history.length<4) throw new Error('cycle-history swing metadata missing');
           if(Object.keys(j.assets||{}).length<5) throw new Error('cycle-history asset count too low');
+          const bytes=fs.statSync(p).size;
+          if(bytes>8_000_000) throw new Error('cycle-history payload too large: '+bytes);
+          console.log('cycle payload bytes',bytes,'assets',Object.keys(j.assets||{}).length);
           NODE
       - name: Start local site
         run: |
@@ -82,7 +89,8 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "0.4.4",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "load-collapse", "compact-hero", "action-compact", "cycle-trajectory", "cycle-days-pct", "cycle-modal", "fold-toggle", "blank-panel", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v44-latest.json
+          BYTES=$(wc -c < public/data/cycle-history.json | tr -d ' ')
+          printf '{\n  "version": "0.4.4",\n  "run_id": %s,\n  "status": "success",\n  "cycle_bytes": %s,\n  "checks": ["desktop", "mobile", "load-collapse", "compact-hero", "action-compact", "cycle-trajectory", "cycle-days-pct", "cycle-extreme-paths", "cycle-payload-size", "cycle-modal", "fold-toggle", "blank-panel", "overflow"]\n}\n' "${{ github.run_id }}" "$BYTES" > ops/dashboard-qa-v44-latest.json
           git add ops/dashboard-qa-v44-latest.json
           git commit -m "Mark dashboard v0.4.4 QA ${{ github.run_id }} successful" || true
           git push || true
