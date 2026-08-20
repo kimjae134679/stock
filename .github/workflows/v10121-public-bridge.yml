@@ -1,0 +1,45 @@
+name: v1.01.21 Public Bridge
+
+on:
+  push:
+    branches: [ ops/v10121-public-bridge ]
+    paths:
+      - '.github/workflows/v10121-public-bridge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ops/v10121-public-bridge
+          fetch-depth: 1
+      - name: Download canonical APK from signed release URL
+        env:
+          URL_B64: aHR0cHM6Ly9yZWxlYXNlLWFzc2V0cy5naXRodWJ1c2VyY29udC5jb20vZ2l0aHViLXByb2R1Y3Rpb24tcmVsZWFzZS1hc3NldC8xMzI1MTg1MzQxLzI4NGZjYTYxLWE0YmMtNGZjNS1hYmRiLTk1N2IzMmVjNWJiOT9zcD1yJnN2PTIwMTgtMTEtMDkmc3I9YiZzcHI9aHR0cHMmc2U9MjAyNi0wOC0yMFQxOSUzQTQxJTNBNDJaJnJzY2Q9YXR0YWNobWVudCUzQitmaWxlbmFtZSUzRFBob25lTE9MX3YxLjAxLjIxLmFwayZyc2N0PWFwcGxpY2F0aW9uJTJGdm5kLmFuZHJvaWQucGFja2FnZS1hcmNoaXZlJnNrb2lkPTk2YzJkNDEwLTU3MTEtNDNhMS1hZWRkLWFiMTk0N2FhN2FiMCZza3RpZD0zOThhNjY1NC05OTdiLTQ3ZTktYjEyYi05NTE1Yjg5NmI0ZGUmc2t0PTIwMjYtMDgtMjBUMTglM0E0MSUzQTAyWiZza2U9MjAyNi0wOC0yMFQxOSUzQTQxJTNBNDJaJnNrcz1iJnNrdj0yMDE4LTExLTA5JnNpZz1CdGZUdlF1MWdXSGlIRU9MOTJtdGd2aHgwVDFGJTJCMWxDZWlUVnplQWc5WTAlM0Qmand0PWV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUpwYzNNaU9pSm5hWFJvZFdJdVkyOXRJaXdpWVhWa0lqb2ljbVZzWldGelpTMWhjM05sZEhNdVoybDBhSFZpZFhObGNtTnZiblJsYm5RdVkyOXRJaXdpYTJWNUlqb2lhMlY1TVNJc0ltVjRjQ0k2TVRjNE56STFNekkzT0N3aWJtSm1Jam94TnpnM01qVXhORGM0TENKd1lYUm9Jam9pY21Wc1pXRnpaV0Z6YzJWMGNISnZaSFZqZEdsdmJpNWliRzlpTG1OdmNtVXVkMmx1Wkc5M2N5NXVaWFFpZlEualB4dl9hQ196M3J2U2NTRjlFTWZUbEh2V3F2ZERQR05GR08xYW10NmtucyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWF0dGFjaG1lbnQlM0IlMjBmaWxlbmFtZSUzRFBob25lTE9MX3YxLjAxLjIxLmFwayZyZXNwb25zZS1jb250ZW50LXR5cGU9YXBwbGljYXRpb24lMkZ2bmQuYW5kcm9pZC5wYWNrYWdlLWFyY2hpdmU=
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p handoff
+          url=$(printf '%s' "$URL_B64" | base64 -d)
+          curl -fL --retry 3 --retry-delay 2 "$url" -o handoff/PhoneLOL_v1.01.21.apk
+          sha=$(sha256sum handoff/PhoneLOL_v1.01.21.apk | awk '{print $1}')
+          size=$(stat -c%s handoff/PhoneLOL_v1.01.21.apk)
+          echo "APK_SHA256=$sha"
+          echo "APK_SIZE=$size"
+          test "$sha" = 'f7347326aa088700e267133ff9d0e8c3a8bf3cc70871ed8120b17db7b32f2ffc'
+          test "$size" = '103834935'
+      - name: Commit temporary public bridge APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f handoff/PhoneLOL_v1.01.21.apk
+          git commit -m 'ops: temporary v1.01.21 APK bridge'
+          git push origin HEAD:ops/v10121-public-bridge
