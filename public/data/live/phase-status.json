@@ -1,23 +1,23 @@
 {
-  "updated_at": "2026-08-20T15:57:40+09:00",
+  "updated_at": "2026-08-20T16:59:29+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 지수는 8월 19일 소폭 반등했지만 SOX -2.0%로 반도체 약세가 남았다. 아시아 AI 반도체는 강하게 반등했으나 Brent $91.87와 FOMC 긴축 경계가 지속돼 독립 Phase는 유지한다.",
+  "summary": "미국 전일 지수는 소폭 반등했지만 SOX -2.0%로 반도체 약세가 남았다. 아시아 주식·미국 선물은 반등하고 장기금리는 완화됐지만 유가·FOMC 긴축 경계로 독립 Phase는 유지한다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정","action":"QQQ/SPY 코어만 소규모 분할. 신규 추격은 줄이고 금리·유가 안정과 higher-low 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 🔴 추세훼손 경계","action":"20/50DMA·breadth 개선과 반도체 동반 회복 전 신규 진입을 서두르지 않는다."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정","action":"S&P 선물 +0.15%는 긍정적. 코어만 소규모 분할하고 금리·유가 안정과 higher-low를 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 🔴 추세훼손 경계","action":"Nasdaq 선물 +0.4%와 금리완화는 긍정적이나 반도체 동반 회복 전 신규 진입을 서두르지 않는다."},
     {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계","action":"아시아 반등은 긍정적이나 미국 SOX 추세·상대강도 회복 전 레버리지 확대 금지."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"MRVL 개별 호재와 테마 회복을 분리하고 계약·실적·상대강도로 종목별 판단."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟡 중간상승 · 상대강도 관찰","action":"실적·추정치 유지 종목만 분할 접근. 장기금리와 유가 재상승도 확인."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟡 중간상승 · 상대강도 관찰","action":"금리완화는 우호적. 실적·추정치 유지 종목만 분할 접근하고 유가 재상승도 확인."},
     {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정","action":"수주·실적 유지 종목을 눌림에서 선별. 고밸류 추격매수는 피한다."},
-    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"TQQQ/SOXL 신규 확대 보류. 기초지수 중기 추세 회복 후 재평가한다."}
+    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"TQQQ/SOXL 신규 확대 보류. 기초지수와 반도체 중기 추세 회복 후 재평가한다."}
   ],
   "sources": [
+    "Reuters 2026-08-20 Global Markets: bonds recover after US Treasury buybacks",
     "Reuters 2026-08-19 Wall St close",
     "Reuters 2026-08-19 Marvell-Google AI chip deal",
     "Federal Reserve 2026-08-19 July FOMC minutes",
-    "Reuters 2026-08-20 Oil gains on Middle East supply concerns amid impasse in US-Iran war",
     "Reuters 2026-08-20 Dollar at three-month lows as Treasury takes aim at surging bond yields",
     "AP 2026-08-20 Asian shares gain as South Korean chip stocks rebound"
   ],
-  "data_status": "2026-08-20 15:57:40 KST 재검증. Reuters 최신 자료에서 달러지수 98.813, 미30Y 약 5.184%, Brent $91.87, WTI 9월물 $86.00를 유지 확인했다. AP 아시아 장중 기준 KOSPI +6.1%, 삼성전자 +9.7%, SK하이닉스 +14.1%로 AI 반도체 반등이 강했지만 미국 8월 19일 최종 SOX -2.0%를 뒤집는 미국 측 추세 확인은 아직 없다. 미국 최종 S&P500 +0.21%, Nasdaq +0.16%, Dow +0.22%, Nasdaq breadth 1.45:1, NYSE 1.9:1, MRVL +9.9%. 새 Phase 전환 신호 없음. cycle-history는 92개 자산/오류 0으로 역사 비교에 사용하며 미래 종료일 확정값으로 해석하지 않는다. 미확인 시간외 개별 ETF/종목 절대가격은 추정하지 않음. 실제 주문 없음."
+  "data_status": "2026-08-20 16:59:29 KST 재검증. Reuters 글로벌마켓 기준 Nasdaq 선물 +0.4%, S&P500 선물 +0.15%, MSCI 아시아(일본 제외) +2.0%, Nikkei +1.4%. 미10Y 4.6427%, 미30Y 5.1869%, 달러지수 98.87, Brent $91.69, WTI $86.00. 미국 8월 19일 최종 S&P500 +0.21%, Nasdaq +0.16%, Dow +0.22%, SOX -2.0%, Nasdaq breadth 1.45:1, NYSE 1.9:1, MRVL +9.9%는 유지. 선물·아시아 반등은 긍정적이나 미국 반도체 추세 회복 확인 전 독립 Phase 변화 없음. cycle-history는 92개 자산/오류 0으로 역사 비교에만 사용하며 미래 종료일 확정값으로 해석하지 않는다. 미확인 개별 ETF/종목 절대가격은 추정하지 않음. 실제 주문 없음."
 }
