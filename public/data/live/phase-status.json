@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-08-20T11:04:16+09:00",
+  "updated_at": "2026-08-20T12:07:21+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 지수와 breadth는 소폭 반등했지만 SOX -2.0%로 반도체 약세가 지속됐다. 장기금리는 완화됐으나 FOMC 긴축 경계와 Brent $91.87의 유가 부담이 남아 있다. 전체시장 Phase는 유지한다.",
+  "summary": "지수는 소폭 반등했지만 SOX -2.0%로 반도체 약세가 지속됐다. 달러와 장기금리는 완화됐으나 Brent $91.87와 FOMC 긴축 경계가 남아 있다. 전체시장 Phase는 유지한다.",
   "segments": [
     {
       "key": "us_market",
@@ -48,10 +48,10 @@
   ],
   "sources": [
     "Reuters 2026-08-19 Wall St close",
-    "Reuters 2026-08-19 Trading Day: Bessent makes his mark",
     "Reuters 2026-08-19 Marvell-Google AI chip deal",
     "Federal Reserve 2026-08-19 July FOMC minutes",
-    "Reuters 2026-08-20 Oil prices steady as investors assess US-Iran war outlook"
+    "Reuters 2026-08-20 Oil prices steady as investors assess US-Iran war outlook",
+    "Reuters 2026-08-20 Dollar hugs three-month lows as Treasury seeks to soothe bond market"
   ],
-  "data_status": "2026-08-20 11:04:16 KST. 새 Phase 전환 신호 없음. 미국 최종 검증값 S&P500 +0.21%, Nasdaq +0.16%, Dow +0.22%, SOX -2.0%, Nasdaq breadth 1.45:1, NYSE 1.9:1, MRVL +9.9%, 미10Y 약 4.66%, 미30Y 5.187%를 유지. Reuters 8/20 00:37 GMT 기준 Brent $91.87, WTI Sep $85.81로 유가가 4거래일 연속 상승해 인플레이션·금리 재상승 위험을 추가 확인. 미확인 시간외·아시아 개별 ETF/종목 절대가격은 추정하지 않음. cycle-history.json assets는 비어 있음. 실제 주문 없음."
+  "data_status": "2026-08-20 12:07:21 KST. Reuters 아시아 오전 기준 달러지수 98.938, 미30Y 약 5.184%, Brent $91.87. 미국 최종 검증값 S&P500 +0.21%, Nasdaq +0.16%, Dow +0.22%, SOX -2.0%, Nasdaq breadth 1.45:1, NYSE 1.9:1, MRVL +9.9%를 유지. 새 Phase 전환 신호 없음. 미확인 시간외·아시아 개별 ETF/종목 절대가격은 추정하지 않음. cycle-history.json assets는 비어 있음. 실제 주문 없음."
 }
