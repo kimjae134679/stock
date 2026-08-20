@@ -1,0 +1,84 @@
+/* Market Radar v0.4.2 readability layer.
+   IMPORTANT: visual organization only. It does not own rendering, events, fold state, or layout recovery. */
+
+:root{--read:#d7e4ef;--read2:#a9bdcf;--read-panel:#0d1925;--read-line:#294056}
+
+/* Dense text should read as labeled blocks, not one long wall. */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:12px 14px;align-items:start}
+.hero>.muted,.hero>h1,.hero>.hero-action,.hero>.scores,.hero>.grid{grid-column:1/-1}
+.hero>p{grid-column:1;margin:0;padding:14px 15px;border:1px solid var(--read-line);border-radius:13px;background:rgba(7,16,24,.48);color:var(--read);line-height:1.78;text-wrap:pretty;word-break:keep-all}
+.hero>p::before{content:'📌 시장 핵심 평가';display:block;margin-bottom:7px;color:#9edcff;font-size:12px;font-weight:900;letter-spacing:.02em}
+.hero>.hero-final{grid-column:2;margin:0;padding:14px 15px;line-height:1.78;text-wrap:pretty;word-break:keep-all}
+.hero>.hero-final::before{content:'지금 할 일';display:block;margin-bottom:7px;color:#fde68a;font-size:12px;font-weight:900;letter-spacing:.02em}
+.hero>.grid{margin-top:0!important}
+
+/* Independent phase summary gets a separate readable summary card. */
+.phase-now>p{margin:10px 0 0;padding:11px 12px;border:1px solid #294056;border-radius:11px;background:#0d1925;color:var(--read)!important;line-height:1.72;text-wrap:pretty;word-break:keep-all}
+.phase-now-grid article{line-height:1.55}
+.phase-now-grid span{line-height:1.6;text-wrap:pretty;word-break:keep-all}
+
+/* Action section: fewer narrow columns and clear 'current action' emphasis. */
+#action .notice{display:block;line-height:1.8;text-wrap:pretty;word-break:keep-all}
+#action .notice b{display:inline-block;min-width:74px;color:#fff2a8}
+#action .phase-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+#action .phase-card{padding:14px 15px}
+#action .phase-card>b{display:block;font-size:15px;line-height:1.45}
+#action .phase-card p{color:#c3d1df;line-height:1.65;text-wrap:pretty;word-break:keep-all}
+#action .phase-card .do-now{line-height:1.72;text-wrap:pretty;word-break:keep-all}
+#action .phase-card .do-now>b{display:block;margin-bottom:4px;color:#8edcff}
+#action .phase-card.active{grid-column:1/-1;padding:16px 17px;background:linear-gradient(135deg,#201b08,#161b20 72%)}
+#action .phase-card.active .do-now{padding:11px 12px;border:1px solid #6b5c20;border-radius:11px;background:#19170b}
+
+/* Cards with prose: give title / evidence / action visual hierarchy. */
+.card p,.expanded-card p,.detailblock p,.do-now,.actionline,.notice{overflow-wrap:anywhere}
+.research-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.research-grid .card,.macro-grid .card,.expanded-card,#smart-money .card{display:flex;flex-direction:column;gap:7px;padding:15px}
+.research-grid .card>b,.macro-grid .card>b,.expanded-card>b,#smart-money .card>b{font-size:15px;line-height:1.45;color:#eaf4ff}
+.research-grid .card p,.macro-grid .card p,#smart-money .card p{margin:0;padding:10px 11px;border-radius:10px;background:#101d2a;color:#c8d6e4;line-height:1.72;text-wrap:pretty;word-break:keep-all}
+.research-grid .actionline{margin:0;padding:9px 10px;border:1px solid #65591f;border-radius:9px;background:#201c0c;line-height:1.58;text-wrap:pretty;word-break:keep-all}
+#research>.mr-body>.notice{margin-top:12px!important;padding:14px 15px;line-height:1.78;text-wrap:pretty;word-break:keep-all}
+#research>.mr-body>.notice b{color:#fff2a8}
+.macro-grid .card{min-height:0}
+.macro-grid .card p{font-size:13px}
+.expanded-card p{margin:0;color:#c8d6e4;line-height:1.65;text-wrap:pretty;word-break:keep-all}
+.expanded-card .risk{padding:8px 9px;border-radius:9px;background:#261216;line-height:1.5}
+
+/* Theme and pick cards: separate state, numbers and action. */
+.theme-card .actionline{padding:8px 9px;border-radius:9px;background:rgba(253,230,138,.07);line-height:1.55;text-wrap:pretty;word-break:keep-all}
+.pick-row small{margin-top:3px;line-height:1.5;text-wrap:pretty;word-break:keep-all}
+.group-card h3{font-size:15px;line-height:1.4}
+
+/* Notices should be scannable. */
+.notice{line-height:1.68;text-wrap:pretty;word-break:keep-all}
+.notice>b:first-child{margin-right:4px}
+
+/* Modal detail text follows the same hierarchy. */
+.detailblock{padding:13px 14px;border:1px solid #294056}
+.detailblock h3{margin:0 0 7px;font-size:16px}
+.detailblock p{margin:0 0 10px;line-height:1.72;color:#c8d6e4;text-wrap:pretty;word-break:keep-all}
+.cycle-box>p{line-height:1.65;text-wrap:pretty;word-break:keep-all}
+
+/* Tables remain dense by nature, but increase scanning contrast. */
+.fulltable th{color:#cde8fa}
+.fulltable td{line-height:1.5}
+
+/* Keep content readable without expanding width into a giant paragraph. */
+#market>p,#market>.hero-final,.phase-now>p,#research .card p,#macro .card p,#smart-money .card p{max-width:88ch}
+
+@media(max-width:1050px){
+  .hero{grid-template-columns:1fr}
+  .hero>p,.hero>.hero-final{grid-column:1}
+  #action .phase-grid,.research-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:700px){
+  .hero{display:block}
+  .hero>p{margin-top:12px;padding:12px 13px}
+  .hero>.hero-final{margin-top:10px;padding:12px 13px}
+  #action .phase-grid,.research-grid{grid-template-columns:1fr}
+  #action .phase-card.active{grid-column:auto}
+  #action .notice{font-size:13px}
+  .research-grid .card,.macro-grid .card,.expanded-card,#smart-money .card{padding:13px}
+  .research-grid .card p,.macro-grid .card p,#smart-money .card p{padding:9px 10px}
+  .phase-now>p{font-size:13px}
+}
