@@ -1,0 +1,57 @@
+name: Dashboard Browser QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/reports/stable-v042.html'
+      - 'public/assets/app-v42.js'
+      - 'public/assets/app-v42.css'
+      - 'public/data/**'
+      - 'scripts/qa-dashboard-v42.mjs'
+      - 'package.json'
+      - '.github/workflows/dashboard-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dashboard-browser-qa
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Static syntax checks
+        run: |
+          node --check public/assets/app-v42.js
+          node --check scripts/qa-dashboard-v42.mjs
+          grep -q 'MR042' public/reports/stable-v042.html
+          grep -q 'app-v42.js' public/reports/stable-v042.html
+          ! grep -q 'full-recovery-v22.js' public/reports/stable-v042.html
+          ! grep -q 'evaluation-v26.js' public/reports/stable-v042.html
+          ! grep -q 'flow-guard' public/reports/stable-v042.html
+          ! grep -q 'integrity-v' public/reports/stable-v042.html
+      - name: Start local site
+        run: |
+          cd public
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/mr-http.log 2>&1 &
+          echo $! > /tmp/mr-http.pid
+          sleep 2
+      - name: Browser QA desktop + mobile
+        run: npm run qa:v42
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dashboard-v042-qa-screenshots
+          path: qa-artifacts/*.png
+          if-no-files-found: ignore
+          retention-days: 30
