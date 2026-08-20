@@ -53,6 +53,14 @@
     "viewports": ["1440x1000", "390x844"],
     "checks": ["desktop","mobile","load-collapse","compact-hero","phase-dedup","action-compact","fold-toggle","modal","blank-panel","overflow"]
   },
+  "android_build": {
+    "run_id": 32329693158,
+    "status": "success",
+    "artifact_id": 9392640230,
+    "artifact": "MarketRadar-v0.4.3-debug-apk",
+    "apk_sha256": "84a62ea739ed6f0879209a0f327b8261ab6ffc0e09657f2a84383c017e1861d0",
+    "verified_embedded_files": ["assets/public/reports/stable-v043.html","assets/public/reports/stable-v042-baseline.html","assets/public/assets/app-v43.js","assets/public/assets/app-v43.css","assets/public/assets/app-v42.css","assets/public/index.html"]
+  },
   "android_back_contract": [
     "modal open -> hardware Back closes modal",
     "root -> ask 앱을 종료하시겠습니까?",
