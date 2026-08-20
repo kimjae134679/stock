@@ -1,0 +1,37 @@
+name: Compact v0.4.2 UI copy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/compact-ui-copy-v42.mjs'
+      - '.github/workflows/compact-ui-copy-v42.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: compact-ui-copy-v42
+  cancel-in-progress: true
+
+jobs:
+  compact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compact UI-visible copy only
+        run: node scripts/compact-ui-copy-v42.mjs
+      - name: Validate JSON
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('public/data/latest.json','utf8'));JSON.parse(require('fs').readFileSync('public/data/live/phase-status.json','utf8'))"
+      - name: Commit compacted copy
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/data/latest.json public/data/live/phase-status.json
+          git diff --cached --quiet || git commit -m 'Compact dashboard UI copy without dropping detail fields'
+          git push
