@@ -1,37 +1,42 @@
 {
-  "version": "0.3.9",
+  "version": "0.4.0",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
-  "stable_entry": "public/reports/stable-v039.html",
+  "stable_entry": "public/reports/stable-v040.html",
   "live_entry": "public/app-live.html",
-  "compat_entry": "public/reports/latest.html redirects to stable-v039.html",
-  "screenshot_build_mark": "MR039",
-  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION.",
-  "core_integrity": {
-    "asset": "public/assets/integrity-v39.js",
-    "required_sections": ["themes","action","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
-    "theme_card_rule": "actual #themes .theme[data-theme] count must match current data themes count",
-    "blank_tail_rule": "normalize section/fold-body heights and remove abnormal visible-child tail gaps over 220px",
-    "repair_rule": "if core sections disappear, rerun full-recovery renderer at most twice"
-  },
+  "compat_entry": "public/reports/latest.html redirects to stable-v040.html",
+  "screenshot_build_mark": "MR040",
+  "root_cause": "The same giant blank panels and broken fold buttons reproduced on PC web, so the primary failure is the HTML/JS/CSS document layer rather than Android native APK container.",
+  "renderer_rule": "Load full-recovery-v22.js exactly once. Do not re-inject it from integrity/watchdog scripts.",
+  "disabled_on_stable_v040": ["integrity-v38.js","integrity-v39.js","integrity-v40.js","flow-guard-v40.js"],
+  "interaction_asset": "public/assets/interaction-v40.js",
+  "required_sections": ["themes","action","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
+  "fold_contract": [
+    "collapsed fold-body is display:none and takes zero content height",
+    "button toggles immediately between 펼치기 and 접기",
+    "fold state key uses mr:fold:v040: prefix",
+    "no large blank panel may remain after collapse"
+  ],
   "loading": {
     "real_progress_only": true,
     "initial": "00.001%",
     "success": "100.000% then hide load panel",
-    "failure": "show exact missing sections/theme count; partial page is never success"
+    "failure": "show exact missing core sections"
   },
   "performance": [
     "compounder charts lazy-load only after unfold/viewport approach",
     "compounder 1Y/2Y/3Y/5Y returns use one precomputed JSON request",
-    "optional analytics load after core UI"
+    "optional analytics load after core UI",
+    "never run multiple full renderer boots concurrently"
   ],
   "android_back_contract": [
     "modal open -> Back closes modal",
     "root -> ask 앱을 종료하시겠습니까?",
     "only explicit 종료 exits"
   ],
+  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION.",
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "apk_done_definition": "Actions success -> Artifact exists -> APK downloaded -> provide file directly to user"
 }
