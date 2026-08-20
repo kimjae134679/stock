@@ -1,43 +1,67 @@
 # Market Radar 운영 인수인계 — CURRENT
 
-기준 버전: **v0.4.2**  
+기준 버전: **v0.4.2 / MR042**  
 기준일: **2026-08-20 KST**  
 저장소: `kimjae134679/stock` (Public)
 
-> 다음 작업자는 반드시 이 문서를 먼저 읽는다. **v0.4.2의 핵심은 과거 복구/보정 스크립트 체인을 더 고치는 것이 아니라, 안정 진입점의 렌더·상호작용 책임을 단일 파일로 다시 통합한 것**이다.
+> **v0.4.2는 사용자가 직접 “오랜만에 다 잘 보인다”고 확인한 Known-Good 안정 기준판이다.** 이후 변경에서 문제가 생기면 이 버전 구조로 즉시 회귀한다.
 
-## 0. 절대 원칙
+## 0. Known-Good 기준 고정
+
+- 안정 버전: **v0.4.2**
+- screenshot micro mark: **MR042**
+- 안정 진입: `public/reports/stable-v042.html`
+- **원본 롤백 보존본: `public/reports/stable-v042-baseline.html`**
+- 원본 renderer: `public/assets/app-v42.js`
+- 원본 core CSS: `public/assets/app-v42.css`
+- 가독성 전용 CSS: `public/assets/readability-v42.css`
+
+`stable-v042-baseline.html`은 사용자가 정상 작동을 확인한 시점의 HTML을 그대로 보존한다. **이 파일은 수정하지 않는다.**
+
+현재 `stable-v042.html`은 renderer를 건드리지 않고 `readability-v42.css`만 한 장 추가한 v0.4.2 가독성 정리판이다. 가독성 변경에서 문제가 생기면 stylesheet 링크만 제거하고 baseline으로 되돌릴 수 있어야 한다.
+
+## 1. 절대 원칙
+
 1. 매시간 시장 자동화는 JSON만 갱신한다. HTML/JS/CSS/VERSION 수정 금지.
-2. 기존 기능 삭제 금지. Hero 하나짜리 단순화 금지.
-3. 모바일/PC 정보량 동일.
+2. 기능 삭제로 안정화하지 않는다.
+3. 모바일/PC 정보량은 동일하다.
 4. 자체 `1시간/일봉/주봉/월봉` 버튼은 다시 만들지 않는다.
-5. 로딩은 실제 완료 단계 기반 `00.001%` 형식. **100% 후 `#loadWrap` 전체를 제거해 높이·margin·padding이 0이 되며 빈 칸도 남기지 않는다.**
-6. 화면 최상단 micro build mark 유지. v0.4.2 = **`MR042`**.
-7. APK 완료 = Actions 성공 + Artifact 확인 + APK 직접 확보 후 사용자에게 파일 제공.
-8. 안정판 변경은 **실제 Chromium desktop+mobile QA 통과 전 완료로 판단하지 않는다.**
+5. 로딩은 실제 단계 기반 `00.001%` 형식이며 100% 뒤 `#loadWrap` 전체가 높이 0으로 사라져야 한다.
+6. 화면 최상단 micro build mark `MR042` 유지.
+7. UI 변경은 desktop + mobile Chromium QA 통과 전 완료로 판단하지 않는다.
+8. APK 완료 = Browser QA 성공 + Android Actions 성공 + Artifact 확인 + APK 직접 확보 후 사용자 제공.
+9. **v0.4.2 Known-Good renderer 구조를 다시 여러 보정 스크립트 체인으로 분해하지 않는다.**
 
-## 1. v0.4.1에서 다시 확인된 문제
-사용자 모바일 캡처에서:
-- 로딩바가 `90.000% · 버튼 동작 연결 완료`에 남음.
-- `현재 테마 흐름` 다음의 `지금 위치에 따라 무엇을 해야 하나?` 섹션이 테두리만 남고 내부가 거대한 빈 영역이 됨.
-- 즉 DOM 존재 여부만 확인하는 방식으로는 실제 사용자 화면 정상성을 보장하지 못함.
+## 2. 왜 v0.4.2가 안정판인가
 
-과거 버전의 누적 원인은 다음이었다.
-- `full-recovery`, `evaluation`, `phase-status`, `layout`, `integrity`, `flow-guard`, `interaction` 등 여러 JS가 같은 DOM을 순차/동시 변경.
-- renderer가 만든 DOM을 후속 스크립트가 변경하면서 버튼 이벤트·높이·내용 상태가 서로 엇갈림.
-- gap 복구를 `transform:translateY()`로 처리한 버전은 보이는 위치만 움직이고 원래 layout slot은 남아 빈 공간을 만들 수 있었음.
-- 핵심 UI 완료와 선택 분석/보강 스크립트 완료를 같은 progress에 묶어 72%, 83%, 90% 등에 남는 현상 발생.
-- 모바일 성능 저하가 race를 더 자주 노출함.
+이전 버전에서 반복된 장애:
+- 화면 중간부터 통째로 빈 공간 발생
+- 접기/펼치기 무반응
+- 일부 섹션만 렌더
+- 로딩바 72/83/90% 고착
+- PC와 APK 모두 같은 웹 문서 문제 노출
 
-## 2. v0.4.2 — 단일 소유 렌더러
-안정 진입점은 **`public/reports/stable-v042.html`**.
+근본 원인은 여러 JS가 동일 DOM을 재렌더/보정하면서 서로 충돌한 구조였다.
 
-이 페이지가 직접 사용하는 UI 자원은 두 개다.
-- `public/assets/app-v42.css`
-- `public/assets/app-v42.js`
+v0.4.2에서는 `app-v42.js`가 다음을 단독 소유한다.
+- latest/intraday 데이터 로드
+- 전체 섹션 최초 렌더
+- quicknav
+- fold/unfold
+- ticker/theme click
+- modal
+- Android Back bridge
+- universe tabs
+- lazy TradingView
+- cycle/return/phase 보강
+- progress 완료/실패
+- 구조 검증
 
-### 안정판에서 더 이상 로드하지 않는 레거시 체인
-다음 파일은 저장소에 남아 있어도 **stable-v042에서 로드 금지**다.
+**DOM 생성 주체와 interaction 주체가 동일한 파일이다.**
+
+## 3. 안정판에서 로드 금지인 레거시 DOM 보정 체인
+
+다음 파일을 `stable-v042`에 다시 얹지 않는다.
 - `full-recovery-v22.js`
 - `evaluation-v26.js`
 - `ui-v30.js`
@@ -46,205 +70,152 @@
 - `interaction-v40.js`, `interaction-v41.js`
 - `flow-guard-v40.js`
 - `integrity-v38.js`, `integrity-v39.js`, `integrity-v40.js`
-- 과거 `app-runtime-*`, cache/watchdog 계열
+- 과거 `app-runtime-*`, cache/watchdog DOM mutator
 
-후속 작업자가 “한 문제만 고치기 위해” 위 파일 중 하나를 안정판에 다시 얹지 않는다. 필요한 기능은 `app-v42.js` 안에서 한 흐름으로 구현하거나 명확한 비-DOM 데이터 모듈로만 분리한다.
-
-## 3. app-v42.js 책임 범위
-`app-v42.js` 한 파일이 다음을 소유한다.
-- latest/intraday 핵심 데이터 로드
-- 전체 16개 섹션 최초 렌더
-- quicknav
-- 접기/펼치기
-- 테마/종목 클릭
-- 상세 modal
-- modal scroll lock
-- Android native Back용 `window.__MR_HANDLE_NATIVE_BACK__`
-- 전체추적 `테마별 / 전부 모아보기`
-- 우상향 후보 그룹
-- TradingView lazy loading
-- 1/2/3/5년 수익률 표시
-- 역사 cycle 표시
-- 독립 Phase 보강
-- 로딩 진행률/완료/실패 표시
-- 최종 화면 구조 검증
-
-**DOM을 만든 주체와 버튼 이벤트를 관리하는 주체가 동일해야 한다.**
+특히 `transform: translateY()`로 섹션을 위로 끌어 빈 공간을 감추는 구현은 금지한다.
 
 ## 4. 필수 16개 섹션
-다음 ID가 전부 있어야 정상이다.
-1. `themes`
-2. `action`
-3. `charts`
-4. `picks`
-5. `mr-famous`
-6. `mr-compounders`
-7. `mr-universe`
-8. `expanded`
-9. `etfs`
-10. `allocation`
-11. `research`
-12. `smart-money`
-13. `sources`
-14. `history`
-15. `replay`
-16. `macro`
 
-### action 섹션 별도 검증
-사용자가 반복해서 빈 박스를 본 핵심 회귀 지점이다.
-- `#action .mr-body` 존재 필수
-- body에 실제 행동 안내 + Phase 카드가 있어야 함
-- 자동 브라우저 QA에서 action text 길이와 높이를 확인
-- 접으면 body 높이 0
-- 펼치면 body가 실제 내용 높이로 복구
+`themes, action, charts, picks, mr-famous, mr-compounders, mr-universe, expanded, etfs, allocation, research, smart-money, sources, history, replay, macro`
 
-## 5. 접기/펼치기 계약
-- 이벤트는 `document`의 delegated click 한 계층에서 처리.
-- 상태 키: `mr:fold:v042:*`
-- 접힘:
-  - `.mr-section.is-folded .mr-body { display:none; height:0; ... }`
-  - 제목 영역만 남음.
-- 펼침:
-  - body는 normal document flow의 `height:auto`.
-- section 위치를 `transform`, `translate`, absolute positioning으로 보정하지 않는다.
-- 빈 공간을 숨기기 위해 다음 섹션을 위로 당기는 방식 금지.
+모두 실제 DOM에 존재해야 한다.
 
-## 6. 로딩바 계약 — 빈 칸 금지
-로딩 UI wrapper: **`#loadWrap`**
+### action 회귀 방지
+- `#action .mr-body` 실제 내용 필수
+- bordered empty panel 금지
+- 접기 → body 실제 높이 0
+- 펼치기 → 본문 실제 높이 복구
 
-흐름:
-1. `00.001%`부터 실제 단계 기반 진행.
-2. latest/intraday 핵심 데이터 수신.
-3. 단일 renderer로 전체 화면 생성.
-4. 16개 섹션 + action body + fold 버튼 검증.
-5. `100.000%` 표시.
-6. 약 0.26초 후 `#loadWrap` 자체를 `hidden/display:none` 처리.
-7. 동시에 `margin:0`, `padding:0`, `height:0`으로 고정.
+## 5. 로딩 영역 계약
 
-**100% 이후 로딩 카드만 투명하게 만들고 자리만 남기는 구현은 금지.**
+1. 실제 완료 단계만 % 증가.
+2. renderer 완료 후 16개 섹션과 action body, fold buttons 검증.
+3. `100.000%` 표시.
+4. 약 0.26초 뒤 **`#loadWrap` 전체**를 hidden/display:none.
+5. margin/padding/height도 0.
 
-Phase/cycle/returns 같은 선택 데이터는 핵심 완료 뒤 별도로 로드하며 progress를 붙잡지 않는다.
+로딩 bar만 투명하게 만들어 빈 자리를 남기지 않는다.
 
-## 7. 자동 Browser QA — 필수
-Workflow: **`.github/workflows/dashboard-qa.yml`**  
-스크립트: **`scripts/qa-dashboard-v42.mjs`**
+## 6. 가독성 / 고봉밥 방지 규칙
 
-Chromium에서 실제 페이지를 열어 desktop `1440×1000`, mobile `390×844` 두 환경을 검사한다.
+사용자는 정보 삭제가 아니라 **정리된 정보 밀도**를 원한다.
 
-필수 자동 검사:
-- `v0.4.2`, `MR042`
-- 16개 섹션 전부 존재
-- 로드 완료 뒤 `#loadWrap` 실제 높이 0
-- action body가 빈 껍데기가 아님
-- fold 버튼 16개 이상
-- 글자 없는 fold 버튼 없음
-- 텍스트는 거의 없는데 높이만 큰 suspicious blank panel 없음
-- 접힌 panel이 큰 높이를 유지하지 않음
-- action `접기 → 펼치기 → 접기` 실제 클릭 테스트
-- desktop/mobile full-page screenshot 생성
+### 현재 UI 규칙
+`readability-v42.css`는 renderer/DOM/event를 절대 소유하지 않고 **시각 계층만 담당**한다.
 
-현재 v0.4.2 QA 성공 기록:
-- run id: `32320646810`
-- checks: `desktop`, `mobile`, `load-collapse`, `action-body`, `fold-toggle`, `blank-panel`
+- Hero의 긴 시장평가와 행동 코멘트를 서로 다른 카드처럼 분리.
+- `시장 핵심 평가` / `지금 할 일` 시각 계층 제공.
+- action Phase 카드 4열 고봉밥을 2열 중심으로 정리하고 현재 활성구간을 넓게 표시.
+- Research / Macro / Smart-money / Hidden-theme 장문은 제목-근거-행동이 구분되도록 여백과 배경 분리.
+- 모바일은 한 열로 자연스럽게 내려감.
+- 내용을 line-clamp로 잘라서 숨기지 않는다.
+- CSS로 section 높이/위치를 강제 이동하지 않는다.
 
-**앞으로도 브라우저 QA가 실패하면 APK 빌드가 성공했더라도 UI 완료로 취급하지 않는다.**
+### 매시간 생성 텍스트 길이 규칙
+UI에 직접 노출되는 필드는 짧게 작성하고 상세 근거는 별도 상세 필드에 둔다.
 
-## 8. 성능 규칙
-- 19개 TradingView iframe 초기 동시 로드 금지.
-- 접힌 섹션 안의 iframe은 생성하지 않는다.
-- 펼친 뒤 viewport 약 500px 근처에서 lazy load.
-- 1/2/3/5년 수익률은 `compounder-returns.json` 1회 사용.
-- 모바일에서 19×4 Yahoo 직접 요청 복원 금지.
-- 역사 주기는 `cycle-history.json`을 읽기만 함.
-- optional data 실패가 core 화면을 제거하지 못하게 한다.
+- `market.summary`: 2~3문장, 약 220자 이내
+- `market.final_action`: 핵심 행동 최대 3개, 약 180자 이내
+- `market.next_trigger`: 한 줄
+- `themes[].action`: 약 70자 이내
+- `expanded_themes[].thesis/risk`: 각각 한 문장
+- `research[].take`: 약 180자 이내
+- `research[].action`: 약 90자 이내
+- `research_consensus.conclusion`: 약 220자 이내
+- `research_consensus.action`: 약 120자 이내
+- `macro` 각 항목: 약 180자 이내
+- Phase summary 약 220자, segment action 약 80자 이내
 
-## 9. 역사적 상승/하락 주기 분석 — 삭제 금지
-데이터: `public/data/cycle-history.json`
+중요 정보는 삭제하지 말고 `changes`, `research`, `data_status`, `reference_sources` 등 상세 필드로 이동한다.
+
+## 7. 접기/펼치기 계약
+
+- `document` delegated click 한 계층.
+- 상태 prefix `mr:fold:v042:`.
+- collapsed `.mr-body`는 display:none + height 0.
+- expanded는 normal document flow.
+- transform/translate/absolute 위치 보정 금지.
+
+## 8. 성능 계약
+
+- TradingView iframe 초기 동시 대량 생성 금지.
+- folded section 내부 chart 미생성.
+- viewport 근처에서 lazy load.
+- 1Y/2Y/3Y/5Y 수익률은 `compounder-returns.json` 1회.
+- cycle은 `cycle-history.json` 읽기 전용.
+- optional data 실패가 core 화면을 삭제하면 안 됨.
+
+## 9. 역사적 상승/하락 주기 — 삭제 금지
 
 표시 목표:
 - 현재 상승/하락 N거래일차
-- 현재 구간 시작일/변화율
-- 과거 같은 방향 평균/중앙값 거래일
-- 기간 진행도
-- 변화폭 진행도
-- 종합 진행도
-- 상승/하락 초반·중반·후반·평균기간 초과 표현
-- 과거 모든 스윙의 시작일/종료일/거래일/등락률
+- 현재 변화율
+- 과거 같은 방향 평균/중앙값 일차
+- 기간/변화폭/종합 진행도
+- 상승/하락 초반·중반·후반·평균기간 초과 위치
+- 과거 시작일/종료일/거래일/등락률
 
-현재 `cycle-history.json`의 `assets`가 비어 있으면 숫자를 지어내지 않고 계산 대기 상태로 표시한다.
+데이터가 없으면 숫자를 지어내지 않는다.
 
-## 10. 절대 삭제 금지 기능
-- 시장 Hero
-- 독립 시장/테마 Phase + `그래서 지금은?`
-- 현재 테마 흐름
-- 행동 matrix
-- 시간별 매수타이밍/QQQ 가격
-- 큰 QQQ/종목 TradingView 차트
-- 종목·ETF 핵심판
-- 유명·초대형 핵심주
-- 안정적·꾸준한 우상향 후보
-  - 테마별 묶음
-  - 품질/진입/성장/낙폭위험
-  - 주봉 lazy chart
-  - 1/2/3/5년 수익률
-- 전체추적 `테마별 / 전부 모아보기`
-- 숨은 수혜/다음테마
-- ETF
-- 비중
-- 리서치
-- 기관/스마트머니
-- 원문
-- 검증
-- Replay
-- 거시
-- 접기/펼치기
-- modal + Android Back
-- 역사 cycle
-- 실제 진행률
-- micro build mark
+## 10. Browser QA
 
-## 11. Android Back 계약
-- modal 열림 → 하드웨어 Back = modal 닫기
-- 루트 → `앱을 종료하시겠습니까?`
-- 명시적 종료만 앱 종료
+Workflow: `.github/workflows/dashboard-qa.yml`  
+Script: `scripts/qa-dashboard-v42.mjs`
 
-Native fallback 생성/검증은 `scripts/apply-android-branding.mjs`와 Android workflow에서 유지한다.
+Desktop `1440×1000`, Mobile `390×844` 실제 Chromium 검사.
+
+필수:
+- v0.4.2 / MR042
+- 16개 섹션
+- loadWrap 높이 0
+- action body 실제 내용
+- fold toggle 실제 클릭
+- suspicious blank panel 없음
+- folded panel 높이 잔존 없음
+- readability stylesheet 실제 load
+- desktop/mobile hero 가독성 레이아웃
+- horizontal overflow 없음
+- full page screenshots
+
+## 11. Android Back
+
+- modal 열림 → hardware Back = modal 닫기
+- root → `앱을 종료하시겠습니까?`
+- 명시적 종료만 exit
 
 ## 12. 진입 구조
-- shell: `public/index.html`
-- APK/PWA 온라인 진입: `public/app-live.html`
-- latest: `public/reports/latest.html`
-- 안정판: **`public/reports/stable-v042.html`**
-- UI CSS: **`public/assets/app-v42.css`**
-- UI/render JS: **`public/assets/app-v42.js`**
 
-`app-live.html`과 `latest.html`은 현재 v0.4.2 안정판으로 연결한다.
+- `public/index.html`
+- `public/app-live.html`
+- `public/reports/latest.html`
+- `public/reports/stable-v042.html`
+- rollback: `public/reports/stable-v042-baseline.html`
 
 ## 13. 데이터 자동화
-자동화 ID: `6a847ce3f5dc81918ccab0a7bafaa8fe`
+
+Automation ID: `6a847ce3f5dc81918ccab0a7bafaa8fe`
 
 매시간 수정 가능:
 - `public/data/latest.json`
 - `public/data/live/intraday.json`
 - `public/data/live/phase-status.json`
-- 당일 archive JSON
+- 당일 archive
 
 수정 금지:
-- HTML
-- JS
-- CSS
-- VERSION
+- HTML/JS/CSS/VERSION
+- `stable-v042-baseline.html`
 - handoff UI 구조
 
-별도 계산:
-- `cycle-history.json`
-- `compounder-returns.json`
+## 14. 절대 삭제 금지 기능
 
-## 14. APK 완료 정의
-Android workflow는 v0.4.2 standalone 파일이 존재하고 stable HTML에 구형 runtime chain이 다시 들어오지 않았는지 검사한다.
+시장 Hero, 독립 Phase, `그래서 지금은?`, 현재 테마, 행동 matrix, 시간별 매수타이밍/QQQ 가격, 큰 TradingView, 종목/ETF, 유명주, 우상향 후보와 1/2/3/5년 수익률, 전체추적 테마별/전체, 숨은테마, ETF, 비중, 리서치, 기관, 원문, 검증, Replay, 거시, fold, modal, Android Back, 역사 cycle, 실제 progress, micro build mark.
 
-현재 v0.4.2 Android build 성공 기록:
-- run id: `32320593581`
-- artifact: `MarketRadar-v0.4.2-debug-apk`
+## 15. Known-Good 회귀 절차
 
-**완료 = Browser QA 성공 + Android Actions 성공 + Artifact 실제 존재 + APK 직접 다운로드/무결성 확인 + 사용자에게 파일 직접 제공.**
+새 수정에서 화면이 다시 깨지면 패치를 더 얹지 않는다.
+
+1. `stable-v042-baseline.html`과 `app-v42.js/app-v42.css`를 기준으로 비교.
+2. readability 문제가 의심되면 `readability-v42.css` 링크부터 제거해 core renderer 정상 여부 확인.
+3. renderer 자체를 변경했다면 v0.4.2 renderer로 회귀.
+4. desktop/mobile Browser QA 통과.
+5. 그 뒤에만 다시 배포.
