@@ -1,5 +1,6 @@
 {
   "version": "0.4.5",
   "run_id": 32405677164,
-  "status": "building"
+  "status": "success",
+  "checks": ["desktop", "mobile", "load-collapse", "semantic-scores", "friendly-avoid", "full-cycle-wave", "intraday-percent-units", "turning-point-library", "modal-full-cycle", "fold-toggle", "blank-panel", "overflow"]
 }
