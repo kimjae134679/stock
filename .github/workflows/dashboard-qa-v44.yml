@@ -27,6 +27,7 @@ concurrency:
 jobs:
   qa:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
       - name: Publish QA run pointer
@@ -60,6 +61,7 @@ jobs:
           const fs=require('fs');
           const j=JSON.parse(fs.readFileSync('public/data/cycle-history.json','utf8'));
           if(!j.assets?.QQQ?.current?.path?.length) throw new Error('cycle-history visual path not ready');
+          if(Object.keys(j.assets||{}).length<5) throw new Error('cycle-history asset count too low');
           NODE
       - name: Start local site
         run: |
