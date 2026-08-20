@@ -10,11 +10,13 @@ on:
       - 'public/index.html'
       - 'public/app-live.html'
       - 'public/reports/latest.html'
-      - 'public/reports/stable-v042.html'
+      - 'public/reports/stable-v043.html'
+      - 'public/reports/stable-v042-baseline.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
-      - 'public/assets/app-v42.js'
       - 'public/assets/app-v42.css'
+      - 'public/assets/app-v43.js'
+      - 'public/assets/app-v43.css'
       - 'public/data/**'
       - 'scripts/apply-android-branding.mjs'
       - '.github/workflows/android.yml'
@@ -56,19 +58,21 @@ jobs:
       - name: Standalone dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v042.html
-          test -s public/assets/app-v42.js
+          test -s public/reports/stable-v043.html
+          test -s public/reports/stable-v042-baseline.html
+          test -s public/assets/app-v43.js
+          test -s public/assets/app-v43.css
           test -s public/assets/app-v42.css
-          grep -q 'Market Radar Daily · v0.4.2' public/reports/stable-v042.html
-          grep -q 'MR042' public/reports/stable-v042.html
-          grep -q 'app-v42.js' public/reports/stable-v042.html
-          grep -q 'stable-v042.html' public/app-live.html
+          grep -q 'Market Radar Daily · v0.4.3' public/reports/stable-v043.html
+          grep -q 'MR043' public/reports/stable-v043.html
+          grep -q 'app-v43.js' public/reports/stable-v043.html
+          grep -q 'stable-v043.html' public/app-live.html
           grep -q 'allowNavigation' capacitor.config.json
-          ! grep -q 'full-recovery-v22.js' public/reports/stable-v042.html
-          ! grep -q 'evaluation-v26.js' public/reports/stable-v042.html
-          ! grep -q 'flow-guard' public/reports/stable-v042.html
-          ! grep -q 'integrity-v' public/reports/stable-v042.html
-          node --check public/assets/app-v42.js
+          ! grep -q 'full-recovery-v22.js' public/reports/stable-v043.html
+          ! grep -q 'evaluation-v26.js' public/reports/stable-v043.html
+          ! grep -q 'flow-guard' public/reports/stable-v043.html
+          ! grep -q 'integrity-v' public/reports/stable-v043.html
+          node --check public/assets/app-v43.js
           node --check scripts/apply-android-branding.mjs
       - run: npx cap add android
       - run: npx cap sync android
@@ -102,7 +106,7 @@ jobs:
         run: |
           TAG="v${{ steps.ver.outputs.version }}"
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Standalone single-owner dashboard renderer."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Compact single-owner dashboard renderer. v0.4.2 remains the known-good rollback baseline."
           gh release upload "$TAG" "$APK" --clobber
       - name: Mark build success
         if: success()
