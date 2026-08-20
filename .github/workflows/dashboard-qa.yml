@@ -5,8 +5,10 @@ on:
     branches: [main]
     paths:
       - 'public/reports/stable-v042.html'
+      - 'public/reports/stable-v042-baseline.html'
       - 'public/assets/app-v42.js'
       - 'public/assets/app-v42.css'
+      - 'public/assets/readability-v42.css'
       - 'public/data/**'
       - 'scripts/qa-dashboard-v42.mjs'
       - 'package.json'
@@ -43,8 +45,11 @@ jobs:
         run: |
           node --check public/assets/app-v42.js
           node --check scripts/qa-dashboard-v42.mjs
+          test -s public/assets/readability-v42.css
+          test -s public/reports/stable-v042-baseline.html
           grep -q 'MR042' public/reports/stable-v042.html
           grep -q 'app-v42.js' public/reports/stable-v042.html
+          grep -q 'readability-v42.css' public/reports/stable-v042.html
           ! grep -q 'full-recovery-v22.js' public/reports/stable-v042.html
           ! grep -q 'evaluation-v26.js' public/reports/stable-v042.html
           ! grep -q 'flow-guard' public/reports/stable-v042.html
@@ -69,7 +74,7 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "0.4.2",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "load-collapse", "action-body", "fold-toggle", "blank-panel"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-latest.json
+          printf '{\n  "version": "0.4.2",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "load-collapse", "action-body", "fold-toggle", "blank-panel", "readability", "no-horizontal-overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-latest.json
           git add ops/dashboard-qa-latest.json
           git commit -m "Mark dashboard QA ${{ github.run_id }} successful" || true
           git push || true
