@@ -10,7 +10,7 @@ on:
       - 'public/index.html'
       - 'public/app-live.html'
       - 'public/reports/latest.html'
-      - 'public/reports/stable-v038.html'
+      - 'public/reports/stable-v039.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
       - 'public/assets/**'
@@ -54,19 +54,17 @@ jobs:
       - name: Basic dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v038.html
-          test -s public/assets/cache-guard-v38.js
-          test -s public/assets/integrity-v38.js
+          test -s public/reports/stable-v039.html
+          test -s public/assets/integrity-v39.js
           test -s public/assets/layout-v36.js
           test -s public/assets/returns-v36.js
-          grep -q 'Market Radar Daily · v0.3.8' public/reports/stable-v038.html
-          grep -q 'MR038' public/reports/stable-v038.html
-          grep -q 'waitThemes' public/reports/stable-v038.html
-          grep -q 'panel.style.display=.none.' public/reports/stable-v038.html
-          grep -q 'stable-v038.html' public/app-live.html
+          grep -q 'Market Radar Daily · v0.3.9' public/reports/stable-v039.html
+          grep -q 'MR039' public/reports/stable-v039.html
+          grep -q "IDS=\['themes','action','charts','picks'" public/reports/stable-v039.html
+          grep -q '16개 핵심 섹션' public/reports/stable-v039.html
+          grep -q 'stable-v039.html' public/app-live.html
           grep -q 'allowNavigation' capacitor.config.json
-          node --check public/assets/cache-guard-v38.js
-          node --check public/assets/integrity-v38.js
+          node --check public/assets/integrity-v39.js
           node --check public/assets/layout-v36.js
           node --check public/assets/returns-v36.js
           node --check scripts/apply-android-branding.mjs
