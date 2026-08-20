@@ -7,7 +7,7 @@ await fs.mkdir('qa-artifacts',{recursive:true});
 
 async function run(name,viewport){
   const browser=await chromium.launch({headless:true});
-  const page=await browser.newPage({viewportSize:viewport});
+  const page=await browser.newPage({viewport});
   await page.route('https://s.tradingview.com/**',route=>route.abort());
   const errors=[];
   page.on('pageerror',e=>errors.push('pageerror: '+e.message));
@@ -25,7 +25,7 @@ async function run(name,viewport){
     const foldedBad=qa('.mr-section.is-folded').map(s=>({id:s.id,h:Math.round(s.getBoundingClientRect().height),body:Math.round((s.querySelector('.mr-body')?.getBoundingClientRect().height)||0)})).filter(x=>x.h>150||x.body>1);
     return {
       missing,version:q('.top b')?.textContent||'',mark:q('.mr-buildmark')?.textContent||'',loadHeight:q('#loadWrap')?.getBoundingClientRect().height??-1,
-      scoreHints:qa('.scorebox b small').length,themeHints:qa('.theme-card strong small').length,pickHints:qa('.pick-row>strong small').length,
+      viewport:[window.innerWidth,window.innerHeight],scoreHints:qa('.scorebox b small').length,themeHints:qa('.theme-card strong small').length,pickHints:qa('.pick-row>strong small').length,
       avoid:(q('.hero-avoid span')?.textContent||'')+' '+(q('#action .action-conditions>div:nth-child(2) b')?.textContent||''),
       cycleTitle:q('#cycle-visual .mr-head h2')?.textContent||'',cycleText:q('#cycle-visual .mr-body')?.textContent||'',cycleSvg:qa('#cycle-visual .v45-cycle-svg').length,cycleProxy:qa('#cycle-visual .v45-proxy').length,
       chartTitle:q('#charts .mr-head h2')?.textContent||'',chartText:q('#charts .mr-body')?.textContent||'',intradaySvg:qa('#charts .v45-intraday-svg').length,
@@ -34,6 +34,7 @@ async function run(name,viewport){
     };
   },ids);
 
+  if(r.viewport[0]!==viewport.width||r.viewport[1]!==viewport.height)throw new Error(`${name}: wrong viewport ${r.viewport.join('x')} expected ${viewport.width}x${viewport.height}`);
   if(!r.version.includes('v0.4.5'))throw new Error(`${name}: version ${r.version}`);
   if(r.mark!=='MR045')throw new Error(`${name}: mark ${r.mark}`);
   if(r.missing.length)throw new Error(`${name}: missing ${r.missing.join(',')}`);
