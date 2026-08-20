@@ -1,0 +1,98 @@
+name: Dashboard Browser QA v0.4.5
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/reports/stable-v045.html'
+      - 'public/assets/app-v44.js'
+      - 'public/assets/app-v45-enhance.js'
+      - 'public/assets/app-v45.css'
+      - 'public/assets/app-v44.css'
+      - 'public/assets/app-v43.css'
+      - 'public/assets/app-v42.css'
+      - 'public/data/cycle-history.json'
+      - 'public/data/latest.json'
+      - 'public/data/live/**'
+      - 'scripts/qa-dashboard-v45.mjs'
+      - 'package.json'
+      - '.github/workflows/dashboard-qa-v45.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-browser-qa-v45
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Publish QA run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "0.4.5",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v45-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/dashboard-qa-v45-latest.json
+          git commit -m "Record dashboard v0.4.5 QA run ${{ github.run_id }}" || true
+          git push || true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Static syntax and architecture checks
+        run: |
+          node --check public/assets/app-v44.js
+          node --check public/assets/app-v45-enhance.js
+          node --check scripts/qa-dashboard-v45.mjs
+          test -s public/reports/stable-v042-baseline.html
+          test -s public/data/cycle-history.json
+          grep -q 'Market Radar Daily · v0.4.5' public/reports/stable-v045.html
+          grep -q 'MR045' public/reports/stable-v045.html
+          grep -q 'app-v44.js' public/reports/stable-v045.html
+          grep -q 'app-v45-enhance.js' public/reports/stable-v045.html
+          grep -q 'app-v45.css' public/reports/stable-v045.html
+          ! grep -q 'full-recovery-v22.js' public/reports/stable-v045.html
+          ! grep -q 'evaluation-v26.js' public/reports/stable-v045.html
+          ! grep -q 'flow-guard' public/reports/stable-v045.html
+          ! grep -q 'integrity-v' public/reports/stable-v045.html
+          node - <<'NODE'
+          const fs=require('fs');
+          const p='public/data/cycle-history.json';
+          const j=JSON.parse(fs.readFileSync(p,'utf8'));
+          if(!j.assets?.QQQ?.current) throw new Error('QQQ cycle missing');
+          if(!Array.isArray(j.assets?.QQQ?.history)||j.assets.QQQ.history.length<10) throw new Error('QQQ history insufficient');
+          if(!j.assets?.SPY?.history?.length||!j.assets?.SMH?.history?.length) throw new Error('turning point source assets missing');
+          const bytes=fs.statSync(p).size;
+          if(bytes>8_000_000) throw new Error('cycle payload too large: '+bytes);
+          console.log('cycle bytes',bytes,'assets',Object.keys(j.assets||{}).length);
+          NODE
+      - name: Start local site
+        run: |
+          cd public
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/mr-http.log 2>&1 &
+          sleep 2
+      - name: Browser QA desktop + mobile
+        run: npm run qa:v45
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dashboard-v045-qa-screenshots
+          path: qa-artifacts/*.png
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Mark QA success
+        if: success()
+        run: |
+          git pull --rebase || true
+          mkdir -p ops
+          printf '{\n  "version": "0.4.5",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "load-collapse", "semantic-scores", "friendly-avoid", "full-cycle-wave", "intraday-percent-units", "turning-point-library", "modal-full-cycle", "fold-toggle", "blank-panel", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v45-latest.json
+          git add ops/dashboard-qa-v45-latest.json
+          git commit -m "Mark dashboard v0.4.5 QA ${{ github.run_id }} successful" || true
+          git push || true
