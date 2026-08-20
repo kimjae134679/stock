@@ -1,0 +1,60 @@
+name: Dashboard Browser QA v0.4.3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/reports/stable-v043.html'
+      - 'public/assets/app-v43.js'
+      - 'public/assets/app-v43.css'
+      - 'public/assets/app-v42.css'
+      - 'public/data/**'
+      - 'scripts/qa-dashboard-v43.mjs'
+      - 'package.json'
+      - '.github/workflows/dashboard-qa-v43.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dashboard-browser-qa-v43
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Static syntax and architecture checks
+        run: |
+          node --check public/assets/app-v43.js
+          node --check scripts/qa-dashboard-v43.mjs
+          test -s public/reports/stable-v042-baseline.html
+          grep -q 'Market Radar Daily · v0.4.3' public/reports/stable-v043.html
+          grep -q 'MR043' public/reports/stable-v043.html
+          grep -q 'app-v43.js' public/reports/stable-v043.html
+          grep -q 'app-v42.css' public/reports/stable-v043.html
+          ! grep -q 'full-recovery-v22.js' public/reports/stable-v043.html
+          ! grep -q 'evaluation-v26.js' public/reports/stable-v043.html
+          ! grep -q 'flow-guard' public/reports/stable-v043.html
+          ! grep -q 'integrity-v' public/reports/stable-v043.html
+      - name: Start local site
+        run: |
+          cd public
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/mr-http.log 2>&1 &
+          sleep 2
+      - name: Browser QA desktop + mobile
+        run: npm run qa:v43
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dashboard-v043-qa-screenshots
+          path: qa-artifacts/*.png
+          if-no-files-found: ignore
+          retention-days: 30
