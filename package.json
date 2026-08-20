@@ -8,7 +8,8 @@
     "android:brand": "node scripts/apply-android-branding.mjs",
     "cycle:build": "node scripts/build-cycle-history.mjs",
     "returns:build": "node scripts/build-compounder-returns.mjs",
-    "qa:v42": "node scripts/qa-dashboard-v42.mjs"
+    "qa:v42": "node scripts/qa-dashboard-v42.mjs",
+    "qa:v43": "node scripts/qa-dashboard-v43.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
