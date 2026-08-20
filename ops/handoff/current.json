@@ -1,95 +1,64 @@
 {
-  "version": "0.4.2",
+  "version": "0.4.3",
   "updated_kst": "2026-08-20",
   "repository": "kimjae134679/stock",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
-  "known_good": true,
-  "known_good_reason": "User directly confirmed v0.4.2 rendered fully and correctly after repeated earlier failures.",
-  "stable_entry": "public/reports/stable-v042.html",
-  "immutable_rollback_entry": "public/reports/stable-v042-baseline.html",
-  "live_entry": "public/app-live.html",
-  "compat_entry": "public/reports/latest.html redirects to stable-v042.html",
-  "screenshot_build_mark": "MR042",
-  "architecture": "single-owner standalone renderer plus CSS-only readability layer",
-  "ui_assets": [
-    "public/assets/app-v42.css",
-    "public/assets/readability-v42.css",
-    "public/assets/app-v42.js"
-  ],
-  "renderer_owner": "public/assets/app-v42.js",
-  "readability_layer_rule": "readability-v42.css may change visual hierarchy only; it must not own DOM rendering, events, fold state, recovery, transforms, or section positioning.",
-  "forbidden_on_stable_entry": [
-    "full-recovery-v22.js",
-    "evaluation-v26.js",
-    "ui-v30.js",
-    "layout-v36.js",
-    "phase-status-v29.js",
-    "interaction-v40.js",
-    "interaction-v41.js",
-    "flow-guard-v40.js",
-    "integrity-v38.js",
-    "integrity-v39.js",
-    "integrity-v40.js",
-    "legacy app-runtime/cache/watchdog DOM mutators"
-  ],
+  "current_stable_entry": "public/reports/stable-v043.html",
+  "current_build_mark": "MR043",
+  "known_good_rollback": {
+    "version": "0.4.2",
+    "mark": "MR042",
+    "entry": "public/reports/stable-v042-baseline.html",
+    "renderer": "public/assets/app-v42.js",
+    "css": "public/assets/app-v42.css",
+    "reason": "User directly confirmed v0.4.2 rendered fully and correctly after repeated earlier failures."
+  },
+  "architecture": "single-owner renderer; v0.4.3 renderer plus v0.4.2 base CSS and v0.4.3 visual polish CSS",
+  "ui_assets": ["public/assets/app-v42.css", "public/assets/app-v43.css", "public/assets/app-v43.js"],
   "required_sections": ["themes","action","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
+  "dedup_rules": [
+    "Do not repeat the formatted update time as a raw ISO timestamp inside Hero.",
+    "Do not render phase-status.summary under the Hero market summary.",
+    "Only the current action regime is expanded; the other 7 regime rules live under details.",
+    "Do not repeat generic inactive-card filler such as '이 구간에 들어오면...'.",
+    "Top-pick list shows phase/action badges; long note stays in modal detail.",
+    "Macro objects render as key/value UI, never JSON.stringify walls.",
+    "Historical cycle swing table stays under details.",
+    "Do not show meaningless final render-complete endmark."
+  ],
   "loading": {
     "real_progress_only": true,
-    "initial": "00.001%",
-    "success": "100.000% then remove the whole #loadWrap",
-    "no_gap_rule": "after success #loadWrap is hidden/display:none and margin/padding/height are zero",
+    "success": "100.000% then remove whole #loadWrap",
+    "no_gap_rule": true,
     "optional_data_never_blocks_completion": true
   },
-  "readability": {
-    "goal": "preserve information while preventing dense walls of text",
-    "hero": "separate market core assessment and current action into distinct visual blocks",
-    "action_matrix": "use fewer columns and emphasize the active phase",
-    "long_prose_sections": ["research","macro","smart-money","expanded themes","modal detail"],
-    "hide_information_with_line_clamp": false,
-    "generated_text_budgets": {
-      "market.summary": "2-3 short sentences, about 220 Korean chars max",
-      "market.final_action": "up to 3 actions, about 180 chars max",
-      "themes[].action": "about 70 chars max",
-      "research[].take": "about 180 chars max",
-      "research[].action": "about 90 chars max",
-      "macro.*": "about 180 chars max",
-      "phase.summary": "about 220 chars max",
-      "phase.segment.action": "about 80 chars max"
-    },
-    "detail_preservation": "Move detailed evidence to changes/research/data_status/reference_sources instead of deleting it."
+  "fold_contract": {
+    "prefix": "mr:fold:v043:",
+    "delegated_click": true,
+    "collapsed_body_zero_height": true,
+    "no_transform_gap_repair": true
   },
-  "action_regression_guard": {
-    "required": true,
-    "rule": "#action .mr-body must contain actual notice and phase cards, never a bordered empty panel",
-    "fold_rule": "collapse -> body height 0; expand -> body returns to real content height"
-  },
-  "fold_contract": [
-    "delegated document click handler owns all fold buttons",
-    "fold state prefix is mr:fold:v042:",
-    "collapsed body uses display:none and zero height",
-    "normal flow only; no transform/translate gap repair"
-  ],
   "performance": [
-    "compounder and QQQ TradingView charts lazy-load near viewport",
-    "folded charts are not instantiated",
-    "1Y/2Y/3Y/5Y returns use public/data/compounder-returns.json once",
-    "cycle history reads public/data/cycle-history.json only",
-    "optional data failure must not delete core UI"
+    "TradingView lazy-load only near viewport and not while section is folded",
+    "compounder returns use one precomputed JSON",
+    "cycle history reads precomputed JSON only",
+    "optional phase/cycle/returns failure cannot remove core UI"
   ],
   "browser_qa": {
-    "workflow": ".github/workflows/dashboard-qa.yml",
-    "script": "scripts/qa-dashboard-v42.mjs",
+    "workflow": ".github/workflows/dashboard-qa-v43.yml",
+    "script": "scripts/qa-dashboard-v43.mjs",
+    "run_id": 32329459767,
+    "status": "success",
     "viewports": ["1440x1000", "390x844"],
-    "checks": ["desktop","mobile","load-collapse","action-body","fold-toggle","blank-panel","readability","no-horizontal-overflow"]
+    "checks": ["desktop","mobile","load-collapse","compact-hero","phase-dedup","action-compact","fold-toggle","modal","blank-panel","overflow"]
   },
   "android_back_contract": [
     "modal open -> hardware Back closes modal",
     "root -> ask 앱을 종료하시겠습니까?",
     "only explicit 종료 exits"
   ],
-  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION. Keep UI-visible text within readability budgets.",
-  "rollback_rule": "If a new UI change breaks rendering, compare against stable-v042-baseline.html and remove the readability layer first before adding any recovery script.",
+  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION. Keep UI-visible prose compact and move detailed evidence into detail fields.",
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
   "apk_done_definition": "Browser QA success -> Android Actions success -> Artifact exists -> APK downloaded and integrity checked -> provide file directly to user"
 }
