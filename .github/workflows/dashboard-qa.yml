@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: dashboard-browser-qa
@@ -25,6 +25,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Publish QA run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "0.4.2",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/dashboard-qa-latest.json
+          git commit -m "Record dashboard QA run ${{ github.run_id }}" || true
+          git push || true
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -55,3 +64,12 @@ jobs:
           path: qa-artifacts/*.png
           if-no-files-found: ignore
           retention-days: 30
+      - name: Mark QA success
+        if: success()
+        run: |
+          git pull --rebase || true
+          mkdir -p ops
+          printf '{\n  "version": "0.4.2",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "load-collapse", "action-body", "fold-toggle", "blank-panel"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-latest.json
+          git add ops/dashboard-qa-latest.json
+          git commit -m "Mark dashboard QA ${{ github.run_id }} successful" || true
+          git push || true
