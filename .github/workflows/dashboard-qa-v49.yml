@@ -84,3 +84,4 @@ jobs:
           git add ops/dashboard-qa-v49-latest.json
           git commit -m "Mark dashboard v0.4.9 QA ${{ github.run_id }} successful" || true
           git push || true
+# final v0.4.9 QA trigger after release pointers
