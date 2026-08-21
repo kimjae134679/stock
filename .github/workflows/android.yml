@@ -10,7 +10,7 @@ on:
       - 'public/index.html'
       - 'public/app-live.html'
       - 'public/reports/latest.html'
-      - 'public/reports/stable-v047.html'
+      - 'public/reports/stable-v048.html'
       - 'public/reports/stable-v042-baseline.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
@@ -24,6 +24,8 @@ on:
       - 'public/assets/app-v46.css'
       - 'public/assets/app-v47-enhance.js'
       - 'public/assets/app-v47.css'
+      - 'public/assets/app-v48-enhance.js'
+      - 'public/assets/app-v48.css'
       - 'public/data/**'
       - 'scripts/apply-android-branding.mjs'
       - '.github/workflows/android.yml'
@@ -65,38 +67,40 @@ jobs:
       - name: Standalone dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v047.html
+          test -s public/reports/stable-v048.html
           test -s public/reports/stable-v042-baseline.html
           test -s public/assets/app-v44.js
           test -s public/assets/app-v45-enhance.js
           test -s public/assets/app-v46-enhance.js
           test -s public/assets/app-v47-enhance.js
-          test -s public/assets/app-v47.css
+          test -s public/assets/app-v48-enhance.js
+          test -s public/assets/app-v48.css
           test -s public/data/cycle-history.json
           test -s public/data/cycle-full.json
-          grep -q 'Market Radar Daily · v0.4.7' public/reports/stable-v047.html
-          grep -q 'MR047' public/reports/stable-v047.html
-          grep -q 'app-v47-enhance.js' public/reports/stable-v047.html
-          grep -q 'stable-v047.html' public/app-live.html
+          grep -q 'Market Radar Daily · v0.4.8' public/reports/stable-v048.html
+          grep -q 'MR048' public/reports/stable-v048.html
+          grep -q 'app-v48-enhance.js' public/reports/stable-v048.html
+          grep -q 'stable-v048.html' public/app-live.html
           grep -q 'allowNavigation' capacitor.config.json
-          ! grep -q 'full-recovery-v22.js' public/reports/stable-v047.html
-          ! grep -q 'evaluation-v26.js' public/reports/stable-v047.html
-          ! grep -q 'flow-guard' public/reports/stable-v047.html
-          ! grep -q 'integrity-v' public/reports/stable-v047.html
+          ! grep -q 'full-recovery-v22.js' public/reports/stable-v048.html
+          ! grep -q 'evaluation-v26.js' public/reports/stable-v048.html
+          ! grep -q 'flow-guard' public/reports/stable-v048.html
+          ! grep -q 'integrity-v' public/reports/stable-v048.html
           node --check public/assets/app-v44.js
           node --check public/assets/app-v45-enhance.js
           node --check public/assets/app-v46-enhance.js
           node --check public/assets/app-v47-enhance.js
+          node --check public/assets/app-v48-enhance.js
           node --check scripts/apply-android-branding.mjs
           node - <<'NODE'
           const fs=require('fs');
           const f=JSON.parse(fs.readFileSync('public/data/cycle-full.json','utf8'));
-          const q=f.assets?.QQQ;
+          const q=f.assets?.QQQ,reps=q?.representatives||[];
           if(!q?.current_full?.path?.length) throw new Error('QQQ current cycle missing');
-          if(!Array.isArray(q.representatives)||q.representatives.length<10) throw new Error('QQQ representative cycles missing');
-          if(!q.representatives.every(x=>x.start_date&&x.high_date&&x.end_date&&x.path?.length>=3)) throw new Error('dated cycle paths missing');
+          if(reps.length<10) throw new Error('QQQ representative cycles missing');
+          if(reps.filter(x=>x.extended_path?.length>=4&&x.next_high_date).length<4) throw new Error('QQQ extended next-rise paths missing');
           const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size;
-          if(bytes>9_000_000) throw new Error('combined cycle payload too large: '+bytes);
+          if(bytes>10_000_000) throw new Error('combined cycle payload too large: '+bytes);
           NODE
       - run: npx cap add android
       - run: npx cap sync android
@@ -130,7 +134,7 @@ jobs:
         run: |
           TAG="v${{ steps.ver.outputs.version }}"
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Colored year-by-year cycle lines, current same-trading-day markers, focus/full actual-day ranges, and historical post-current paths. v0.4.2 remains immutable rollback baseline."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Thick colored hand-sketch-style full-cycle overlays with low→high→low→next-rise alignment and current observed midpoint. v0.4.2 remains immutable rollback baseline."
           gh release upload "$TAG" "$APK" --clobber
       - name: Mark build success
         if: success()
