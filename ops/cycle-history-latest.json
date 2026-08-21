@@ -1,10 +1,5 @@
 {
-  "version": "0.4.8",
-  "run_id": 32448302083,
-  "status": "success",
-  "assets": 92,
-  "full_assets": 13,
-  "errors": 0,
-  "qqq_extended_reps": 18,
-  "combined_bytes": 4331357
+  "version": "0.5.0",
+  "run_id": 32467619973,
+  "status": "building"
 }
