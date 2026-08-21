@@ -7,6 +7,7 @@ on:
       - 'scripts/build-cycle-history.mjs'
       - 'scripts/build-cycle-full.mjs'
       - 'scripts/build-wave-cycles.mjs'
+      - 'scripts/filter-wave-history.mjs'
       - '.github/workflows/cycle-history.yml'
   schedule:
     - cron: '20 22 * * *'
@@ -47,6 +48,8 @@ jobs:
         run: node scripts/build-cycle-full.mjs
       - name: Build fixed multi-leg wave templates
         run: node scripts/build-wave-cycles.mjs
+      - name: Exclude templates overlapping current context
+        run: node scripts/filter-wave-history.mjs
       - name: Validate cycle datasets
         run: |
           node - <<'NODE'
@@ -59,11 +62,12 @@ jobs:
           if(!w.assets?.QQQ?.current_context?.path?.length) throw new Error('QQQ wave context missing');
           if(!w.assets.QQQ.current_context.recent_drop) throw new Error('QQQ recent drop context missing');
           const reps=w.assets.QQQ.representatives||[];
-          if(reps.length<5) throw new Error('QQQ wave templates insufficient');
+          if(reps.length<5) throw new Error('QQQ historical wave templates insufficient');
           if(!reps.every(x=>Array.isArray(x.path)&&x.path.length>=5&&x.pivots?.length===5)) throw new Error('QQQ fixed wave path/pivots missing');
+          if(reps.some(x=>String(x.second_low_date)>=String(w.assets.QQQ.current_context.start_date))) throw new Error('QQQ template overlaps current context');
           const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size+fs.statSync('public/data/wave-cycles.json').size;
           if(bytes>13_000_000) throw new Error('combined cycle payload too large: '+bytes);
-          console.log('cycle assets',Object.keys(j.assets||{}).length,'full assets',Object.keys(f.assets||{}).length,'wave assets',Object.keys(w.assets||{}).length,'QQQ wave templates',reps.length,'current',w.assets.QQQ.current_context.stage,'bytes',bytes);
+          console.log('cycle assets',Object.keys(j.assets||{}).length,'full assets',Object.keys(f.assets||{}).length,'wave assets',Object.keys(w.assets||{}).length,'QQQ historical templates',reps.length,'current',w.assets.QQQ.current_context.stage,'bytes',bytes);
           NODE
       - name: Commit cycle datasets and success pointer
         run: |
@@ -79,7 +83,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add public/data/cycle-history.json public/data/cycle-full.json public/data/wave-cycles.json ops/cycle-history-latest.json
-          git commit -m 'data: refresh historical cycles and fixed wave templates' || true
+          git commit -m 'data: refresh non-overlapping historical wave templates' || true
           git push || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
