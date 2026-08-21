@@ -20,7 +20,8 @@ async function run(name,viewport){
  if(r.legend<10||r.colors<10)throw new Error(name+': colored year legend insufficient '+JSON.stringify(r));
  if(r.sameDots<8||r.pointRows<10)throw new Error(name+': same-day current markers insufficient '+JSON.stringify(r));
  if(!/현재 포인트/.test(r.currentText)||!/번째 거래일/.test(r.currentText)||!/\d{4}-\d{2}-\d{2}/.test(r.currentText))throw new Error(name+': current point detail missing '+r.currentText);
- for(const s of ['실선=현재와 같은','점선=그 이후 실제 과거 경로','현재 17일차를 과거 사이클 중간에 꽂아서 비교','예측'])if(!r.bodyText.includes(s))throw new Error(name+': explanation missing '+s);
+ for(const s of ['실선=현재와 같은','점선=그 이후 실제 과거 경로','과거 사이클 중간에 꽂아서 비교','예측'])if(!r.bodyText.includes(s))throw new Error(name+': explanation missing '+s);
+ if(!/현재 \d+일차를 과거 사이클 중간에 꽂아서 비교/.test(r.bodyText))throw new Error(name+': current day comparison title missing');
  const fm=Number((r.focus.match(/0~(\d+)일/)||[])[1]),am=Number((r.full.match(/0~(\d+)일/)||[])[1]);if(!fm||!am||fm>=am)throw new Error(name+': focus/full range not separated '+r.focus+' / '+r.full);
  if(r.suspicious.length)throw new Error(name+': blank panels '+JSON.stringify(r.suspicious));
  if(r.scrollWidth>r.innerWidth+3)throw new Error(name+': document overflow '+r.scrollWidth+'/'+r.innerWidth);
