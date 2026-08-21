@@ -1,6 +1,5 @@
 {
   "version": "0.4.6",
-  "run_id": 32436106342,
-  "status": "success",
-  "checks": ["desktop", "mobile", "load-collapse", "actual-trading-day-axis", "exact-turning-dates", "real-sampled-paths", "12-cycle-cards", "expanded-turning-library", "modal-cycle-detail", "blank-panel", "overflow"]
+  "run_id": 32444654229,
+  "status": "building"
 }
