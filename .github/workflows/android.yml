@@ -10,7 +10,7 @@ on:
       - 'public/index.html'
       - 'public/app-live.html'
       - 'public/reports/latest.html'
-      - 'public/reports/stable-v049.html'
+      - 'public/reports/stable-v050.html'
       - 'public/reports/stable-v042-baseline.html'
       - 'public/manifest.webmanifest'
       - 'public/sw.js'
@@ -28,6 +28,8 @@ on:
       - 'public/assets/app-v48.css'
       - 'public/assets/app-v49-enhance.js'
       - 'public/assets/app-v49.css'
+      - 'public/assets/app-v50-enhance.js'
+      - 'public/assets/app-v50.css'
       - 'public/data/**'
       - 'scripts/apply-android-branding.mjs'
       - '.github/workflows/android.yml'
@@ -69,7 +71,7 @@ jobs:
       - name: Standalone dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v049.html
+          test -s public/reports/stable-v050.html
           test -s public/reports/stable-v042-baseline.html
           test -s public/assets/app-v44.js
           test -s public/assets/app-v45-enhance.js
@@ -77,34 +79,34 @@ jobs:
           test -s public/assets/app-v47-enhance.js
           test -s public/assets/app-v48-enhance.js
           test -s public/assets/app-v49-enhance.js
-          test -s public/assets/app-v49.css
+          test -s public/assets/app-v50-enhance.js
+          test -s public/assets/app-v50.css
           test -s public/data/cycle-history.json
           test -s public/data/cycle-full.json
-          grep -q 'Market Radar Daily · v0.4.9' public/reports/stable-v049.html
-          grep -q 'MR049' public/reports/stable-v049.html
-          grep -q 'app-v49-enhance.js' public/reports/stable-v049.html
-          grep -q 'stable-v049.html' public/app-live.html
+          test -s public/data/wave-cycles.json
+          grep -q 'Market Radar Daily · v0.5.0' public/reports/stable-v050.html
+          grep -q 'MR050' public/reports/stable-v050.html
+          grep -q 'app-v50-enhance.js' public/reports/stable-v050.html
+          grep -q 'stable-v050.html' public/app-live.html
           grep -q 'allowNavigation' capacitor.config.json
-          ! grep -q 'full-recovery-v22.js' public/reports/stable-v049.html
-          ! grep -q 'evaluation-v26.js' public/reports/stable-v049.html
-          ! grep -q 'flow-guard' public/reports/stable-v049.html
-          ! grep -q 'integrity-v' public/reports/stable-v049.html
+          ! grep -q 'full-recovery-v22.js' public/reports/stable-v050.html
+          ! grep -q 'evaluation-v26.js' public/reports/stable-v050.html
+          ! grep -q 'flow-guard' public/reports/stable-v050.html
+          ! grep -q 'integrity-v' public/reports/stable-v050.html
           node --check public/assets/app-v44.js
-          node --check public/assets/app-v45-enhance.js
-          node --check public/assets/app-v46-enhance.js
-          node --check public/assets/app-v47-enhance.js
-          node --check public/assets/app-v48-enhance.js
           node --check public/assets/app-v49-enhance.js
+          node --check public/assets/app-v50-enhance.js
           node --check scripts/apply-android-branding.mjs
           node - <<'NODE'
           const fs=require('fs');
-          const f=JSON.parse(fs.readFileSync('public/data/cycle-full.json','utf8'));
-          const q=f.assets?.QQQ,reps=q?.representatives||[];
-          if(!q?.current_full?.path?.length) throw new Error('QQQ current cycle missing');
-          if(reps.length<10) throw new Error('QQQ representative cycles missing');
-          if(reps.filter(x=>(x.extended_path?.length||x.path?.length)>=4).length<5) throw new Error('QQQ fixed historical paths missing');
-          const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size;
-          if(bytes>10_000_000) throw new Error('combined cycle payload too large: '+bytes);
+          const w=JSON.parse(fs.readFileSync('public/data/wave-cycles.json','utf8'));
+          const q=w.assets?.QQQ;
+          if(!q?.current_context?.path?.length) throw new Error('QQQ current wave context missing');
+          if(!q.current_context.recent_drop) throw new Error('QQQ recent drawdown context missing');
+          if((q.representatives||[]).length<5) throw new Error('QQQ historical wave templates missing');
+          if((q.representatives||[]).some(x=>String(x.second_low_date)>=String(q.current_context.start_date))) throw new Error('historical template overlaps current context');
+          const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size+fs.statSync('public/data/wave-cycles.json').size;
+          if(bytes>13_000_000) throw new Error('combined cycle payload too large: '+bytes);
           NODE
       - run: npx cap add android
       - run: npx cap sync android
@@ -138,14 +140,14 @@ jobs:
         run: |
           TAG="v${{ steps.ver.outputs.version }}"
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Historical cycles stay fixed on their real trading-day paths; only the current path is fitted onto each fixed template, with an explicit low-vs-high position verdict. v0.4.2 remains immutable rollback baseline."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "One overlapped market-wave chart: historical regimes stay fixed on real paths while the current context includes the recent drawdown and is fitted onto the closest historical position. v0.4.2 remains immutable rollback baseline."
           gh release upload "$TAG" "$APK" --clobber
       - name: Mark build success
         if: success()
         run: |
           git pull --rebase || true
           mkdir -p ops
-          CYCLE_BYTES=$(($(wc -c < public/data/cycle-history.json)+$(wc -c < public/data/cycle-full.json)))
+          CYCLE_BYTES=$(($(wc -c < public/data/cycle-history.json)+$(wc -c < public/data/cycle-full.json)+$(wc -c < public/data/wave-cycles.json)))
           printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s",\n  "cycle_bytes": %s,\n  "signing_cache": "market-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" "$CYCLE_BYTES" > ops/android-latest-run.json
           git add ops/android-latest-run.json
           git commit -m "Mark Android build ${{ github.run_id }} successful" || true
