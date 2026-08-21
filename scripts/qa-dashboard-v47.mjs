@@ -1,0 +1,32 @@
+import { chromium } from '@playwright/test';
+import fs from 'node:fs/promises';
+const base=process.env.MR_QA_URL||'http://127.0.0.1:4173/reports/stable-v047.html?qa=1';
+const ids=['themes','action','cycle-visual','charts','picks','mr-famous','mr-compounders','mr-universe','expanded','etfs','allocation','research','smart-money','sources','history','replay','macro'];
+await fs.mkdir('qa-artifacts',{recursive:true});
+async function run(name,viewport){
+ const browser=await chromium.launch({headless:true}),page=await browser.newPage({viewport});
+ await page.route('https://s.tradingview.com/**',r=>r.abort());
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base,{waitUntil:'domcontentloaded',timeout:30000});
+ await page.waitForFunction(()=>document.querySelector('#loadWrap')?.hidden===true,{timeout:15000});
+ await page.waitForFunction(()=>document.querySelector('#cycle-visual .v47-cycle-svg'),{timeout:35000});
+ await page.waitForFunction(()=>document.querySelectorAll('#cycle-visual .v47-legend-item').length>=10,{timeout:10000});
+ await page.waitForFunction(()=>document.querySelectorAll('#cycle-visual .v47-point-row').length>=10,{timeout:10000});
+ await page.waitForTimeout(250);
+ const r=await page.evaluate(ids=>{const q=s=>document.querySelector(s),qa=s=>[...document.querySelectorAll(s)],missing=ids.filter(id=>!document.getElementById(id)),suspicious=qa('.mr-section').map(s=>{const b=s.getBoundingClientRect(),txt=(s.querySelector('.mr-body')?.textContent||'').trim();return{id:s.id,h:Math.round(b.height),text:txt.length,folded:s.classList.contains('is-folded')}}).filter(x=>x.h>350&&x.text<30),colors=[...new Set(qa('#cycle-visual .v47-hist-before').map(x=>x.getAttribute('stroke')).filter(Boolean))];return{missing,version:q('.top b')?.textContent||'',mark:q('.mr-buildmark')?.textContent||'',load:q('#loadWrap')?.getBoundingClientRect().height??-1,legend:qa('#cycle-visual .v47-legend-item').length,colors:colors.length,sameDots:qa('#cycle-visual .v47-same-dot').length,pointRows:qa('#cycle-visual .v47-point-row').length,currentText:q('#cycle-visual .v47-current-callout')?.textContent||'',bodyText:q('#cycle-visual .mr-body')?.textContent||'',focus:q('#cycle-visual [data-v47-mode="focus"]')?.textContent||'',full:q('#cycle-visual [data-v47-mode="full"]')?.textContent||'',scrollWidth:document.documentElement.scrollWidth,innerWidth:window.innerWidth,suspicious};},ids);
+ if(!r.version.includes('v0.4.7')||r.mark!=='MR047')throw new Error(name+': version/mark '+r.version+' '+r.mark);
+ if(r.missing.length)throw new Error(name+': missing '+r.missing.join(','));
+ if(r.load!==0)throw new Error(name+': load gap '+r.load);
+ if(r.legend<10||r.colors<10)throw new Error(name+': colored year legend insufficient '+JSON.stringify(r));
+ if(r.sameDots<8||r.pointRows<10)throw new Error(name+': same-day current markers insufficient '+JSON.stringify(r));
+ if(!/현재 포인트/.test(r.currentText)||!/번째 거래일/.test(r.currentText)||!/\d{4}-\d{2}-\d{2}/.test(r.currentText))throw new Error(name+': current point detail missing '+r.currentText);
+ for(const s of ['실선=현재와 같은','점선=그 이후 실제 과거 경로','현재 17일차를 과거 사이클 중간에 꽂아서 비교','예측'])if(!r.bodyText.includes(s))throw new Error(name+': explanation missing '+s);
+ const fm=Number((r.focus.match(/0~(\d+)일/)||[])[1]),am=Number((r.full.match(/0~(\d+)일/)||[])[1]);if(!fm||!am||fm>=am)throw new Error(name+': focus/full range not separated '+r.focus+' / '+r.full);
+ if(r.suspicious.length)throw new Error(name+': blank panels '+JSON.stringify(r.suspicious));
+ if(r.scrollWidth>r.innerWidth+3)throw new Error(name+': document overflow '+r.scrollWidth+'/'+r.innerWidth);
+ await page.locator('#cycle-visual [data-v47-mode="full"]').click();await page.waitForTimeout(100);const mode=await page.locator('#cycle-visual .v47-cycle-wrap').getAttribute('data-mode');if(mode!=='full')throw new Error(name+': full range toggle failed');
+ const qqq=page.locator('#cycle-visual [data-ticker="QQQ"]').first();await qqq.click();await page.waitForFunction(()=>document.querySelector('#modal')?.classList.contains('open'));await page.waitForFunction(()=>document.querySelector('#modal .v46-cycle-svg'),{timeout:8000});await page.waitForTimeout(350);const modal=await page.evaluate(()=>({v47:document.querySelectorAll('#modal .v47-cycle-svg').length,dots:document.querySelectorAll('#modal .v47-same-dot').length,text:document.querySelector('#modalBody')?.textContent||''}));if(modal.v47<1||modal.dots<5||!modal.text.includes('과거 사이클 중간에 꽂아서 비교'))throw new Error(name+': modal v47 comparison missing '+JSON.stringify(modal));
+ await page.locator('#modalClose').click();await page.waitForFunction(()=>!document.querySelector('#modal')?.classList.contains('open'));
+ await page.screenshot({path:`qa-artifacts/${name}.png`,fullPage:true});if(errors.length)throw new Error(name+': '+errors.join(' | '));console.log(`[${name}] PASS`,r,modal);await browser.close();
+}
+await run('desktop-v047',{width:1440,height:1000});await run('mobile-v047',{width:390,height:844});console.log('MR047 browser QA PASS');
