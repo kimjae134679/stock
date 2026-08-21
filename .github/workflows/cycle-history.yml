@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/build-cycle-history.mjs'
       - 'scripts/build-cycle-full.mjs'
+      - 'scripts/build-wave-cycles.mjs'
       - '.github/workflows/cycle-history.yml'
   schedule:
     - cron: '20 22 * * *'
@@ -31,7 +32,7 @@ jobs:
       - name: Publish cycle run pointer
         run: |
           mkdir -p ops
-          printf '{\n  "version": "0.4.8",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/cycle-history-latest.json
+          printf '{\n  "version": "0.5.0",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/cycle-history-latest.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add ops/cycle-history-latest.json
@@ -44,23 +45,25 @@ jobs:
         run: node scripts/build-cycle-history.mjs
       - name: Build detailed full-cycle paths
         run: node scripts/build-cycle-full.mjs
+      - name: Build fixed multi-leg wave templates
+        run: node scripts/build-wave-cycles.mjs
       - name: Validate cycle datasets
         run: |
           node - <<'NODE'
           const fs=require('fs');
           const j=JSON.parse(fs.readFileSync('public/data/cycle-history.json','utf8'));
           const f=JSON.parse(fs.readFileSync('public/data/cycle-full.json','utf8'));
+          const w=JSON.parse(fs.readFileSync('public/data/wave-cycles.json','utf8'));
           if(!j.assets?.QQQ?.current) throw new Error('QQQ current swing missing');
-          if(!Array.isArray(j.assets.QQQ.history)||j.assets.QQQ.history.length<4) throw new Error('QQQ swings insufficient');
           if(!f.assets?.QQQ?.current_full?.path?.length) throw new Error('QQQ current full path missing');
-          const reps=f.assets.QQQ.representatives||[];
-          if(reps.length<6) throw new Error('QQQ representative cycles insufficient');
-          if(!reps.every(x=>Array.isArray(x.path)&&x.path.length>=3)) throw new Error('QQQ representative path missing');
-          if(reps.filter(x=>Array.isArray(x.extended_path)&&x.extended_path.length>=4&&x.next_high_date).length<4) throw new Error('QQQ next-rise extended paths insufficient');
-          if(!reps.every(x=>x.start_date&&x.high_date&&x.end_date)) throw new Error('QQQ turning dates missing');
-          const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size;
-          if(bytes>10_000_000) throw new Error('combined cycle payload too large: '+bytes);
-          console.log('cycle assets',Object.keys(j.assets||{}).length,'full assets',Object.keys(f.assets||{}).length,'extended QQQ reps',reps.filter(x=>x.extended_path?.length).length,'bytes',bytes);
+          if(!w.assets?.QQQ?.current_context?.path?.length) throw new Error('QQQ wave context missing');
+          if(!w.assets.QQQ.current_context.recent_drop) throw new Error('QQQ recent drop context missing');
+          const reps=w.assets.QQQ.representatives||[];
+          if(reps.length<5) throw new Error('QQQ wave templates insufficient');
+          if(!reps.every(x=>Array.isArray(x.path)&&x.path.length>=5&&x.pivots?.length===5)) throw new Error('QQQ fixed wave path/pivots missing');
+          const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size+fs.statSync('public/data/wave-cycles.json').size;
+          if(bytes>13_000_000) throw new Error('combined cycle payload too large: '+bytes);
+          console.log('cycle assets',Object.keys(j.assets||{}).length,'full assets',Object.keys(f.assets||{}).length,'wave assets',Object.keys(w.assets||{}).length,'QQQ wave templates',reps.length,'current',w.assets.QQQ.current_context.stage,'bytes',bytes);
           NODE
       - name: Commit cycle datasets and success pointer
         run: |
@@ -68,14 +71,15 @@ jobs:
           mkdir -p ops
           ASSETS=$(node -e "const j=require('./public/data/cycle-history.json');process.stdout.write(String(Object.keys(j.assets||{}).length))")
           FULL=$(node -e "const j=require('./public/data/cycle-full.json');process.stdout.write(String(Object.keys(j.assets||{}).length))")
-          ERRORS=$(node -e "const j=require('./public/data/cycle-full.json');process.stdout.write(String(Object.keys(j.errors||{}).length))")
-          EXT=$(node -e "const j=require('./public/data/cycle-full.json');process.stdout.write(String((j.assets?.QQQ?.representatives||[]).filter(x=>x.extended_path?.length).length))")
-          BYTES=$(($(wc -c < public/data/cycle-history.json)+$(wc -c < public/data/cycle-full.json)))
-          printf '{\n  "version": "0.4.8",\n  "run_id": %s,\n  "status": "success",\n  "assets": %s,\n  "full_assets": %s,\n  "errors": %s,\n  "qqq_extended_reps": %s,\n  "combined_bytes": %s\n}\n' "${{ github.run_id }}" "$ASSETS" "$FULL" "$ERRORS" "$EXT" "$BYTES" > ops/cycle-history-latest.json
+          WAVE=$(node -e "const j=require('./public/data/wave-cycles.json');process.stdout.write(String(Object.keys(j.assets||{}).length))")
+          ERRORS=$(node -e "const j=require('./public/data/wave-cycles.json');process.stdout.write(String(Object.keys(j.errors||{}).length))")
+          WINDOWS=$(node -e "const j=require('./public/data/wave-cycles.json');process.stdout.write(String((j.assets?.QQQ?.representatives||[]).length))")
+          BYTES=$(($(wc -c < public/data/cycle-history.json)+$(wc -c < public/data/cycle-full.json)+$(wc -c < public/data/wave-cycles.json)))
+          printf '{\n  "version": "0.5.0",\n  "run_id": %s,\n  "status": "success",\n  "assets": %s,\n  "full_assets": %s,\n  "wave_assets": %s,\n  "errors": %s,\n  "qqq_wave_templates": %s,\n  "combined_bytes": %s\n}\n' "${{ github.run_id }}" "$ASSETS" "$FULL" "$WAVE" "$ERRORS" "$WINDOWS" "$BYTES" > ops/cycle-history-latest.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add public/data/cycle-history.json public/data/cycle-full.json ops/cycle-history-latest.json
-          git commit -m 'data: refresh extended historical cycles' || true
+          git add public/data/cycle-history.json public/data/cycle-full.json public/data/wave-cycles.json ops/cycle-history-latest.json
+          git commit -m 'data: refresh historical cycles and fixed wave templates' || true
           git push || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
@@ -88,7 +92,7 @@ jobs:
         run: |
           git pull --rebase --autostash || true
           mkdir -p ops
-          printf '{\n  "version": "0.4.8",\n  "run_id": %s,\n  "status": "failed"\n}\n' "${{ github.run_id }}" > ops/cycle-history-latest.json
+          printf '{\n  "version": "0.5.0",\n  "run_id": %s,\n  "status": "failed"\n}\n' "${{ github.run_id }}" > ops/cycle-history-latest.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add ops/cycle-history-latest.json
