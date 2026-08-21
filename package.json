@@ -1,12 +1,12 @@
 {
   "name": "market-radar",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "android:add": "npx cap add android",
     "android:sync": "npx cap sync android",
     "android:brand": "node scripts/apply-android-branding.mjs",
-    "cycle:build": "node scripts/build-cycle-history.mjs && node scripts/build-cycle-full.mjs",
+    "cycle:build": "node scripts/build-cycle-history.mjs && node scripts/build-cycle-full.mjs && node scripts/build-wave-cycles.mjs",
     "returns:build": "node scripts/build-compounder-returns.mjs",
     "qa:v42": "node scripts/qa-dashboard-v42.mjs",
     "qa:v43": "node scripts/qa-dashboard-v43.mjs",
@@ -15,7 +15,8 @@
     "qa:v46": "node scripts/qa-dashboard-v46.mjs",
     "qa:v47": "node scripts/qa-dashboard-v47.mjs",
     "qa:v48": "node scripts/qa-dashboard-v48.mjs",
-    "qa:v49": "node scripts/qa-dashboard-v49.mjs"
+    "qa:v49": "node scripts/qa-dashboard-v49.mjs",
+    "qa:v50": "node scripts/qa-dashboard-v50.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
