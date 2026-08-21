@@ -90,3 +90,4 @@ jobs:
           git add ops/dashboard-qa-v48-latest.json
           git commit -m "Mark dashboard v0.4.8 QA ${{ github.run_id }} successful" || true
           git push || true
+# v0.4.8 explicit trigger
