@@ -1,9 +1,6 @@
 {
   "version": "0.5.0",
-  "run_id": 32484903632,
-  "status": "success",
-  "artifact": "MarketRadar-v0.5.0-debug-apk",
-  "release_tag": "v0.5.0",
-  "cycle_bytes": 5280072,
-  "signing_cache": "market-radar-debug-keystore-v1"
+  "run_id": 32490476317,
+  "status": "building",
+  "artifact": "MarketRadar-v0.5.0-debug-apk"
 }
