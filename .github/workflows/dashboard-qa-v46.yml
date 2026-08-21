@@ -1,0 +1,90 @@
+name: Dashboard Browser QA v0.4.6
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/reports/stable-v046.html'
+      - 'public/assets/app-v46-enhance.js'
+      - 'public/assets/app-v46.css'
+      - 'public/assets/app-v45-enhance.js'
+      - 'public/assets/app-v45.css'
+      - 'public/assets/app-v44.js'
+      - 'public/data/cycle-full.json'
+      - 'public/data/cycle-history.json'
+      - 'scripts/qa-dashboard-v46.mjs'
+      - 'package.json'
+      - '.github/workflows/dashboard-qa-v46.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-browser-qa-v46
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Publish QA run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "0.4.6",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v46-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/dashboard-qa-v46-latest.json
+          git commit -m "Record dashboard v0.4.6 QA run ${{ github.run_id }}" || true
+          git push || true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Static checks
+        run: |
+          node --check public/assets/app-v44.js
+          node --check public/assets/app-v45-enhance.js
+          node --check public/assets/app-v46-enhance.js
+          node --check scripts/qa-dashboard-v46.mjs
+          test -s public/reports/stable-v042-baseline.html
+          test -s public/data/cycle-full.json
+          grep -q 'Market Radar Daily · v0.4.6' public/reports/stable-v046.html
+          grep -q 'MR046' public/reports/stable-v046.html
+          grep -q 'app-v46-enhance.js' public/reports/stable-v046.html
+          node - <<'NODE'
+          const fs=require('fs');
+          const f=JSON.parse(fs.readFileSync('public/data/cycle-full.json','utf8'));
+          const q=f.assets?.QQQ;
+          if(!q||q.full_cycle_count<30) throw new Error('QQQ full-cycle count too low');
+          if(!q.current_full?.path?.length) throw new Error('QQQ current full path missing');
+          if(!Array.isArray(q.representatives)||q.representatives.length<10) throw new Error('representatives missing');
+          if(!q.representatives.every(x=>x.start_date&&x.high_date&&x.end_date&&x.path?.length>=3)) throw new Error('exact dated paths missing');
+          console.log('QQQ span',q.first_date,q.last_date,'cycles',q.full_cycle_count,'reps',q.representatives.length);
+          NODE
+      - name: Start local site
+        run: |
+          cd public
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/mr-http.log 2>&1 &
+          sleep 2
+      - name: Browser QA desktop + mobile
+        run: npm run qa:v46
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dashboard-v046-qa-screenshots
+          path: qa-artifacts/*.png
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Mark QA success
+        if: success()
+        run: |
+          git pull --rebase || true
+          mkdir -p ops
+          printf '{\n  "version": "0.4.6",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "load-collapse", "actual-trading-day-axis", "exact-turning-dates", "real-sampled-paths", "12-cycle-cards", "expanded-turning-library", "modal-cycle-detail", "blank-panel", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v46-latest.json
+          git add ops/dashboard-qa-v46-latest.json
+          git commit -m "Mark dashboard v0.4.6 QA ${{ github.run_id }} successful" || true
+          git push || true
