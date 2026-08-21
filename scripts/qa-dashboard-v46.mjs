@@ -1,0 +1,31 @@
+import { chromium } from '@playwright/test';
+import fs from 'node:fs/promises';
+const base=process.env.MR_QA_URL||'http://127.0.0.1:4173/reports/stable-v046.html?qa=1';
+const ids=['themes','action','cycle-visual','charts','picks','mr-famous','mr-compounders','mr-universe','expanded','etfs','allocation','research','smart-money','sources','history','replay','macro'];
+await fs.mkdir('qa-artifacts',{recursive:true});
+async function run(name,viewport){
+ const browser=await chromium.launch({headless:true}),page=await browser.newPage({viewport});
+ await page.route('https://s.tradingview.com/**',r=>r.abort());
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base,{waitUntil:'domcontentloaded',timeout:30000});
+ await page.waitForFunction(()=>document.querySelector('#loadWrap')?.hidden===true,{timeout:15000});
+ await page.waitForFunction(()=>document.querySelector('#cycle-visual .v46-cycle-svg'),{timeout:30000});
+ await page.waitForFunction(()=>document.querySelectorAll('#cycle-visual .v46-cycle-card').length>=10,{timeout:30000});
+ await page.waitForFunction(()=>document.querySelectorAll('#history .v46-turn').length>=40,{timeout:30000});
+ await page.waitForTimeout(300);
+ const r=await page.evaluate(ids=>{const q=s=>document.querySelector(s),qa=s=>[...document.querySelectorAll(s)],missing=ids.filter(id=>!document.getElementById(id)),suspicious=qa('.mr-section').map(s=>{const b=s.getBoundingClientRect(),txt=(s.querySelector('.mr-body')?.textContent||'').trim();return{id:s.id,h:Math.round(b.height),text:txt.length,folded:s.classList.contains('is-folded')}}).filter(x=>x.h>350&&x.text<30);return{missing,version:q('.top b')?.textContent||'',mark:q('.mr-buildmark')?.textContent||'',load:q('#loadWrap')?.getBoundingClientRect().height??-1,cycleTitle:q('#cycle-visual .mr-head h2')?.textContent||'',cycleText:q('#cycle-visual .mr-body')?.textContent||'',svg:qa('#cycle-visual .v46-cycle-svg').length,cards:qa('#cycle-visual .v46-cycle-card').length,paths:qa('#cycle-visual .v46-hist-line').length,turns:qa('#history .v46-turn').length,similar:qa('#history .v46-similar article').length,scrollWidth:document.documentElement.scrollWidth,innerWidth:window.innerWidth,suspicious};},ids);
+ if(!r.version.includes('v0.4.6')||r.mark!=='MR046')throw new Error(name+': version/mark '+r.version+' '+r.mark);
+ if(r.missing.length)throw new Error(name+': missing '+r.missing.join(','));
+ if(r.load!==0)throw new Error(name+': load gap '+r.load);
+ if(r.svg<1||r.paths<8||r.cards<10)throw new Error(name+': detailed cycle visual incomplete '+JSON.stringify(r));
+ for(const s of ['실제 거래일','정확한 저점/고점/저점 날짜','1999','거래일'])if(!r.cycleText.includes(s))throw new Error(name+': cycle detail missing '+s);
+ if(!/\d{4}-\d{2}-\d{2}/.test(r.cycleText))throw new Error(name+': exact cycle dates missing');
+ if(r.turns<40||r.similar<10)throw new Error(name+': turning library incomplete '+r.turns+'/'+r.similar);
+ if(r.suspicious.length)throw new Error(name+': blank panels '+JSON.stringify(r.suspicious));
+ if(r.scrollWidth>r.innerWidth+3)throw new Error(name+': overflow '+r.scrollWidth+'/'+r.innerWidth);
+ const qqq=page.locator('#cycle-visual [data-ticker="QQQ"]').first();await qqq.click();await page.waitForFunction(()=>document.querySelector('#modal')?.classList.contains('open'));await page.waitForFunction(()=>document.querySelector('#modal .v46-cycle-svg'),{timeout:7000});
+ const modal=await page.evaluate(()=>({cards:document.querySelectorAll('#modal .v46-cycle-card').length,text:document.querySelector('#modalBody')?.textContent||''}));if(modal.cards<8||!/\d{4}-\d{2}-\d{2}/.test(modal.text))throw new Error(name+': modal exact cycles missing');
+ await page.locator('#modalClose').click();await page.waitForFunction(()=>!document.querySelector('#modal')?.classList.contains('open'));
+ await page.screenshot({path:`qa-artifacts/${name}.png`,fullPage:true});if(errors.length)throw new Error(name+': '+errors.join(' | '));console.log(`[${name}] PASS`,r,modal);await browser.close();
+}
+await run('desktop-v046',{width:1440,height:1000});await run('mobile-v046',{width:390,height:844});console.log('MR046 browser QA PASS');
