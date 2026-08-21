@@ -12,6 +12,7 @@
 - core renderer: `public/assets/app-v44.js`
 - v45~v49 기존 enhancement는 유지
 - v50: `public/assets/app-v50-enhance.js` + `public/assets/app-v50.css`
+- v49 modal compatibility bridge: `public/assets/app-v49-modal-bridge.js` — v50에서도 반드시 로드
 - live/latest/index 모두 v0.5.0으로 연결
 - immutable rollback: `public/reports/stable-v042-baseline.html`
 
@@ -74,9 +75,10 @@
 - overlap filter: `scripts/filter-wave-history.mjs`
 - output: `public/data/wave-cycles.json`
 - assets: 13
-- QQQ historical fixed templates: 최신 검증 기준 22개
+- QQQ historical fixed templates: **22개**
 - 현재와 겹치는 템플릿 제거
-- 전체 cycle payload 최신 검증 기준 약 5.28MB
+- 전체 cycle payload: **5,280,072 bytes**
+- 최종 cycle build success run: **32468164195**
 - `.github/workflows/cycle-history.yml`이 생성/검증/배포
 - 매시간 시장 자동화는 이 파일을 절대 덮어쓰지 않는다.
 
@@ -91,6 +93,8 @@
 `v45 → v46 → v47 → v48 → v49 → v50`
 
 v50은 메인 사이클 영역에서 v49를 삭제하지 않고 `이전 단일 사이클 매칭/상세 비교 보기` details 아래로 접는다.
+
+**중요:** v50 초기 QA에서 ticker modal 안에 v50 비교가 안 뜨는 회귀가 발생했다. 원인은 `stable-v050.html`이 v49에서 사용하던 `app-v49-modal-bridge.js` 로드를 빠뜨렸기 때문이다. v0.5.0 최종본은 bridge를 복구한 상태이며, 이후 modal-v50 QA가 성공했다. 이 bridge를 제거하지 않는다.
 
 core `app-v44.js`가 capture 단계에서 `closest('[data-ticker]')`를 ticker 클릭으로 처리하므로 그래프 내부 비-ticker 버튼에 `data-ticker` 속성을 사용하지 않는다.
 
@@ -109,7 +113,9 @@ core `app-v44.js`가 capture 단계에서 `closest('[data-ticker]')`를 ticker �
 Workflow: `.github/workflows/dashboard-qa-v50.yml`  
 Script: `scripts/qa-dashboard-v50.mjs`
 
-필수 검사:
+최종 성공 run: **32468905476**.
+
+성공 검사:
 - desktop 1440×1000 / mobile 390×844
 - v0.5.0 / MR050
 - load gap 0
@@ -118,6 +124,7 @@ Script: `scripts/qa-dashboard-v50.mjs`
 - 각 역사선의 현재 대응점
 - 최근 하락 + 그 뒤 반등 문구
 - 현재를 새 장기 상승장으로 단정하지 않는 문구
+- exact dates
 - 3/4/5개 비교 전환
 - 이전 v49 상세 보존
 - modal v50
@@ -129,9 +136,14 @@ Playwright `waitForFunction`은 `page.waitForFunction(fn, null, {timeout})`처�
 ## 8. Android
 Workflow: `.github/workflows/android.yml`
 - stable-v050 + v50 assets + `wave-cycles.json` 포함
+- v49 modal bridge 포함
 - v0.4.2 rollback baseline 포함
 - native Back/exit confirmation 유지
 - persistent debug signing key 유지
+- 최종 Android success run: **32468905273**
+- artifact: `MarketRadar-v0.5.0-debug-apk`
+- 최종 확보 APK SHA-256: **5ea9962e7abd9efbc892c6b45beb6e75567e4996af711e8e8514795cbd21ed00**
+- APK 내부 확인: `stable-v050.html`, `app-v50-enhance.js`, `app-v50.css`, `wave-cycles.json`, `app-v49-modal-bridge.js`, `stable-v042-baseline.html` 포함.
 
 Android Back 계약:
 - modal open → hardware Back = modal 닫기
@@ -157,9 +169,10 @@ Automation ID: `6a847ce3f5dc81918ccab0a7bafaa8fe`
 
 ## 10. 회귀 절차
 1. v50 문제면 v50 격리 → v49 확인.
-2. v49 문제면 v48 확인.
-3. 이후 v47 → v46 → v45 → v44 순서.
-4. core 문제면 v0.4.2 immutable baseline과 비교.
-5. 실제 desktop/mobile Browser QA.
-6. cycle 변경 시 `과거선 고정 / 한 그래프 겹침 / 최근 하락 포함 / current-only fit / exact date / 문구` 검사.
-7. Android 변경 시 최신 커밋 포함 APK를 직접 확보하고 SHA256 검증.
+2. modal에서만 v50이 누락되면 `app-v49-modal-bridge.js` 로드 여부부터 확인.
+3. v49 문제면 v48 확인.
+4. 이후 v47 → v46 → v45 → v44 순서.
+5. core 문제면 v0.4.2 immutable baseline과 비교.
+6. 실제 desktop/mobile Browser QA.
+7. cycle 변경 시 `과거선 고정 / 한 그래프 겹침 / 최근 하락 포함 / current-only fit / exact date / 문구` 검사.
+8. Android 변경 시 최신 커밋 포함 APK를 직접 확보하고 SHA256 검증.
