@@ -1,0 +1,30 @@
+.v51c-cycle{padding:16px 14px 18px}
+.v51c-zoom{overflow:hidden}
+.v51c-zoom-layer{width:100%;height:auto}
+.v51c-svg,.v51c-pair-svg{display:block;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important}
+.v51c-axis{font-size:32px}
+.v51c-anchor-label{font-size:31px}
+.v51c-anchor-day{font-size:26px}
+.v51c-now-text{font-size:32px}
+/* Long callouts inside the plot caused label collisions on phones. Their values remain in the cards below the chart. */
+.v51c-current-prev-label,.v51c-current-prev-value,.v51c-history-prev-label,.v51c-current-callout{display:none}
+.v52-chart-note{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.v52-chart-note>span{display:block;border:1px solid #29465b;background:#0b1e2a;border-radius:12px;padding:9px 10px;min-width:0}
+.v52-chart-note small{display:block;color:#8198aa;font-size:11px;margin-bottom:4px}
+.v52-chart-note b{display:block;color:#edf6fa;font-size:14px;line-height:1.35;word-break:keep-all}
+.v52-chart-note em{display:block;color:#91a8b8;font-size:11px;font-style:normal;margin-top:3px;line-height:1.4}
+@media(max-width:700px){
+ .v51c-cycle{padding:10px 8px 14px}
+ .v51c-zoom{border-radius:12px}
+ .v51c-svg,.v51c-pair-svg{width:100%!important;height:auto!important;min-height:0!important}
+ .v51c-axis{font-size:38px}
+ .v51c-anchor-label{font-size:36px}
+ .v51c-anchor-day{font-size:31px}
+ .v51c-now-text{font-size:38px}
+ .v51c-history{stroke-width:6.5}
+ .v51c-current{stroke-width:10.5!important}
+ .v52-chart-note{grid-template-columns:1fr;gap:6px;margin-top:8px}
+ .v52-chart-note>span{padding:8px 9px}
+ .v52-chart-note b{font-size:13px}
+ .v51c-zoom-help{font-size:11px;padding:8px 9px}
+}
