@@ -1,88 +1,72 @@
 {
-  "version": "0.4.5",
-  "updated_kst": "2026-08-21",
+  "version": "0.5.1",
+  "updated_kst": "2026-08-23",
   "repository": "kimjae134679/stock",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
   "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
-  "current_stable_entry": "public/reports/stable-v045.html",
-  "current_build_mark": "MR045",
-  "known_good_rollback": {
-    "version": "0.4.2",
-    "mark": "MR042",
-    "entry": "public/reports/stable-v042-baseline.html",
-    "reason": "User directly confirmed v0.4.2 rendered fully and correctly."
-  },
-  "architecture": "v0.4.4 single-owner core renderer plus v0.4.5 targeted enhancement for interpretation/full-cycle/intraday/turning-points",
-  "ui_assets": [
-    "public/assets/app-v42.css",
-    "public/assets/app-v43.css",
-    "public/assets/app-v44.css",
-    "public/assets/app-v44.js",
-    "public/assets/app-v45.css",
-    "public/assets/app-v45-enhance.js"
+  "current_entry": "public/reports/stable-v051.html",
+  "current_build_mark": "MR051",
+  "stable_baselines": [
+    {
+      "version": "0.5.0",
+      "mark": "MR050",
+      "entry": "public/reports/stable-v050-baseline.html",
+      "role": "Latest user-confirmed stable baseline; immutable."
+    },
+    {
+      "version": "0.4.2",
+      "mark": "MR042",
+      "entry": "public/reports/stable-v042-baseline.html",
+      "role": "Emergency known-good rollback; immutable."
+    }
   ],
-  "required_sections": ["themes","action","cycle-visual","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
-  "score_semantics": {
-    "rule": "Do not show bare internal scores when interpretation is practical; pair with /100 and a plain-language band.",
-    "examples": ["70 /100 · 높은 편", "24 /100 · 신호 적음", "74 /100 · 진입여건 양호"]
-  },
-  "risk_copy": {
-    "forbidden": ["3x 사지마", "3배 사지 마", "레버리지 사지 마", "매수 금지"],
-    "preferred": "Explain the condition and reason, e.g. avoid chasing or abrupt size increases after a sharp drop and wait for trend/relative-strength recovery before scaling in."
-  },
+  "architecture": "v0.4.4 core renderer plus additive v45-v51 enhancements; v51 centers the current active leg and shows adjacent historical legs for context.",
+  "ui_assets": [
+    "public/assets/app-v44.js",
+    "public/assets/app-v50-enhance.js",
+    "public/assets/app-v50.css",
+    "public/assets/app-v51-enhance.js",
+    "public/assets/app-v51.css",
+    "public/assets/app-v49-modal-bridge.js"
+  ],
+  "required_sections": ["themes","cycle-visual","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
+  "removed_by_user_request": ["action section (#action)", "quicknav action button"],
+  "phase_contract": "#segmentPhaseNow must be directly after #market hero.",
+  "hero_readability": "Break market summary into readable sentence lines; keep key evaluation/action compact and avoid duplicated dense prose.",
   "cycle": {
-    "builder": "scripts/build-cycle-history.mjs",
-    "workflow": ".github/workflows/cycle-history.yml",
-    "data": "public/data/cycle-history.json",
-    "assets": 92,
-    "errors": 0,
-    "bytes": 3054462,
-    "payload_limit_bytes": 8000000,
-    "all_swing_metadata_preserved": true,
-    "visual_paths": "current + 8 largest declines + 8 largest rallies per asset, max 60 points each",
-    "full_cycle_order": ["저점","상승","고점","하락","저점","다음 상승"],
-    "full_cycle_position": "normalized 0-100 with plain-language stage",
-    "historical_cycle_reconstruction": "pair chronological confirmed 상승 swing with following 하락 swing using real dates/trading-days/move_pct metadata",
-    "theme_proxies": {"index":"QQQ","compute":"SMH","network":"ANET","software":"IGV","power":"GRID","aggressive":"SOXL","defense":"SHLD"},
-    "forecast_rule": "historical comparison only; never present mean/median or cycle position as a guaranteed future turning date"
+    "title": "실제 사이클 비교",
+    "current_leg_rule": "If current direction is low-to-high, compare that active rise/rebound leg. If current direction is high-to-low, compare that active decline leg.",
+    "context_rule": "Historical comparison must also show one immediately preceding leg and one immediately following leg so the active leg is understood inside its surrounding regime.",
+    "rise_context": ["이전 고점", "비교 저점", "고점", "이후 저점"],
+    "fall_context": ["이전 저점", "비교 고점", "저점", "이후 고점"],
+    "historical_path_rule": "Keep actual trading-day spacing and actual return path; do not normalize/stretch historical paths to 0-100.",
+    "alignment_rule": "Only align the start anchor of the active comparison leg; do not time-stretch or amplitude-stretch historical paths.",
+    "elapsed_rule": "Show current N trading days, start-to-current dates and current move directly below the graph.",
+    "pair_rule": "Each lower #1/#2/#3 comparison chart contains exactly two lines: current + that single historical path.",
+    "font_rule": "Graph axis/pivot/current labels are roughly 2x the previous size for mobile readability.",
+    "forecast_rule": "Historical post-match path is descriptive history, never a future high/low date forecast."
   },
-  "intraday": {
-    "primary_view": "Nasdaq/S&P500/Dow verified intraday percent changes with explicit % axis and 0% direction",
-    "direction_copy": ["상승 확대","상승 둔화","하락 확대","낙폭 축소"],
-    "us10y": "shown separately with percent units",
-    "secondary_actual_chart": "QQQ actual daily TradingView remains available under details",
-    "removed_as_primary": "ambiguous market buy-timing line mixed with unlabeled QQQ price line"
-  },
-  "turning_points": {
-    "automatic_sources": ["QQQ","SPY","SMH","SOXX","TQQQ","SOXL","IGV","ANET"],
-    "fields": ["high/low type","start date","turn date","trading days","move pct"],
-    "similarity": "QQQ same-direction historical segments ranked by duration and magnitude similarity",
-    "old_manual_validation_preserved": true
-  },
+  "cycle_data": ["public/data/cycle-history.json", "public/data/cycle-full.json", "public/data/wave-cycles.json"],
   "browser_qa": {
-    "workflow": ".github/workflows/dashboard-qa-v45.yml",
-    "script": "scripts/qa-dashboard-v45.mjs",
-    "run_id": 32404005164,
+    "workflow": ".github/workflows/dashboard-qa-v51.yml",
+    "script": "scripts/qa-dashboard-v51.mjs",
+    "run_id": 32584630504,
     "status": "success",
-    "screenshot_artifact_id": 9419583845,
     "viewports": ["1440x1000", "390x844"],
-    "viewport_contract": "Use browser.newPage({viewport:{width,height}}); viewportSize is invalid for Browser.newPage and previously caused false mobile QA.",
-    "checks": ["desktop","mobile","load-collapse","semantic-scores","friendly-avoid","full-cycle-wave","intraday-percent-units","turning-point-library","modal-full-cycle","fold-toggle","blank-panel","overflow"]
+    "checks": ["stable-v050-backup","action-guide-removed","phase-directly-below-hero","actual-cycle-title","active-leg-direction","previous-current-next-context","elapsed-days","overlay","pair-current-plus-one-history","3-4-5-toggle","modal","load-collapse","overflow"]
   },
   "android_build": {
-    "run_id": 32403773940,
+    "run_id": 32584630518,
     "status": "success",
-    "artifact_id": 9419557958,
-    "artifact": "MarketRadar-v0.4.5-debug-apk",
-    "apk_size_bytes": 5130671,
-    "apk_sha256": "cabb0fd3961c3da9ac9cce7cff4a4f52eaf03fb1c985859ca6668f7876a251b6",
-    "embedded_cycle_bytes": 3054462,
-    "verified_embedded_files": ["assets/public/reports/stable-v045.html","assets/public/assets/app-v45-enhance.js","assets/public/assets/app-v45.css","assets/public/data/cycle-history.json","assets/public/reports/stable-v042-baseline.html"]
+    "artifact_id": 9478732657,
+    "artifact": "MarketRadar-v0.5.1-debug-apk",
+    "apk_size_bytes": 5879205,
+    "apk_sha256": "91f66bd0c3ee6eed40799047e26584ad2fda369d58435e34e5fcba6783eccc55",
+    "verified_embedded_files": ["assets/public/reports/stable-v051.html","assets/public/reports/stable-v050-baseline.html","assets/public/assets/app-v51-enhance.js","assets/public/assets/app-v51.css","assets/public/data/wave-cycles.json"]
   },
   "loading": {"success": "100.000% then remove whole #loadWrap", "no_gap_rule": true},
-  "fold_contract": {"core_prefix": "mr:fold:v044:", "delegated_click": true, "collapsed_body_zero_height": true, "no_transform_gap_repair": true},
   "android_back_contract": ["modal open -> hardware Back closes modal", "root -> ask 앱을 종료하시겠습니까?", "only explicit 종료 exits"],
-  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION/cycle-history.json. Keep prose compact and risk language conditional rather than commanding.",
+  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION or cycle datasets. Keep prose compact and conditional, not commanding.",
   "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
-  "apk_done_definition": "Real desktop/mobile Browser QA success -> Android Actions success -> Artifact exists -> APK downloaded and integrity checked -> provide file directly to user"
+  "apk_done_definition": "Desktop/mobile Browser QA success -> Android Actions success -> artifact exists -> APK downloaded and integrity checked -> provide APK directly to user"
 }
