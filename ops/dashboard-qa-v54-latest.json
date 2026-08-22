@@ -1,7 +1,5 @@
 {
   "version": "0.5.4",
-  "run_id": 32600614932,
-  "status": "success",
-  "checks": ["desktop", "mobile", "actual-candles", "moving-averages", "actual-volume", "current-overlay", "history-tabs", "reference-chart-ratio", "load-collapse", "overflow"],
-  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"
+  "run_id": 32600740922,
+  "status": "building"
 }
