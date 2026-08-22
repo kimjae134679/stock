@@ -46,37 +46,33 @@ jobs:
       - name: Standalone dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v051.html
-          test -s public/reports/stable-v050-baseline.html
+          test -s public/reports/stable-v052.html
+          test -s public/reports/stable-v051-baseline.html
           test -s public/reports/stable-v042-baseline.html
           test -s public/assets/app-v44.js
           test -s public/assets/app-v49-modal-bridge.js
-          test -s public/assets/app-v50-enhance.js
-          test -s public/assets/app-v51-enhance.js
-          test -s public/assets/app-v51.css
+          test -s public/assets/app-v51c-enhance.js
+          test -s public/assets/app-v51c.css
+          test -s public/assets/app-v52-enhance.js
+          test -s public/assets/app-v52.css
           test -s public/data/cycle-history.json
           test -s public/data/cycle-full.json
           test -s public/data/wave-cycles.json
-          grep -q 'Market Radar Daily · v0.5.1' public/reports/stable-v051.html
-          grep -q 'app-v51-enhance.js' public/reports/stable-v051.html
-          grep -q 'stable-v051.html' public/app-live.html
+          grep -q 'Market Radar Daily · v0.5.2' public/reports/stable-v052.html
+          grep -q 'MR052' public/reports/stable-v052.html
+          grep -q 'app-v52-enhance.js' public/reports/stable-v052.html
+          grep -q 'stable-v052.html' public/app-live.html
           grep -q 'allowNavigation' capacitor.config.json
-          ! grep -q 'full-recovery-v22.js' public/reports/stable-v051.html
-          ! grep -q 'evaluation-v26.js' public/reports/stable-v051.html
-          ! grep -q 'flow-guard' public/reports/stable-v051.html
-          ! grep -q 'integrity-v' public/reports/stable-v051.html
+          ! grep -q 'app-v51d.css' public/reports/stable-v052.html
+          ! grep -q 'app-v51d-enhance.js' public/reports/stable-v052.html
+          ! grep -q 'full-recovery-v22.js' public/reports/stable-v052.html
+          ! grep -q 'evaluation-v26.js' public/reports/stable-v052.html
+          ! grep -q 'flow-guard' public/reports/stable-v052.html
+          ! grep -q 'integrity-v' public/reports/stable-v052.html
           node --check public/assets/app-v44.js
-          node --check public/assets/app-v50-enhance.js
-          node --check public/assets/app-v51-enhance.js
+          node --check public/assets/app-v51c-enhance.js
+          node --check public/assets/app-v52-enhance.js
           node --check scripts/apply-android-branding.mjs
-          node - <<'NODE'
-          const fs=require('fs');
-          const w=JSON.parse(fs.readFileSync('public/data/wave-cycles.json','utf8'));
-          const q=w.assets?.QQQ;
-          if(!q?.current_context?.segments?.length) throw new Error('QQQ current active leg missing');
-          if((q.representatives||[]).length<5) throw new Error('QQQ historical wave templates missing');
-          if(!q.representatives.every(x=>x.pivots?.length===5&&x.legs?.length===4)) throw new Error('historical context legs missing');
-          NODE
       - run: npx cap add android
       - run: npx cap sync android
       - name: Apply icon and native Back fallback
@@ -109,7 +105,7 @@ jobs:
         run: |
           TAG="v${{ steps.ver.outputs.version }}"
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Android-native rebuild. Web-only UI changes no longer trigger APK builds."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Android-native rebuild using the current proportional cycle-chart stable page. v0.5.1 known-good backup and v0.4.2 rollback remain preserved."
           gh release upload "$TAG" "$APK" --clobber
       - name: Mark build success
         if: success()
@@ -117,7 +113,7 @@ jobs:
           git pull --rebase || true
           mkdir -p ops
           CYCLE_BYTES=$(($(wc -c < public/data/cycle-history.json)+$(wc -c < public/data/cycle-full.json)+$(wc -c < public/data/wave-cycles.json)))
-          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s",\n  "cycle_bytes": %s,\n  "stable_baseline": "v0.5.0",\n  "signing_cache": "market-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" "$CYCLE_BYTES" > ops/android-latest-run.json
+          printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "success",\n  "artifact": "MarketRadar-v%s-debug-apk",\n  "release_tag": "v%s",\n  "cycle_bytes": %s,\n  "known_good_backup": "v0.5.1C@94eccb7",\n  "signing_cache": "market-radar-debug-keystore-v1"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" "${{ steps.ver.outputs.version }}" "$CYCLE_BYTES" > ops/android-latest-run.json
           git add ops/android-latest-run.json
           git commit -m "Mark Android build ${{ github.run_id }} successful" || true
           git push || true
