@@ -38,7 +38,9 @@ async function run(name,viewport){
  if(r.dash&&r.dash!=='none')throw new Error(name+': current line dashed '+r.dash);
  if(r.overflow>3)throw new Error(name+': horizontal overflow '+r.overflow);
  if(r.loadH>2)throw new Error(name+': loading gap remains '+r.loadH);
- await page.locator('#cycle-visual').scrollIntoViewIfNeeded();
+ const chart=page.locator('#cycle-visual .v51c-cycle').first();
+ await chart.scrollIntoViewIfNeeded();
+ await chart.screenshot({path:`qa-artifacts/${name}-cycle.png`});
  await page.screenshot({path:`qa-artifacts/${name}.png`,fullPage:false});
  if(errors.length)throw new Error(name+': '+errors.join(' | '));
  console.log(name,'PASS',r);
