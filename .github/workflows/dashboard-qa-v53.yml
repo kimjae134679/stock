@@ -1,0 +1,74 @@
+name: Dashboard Browser QA v0.5.3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/reports/stable-v053.html'
+      - 'public/assets/app-v53.css'
+      - 'public/assets/app-v53-enhance.js'
+      - 'scripts/qa-dashboard-v53.mjs'
+      - 'package.json'
+      - '.github/workflows/dashboard-qa-v53.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-browser-qa-v53
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Publish QA run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "0.5.3",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v53-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/dashboard-qa-v53-latest.json
+          git commit -m "Record dashboard v0.5.3 QA run ${{ github.run_id }}" || true
+          git push || true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Static checks
+        run: |
+          node --check public/assets/app-v53-enhance.js
+          node --check scripts/qa-dashboard-v53.mjs
+          grep -q 'Market Radar Daily · v0.5.3' public/reports/stable-v053.html
+          grep -q 'MR053' public/reports/stable-v053.html
+          grep -q 'app-v53.css' public/reports/stable-v053.html
+          grep -q 'app-v53-enhance.js' public/reports/stable-v053.html
+          test -s public/reports/stable-v051-baseline.html
+          test -s public/reports/stable-v042-baseline.html
+      - name: Start local site
+        run: |
+          cd public
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/mr-http.log 2>&1 &
+          sleep 2
+      - name: Browser QA desktop + mobile
+        run: npm run qa:v53
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dashboard-v053-qa-screenshots
+          path: qa-artifacts/*.png
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Mark QA success
+        if: success()
+        run: |
+          git pull --rebase || true
+          mkdir -p ops
+          printf '{\n  "version": "0.5.3",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "compact-main-chart", "compact-pair-chart", "preserve-aspect-ratio", "outside-fact-cards", "current-line-emphasis", "1-to-1-pair-cards", "load-collapse", "overflow"],\n  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v53-latest.json
+          git add ops/dashboard-qa-v53-latest.json
+          git commit -m "Mark dashboard v0.5.3 QA ${{ github.run_id }} successful" || true
+          git push || true
