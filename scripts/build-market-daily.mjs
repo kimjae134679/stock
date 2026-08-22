@@ -1,0 +1,21 @@
+// Market Radar v0.5.4 — actual daily OHLCV cache for reference-style cycle charts.
+// Writes one lazy-loadable JSON file per tracked asset so the UI can draw real candles,
+// moving averages and volume without fabricating intraday/price data.
+import fs from 'node:fs/promises';
+const WAVE='public/data/wave-cycles.json';
+const OUT='public/data/market-daily';
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const round=(v,d=4)=>Number.isFinite(Number(v))?+Number(v).toFixed(d):null;
+function symbol(t){return String(t).replace('.','-')}
+async function fetchTimeout(url,timeout=30000){const c=new AbortController(),id=setTimeout(()=>c.abort(),timeout);try{return await fetch(url,{signal:c.signal,headers:{'User-Agent':'Mozilla/5.0 MarketRadar/0.5.4','Accept':'application/json,text/plain,*/*'}})}finally{clearTimeout(id)}}
+function clean(rows){const seen=new Set();return rows.filter(r=>r&&/^\d{4}-\d{2}-\d{2}$/.test(r[0])&&[r[1],r[2],r[3],r[4]].every(v=>Number.isFinite(v)&&v>0)).sort((a,b)=>a[0].localeCompare(b[0])).filter(r=>{if(seen.has(r[0]))return false;seen.add(r[0]);return true})}
+async function yahoo(t,host){const p2=Math.floor(Date.now()/1000),url=`https://${host}/v8/finance/chart/${encodeURIComponent(symbol(t))}?period1=315532800&period2=${p2}&interval=1d&events=div%2Csplits&includeAdjustedClose=true`;let err='';for(let k=0;k<3;k++){try{const r=await fetchTimeout(url);if(!r.ok)throw new Error('HTTP '+r.status);const j=await r.json(),c=j?.chart?.result?.[0];if(!c)throw new Error(j?.chart?.error?.description||'no result');const ts=c.timestamp||[],q=c.indicators?.quote?.[0]||{},adj=c.indicators?.adjclose?.[0]?.adjclose||q.close||[],rows=[];for(let i=0;i<ts.length;i++){const rawC=Number(q.close?.[i]),a=Number(adj?.[i]),o=Number(q.open?.[i]),h=Number(q.high?.[i]),l=Number(q.low?.[i]),vol=Number(q.volume?.[i]);if(![rawC,a,o,h,l].every(Number.isFinite)||rawC<=0||a<=0)continue;const f=a/rawC;rows.push([new Date(ts[i]*1000).toISOString().slice(0,10),round(o*f),round(h*f),round(l*f),round(a),Number.isFinite(vol)&&vol>=0?Math.round(vol):0])}const out=clean(rows);if(out.length<250)throw new Error('too few rows '+out.length);return{rows:out,source:`Yahoo Finance ${host} adjusted OHLC + raw volume`}}catch(e){err=String(e?.message||e);await sleep(700*(k+1))}}throw new Error(err)}
+async function stooq(t){const d2=new Date().toISOString().slice(0,10).replaceAll('-',''),url=`https://stooq.com/q/d/l/?s=${String(t).toLowerCase()}.us&d1=19800101&d2=${d2}&i=d`;const r=await fetchTimeout(url,35000);if(!r.ok)throw new Error('HTTP '+r.status);const txt=await r.text(),rows=[];for(const line of txt.trim().split(/\r?\n/).slice(1)){const p=line.split(',');if(p.length<6)continue;const [o,h,l,c,v]=[p[1],p[2],p[3],p[4],p[5]].map(Number);if([o,h,l,c].every(Number.isFinite)&&c>0)rows.push([p[0],round(o),round(h),round(l),round(c),Number.isFinite(v)&&v>=0?Math.round(v):0])}const out=clean(rows);if(out.length<250)throw new Error('too few rows '+out.length);return{rows:out,source:'Stooq daily OHLCV'}}
+async function history(t){const errs=[];for(const fn of [()=>yahoo(t,'query1.finance.yahoo.com'),()=>yahoo(t,'query2.finance.yahoo.com'),()=>stooq(t)]){try{return await fn()}catch(e){errs.push(String(e?.message||e))}}throw new Error(errs.join(' | '))}
+await fs.mkdir(OUT,{recursive:true});
+const wave=JSON.parse(await fs.readFile(WAVE,'utf8')),tickers=Object.keys(wave.assets||{}),errors={};
+for(const t of tickers){try{const h=await history(t),payload={ticker:t,updated_at:new Date().toISOString(),source:h.source,columns:['date','open','high','low','close','volume'],first_date:h.rows[0][0],last_date:h.rows.at(-1)[0],rows:h.rows};await fs.writeFile(`${OUT}/${t}.json`,JSON.stringify(payload)+'\n','utf8');console.log('[daily]',t,h.rows.length,h.rows[0][0],h.rows.at(-1)[0])}catch(e){errors[t]=String(e?.message||e);console.warn('[daily]',t,'FAIL',errors[t])}await sleep(250)}
+if(!tickers.includes('QQQ'))throw new Error('QQQ not present in wave asset list');
+const q=JSON.parse(await fs.readFile(`${OUT}/QQQ.json`,'utf8'));if((q.rows||[]).length<3000)throw new Error('QQQ daily history too short');
+await fs.writeFile(`${OUT}/index.json`,JSON.stringify({updated_at:new Date().toISOString(),tickers:tickers.filter(t=>!errors[t]),errors})+'\n','utf8');
+console.log('daily assets',tickers.length,'errors',Object.keys(errors).length);
