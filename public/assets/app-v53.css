@@ -1,0 +1,72 @@
+/* Market Radar v0.5.3 — keep v0.5.2 logic, restore the cleaner v0.4.9/v0.5.0 chart proportions. */
+.v51c-cycle{padding:14px 12px 17px!important}
+.v51c-head{margin-bottom:10px!important}
+.v51c-head b{font-size:24px!important}
+.v51c-head span{font-size:13px!important;line-height:1.45!important}
+.v51c-state{gap:7px!important;margin:9px 0 10px!important}
+.v51c-state>div{padding:10px!important;border-radius:13px!important}
+.v51c-state b{font-size:15px!important}
+.v51c-state span{font-size:11px!important}
+.v51c-legend{gap:6px!important;margin:9px 0 10px!important}
+.v51c-legend>span{padding:6px 8px!important;border-radius:11px!important}
+.v51c-legend b{font-size:12px!important}.v51c-legend small{font-size:10px!important}
+
+/* Main chart: old compact, readable visual weight. Never stretch the SVG. */
+.v51c-zoom{border-radius:17px!important;background:#06131d!important;border-color:#183447!important}
+.v51c-zoom-layer{width:100%!important;height:auto!important}
+.v51c-svg{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:500px!important;preserve-aspect-ratio:xMidYMid meet}
+.v51c-grid{stroke:#193144!important;stroke-width:1!important}
+.v51c-zero{stroke:#708899!important;stroke-width:1.35!important;opacity:.72!important}
+.v51c-history{stroke-width:4.2!important;opacity:.9!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.v51c-current{stroke-width:6.8!important;filter:drop-shadow(0 0 4px rgba(85,255,125,.28))!important}
+.v51c-now-line{stroke-width:1.35!important;stroke-dasharray:5 5!important}
+.v51c-now-dot{r:7!important}
+.v51c-axis{font-size:14px!important;font-weight:800!important;fill:#7f97a8!important}
+.v51c-anchor-label{font-size:14px!important;font-weight:900!important;fill:#a9becd!important}
+.v51c-anchor-day{font-size:12px!important;font-weight:800!important;fill:#70889a!important}
+.v51c-now-text{font-size:14px!important;font-weight:900!important;fill:#dfffe7!important}
+.v51c-current-prev-label,.v51c-current-prev-value,.v51c-history-prev-label,.v51c-current-callout{display:none!important}
+.v51c-zoom-help{padding:7px 10px!important;font-size:11px!important}
+
+/* Keep the useful numbers outside the plot, like the older cards. */
+.v52-chart-note{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:9px!important}
+.v52-chart-note>span{padding:8px 9px!important;border-radius:11px!important}
+.v52-chart-note small{font-size:10px!important}.v52-chart-note b{font-size:13px!important}.v52-chart-note em{font-size:10px!important}
+
+/* One-to-one matches: larger graph than text, simpler card rhythm. */
+.v51c-pair-title{font-size:19px!important;margin:18px 0 8px!important}
+.v51c-pairs{gap:10px!important}
+.v51c-pair{padding:11px!important;border-radius:15px!important;background:#081722!important}
+.v51c-pair-head{margin-bottom:5px!important}
+.v51c-pair-head>div b{font-size:15px!important}.v51c-pair-head span{font-size:10px!important}.v51c-pair-head strong{font-size:12px!important}
+.v51c-pair .v51c-zoom{border-radius:13px!important}
+.v51c-pair-svg{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:330px!important}
+.v51c-pair .v51c-history{stroke-width:4.1!important}
+.v51c-pair .v51c-current{stroke-width:6.3!important}
+.v51c-pair-stats{gap:5px!important;margin-top:6px!important}
+.v51c-pair-stats span{padding:7px 8px!important;border-radius:10px!important}
+.v51c-pair-stats small{font-size:9px!important}.v51c-pair-stats b{font-size:12px!important}
+.v51c-note,.v51c-score-note,.v51c-align-note{font-size:11px!important;line-height:1.45!important}
+
+@media(max-width:700px){
+ .v51c-cycle{padding:10px 8px 14px!important;border-radius:18px!important}
+ .v51c-head b{font-size:21px!important}.v51c-head span{font-size:12px!important}
+ .v51c-state{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .v51c-state b{font-size:14px!important}
+ .v51c-legend{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .v51c-legend>span{min-width:0!important}
+ .v51c-legend small{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+ .v51c-svg{width:100%!important;height:auto!important;min-height:0!important;max-height:300px!important}
+ .v51c-history{stroke-width:4.8!important}.v51c-current{stroke-width:7.2!important}
+ .v51c-axis{font-size:13px!important}.v51c-anchor-label{font-size:13px!important}.v51c-anchor-day{font-size:11px!important}.v51c-now-text{font-size:13px!important}
+ .v52-chart-note{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important}
+ .v52-chart-note>span{padding:7px 6px!important}.v52-chart-note small{font-size:9px!important}.v52-chart-note b{font-size:11px!important}.v52-chart-note em{font-size:9px!important}
+ .v51c-pair{padding:9px!important}
+ .v51c-pair-head{display:flex!important;gap:7px!important}.v51c-pair-head strong{margin-top:0!important;font-size:10px!important}
+ .v51c-pair-head>div b{font-size:13px!important}.v51c-pair-head span{font-size:9px!important}
+ .v51c-pair-svg{width:100%!important;height:auto!important;min-height:0!important;max-height:245px!important}
+ .v51c-pair .v51c-history{stroke-width:4.5!important}.v51c-pair .v51c-current{stroke-width:6.7!important}
+ .v51c-pair-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .v51c-pair-stats small{font-size:8px!important}.v51c-pair-stats b{font-size:11px!important}
+ .v51c-zoom-help{font-size:10px!important;padding:6px 8px!important}
+}
