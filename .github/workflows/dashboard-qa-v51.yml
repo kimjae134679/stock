@@ -1,0 +1,85 @@
+name: Dashboard Browser QA v0.5.1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/reports/stable-v051.html'
+      - 'public/reports/stable-v050-baseline.html'
+      - 'public/assets/app-v51-enhance.js'
+      - 'public/assets/app-v51.css'
+      - 'public/assets/app-v50-enhance.js'
+      - 'public/assets/app-v44.js'
+      - 'public/data/wave-cycles.json'
+      - 'scripts/qa-dashboard-v51.mjs'
+      - 'package.json'
+      - '.github/workflows/dashboard-qa-v51.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-browser-qa-v51
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Publish QA run pointer
+        run: |
+          mkdir -p ops
+          printf '{\n  "version": "0.5.1",\n  "run_id": %s,\n  "status": "building"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v51-latest.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/dashboard-qa-v51-latest.json
+          git commit -m "Record dashboard v0.5.1 QA run ${{ github.run_id }}" || true
+          git push || true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Static checks
+        run: |
+          node --check public/assets/app-v44.js
+          node --check public/assets/app-v51-enhance.js
+          node --check scripts/qa-dashboard-v51.mjs
+          test -s public/reports/stable-v050-baseline.html
+          test -s public/data/wave-cycles.json
+          grep -q 'Market Radar Daily · v0.5.1' public/reports/stable-v051.html
+          grep -q 'MR051' public/reports/stable-v051.html
+          grep -q 'app-v51-enhance.js' public/reports/stable-v051.html
+          grep -q 'app-v51.css' public/reports/stable-v051.html
+          node - <<'NODE'
+          const w=require('./public/data/wave-cycles.json'),q=w.assets?.QQQ;
+          if(!q?.current_context?.segments?.length) throw new Error('QQQ active segment missing');
+          if((q.representatives||[]).length<5) throw new Error('QQQ wave templates missing');
+          if(!q.representatives.every(x=>x.pivots?.length===5&&x.legs?.length===4)) throw new Error('historical context legs missing');
+          NODE
+      - name: Start local site
+        run: |
+          cd public
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/mr-http.log 2>&1 &
+          sleep 2
+      - name: Browser QA desktop + mobile
+        run: npm run qa:v51
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dashboard-v051-qa-screenshots
+          path: qa-artifacts/*.png
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Mark QA success
+        if: success()
+        run: |
+          git pull --rebase || true
+          mkdir -p ops
+          printf '{\n  "version": "0.5.1",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "stable-v050-backup", "action-guide-removed", "phase-directly-below-hero", "actual-cycle-title", "active-leg-direction", "previous-current-next-context", "elapsed-days", "overlay", "pair-current-plus-one-history", "3-4-5-toggle", "modal", "load-collapse", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v51-latest.json
+          git add ops/dashboard-qa-v51-latest.json
+          git commit -m "Mark dashboard v0.5.1 QA ${{ github.run_id }} successful" || true
+          git push || true
