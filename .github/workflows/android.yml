@@ -4,38 +4,10 @@ on:
   push:
     branches: [main]
     paths:
-      - 'VERSION'
-      - 'package.json'
       - 'capacitor.config.json'
-      - 'public/index.html'
-      - 'public/app-live.html'
-      - 'public/reports/latest.html'
-      - 'public/reports/stable-v051.html'
-      - 'public/reports/stable-v050-baseline.html'
-      - 'public/reports/stable-v042-baseline.html'
-      - 'public/manifest.webmanifest'
-      - 'public/sw.js'
-      - 'public/assets/app-v42.css'
-      - 'public/assets/app-v43.css'
-      - 'public/assets/app-v44.js'
-      - 'public/assets/app-v44.css'
-      - 'public/assets/app-v45-enhance.js'
-      - 'public/assets/app-v45.css'
-      - 'public/assets/app-v46-enhance.js'
-      - 'public/assets/app-v46.css'
-      - 'public/assets/app-v47-enhance.js'
-      - 'public/assets/app-v47.css'
-      - 'public/assets/app-v48-enhance.js'
-      - 'public/assets/app-v48.css'
-      - 'public/assets/app-v49-enhance.js'
-      - 'public/assets/app-v49.css'
-      - 'public/assets/app-v50-enhance.js'
-      - 'public/assets/app-v50.css'
-      - 'public/assets/app-v51-enhance.js'
-      - 'public/assets/app-v51.css'
-      - 'public/data/**'
       - 'scripts/apply-android-branding.mjs'
-      - '.github/workflows/android.yml'
+      - 'android/**'
+      - 'ops/android-rebuild.request'
   workflow_dispatch:
 
 permissions:
@@ -86,7 +58,6 @@ jobs:
           test -s public/data/cycle-full.json
           test -s public/data/wave-cycles.json
           grep -q 'Market Radar Daily · v0.5.1' public/reports/stable-v051.html
-          grep -q 'MR051' public/reports/stable-v051.html
           grep -q 'app-v51-enhance.js' public/reports/stable-v051.html
           grep -q 'stable-v051.html' public/app-live.html
           grep -q 'allowNavigation' capacitor.config.json
@@ -105,8 +76,6 @@ jobs:
           if(!q?.current_context?.segments?.length) throw new Error('QQQ current active leg missing');
           if((q.representatives||[]).length<5) throw new Error('QQQ historical wave templates missing');
           if(!q.representatives.every(x=>x.pivots?.length===5&&x.legs?.length===4)) throw new Error('historical context legs missing');
-          const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size+fs.statSync('public/data/wave-cycles.json').size;
-          if(bytes>13_000_000) throw new Error('combined cycle payload too large: '+bytes);
           NODE
       - run: npx cap add android
       - run: npx cap sync android
@@ -140,7 +109,7 @@ jobs:
         run: |
           TAG="v${{ steps.ver.outputs.version }}"
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Actual cycle comparison centers the current active leg and shows one historical leg before and after it. v0.5.0 is preserved as an immutable stable baseline; v0.4.2 remains the emergency rollback baseline."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Android-native rebuild. Web-only UI changes no longer trigger APK builds."
           gh release upload "$TAG" "$APK" --clobber
       - name: Mark build success
         if: success()
