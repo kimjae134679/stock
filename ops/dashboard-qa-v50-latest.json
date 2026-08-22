@@ -1,5 +1,6 @@
 {
   "version": "0.5.0",
   "run_id": 32598666136,
-  "status": "building"
+  "status": "success",
+  "checks": ["desktop", "mobile", "load-collapse", "one-overlaid-chart", "fixed-historical-wave-templates", "current-includes-recent-drop", "rebound-not-bull-market-label", "exact-dates", "3-4-5-toggle", "previous-detail-preserved", "modal-v50", "blank-panel", "overflow"]
 }
