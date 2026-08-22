@@ -1,5 +1,6 @@
 {
   "version": "0.5.1",
   "run_id": 32584630504,
-  "status": "building"
+  "status": "success",
+  "checks": ["desktop", "mobile", "stable-v050-backup", "action-guide-removed", "phase-directly-below-hero", "actual-cycle-title", "active-leg-direction", "previous-current-next-context", "elapsed-days", "overlay", "pair-current-plus-one-history", "3-4-5-toggle", "modal", "load-collapse", "overflow"]
 }
