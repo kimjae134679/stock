@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071018">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Market Radar Daily v0.5.4</title>
+<link rel="stylesheet" href="../assets/app-v42.css?v=42">
+<link rel="stylesheet" href="../assets/app-v43.css?v=43">
+<link rel="stylesheet" href="../assets/app-v44.css?v=44">
+<link rel="stylesheet" href="../assets/app-v45.css?v=45">
+<link rel="stylesheet" href="../assets/app-v46.css?v=46">
+<link rel="stylesheet" href="../assets/app-v47.css?v=47">
+<link rel="stylesheet" href="../assets/app-v48.css?v=48">
+<link rel="stylesheet" href="../assets/app-v49.css?v=49">
+<link rel="stylesheet" href="../assets/app-v50.css?v=50">
+<link rel="stylesheet" href="../assets/app-v51.css?v=51">
+<link rel="stylesheet" href="../assets/app-v51b.css?v=51b2">
+<link rel="stylesheet" href="../assets/app-v51c.css?v=51c">
+<link rel="stylesheet" href="../assets/app-v52.css?v=52">
+<link rel="stylesheet" href="../assets/app-v53.css?v=53">
+<link rel="stylesheet" href="../assets/app-v53b.css?v=53b">
+<link rel="stylesheet" href="../assets/app-v54.css?v=54">
+<script>window.__MR_RELEASE='0.5.4';</script>
+</head>
+<body>
+<span class="mr-buildmark" aria-hidden="true">MR054</span>
+<div class="w">
+  <div class="top">
+    <div><b>📡 Market Radar Daily · v0.5.4</b><div class="muted" id="reportClock">업데이트 시간 확인 중…</div></div>
+    <a class="btn" href="../index.html?v=54">앱 홈</a>
+  </div>
+  <nav class="quicknav">
+    <button class="pill" data-go="market">시장</button><button class="pill" data-go="themes">테마</button><button class="pill" data-go="cycle-visual">실제사이클</button><button class="pill" data-go="charts">장중</button><button class="pill" data-go="picks">종목</button><button class="pill" data-go="mr-famous">대표주</button><button class="pill" data-go="mr-compounders">우상향</button><button class="pill" data-go="mr-universe">전체추적</button><button class="pill" data-go="expanded">숨은테마</button><button class="pill" data-go="etfs">ETF</button><button class="pill" data-go="allocation">비중</button><button class="pill" data-go="research">리서치</button><button class="pill" data-go="smart-money">기관</button><button class="pill" data-go="sources">원문</button><button class="pill" data-go="history">변곡점</button><button class="pill" data-go="replay">Replay</button><button class="pill" data-go="macro">거시</button>
+  </nav>
+  <div id="loadWrap">
+    <div id="loadPanel" class="load-panel"><div class="load-row"><b id="loadPct" class="load-pct">00.001%</b><span id="loadMsg" class="load-msg">안정 렌더러 준비 중</span></div><div class="load-track"><div id="loadBar" class="load-bar"></div></div><div id="loadDetail" class="load-detail">실제 일봉 캔들 · 이동평균 · 거래량 기반 사이클 비교 준비</div></div>
+    <div class="load-status">핵심 화면 검증 후 로딩 영역 전체를 제거합니다.</div>
+  </div>
+  <main id="app"><section class="hero" id="market"><div class="muted">v0.5.4 보호 기본 화면</div><h1>데이터 연결 중…</h1><div class="hero-action">잠시만 기다려 주세요.</div></section></main>
+</div>
+<div id="modal" class="modal"><div class="sheet"><div class="sheethead"><div><b id="modalTitle">상세</b><div class="muted" id="modalSub"></div></div><button type="button" class="close" id="modalClose">닫기 ✕</button></div><div id="modalBody"></div></div></div>
+<script src="../assets/app-v44.js?v=44"></script>
+<script src="../assets/app-v45-enhance.js?v=45"></script>
+<script src="../assets/app-v49-modal-bridge.js?v=49"></script>
+<script>
+(()=>{const t0=Date.now();function load46(){const ready=document.querySelector('#cycle-visual .v45-cycle-svg')||document.querySelector('#cycle-visual .v45-empty');if(ready||Date.now()-t0>25000){const s=document.createElement('script');s.src='../assets/app-v46-enhance.js?v=46&ts='+Date.now();s.onload=load47;document.body.appendChild(s);return}setTimeout(load46,120)}function load47(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v46-cycle-svg')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v47-enhance.js?v=47&ts='+Date.now();s.onload=load48;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load48(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v47-cycle-wrap')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v48-enhance.js?v=48&ts='+Date.now();s.onload=load49;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load49(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v48-shell')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v49-enhance.js?v=49&ts='+Date.now();s.onload=load50;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load50(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v49-shell')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v50-enhance.js?v=50&ts='+Date.now();s.onload=load51;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load51(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v50-shell')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v51-enhance.js?v=51&ts='+Date.now();s.onload=load51b;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load51b(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51-cycle')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v51b-enhance.js?v=51b&ts='+Date.now();s.onload=load51c;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load51c(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51b-cycle')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v51c-enhance.js?v=51c&ts='+Date.now();s.onload=load52;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load52(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51c-cycle')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v52-enhance.js?v=52&ts='+Date.now();s.onload=load53;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load53(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51c-svg')?.dataset.v52RatioFix==='1'||Date.now()-t>20000){const s=document.createElement('script');s.src='../assets/app-v53-enhance.js?v=53&ts='+Date.now();s.onload=load53b;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load53b(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51c-svg')?.dataset.v53Compact==='1'||Date.now()-t>20000){const s=document.createElement('script');s.src='../assets/app-v53b-enhance.js?v=53b&ts='+Date.now();s.onload=load54;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load54(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51c-cycle')||Date.now()-t>20000){const s=document.createElement('script');s.src='../assets/app-v54-enhance.js?v=54&ts='+Date.now();document.body.appendChild(s);return}setTimeout(go,120)}go()}load46()})();
+</script>
+</body>
+</html>
