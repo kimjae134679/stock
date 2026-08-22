@@ -1,0 +1,5 @@
+/* v0.5.3B: compact old-style sizing while preserving SVG geometry */
+.v51c-cycle>.v51c-zoom{max-width:920px!important;margin-left:auto!important;margin-right:auto!important}
+.v51c-pair .v51c-zoom{max-width:840px!important;margin-left:auto!important;margin-right:auto!important}
+.v51c-svg,.v51c-pair-svg{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important}
+@media(max-width:700px){.v51c-cycle>.v51c-zoom,.v51c-pair .v51c-zoom{max-width:none!important}.v51c-svg,.v51c-pair-svg{width:100%!important;height:auto!important;min-height:0!important;max-height:none!important}}
