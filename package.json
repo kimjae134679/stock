@@ -1,6 +1,6 @@
 {
   "name": "market-radar",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": true,
   "scripts": {
     "android:add": "npx cap add android",
@@ -17,7 +17,8 @@
     "qa:v48": "node scripts/qa-dashboard-v48.mjs",
     "qa:v49": "node scripts/qa-dashboard-v49.mjs",
     "qa:v50": "node scripts/qa-dashboard-v50.mjs",
-    "qa:v51": "node scripts/qa-dashboard-v51.mjs"
+    "qa:v51": "node scripts/qa-dashboard-v51.mjs",
+    "qa:v52": "node scripts/qa-dashboard-v52.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
