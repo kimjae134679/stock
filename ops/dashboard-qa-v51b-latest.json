@@ -1,8 +1,5 @@
 {
   "version": "0.5.1B",
-  "run_id": 32585844061,
-  "status": "success",
-  "checks": ["desktop", "mobile", "five-overlaid-history-lines", "current-and-history-together", "central-pivot-average-alignment", "previous-peak-explicit", "pair-current-plus-one-history", "pinch-zoom", "load-collapse", "overflow"],
-  "apk_rebuild": false,
-  "stable_baseline": "v0.5.0"
+  "run_id": 32587728664,
+  "status": "building"
 }
