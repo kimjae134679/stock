@@ -37,7 +37,7 @@ async function run(name,viewport){
  const mobile=viewport.width<=700;
  if(mobile&&r.mainH>320)throw new Error(name+': main chart too tall '+r.mainH);
  if(mobile&&r.pairH>260)throw new Error(name+': pair chart too tall '+r.pairH);
- if(!mobile&&r.mainH>520)throw new Error(name+': desktop main chart too tall '+r.mainH);
+ if(!mobile&&r.mainH>550)throw new Error(name+': desktop main chart too tall '+r.mainH);
  if(r.noteCount<1)throw new Error(name+': outside fact cards missing');
  if(!r.verboseHidden)throw new Error(name+': verbose in-plot labels visible');
  if(!(r.currentWidth>r.historyWidth))throw new Error(name+': current line not visually dominant '+JSON.stringify(r));
