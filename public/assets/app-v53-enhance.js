@@ -1,5 +1,10 @@
 (()=>{
 'use strict';
+if(!document.querySelector('link[data-mr-v53b]')){
+  const l=document.createElement('link');
+  l.rel='stylesheet';l.href='../assets/app-v53b.css?v=53b';l.dataset.mrV53b='1';
+  document.head.appendChild(l);
+}
 const apply=(root=document)=>{
   root.querySelectorAll?.('.v51c-svg,.v51c-pair-svg').forEach(svg=>{
     svg.setAttribute('preserveAspectRatio','xMidYMid meet');
