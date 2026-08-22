@@ -1,6 +1,5 @@
 {
   "version": "0.4.8",
-  "run_id": 32597772176,
-  "status": "success",
-  "checks": ["desktop", "mobile", "load-collapse", "thick-colored-shape-lines", "year-date-legend", "low-high-low-next-rise", "current-midpoint", "3-4-6-cycle-toggle", "v47-detail-preserved", "modal-v48", "blank-panel", "overflow"]
+  "run_id": 32600585409,
+  "status": "building"
 }
