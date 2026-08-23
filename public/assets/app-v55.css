@@ -1,0 +1,35 @@
+/* Market Radar v0.5.5 — keep the reference-style candle chart AND restore the previous overlay comparisons. */
+.v51c-cycle.v54-ready>.v51c-head,
+.v51c-cycle.v54-ready>.v51c-state,
+.v51c-cycle.v54-ready>.v51c-count,
+.v51c-cycle.v54-ready>.v51c-align-note{display:none!important}
+
+/* v0.5.4 hid these. v0.5.5 intentionally brings them back. */
+.v51c-cycle.v54-ready>.v51c-legend{display:flex!important}
+.v51c-cycle.v54-ready>.v51c-zoom{display:block!important}
+.v51c-cycle.v54-ready>.v52-chart-note{display:grid!important}
+.v51c-cycle.v54-ready>.v51c-pair-title{display:block!important}
+.v51c-cycle.v54-ready>.v51c-pairs{display:grid!important}
+.v51c-cycle.v54-ready>.v51c-note{display:block!important}
+
+.v54-ref{margin-bottom:18px!important}
+.v54-ref-head b{display:block!important;color:#eef7fb;font-size:20px;line-height:1.25;margin-bottom:3px}
+.v54-ref-head span{font-size:11px!important}
+
+.v55-overlay-head{margin:18px 0 8px;padding-top:14px;border-top:1px solid #20394b}
+.v55-overlay-head b{display:block;color:#eef7fb;font-size:18px;line-height:1.25}
+.v55-overlay-head span{display:block;color:#8299aa;font-size:10px;line-height:1.45;margin-top:3px}
+
+.v51c-cycle.v54-ready>.v51c-legend{gap:6px!important;margin:8px 0!important;flex-wrap:wrap!important}
+.v51c-cycle.v54-ready>.v51c-legend>span{padding:6px 8px!important;border-radius:10px!important}
+.v51c-cycle.v54-ready>.v51c-zoom{margin-top:0!important}
+.v51c-cycle.v54-ready>.v51c-pair-title{margin:18px 0 8px!important;font-size:18px!important}
+.v51c-cycle.v54-ready>.v51c-pairs{gap:10px!important}
+
+@media(max-width:700px){
+ .v54-ref-head b{font-size:18px}
+ .v55-overlay-head{margin-top:14px;padding-top:12px}
+ .v55-overlay-head b{font-size:17px}
+ .v51c-cycle.v54-ready>.v51c-legend{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .v51c-cycle.v54-ready>.v51c-pair-title{font-size:17px!important}
+}
