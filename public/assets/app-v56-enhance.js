@@ -2,7 +2,7 @@
 'use strict';
 const $=(s,r=document)=>r?.querySelector?.(s)||null;
 const $$=(s,r=document)=>r?[...r.querySelectorAll(s)]:[];
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
 let GEMS=null,NAME_MAP={};
 function setMark(){const m=$('.mr-buildmark');if(m&&m.textContent!=='MR056')m.textContent='MR056'}
 function restoreCompare(root=document){
@@ -10,10 +10,10 @@ function restoreCompare(root=document){
  for(const cycle of cycles){
   if(!cycle.classList.contains('v54-ready'))continue;
   const ref=cycle.querySelector(':scope > .v54-ref'),zoom=cycle.querySelector(':scope > .v51c-zoom');
-  if(ref){const title=ref.querySelector('.v54-ref-head b');if(title)title.textContent='실제 사이클 비교 · 캔들 기준'}
+  if(ref){const title=ref.querySelector('.v54-ref-head b');if(title&&title.textContent!=='실제 사이클 비교 · 캔들 기준')title.textContent='실제 사이클 비교 · 캔들 기준'}
   if(zoom&&!cycle.querySelector(':scope > .v55-overlay-head'))zoom.insertAdjacentHTML('beforebegin','<div class="v55-overlay-head"><b>과거 사이클 겹쳐 비교</b><span>색 선 = 서로 다른 실제 과거 경로 · 굵은 연두선 = 현재 경로</span></div>');
-  const pairTitle=cycle.querySelector(':scope > .v51c-pair-title');if(pairTitle)pairTitle.textContent='현재 vs 과거 1대1 비교';
-  cycle.dataset.v56Compare='restored-dark';
+  const pairTitle=cycle.querySelector(':scope > .v51c-pair-title');if(pairTitle&&pairTitle.textContent!=='현재 vs 과거 1대1 비교')pairTitle.textContent='현재 vs 과거 1대1 비교';
+  if(cycle.dataset.v56Compare!=='restored-dark')cycle.dataset.v56Compare='restored-dark';
  }
  setMark();
 }
@@ -30,10 +30,10 @@ function renderGems(){
  for(const g of GEMS.groups||[])for(const x of g.items||[])NAME_MAP[x.ticker]=x.name;
 }
 function filterMarket(btn){const root=$('#ai-gems');if(!root)return;const m=btn.dataset.aiFilter||'ALL';$$('[data-ai-filter]',root).forEach(x=>x.classList.toggle('active',x===btn));$$('.ai-gem',root).forEach(x=>x.hidden=m!=='ALL'&&x.dataset.market!==m);$$('.ai-gem-group',root).forEach(g=>{g.hidden=!$$('.ai-gem',g).some(x=>!x.hidden)})}
-function repairModal(ticker){const name=NAME_MAP[ticker];if(!name)return;const fix=()=>{if(!$('#modal')?.classList.contains('open'))return;const title=$('#modalTitle');if(title)title.textContent=`${ticker} — ${name}`};setTimeout(fix,80);setTimeout(fix,260);setTimeout(fix,700)}
+function repairModal(ticker){const name=NAME_MAP[ticker];if(!name)return;const fix=()=>{if(!$('#modal')?.classList.contains('open'))return;const title=$('#modalTitle'),next=`${ticker} — ${name}`;if(title&&title.textContent!==next)title.textContent=next};setTimeout(fix,80);setTimeout(fix,260);setTimeout(fix,700)}
 async function load(){try{const r=await fetch('../data/ai-gems.json?v56='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);GEMS=await r.json()}catch(e){console.warn('[MR056] ai-gems load failed',e)}renderGems();restoreCompare();}
 document.addEventListener('click',e=>{const f=e.target.closest('[data-ai-filter]');if(f){e.preventDefault();e.stopPropagation();filterMarket(f);return}const t=e.target.closest('[data-ai-ticker]');if(t)repairModal(t.dataset.aiTicker)},false);
 const mo=new MutationObserver(ms=>{setMark();renderGems();for(const m of ms){if(m.target?.closest?.('.v51c-cycle'))restoreCompare(m.target.closest('.v51c-cycle'));for(const n of m.addedNodes)if(n.nodeType===1)restoreCompare(n)}});mo.observe(document.body,{childList:true,subtree:true});
-load();setInterval(()=>{setMark();renderGems();restoreCompare()},500);
+load();setInterval(()=>{setMark();renderGems();restoreCompare()},700);
 console.info('[MR056] dark comparison charts + AI gems enabled');
 })();
