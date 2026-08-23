@@ -1,0 +1,39 @@
+(()=>{
+'use strict';
+const $=(s,r=document)=>r?.querySelector?.(s)||null;
+const $$=(s,r=document)=>r?[...r.querySelectorAll(s)]:[];
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let GEMS=null,NAME_MAP={};
+function setMark(){const m=$('.mr-buildmark');if(m&&m.textContent!=='MR056')m.textContent='MR056'}
+function restoreCompare(root=document){
+ const cycles=[];if(root.matches?.('.v51c-cycle'))cycles.push(root);root.querySelectorAll?.('.v51c-cycle').forEach(x=>cycles.push(x));
+ for(const cycle of cycles){
+  if(!cycle.classList.contains('v54-ready'))continue;
+  const ref=cycle.querySelector(':scope > .v54-ref'),zoom=cycle.querySelector(':scope > .v51c-zoom');
+  if(ref){const title=ref.querySelector('.v54-ref-head b');if(title)title.textContent='실제 사이클 비교 · 캔들 기준'}
+  if(zoom&&!cycle.querySelector(':scope > .v55-overlay-head'))zoom.insertAdjacentHTML('beforebegin','<div class="v55-overlay-head"><b>과거 사이클 겹쳐 비교</b><span>색 선 = 서로 다른 실제 과거 경로 · 굵은 연두선 = 현재 경로</span></div>');
+  const pairTitle=cycle.querySelector(':scope > .v51c-pair-title');if(pairTitle)pairTitle.textContent='현재 vs 과거 1대1 비교';
+  cycle.dataset.v56Compare='restored-dark';
+ }
+ setMark();
+}
+function tierClass(t=''){return t==='핵심'?'core':t.includes('+')?'plus':''}
+function gemCard(x){return `<button type="button" class="ai-gem" data-ticker="${esc(x.ticker)}" data-ai-ticker="${esc(x.ticker)}" data-market="${esc(x.market)}"><span class="ai-gem-top"><b><span class="ai-market-label">${esc(x.market==='KR'?'국내':'해외')}</span>${esc(x.ticker)}</b><span class="ai-tier ${tierClass(x.tier)}">${esc(x.tier)}</span></span><span class="ai-gem-name">${esc(x.name)}</span><span class="ai-gem-reason">${esc(x.reason)}</span><span class="ai-gem-risk">체크 · ${esc(x.risk)}</span></button>`}
+function groupBlock(g,secondary=false){const xs=(g.items||[]).filter(x=>secondary?x.tier!=='핵심':x.tier==='핵심');if(!xs.length)return'';return `<article class="ai-gem-group" data-ai-group="${esc(g.key)}"><h3>${esc(g.name)}</h3><div class="ai-gem-list">${xs.map(gemCard).join('')}</div></article>`}
+function renderGems(){
+ if(!GEMS||$('#ai-gems'))return;
+ const themes=$('#themes');if(!themes)return;
+ const section=document.createElement('section');section.className='mr-section';section.id='ai-gems';
+ section.innerHTML=`<div class="mr-head"><h2>💎 AI 알짜 추적 후보 · 국내/해외</h2><button type="button" class="fold-btn" data-fold="ai-gems">접기</button></div><div class="mr-body"><div class="ai-gems-note"><b>선정 기준</b> · AI 매출 연결고리가 비교적 분명한 컴퓨트·네트워크·전력·데이터센터·플랫폼 후보를 추렸습니다. 주가가 많이 오른 종목도 있으므로 ‘좋은 회사 = 지금 바로 좋은 가격’으로 보지는 않습니다.</div><div class="ai-gems-tabs"><button type="button" class="active" data-ai-filter="ALL">전부</button><button type="button" data-ai-filter="US">해외</button><button type="button" data-ai-filter="KR">국내</button></div><div class="ai-gem-groups">${(GEMS.groups||[]).map(g=>groupBlock(g,false)).join('')}</div><details class="ai-gems-more"><summary>2순위·고베타 후보 더 보기</summary><div class="ai-gem-groups">${(GEMS.groups||[]).map(g=>groupBlock(g,true)).join('')}</div></details></div>`;
+ themes.insertAdjacentElement('afterend',section);
+ const nav=$('.quicknav'),themeBtn=nav?.querySelector('[data-go="themes"]');if(nav&&!nav.querySelector('[data-go="ai-gems"]')){const b=document.createElement('button');b.type='button';b.className='pill';b.dataset.go='ai-gems';b.textContent='AI알짜';themeBtn?.insertAdjacentElement('afterend',b)}
+ for(const g of GEMS.groups||[])for(const x of g.items||[])NAME_MAP[x.ticker]=x.name;
+}
+function filterMarket(btn){const root=$('#ai-gems');if(!root)return;const m=btn.dataset.aiFilter||'ALL';$$('[data-ai-filter]',root).forEach(x=>x.classList.toggle('active',x===btn));$$('.ai-gem',root).forEach(x=>x.hidden=m!=='ALL'&&x.dataset.market!==m);$$('.ai-gem-group',root).forEach(g=>{g.hidden=!$$('.ai-gem',g).some(x=>!x.hidden)})}
+function repairModal(ticker){const name=NAME_MAP[ticker];if(!name)return;const fix=()=>{if(!$('#modal')?.classList.contains('open'))return;const title=$('#modalTitle');if(title)title.textContent=`${ticker} — ${name}`};setTimeout(fix,80);setTimeout(fix,260);setTimeout(fix,700)}
+async function load(){try{const r=await fetch('../data/ai-gems.json?v56='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);GEMS=await r.json()}catch(e){console.warn('[MR056] ai-gems load failed',e)}renderGems();restoreCompare();}
+document.addEventListener('click',e=>{const f=e.target.closest('[data-ai-filter]');if(f){e.preventDefault();e.stopPropagation();filterMarket(f);return}const t=e.target.closest('[data-ai-ticker]');if(t)repairModal(t.dataset.aiTicker)},false);
+const mo=new MutationObserver(ms=>{setMark();renderGems();for(const m of ms){if(m.target?.closest?.('.v51c-cycle'))restoreCompare(m.target.closest('.v51c-cycle'));for(const n of m.addedNodes)if(n.nodeType===1)restoreCompare(n)}});mo.observe(document.body,{childList:true,subtree:true});
+load();setInterval(()=>{setMark();renderGems();restoreCompare()},500);
+console.info('[MR056] dark comparison charts + AI gems enabled');
+})();
