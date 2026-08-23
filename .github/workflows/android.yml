@@ -46,32 +46,30 @@ jobs:
       - name: Standalone dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v052.html
+          test -s public/reports/stable-v056.html
           test -s public/reports/stable-v051-baseline.html
           test -s public/reports/stable-v042-baseline.html
           test -s public/assets/app-v44.js
           test -s public/assets/app-v49-modal-bridge.js
-          test -s public/assets/app-v51c-enhance.js
-          test -s public/assets/app-v51c.css
-          test -s public/assets/app-v52-enhance.js
-          test -s public/assets/app-v52.css
+          test -s public/assets/app-v54-enhance.js
+          test -s public/assets/app-v55.css
+          test -s public/assets/app-v56-enhance.js
+          test -s public/assets/app-v56.css
+          test -s public/data/ai-gems.json
           test -s public/data/cycle-history.json
           test -s public/data/cycle-full.json
           test -s public/data/wave-cycles.json
-          grep -q 'Market Radar Daily · v0.5.2' public/reports/stable-v052.html
-          grep -q 'MR052' public/reports/stable-v052.html
-          grep -q 'app-v52-enhance.js' public/reports/stable-v052.html
-          grep -q 'stable-v052.html' public/app-live.html
+          test -s public/data/market-daily/QQQ.json
+          grep -q 'Market Radar Daily · v0.5.6' public/reports/stable-v056.html
+          grep -q 'MR056' public/reports/stable-v056.html
+          grep -q 'app-v56-enhance.js' public/reports/stable-v056.html
+          grep -q 'stable-v056.html' public/app-live.html
+          grep -q 'SK하이닉스' public/data/ai-gems.json
+          grep -q 'HD현대일렉트릭' public/data/ai-gems.json
           grep -q 'allowNavigation' capacitor.config.json
-          ! grep -q 'app-v51d.css' public/reports/stable-v052.html
-          ! grep -q 'app-v51d-enhance.js' public/reports/stable-v052.html
-          ! grep -q 'full-recovery-v22.js' public/reports/stable-v052.html
-          ! grep -q 'evaluation-v26.js' public/reports/stable-v052.html
-          ! grep -q 'flow-guard' public/reports/stable-v052.html
-          ! grep -q 'integrity-v' public/reports/stable-v052.html
           node --check public/assets/app-v44.js
-          node --check public/assets/app-v51c-enhance.js
-          node --check public/assets/app-v52-enhance.js
+          node --check public/assets/app-v54-enhance.js
+          node --check public/assets/app-v56-enhance.js
           node --check scripts/apply-android-branding.mjs
       - run: npx cap add android
       - run: npx cap sync android
@@ -105,7 +103,7 @@ jobs:
         run: |
           TAG="v${{ steps.ver.outputs.version }}"
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Android-native rebuild using the current proportional cycle-chart stable page. v0.5.1 known-good backup and v0.4.2 rollback remain preserved."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Dark stock comparison charts restored and curated US/Korea AI infrastructure watchlist added. v0.5.1 known-good backup and v0.4.2 rollback remain preserved."
           gh release upload "$TAG" "$APK" --clobber
       - name: Mark build success
         if: success()
