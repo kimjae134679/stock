@@ -22,7 +22,7 @@ async function run(name,viewport){
    candles:document.querySelectorAll('#cycle-visual .v54-body').length,
    oldZoomVisible:!!document.querySelector('#cycle-visual .v51c-zoom')&&getComputedStyle(document.querySelector('#cycle-visual .v51c-zoom')).display!=='none',
    pairCount:document.querySelectorAll('#cycle-visual .v51c-pair').length,
-   aiCore:document.querySelectorAll('#ai-gems .ai-gem-groups:first-of-type .ai-gem').length,
+   aiCore:document.querySelectorAll('#ai-gems .mr-body > .ai-gem-groups .ai-gem').length,
    aiAll:document.querySelectorAll('#ai-gems .ai-gem').length,
    us:document.querySelectorAll('#ai-gems .ai-gem[data-market="US"]').length,
    kr:document.querySelectorAll('#ai-gems .ai-gem[data-market="KR"]').length,
