@@ -1,0 +1,53 @@
+/* Market Radar v0.5.6 — dark comparison charts + curated AI gems. */
+
+/* Restore the stock/cycle comparison visual language to the old dark style. */
+.v54-chartbox{background:#03070b!important;border-color:#1b3345!important;box-shadow:none!important}
+.v54-svg{background:#03070b!important}
+.v54-grid{stroke:#162b3a!important;stroke-width:1!important}
+.v54-sep{stroke:#2a4252!important}
+.v54-axis,.v54-date{fill:#8198aa!important;font-size:13px!important;font-weight:800!important}
+.v54-zero{stroke:#60798a!important;opacity:.74!important}
+.v54-nowtext{fill:#dfffe8!important;font-size:14px!important;font-weight:900!important}
+.v54-pivottxt{fill:#9db2c0!important;font-size:12px!important;font-weight:850!important}
+.v54-wick.up,.v54-body.up,.v54-vol.up{stroke:#ff5968!important;fill:#ff5968!important}
+.v54-wick.down,.v54-body.down,.v54-vol.down{stroke:#4b91ff!important;fill:#4b91ff!important}
+.v54-ma5{stroke:#ff6d78!important}.v54-ma20{stroke:#ffad52!important}.v54-ma60{stroke:#b986ff!important}.v54-vma{stroke:#5aa0ff!important}
+.v54-current{stroke:#3df07c!important;filter:drop-shadow(0 0 3px rgba(61,240,124,.25))!important}
+.v54-legend{color:#8fa6b8!important}
+
+/* Keep the older overlay/pair comparison charts dark too. */
+.v51c-zoom,.v51c-pair .v51c-zoom{background:#03070b!important;border-color:#173044!important}
+.v51c-svg,.v51c-pair-svg{background:#03070b!important}
+
+/* Curated AI watchlist. Compact first frame; detail stays expandable. */
+#ai-gems .mr-body{padding-top:10px}
+.ai-gems-note{border:1px solid #29465b;background:#081722;border-radius:14px;padding:11px 12px;margin-bottom:10px;color:#91a8b8;font-size:11px;line-height:1.5}
+.ai-gems-note b{color:#eaf4fa}
+.ai-gems-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.ai-gems-tabs button{appearance:none;border:1px solid #2e4a5e;background:#0b1c28;color:#a9bdca;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:850;cursor:pointer}
+.ai-gems-tabs button.active{background:#eaf4ff;color:#102738;border-color:#d2e5f5}
+.ai-gem-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ai-gem-group{border:1px solid #28465a;background:#071722;border-radius:16px;padding:11px;min-width:0}
+.ai-gem-group h3{margin:0 0 8px;color:#eef7fb;font-size:15px;line-height:1.3}
+.ai-gem-list{display:grid;gap:6px}
+.ai-gem{appearance:none;width:100%;text-align:left;border:1px solid #203c4f;background:#0a1c28;color:#edf6fb;border-radius:12px;padding:9px;cursor:pointer;min-width:0}
+.ai-gem:hover{border-color:#49718d}
+.ai-gem-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ai-gem-top b{font-size:13px;line-height:1.25}.ai-gem-top small{color:#8aa2b3;font-size:9px;white-space:nowrap}
+.ai-gem-name{display:block;color:#a9bdca;font-size:10px;margin-top:2px}
+.ai-gem-reason{display:block;color:#d2dee6;font-size:10px;line-height:1.45;margin-top:6px}
+.ai-gem-risk{display:block;color:#8ea4b5;font-size:9px;line-height:1.4;margin-top:4px}
+.ai-tier{display:inline-flex;align-items:center;border-radius:999px;padding:3px 6px;background:#142c3c;color:#d7e7f2;font-size:9px;font-weight:900}
+.ai-tier.core{background:#113523;color:#8ff0b4}.ai-tier.plus{background:#302915;color:#ffd979}
+.ai-gems-more{margin-top:10px;border:1px solid #28465a;background:#071722;border-radius:14px;padding:9px 10px}
+.ai-gems-more>summary{cursor:pointer;color:#dceaf2;font-weight:850;font-size:11px}
+.ai-gems-more .ai-gem-groups{margin-top:9px}
+.ai-market-label{display:inline-flex;align-items:center;margin-right:5px;color:#6f899a;font-size:9px;font-weight:900}
+
+@media(max-width:700px){
+ .v54-axis,.v54-date{font-size:12px!important}.v54-nowtext{font-size:13px!important}.v54-pivottxt{font-size:11px!important}
+ .ai-gem-groups{grid-template-columns:1fr}
+ .ai-gem-group{padding:9px;border-radius:14px}
+ .ai-gem{padding:8px}
+ .ai-gem-top b{font-size:12px}.ai-gem-reason{font-size:10px}.ai-gem-risk{font-size:9px}
+}
