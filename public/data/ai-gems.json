@@ -1,0 +1,65 @@
+{
+  "updated_at": "2026-08-24T05:45:00+09:00",
+  "title": "AI 알짜 추적 후보",
+  "note": "매수 추천 목록이 아니라 AI CAPEX의 실제 매출 연결고리(컴퓨트·네트워크·전력·데이터센터·플랫폼)를 중심으로 추적하는 후보군입니다. 가격·밸류에이션·실적 추정치 변화는 별도로 확인합니다.",
+  "groups": [
+    {
+      "key": "compute",
+      "name": "AI 컴퓨트·메모리",
+      "items": [
+        {"market":"US","ticker":"NVDA","name":"NVIDIA","tier":"핵심","reason":"AI 가속기와 플랫폼 생태계의 중심. 데이터센터 CAPEX의 가장 직접적인 수혜축.","risk":"실적 기대치가 높아 성장률 둔화 시 변동성 확대."},
+        {"market":"US","ticker":"AVGO","name":"Broadcom","tier":"핵심","reason":"맞춤형 AI ASIC·네트워크 반도체를 함께 보유해 hyperscaler 자체칩 확대의 수혜 가능.","risk":"대형 고객 집중과 고밸류 부담 확인."},
+        {"market":"US","ticker":"TSM","name":"TSMC","tier":"핵심","reason":"최첨단 AI GPU·ASIC 생산과 첨단 패키징의 핵심 파운드리.","risk":"지정학·대규모 CAPEX와 업황 사이클."},
+        {"market":"US","ticker":"MU","name":"Micron","tier":"관찰+","reason":"AI 서버 HBM·고성능 메모리 수요의 미국 직접 수혜주.","risk":"메모리 가격 사이클과 공급 확대."},
+        {"market":"KR","ticker":"000660","name":"SK하이닉스","tier":"핵심","reason":"HBM 중심 AI 메모리 경쟁력과 장기 공급계약 확대를 추적.","risk":"높은 기대치·메모리 가격 변동·CAPEX 증가."},
+        {"market":"KR","ticker":"005930","name":"삼성전자","tier":"핵심","reason":"HBM4·DRAM·파운드리를 동시에 보유한 국내 AI 반도체 종합축.","risk":"HBM 점유율 회복 속도와 파운드리 수익성."},
+        {"market":"KR","ticker":"042700","name":"한미반도체","tier":"관찰+","reason":"HBM 적층 공정용 TC 본더 노출도가 높은 후공정 장비주.","risk":"고객사 CAPEX·경쟁 장비 채택 변화에 민감."},
+        {"market":"KR","ticker":"095340","name":"ISC","tier":"관찰","reason":"고성능 반도체 테스트 소켓으로 AI/HPC 칩 테스트 수요를 추적.","risk":"고객 믹스와 테스트 소켓 경쟁."}
+      ]
+    },
+    {
+      "key": "network",
+      "name": "AI 네트워크·인터커넥트",
+      "items": [
+        {"market":"US","ticker":"ANET","name":"Arista Networks","tier":"핵심","reason":"AI 클러스터의 고속 Ethernet 스위칭과 800G 확장 수혜축.","risk":"대형 클라우드 고객 집중과 네트워크 CAPEX 변동."},
+        {"market":"US","ticker":"CRDO","name":"Credo Technology","tier":"관찰+","reason":"AI 데이터센터 고속 연결용 AEC·SerDes 수요에 직접 노출.","risk":"고성장 기대가 이미 반영될 수 있고 고객 집중도가 높음."},
+        {"market":"US","ticker":"ALAB","name":"Astera Labs","tier":"관찰+","reason":"PCIe·CXL·AI fabric 연결 반도체로 accelerator scale-up 확대를 추적.","risk":"신제품 램프와 고객 채택 속도에 따른 변동성."},
+        {"market":"US","ticker":"MRVL","name":"Marvell Technology","tier":"관찰+","reason":"맞춤형 AI silicon과 광·네트워크 연결 수요를 동시에 추적.","risk":"개별 대형 계약을 테마 전체 회복으로 확대 해석하지 않음."},
+        {"market":"KR","ticker":"007660","name":"이수페타시스","tier":"관찰+","reason":"AI 가속기·네트워크 장비용 고다층 PCB 수요의 국내 대표 연결고리.","risk":"고객 집중·증설·밸류에이션 변동성."}
+      ]
+    },
+    {
+      "key": "power",
+      "name": "AI 전력·그리드·냉각",
+      "items": [
+        {"market":"US","ticker":"VRT","name":"Vertiv","tier":"핵심","reason":"데이터센터 전력관리·UPS·열관리/냉각의 직접 수혜축.","risk":"AI CAPEX 둔화와 높은 성장 기대치."},
+        {"market":"US","ticker":"ETN","name":"Eaton","tier":"핵심","reason":"데이터센터 전력 분배·전기장비와 backlog 성장의 질이 높은 편.","risk":"산업 전반 경기와 높은 밸류에이션."},
+        {"market":"US","ticker":"PWR","name":"Quanta Services","tier":"핵심","reason":"송전·변전·데이터센터 내부 전력 인프라까지 실제 시공 CAPEX에 노출.","risk":"대형 프로젝트 실행·인건비·수주 타이밍."},
+        {"market":"US","ticker":"GEV","name":"GE Vernova","tier":"핵심","reason":"가스터빈·그리드 장비로 AI 전력 병목과 발전원 확충을 동시에 추적.","risk":"대형 프로젝트 주기와 장비 공급능력."},
+        {"market":"US","ticker":"CEG","name":"Constellation Energy","tier":"관찰+","reason":"무탄소 기저전원과 데이터센터 전력계약 확대 가능성을 추적.","risk":"전력가격·규제·장기계약 조건."},
+        {"market":"US","ticker":"POWL","name":"Powell Industries","tier":"관찰+","reason":"대형 전기 분배·스위치기어로 데이터센터 전력설비 2차 수혜 가능.","risk":"수주 변동과 중소형주 변동성."},
+        {"market":"US","ticker":"NVT","name":"nVent","tier":"관찰+","reason":"전기 연결·보호·열관리 솔루션으로 데이터센터 증설 수혜를 추적.","risk":"산업 수요 둔화와 인수 통합."},
+        {"market":"US","ticker":"FIX","name":"Comfort Systems USA","tier":"관찰+","reason":"데이터센터 기계·전기 시공과 냉각 설비 구축에 직접 노출.","risk":"프로젝트 믹스·인력·수주잔고 소화."},
+        {"market":"KR","ticker":"267260","name":"HD현대일렉트릭","tier":"핵심","reason":"북미 AI 데이터센터용 변압기·배전기기 패키지 수주가 실제 매출로 연결되는 전력 인프라 축.","risk":"수주 기대 선반영과 북미 증설 실행."},
+        {"market":"KR","ticker":"010120","name":"LS ELECTRIC","tier":"핵심","reason":"배전·스마트그리드·전력기기로 북미 AIDC와 국내 데이터센터 수요를 함께 추적.","risk":"수주 믹스와 증설 속도."},
+        {"market":"KR","ticker":"298040","name":"효성중공업","tier":"핵심","reason":"초고압 변압기·전력망 투자 확대의 국내 대표 수혜축.","risk":"대형 수주 변동과 생산능력 확대."},
+        {"market":"KR","ticker":"034020","name":"두산에너빌리티","tier":"관찰+","reason":"원전·가스터빈 등 AI 데이터센터의 안정적 발전원 확대 테마에 연결.","risk":"프로젝트 장기성·정책·수주 인식 시점."},
+        {"market":"KR","ticker":"062040","name":"산일전기","tier":"관찰+","reason":"변압기 공급 부족과 북미 전력설비 증설의 중형 수혜주로 추적.","risk":"고객·제품 믹스와 높은 주가 변동성."},
+        {"market":"KR","ticker":"103590","name":"일진전기","tier":"관찰","reason":"전선·변압기·송배전 투자 확대의 2차 수혜 후보.","risk":"원재료·수주 믹스·중소형주 변동성."}
+      ]
+    },
+    {
+      "key": "platform",
+      "name": "AI 플랫폼·클라우드",
+      "items": [
+        {"market":"US","ticker":"MSFT","name":"Microsoft","tier":"핵심","reason":"Azure·Copilot·기업 AI 소프트웨어로 인프라와 수익화 양쪽을 추적.","risk":"막대한 CAPEX 대비 AI 수익화 속도."},
+        {"market":"US","ticker":"GOOGL","name":"Alphabet","tier":"핵심","reason":"Gemini·TPU·Google Cloud를 묶어 자체 AI 스택을 보유.","risk":"CAPEX와 검색 광고 전환 리스크."},
+        {"market":"US","ticker":"AMZN","name":"Amazon","tier":"핵심","reason":"AWS·Trainium/Inferentia·데이터센터 CAPEX의 장기 수혜축.","risk":"대규모 CAPEX와 클라우드 성장률 변동."},
+        {"market":"US","ticker":"META","name":"Meta Platforms","tier":"관찰+","reason":"추천·광고 AI의 실제 수익화와 자체 AI 인프라 투자를 동시에 추적.","risk":"CAPEX 증가와 광고 경기 민감도."},
+        {"market":"US","ticker":"PLTR","name":"Palantir","tier":"관찰+","reason":"기업·정부 AI 소프트웨어 도입의 매출 전환 속도를 추적.","risk":"높은 밸류에이션과 성장 기대치."},
+        {"market":"KR","ticker":"035420","name":"NAVER","tier":"관찰+","reason":"국내 AI 모델·클라우드·검색/커머스 수익화의 대표 플랫폼.","risk":"AI 투자비와 국내 플랫폼 성장률."},
+        {"market":"KR","ticker":"018260","name":"삼성SDS","tier":"관찰","reason":"기업용 생성형 AI·클라우드 전환 수요의 국내 B2B 후보.","risk":"AI 매출 비중 확대 속도와 IT서비스 성장률."}
+      ]
+    }
+  ]
+}
