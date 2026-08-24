@@ -1,5 +1,7 @@
 {
   "version": "0.4.4",
   "run_id": 32699671365,
-  "status": "building"
+  "status": "success",
+  "cycle_bytes": 3055731,
+  "checks": ["desktop", "mobile", "load-collapse", "compact-hero", "action-compact", "cycle-trajectory", "cycle-days-pct", "cycle-extreme-paths", "cycle-payload-size", "cycle-modal", "fold-toggle", "blank-panel", "overflow"]
 }
