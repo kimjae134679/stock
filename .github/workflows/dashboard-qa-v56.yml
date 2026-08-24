@@ -10,7 +10,10 @@ on:
       - 'public/assets/app-v55.css'
       - 'public/assets/app-v56.css'
       - 'public/assets/app-v56-enhance.js'
+      - 'public/assets/app-v56-widecycle.css'
+      - 'public/assets/app-v56-widecycle.js'
       - 'public/data/ai-gems.json'
+      - 'public/data/wave-cycles.json'
       - 'public/data/market-daily/**'
       - 'scripts/qa-dashboard-v56.mjs'
       - 'package.json'
@@ -48,15 +51,19 @@ jobs:
         run: |
           node --check public/assets/app-v54-enhance.js
           node --check public/assets/app-v56-enhance.js
+          node --check public/assets/app-v56-widecycle.js
           node --check scripts/qa-dashboard-v56.mjs
           grep -q 'Market Radar Daily · v0.5.6' public/reports/stable-v056.html
           grep -q 'MR056' public/reports/stable-v056.html
           grep -q 'app-v56.css' public/reports/stable-v056.html
           grep -q 'app-v56-enhance.js' public/reports/stable-v056.html
+          grep -q 'app-v56-widecycle.css' public/reports/stable-v056.html
+          grep -q 'app-v56-widecycle.js' public/reports/stable-v056.html
           grep -q 'AI 알짜 추적 후보' public/data/ai-gems.json
           grep -q 'SK하이닉스' public/data/ai-gems.json
           grep -q 'HD현대일렉트릭' public/data/ai-gems.json
           grep -q 'Vertiv' public/data/ai-gems.json
+          test -s public/data/wave-cycles.json
           test -s public/data/market-daily/QQQ.json
           test -s public/reports/stable-v051-baseline.html
           test -s public/reports/stable-v042-baseline.html
@@ -79,7 +86,7 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "0.5.6",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "dark-stock-chart", "original-scale-labels", "restored-overlay", "restored-one-to-one", "ai-gems-us", "ai-gems-korea", "ai-filter", "korean-ticker-modal", "load-collapse", "overflow"],\n  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v56-latest.json
+          printf '{\n  "version": "0.5.6",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "dark-stock-chart", "all-five-cycle-previews", "wide-past-window", "wide-future-side-history", "current-overlay", "restored-overlay", "restored-one-to-one", "ai-gems-us", "ai-gems-korea", "ai-filter", "korean-ticker-modal", "load-collapse", "overflow"],\n  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v56-latest.json
           git add ops/dashboard-qa-v56-latest.json
           git commit -m "Mark dashboard v0.5.6 QA ${{ github.run_id }} successful" || true
           git push || true
