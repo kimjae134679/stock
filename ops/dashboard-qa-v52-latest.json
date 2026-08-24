@@ -1,5 +1,7 @@
 {
   "version": "0.5.2",
   "run_id": 32755186806,
-  "status": "building"
+  "status": "success",
+  "checks": ["desktop", "mobile", "preserve-aspect-ratio", "no-svg-stretch", "readable-external-labels", "single-lime-current-line", "load-collapse", "overflow"],
+  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"
 }
