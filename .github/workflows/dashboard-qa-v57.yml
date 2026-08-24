@@ -11,6 +11,7 @@ on:
       - 'public/assets/app-v56-widecycle.css'
       - 'public/assets/app-v56-widecycle.js'
       - 'public/assets/app-v57-reference.css'
+      - 'public/assets/app-v57-reference.js'
       - 'public/data/ai-gems.json'
       - 'public/data/wave-cycles.json'
       - 'public/data/market-daily/**'
@@ -50,10 +51,12 @@ jobs:
         run: |
           node --check public/assets/app-v54-enhance.js
           node --check public/assets/app-v56-widecycle.js
+          node --check public/assets/app-v57-reference.js
           node --check scripts/qa-dashboard-v57.mjs
           grep -q 'Market Radar Daily · v0.5.7' public/reports/stable-v057.html
           grep -q 'MR057' public/reports/stable-v057.html
           grep -q 'app-v57-reference.css' public/reports/stable-v057.html
+          grep -q 'app-v57-reference.js' public/reports/stable-v057.html
           grep -q 'stable-v057.html' public/app-live.html
           test -s public/data/wave-cycles.json
           test -s public/data/market-daily/QQQ.json
