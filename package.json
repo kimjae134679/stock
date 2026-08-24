@@ -22,7 +22,8 @@
     "qa:v53": "node scripts/qa-dashboard-v53.mjs",
     "qa:v54": "node scripts/qa-dashboard-v54.mjs",
     "qa:v55": "node scripts/qa-dashboard-v55.mjs",
-    "qa:v56": "node scripts/qa-dashboard-v56.mjs"
+    "qa:v56": "node scripts/qa-dashboard-v56.mjs",
+    "qa:v57": "node scripts/qa-dashboard-v57.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
