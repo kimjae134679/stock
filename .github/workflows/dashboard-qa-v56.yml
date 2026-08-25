@@ -5,13 +5,10 @@ on:
     branches: [main]
     paths:
       - 'public/reports/stable-v056.html'
-      - 'public/assets/app-v54.css'
-      - 'public/assets/app-v54-enhance.js'
-      - 'public/assets/app-v55.css'
       - 'public/assets/app-v56.css'
-      - 'public/assets/app-v56-enhance.js'
-      - 'public/assets/app-v56-widecycle.css'
-      - 'public/assets/app-v56-widecycle.js'
+      - 'public/assets/app-v56-gems.js'
+      - 'public/assets/app-v56-cycle-final.css'
+      - 'public/assets/app-v56-cycle-final.js'
       - 'public/data/ai-gems.json'
       - 'public/data/wave-cycles.json'
       - 'public/data/market-daily/**'
@@ -49,16 +46,27 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Static checks
         run: |
-          node --check public/assets/app-v54-enhance.js
-          node --check public/assets/app-v56-enhance.js
-          node --check public/assets/app-v56-widecycle.js
+          node --check public/assets/app-v56-gems.js
+          node --check public/assets/app-v56-cycle-final.js
           node --check scripts/qa-dashboard-v56.mjs
           grep -q 'Market Radar Daily · v0.5.6' public/reports/stable-v056.html
           grep -q 'MR056' public/reports/stable-v056.html
           grep -q 'app-v56.css' public/reports/stable-v056.html
-          grep -q 'app-v56-enhance.js' public/reports/stable-v056.html
-          grep -q 'app-v56-widecycle.css' public/reports/stable-v056.html
-          grep -q 'app-v56-widecycle.js' public/reports/stable-v056.html
+          grep -q 'app-v56-gems.js' public/reports/stable-v056.html
+          grep -q 'app-v56-cycle-final.css' public/reports/stable-v056.html
+          grep -q 'app-v56-cycle-final.js' public/reports/stable-v056.html
+          ! grep -q 'app-v46-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v47-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v48-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v50-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v51-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v51b-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v51c-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v52-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v53-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v54-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v56-enhance.js' public/reports/stable-v056.html
+          ! grep -q 'app-v56-widecycle.js' public/reports/stable-v056.html
           grep -q 'AI 알짜 추적 후보' public/data/ai-gems.json
           grep -q 'SK하이닉스' public/data/ai-gems.json
           grep -q 'HD현대일렉트릭' public/data/ai-gems.json
@@ -86,7 +94,7 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "0.5.6",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "dark-stock-chart", "all-five-cycle-previews", "wide-past-window", "wide-future-side-history", "current-overlay", "restored-overlay", "restored-one-to-one", "ai-gems-us", "ai-gems-korea", "ai-filter", "korean-ticker-modal", "load-collapse", "overflow"],\n  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v56-latest.json
+          printf '{\n  "version": "0.5.6",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "final-only-cycle", "legacy-cycle-hidden", "current-green-100plus-days", "current-green-full-width", "all-five-cycle-previews", "wide-past-window", "current-overlay", "ai-gems-us", "ai-gems-korea", "ai-filter", "korean-ticker-modal", "load-collapse", "overflow"],\n  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v56-latest.json
           git add ops/dashboard-qa-v56-latest.json
           git commit -m "Mark dashboard v0.5.6 QA ${{ github.run_id }} successful" || true
           git push || true
