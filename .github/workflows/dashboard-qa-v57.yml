@@ -5,11 +5,11 @@ on:
     branches: [main]
     paths:
       - 'public/reports/stable-v057.html'
-      - 'public/assets/app-v54.css'
-      - 'public/assets/app-v54-enhance.js'
       - 'public/assets/app-v56.css'
-      - 'public/assets/app-v56-widecycle.css'
-      - 'public/assets/app-v56-widecycle.js'
+      - 'public/assets/app-v56-gems.js'
+      - 'public/assets/app-v56-cycle-guard.js'
+      - 'public/assets/app-v56-cycle-final.css'
+      - 'public/assets/app-v56-cycle-final.js'
       - 'public/assets/app-v57-reference.css'
       - 'public/assets/app-v57-reference.js'
       - 'public/data/ai-gems.json'
@@ -49,19 +49,34 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Static checks
         run: |
-          node --check public/assets/app-v54-enhance.js
-          node --check public/assets/app-v56-widecycle.js
+          node --check public/assets/app-v56-gems.js
+          node --check public/assets/app-v56-cycle-guard.js
+          node --check public/assets/app-v56-cycle-final.js
           node --check public/assets/app-v57-reference.js
           node --check scripts/qa-dashboard-v57.mjs
           grep -q 'Market Radar Daily · v0.5.7' public/reports/stable-v057.html
           grep -q 'MR057' public/reports/stable-v057.html
+          grep -q 'app-v56-cycle-guard.js' public/reports/stable-v057.html
+          grep -q 'app-v56-cycle-final.css' public/reports/stable-v057.html
+          grep -q 'app-v56-cycle-final.js' public/reports/stable-v057.html
           grep -q 'app-v57-reference.css' public/reports/stable-v057.html
           grep -q 'app-v57-reference.js' public/reports/stable-v057.html
+          ! grep -q 'app-v46-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v47-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v48-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v49-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v50-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v51-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v51b-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v51c-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v52-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v53-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v54-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v56-enhance.js' public/reports/stable-v057.html
+          ! grep -q 'app-v56-widecycle.js' public/reports/stable-v057.html
           grep -q 'stable-v057.html' public/app-live.html
           test -s public/data/wave-cycles.json
           test -s public/data/market-daily/QQQ.json
-          test -s public/reports/stable-v051-baseline.html
-          test -s public/reports/stable-v042-baseline.html
       - name: Start local site
         run: |
           cd public
@@ -81,7 +96,7 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "0.5.7",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "reference-white-stock-chart", "red-blue-candles", "moving-averages", "volume", "five-cycle-previews", "wide-history", "current-overlay", "ai-section", "load-collapse", "overflow"],\n  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v57-latest.json
+          printf '{\n  "version": "0.5.7",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "final-only-cycle", "legacy-cycle-hidden", "current-green-100plus-days", "current-green-full-width", "white-stock-chart", "red-blue-candles", "moving-averages", "volume", "five-cycle-previews", "wide-history", "current-overlay", "ai-section", "load-collapse", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v57-latest.json
           git add ops/dashboard-qa-v57-latest.json
           git commit -m "Mark dashboard v0.5.7 QA ${{ github.run_id }} successful" || true
           git push || true
