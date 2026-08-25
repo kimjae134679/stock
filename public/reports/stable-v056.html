@@ -25,13 +25,9 @@
 <link rel="stylesheet" href="../assets/app-v54.css?v=54">
 <link rel="stylesheet" href="../assets/app-v55.css?v=55">
 <link rel="stylesheet" href="../assets/app-v56.css?v=56">
-<link rel="stylesheet" href="../assets/app-v56-cycle-final.css?v=56f1">
-<script>
-window.__MR_RELEASE='0.5.6';
-window.__MR_FINAL_CYCLE_ONLY__=true;
-window.__MR_LEGACY_CYCLE_BLOCKED_COUNT__=0;
-(()=>{const nativeFetch=window.fetch.bind(window);window.__MR_NATIVE_FETCH__=nativeFetch;window.fetch=(input,init)=>{const url=typeof input==='string'?input:(input&&input.url)||'';if(window.__MR_FINAL_CYCLE_ONLY__&&/(^|\/)cycle-history\.json(?:\?|$)/.test(url)){window.__MR_LEGACY_CYCLE_BLOCKED_COUNT__=(Number(window.__MR_LEGACY_CYCLE_BLOCKED_COUNT__)||0)+1;return Promise.reject(new Error('MR056 legacy cycle renderer disabled'))}return nativeFetch(input,init)}})();
-</script>
+<link rel="stylesheet" href="../assets/app-v56-cycle-final.css?v=56f2">
+<script>window.__MR_RELEASE='0.5.6';</script>
+<script src="../assets/app-v56-cycle-guard.js?v=56f2"></script>
 </head>
 <body>
 <span class="mr-buildmark" aria-hidden="true">MR056</span>
@@ -44,16 +40,14 @@ window.__MR_LEGACY_CYCLE_BLOCKED_COUNT__=0;
     <button class="pill" data-go="market">시장</button><button class="pill" data-go="themes">테마</button><button class="pill" data-go="cycle-visual">실제사이클</button><button class="pill" data-go="charts">장중</button><button class="pill" data-go="picks">종목</button><button class="pill" data-go="mr-famous">대표주</button><button class="pill" data-go="mr-compounders">우상향</button><button class="pill" data-go="mr-universe">전체추적</button><button class="pill" data-go="expanded">숨은테마</button><button class="pill" data-go="etfs">ETF</button><button class="pill" data-go="allocation">비중</button><button class="pill" data-go="research">리서치</button><button class="pill" data-go="smart-money">기관</button><button class="pill" data-go="sources">원문</button><button class="pill" data-go="history">변곡점</button><button class="pill" data-go="replay">Replay</button><button class="pill" data-go="macro">거시</button>
   </nav>
   <div id="loadWrap">
-    <div id="loadPanel" class="load-panel"><div class="load-row"><b id="loadPct" class="load-pct">00.001%</b><span id="loadMsg" class="load-msg">안정 렌더러 준비 중</span></div><div class="load-track"><div id="loadBar" class="load-bar"></div></div><div id="loadDetail" class="load-detail">최신 실제 차트 + 현재 넓은 경로 + 큰 과거 사이클 비교를 준비</div></div>
+    <div id="loadPanel" class="load-panel"><div class="load-row"><b id="loadPct" class="load-pct">00.001%</b><span id="loadMsg" class="load-msg">안정 렌더러 준비 중</span></div><div class="load-track"><div id="loadBar" class="load-bar"></div></div><div id="loadDetail" class="load-detail">현재 데이터 + 최종 사이클 그래프만 준비</div></div>
     <div class="load-status">최신 그래프 렌더러가 준비되면 한 번에 표시합니다.</div>
   </div>
   <main id="app"><section class="hero" id="market"><div class="muted">v0.5.6 보호 기본 화면</div><h1>데이터 연결 중…</h1><div class="hero-action">최신 화면을 준비하고 있습니다.</div></section></main>
 </div>
 <div id="modal" class="modal"><div class="sheet"><div class="sheethead"><div><b id="modalTitle">상세</b><div class="muted" id="modalSub"></div></div><button type="button" class="close" id="modalClose">닫기 ✕</button></div><div id="modalBody"></div></div></div>
 <script src="../assets/app-v44.js?v=44"></script>
-<script src="../assets/app-v45-enhance.js?v=45"></script>
-<script src="../assets/app-v49-modal-bridge.js?v=49"></script>
 <script src="../assets/app-v56-gems.js?v=56g1"></script>
-<script src="../assets/app-v56-cycle-final.js?v=56f1"></script>
+<script src="../assets/app-v56-cycle-final.js?v=56f2"></script>
 </body>
 </html>
