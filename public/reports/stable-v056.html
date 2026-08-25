@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" class="mr-cycle-final-pending">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -25,8 +25,13 @@
 <link rel="stylesheet" href="../assets/app-v54.css?v=54">
 <link rel="stylesheet" href="../assets/app-v55.css?v=55">
 <link rel="stylesheet" href="../assets/app-v56.css?v=56">
-<link rel="stylesheet" href="../assets/app-v56-widecycle.css?v=56w2">
-<script>window.__MR_RELEASE='0.5.6';</script>
+<link rel="stylesheet" href="../assets/app-v56-cycle-final.css?v=56f1">
+<script>
+window.__MR_RELEASE='0.5.6';
+window.__MR_FINAL_CYCLE_ONLY__=true;
+window.__MR_LEGACY_CYCLE_BLOCKED_COUNT__=0;
+(()=>{const nativeFetch=window.fetch.bind(window);window.__MR_NATIVE_FETCH__=nativeFetch;window.fetch=(input,init)=>{const url=typeof input==='string'?input:(input&&input.url)||'';if(window.__MR_FINAL_CYCLE_ONLY__&&/(^|\/)cycle-history\.json(?:\?|$)/.test(url)){window.__MR_LEGACY_CYCLE_BLOCKED_COUNT__=(Number(window.__MR_LEGACY_CYCLE_BLOCKED_COUNT__)||0)+1;return Promise.reject(new Error('MR056 legacy cycle renderer disabled'))}return nativeFetch(input,init)}})();
+</script>
 </head>
 <body>
 <span class="mr-buildmark" aria-hidden="true">MR056</span>
@@ -39,18 +44,16 @@
     <button class="pill" data-go="market">시장</button><button class="pill" data-go="themes">테마</button><button class="pill" data-go="cycle-visual">실제사이클</button><button class="pill" data-go="charts">장중</button><button class="pill" data-go="picks">종목</button><button class="pill" data-go="mr-famous">대표주</button><button class="pill" data-go="mr-compounders">우상향</button><button class="pill" data-go="mr-universe">전체추적</button><button class="pill" data-go="expanded">숨은테마</button><button class="pill" data-go="etfs">ETF</button><button class="pill" data-go="allocation">비중</button><button class="pill" data-go="research">리서치</button><button class="pill" data-go="smart-money">기관</button><button class="pill" data-go="sources">원문</button><button class="pill" data-go="history">변곡점</button><button class="pill" data-go="replay">Replay</button><button class="pill" data-go="macro">거시</button>
   </nav>
   <div id="loadWrap">
-    <div id="loadPanel" class="load-panel"><div class="load-row"><b id="loadPct" class="load-pct">00.001%</b><span id="loadMsg" class="load-msg">안정 렌더러 준비 중</span></div><div class="load-track"><div id="loadBar" class="load-bar"></div></div><div id="loadDetail" class="load-detail">검정 배경 실제 차트 + 과거 사이클 비교 + AI 알짜 후보를 준비</div></div>
-    <div class="load-status">핵심 화면 검증 후 로딩 영역 전체를 제거합니다.</div>
+    <div id="loadPanel" class="load-panel"><div class="load-row"><b id="loadPct" class="load-pct">00.001%</b><span id="loadMsg" class="load-msg">안정 렌더러 준비 중</span></div><div class="load-track"><div id="loadBar" class="load-bar"></div></div><div id="loadDetail" class="load-detail">최신 실제 차트 + 현재 넓은 경로 + 큰 과거 사이클 비교를 준비</div></div>
+    <div class="load-status">최신 그래프 렌더러가 준비되면 한 번에 표시합니다.</div>
   </div>
-  <main id="app"><section class="hero" id="market"><div class="muted">v0.5.6 보호 기본 화면</div><h1>데이터 연결 중…</h1><div class="hero-action">잠시만 기다려 주세요.</div></section></main>
+  <main id="app"><section class="hero" id="market"><div class="muted">v0.5.6 보호 기본 화면</div><h1>데이터 연결 중…</h1><div class="hero-action">최신 화면을 준비하고 있습니다.</div></section></main>
 </div>
 <div id="modal" class="modal"><div class="sheet"><div class="sheethead"><div><b id="modalTitle">상세</b><div class="muted" id="modalSub"></div></div><button type="button" class="close" id="modalClose">닫기 ✕</button></div><div id="modalBody"></div></div></div>
 <script src="../assets/app-v44.js?v=44"></script>
 <script src="../assets/app-v45-enhance.js?v=45"></script>
 <script src="../assets/app-v49-modal-bridge.js?v=49"></script>
-<script>
-(()=>{const t0=Date.now();function load46(){const ready=document.querySelector('#cycle-visual .v45-cycle-svg')||document.querySelector('#cycle-visual .v45-empty');if(ready||Date.now()-t0>25000){const s=document.createElement('script');s.src='../assets/app-v46-enhance.js?v=46&ts='+Date.now();s.onload=load47;document.body.appendChild(s);return}setTimeout(load46,120)}function load47(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v46-cycle-svg')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v47-enhance.js?v=47&ts='+Date.now();s.onload=load48;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load48(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v47-cycle-wrap')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v48-enhance.js?v=48&ts='+Date.now();s.onload=load49;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load49(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v48-shell')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v49-enhance.js?v=49&ts='+Date.now();s.onload=load50;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load50(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v49-shell')||Date.now()-t>25000){const s=document.createElement('script');s.src='../assets/app-v50-enhance.js?v=50&ts='+Date.now();s.onload=load51;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load51(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v50-shell')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v51-enhance.js?v=51&ts='+Date.now();s.onload=load51b;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load51b(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51-cycle')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v51b-enhance.js?v=51b&ts='+Date.now();s.onload=load51c;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load51c(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51b-cycle')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v51c-enhance.js?v=51c&ts='+Date.now();s.onload=load52;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load52(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51c-cycle')||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v52-enhance.js?v=52&ts='+Date.now();s.onload=load53;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load53(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51c-svg')?.dataset.v52RatioFix==='1'||Date.now()-t>20000){const s=document.createElement('script');s.src='../assets/app-v53-enhance.js?v=53&ts='+Date.now();s.onload=load54;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load54(){const t=Date.now();function go(){if(document.querySelector('#cycle-visual .v51c-cycle')||Date.now()-t>20000){const s=document.createElement('script');s.src='../assets/app-v54-enhance.js?v=54&ts='+Date.now();s.onload=load56;document.body.appendChild(s);return}setTimeout(go,120)}go()}function load56(){const t=Date.now();function go(){const ready=document.querySelector('#cycle-visual .v54-ref');if(ready||Date.now()-t>30000){const s=document.createElement('script');s.src='../assets/app-v56-enhance.js?v=56&ts='+Date.now();document.body.appendChild(s);return}setTimeout(go,120)}go()}load46()})();
-</script>
-<script src="../assets/app-v56-widecycle.js?v=56w2"></script>
+<script src="../assets/app-v56-gems.js?v=56g1"></script>
+<script src="../assets/app-v56-cycle-final.js?v=56f1"></script>
 </body>
 </html>
