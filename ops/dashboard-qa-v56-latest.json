@@ -1,5 +1,7 @@
 {
   "version": "0.5.6",
   "run_id": 32795156273,
-  "status": "building"
+  "status": "success",
+  "checks": ["desktop", "mobile", "final-only-cycle", "legacy-cycle-hidden", "current-green-100plus-days", "current-green-full-width", "all-five-cycle-previews", "wide-past-window", "current-overlay", "ai-gems-us", "ai-gems-korea", "ai-filter", "korean-ticker-modal", "load-collapse", "overflow"],
+  "known_good_backup": "backup/v0.5.1-known-good@94eccb7"
 }
