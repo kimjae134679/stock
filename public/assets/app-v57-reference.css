@@ -1,91 +1,46 @@
-/* Market Radar v0.5.7 — use the user's supplied stock-chart visual as the HTML chart reference.
-   Keep the dashboard dark, but render actual cycle charts like a familiar brokerage chart:
-   white canvas, light grid, red/blue candles, red/orange/purple MAs, blue volume MA, clear date axis. */
+/* Market Radar v0.5.7 — brokerage-style white stock charts.
+   The live page now renders only the final v56f cycle component; legacy v54/v56w rules remain for archived pages. */
 
-/* Main historical/current comparison chart */
-.v54-chartbox,
-.v56w-main-chart{
-  background:#fff!important;
-  border:1px solid #dfe5eb!important;
-  border-radius:6px!important;
-  box-shadow:none!important;
-  overflow:hidden!important;
+.v54-chartbox,.v56w-main-chart,.v56f-current-chart,.v56f-main-chart{
+  background:#fff!important;border:1px solid #dfe5eb!important;border-radius:6px!important;box-shadow:none!important;overflow:hidden!important;
 }
-.v54-svg,
-.v56w-svg{
-  display:block!important;
-  width:100%!important;
-  height:auto!important;
-  background:#fff!important;
-  color:#637282!important;
-  shape-rendering:geometricPrecision;
+.v54-svg,.v56w-svg,.v56f-svg{
+  display:block!important;width:100%!important;height:auto!important;background:#fff!important;color:#637282!important;shape-rendering:geometricPrecision;
 }
-.v54-grid,.v56w-grid{stroke:#e8edf2!important;stroke-width:1!important;opacity:1!important}
-.v56w-grid.v{opacity:.85!important}
-.v54-sep,.v56w-sep{stroke:#b9c4ce!important;stroke-width:1!important}
-.v54-zero,.v56w-zero{stroke:#8d9aa7!important;stroke-width:1!important;stroke-dasharray:5 6!important;opacity:.8!important}
-.v54-axis,.v54-date,.v56w-axis,.v56w-date{
-  fill:#8794a2!important;
-  font-size:13px!important;
-  font-weight:700!important;
-}
-.v54-pivot,.v56w-pivot{stroke:#9ba7b4!important;stroke-width:1!important;stroke-dasharray:4 6!important;opacity:.75!important}
-.v54-pivottxt,.v56w-pivottxt{fill:#6f7f8e!important;font-size:12px!important;font-weight:800!important}
+.v54-grid,.v56w-grid,.v56f-grid{stroke:#e8edf2!important;stroke-width:1!important;opacity:1!important}
+.v56w-grid.v,.v56f-grid.v{opacity:.85!important}
+.v54-sep,.v56w-sep,.v56f-sep{stroke:#b9c4ce!important;stroke-width:1!important}
+.v54-zero,.v56w-zero,.v56f-zero{stroke:#8d9aa7!important;stroke-width:1!important;stroke-dasharray:5 6!important;opacity:.8!important}
+.v54-axis,.v54-date,.v56w-axis,.v56w-date,.v56f-axis,.v56f-date{fill:#8794a2!important;font-size:13px!important;font-weight:700!important}
+.v54-pivot,.v56w-pivot,.v56f-pivot{stroke:#9ba7b4!important;stroke-width:1!important;stroke-dasharray:4 6!important;opacity:.75!important}
+.v54-pivottxt,.v56w-pivottxt,.v56f-pivottxt{fill:#6f7f8e!important;font-size:12px!important;font-weight:800!important}
 
-/* Candle colors mirror the supplied chart: rise=red, fall=blue. */
-.v54-wick.up,.v54-body.up,.v54-vol.up,
-.v56w-wick.up,.v56w-body.up,.v56w-vol.up{stroke:#ff4054!important;fill:#ff4054!important}
-.v54-wick.down,.v54-body.down,.v54-vol.down,
-.v56w-wick.down,.v56w-body.down,.v56w-vol.down{stroke:#1677ff!important;fill:#1677ff!important}
-.v54-wick,.v56w-wick{stroke-width:1!important}
-.v54-body,.v56w-body{stroke-width:.8!important}
-.v54-vol,.v56w-vol{opacity:.9!important}
+.v54-wick.up,.v54-body.up,.v54-vol.up,.v56w-wick.up,.v56w-body.up,.v56w-vol.up,.v56f-wick.up,.v56f-body.up,.v56f-vol.up{stroke:#ff4054!important;fill:#ff4054!important}
+.v54-wick.down,.v54-body.down,.v54-vol.down,.v56w-wick.down,.v56w-body.down,.v56w-vol.down,.v56f-wick.down,.v56f-body.down,.v56f-vol.down{stroke:#1677ff!important;fill:#1677ff!important}
+.v54-wick,.v56w-wick,.v56f-wick{stroke-width:1!important}.v54-body,.v56w-body,.v56f-body{stroke-width:.8!important}.v54-vol,.v56w-vol,.v56f-vol{opacity:.9!important}
+.v54-ma5,.v56w-ma5,.v56f-ma5{fill:none!important;stroke:#ef334f!important;stroke-width:1.45!important}
+.v54-ma20,.v56w-ma20,.v56f-ma20{fill:none!important;stroke:#ff7a1a!important;stroke-width:1.55!important}
+.v54-ma60,.v56w-ma60,.v56f-ma60{fill:none!important;stroke:#8e35c7!important;stroke-width:1.65!important}
 
-/* Moving averages and volume average */
-.v54-ma5,.v56w-ma5{fill:none!important;stroke:#ef334f!important;stroke-width:1.45!important}
-.v54-ma20,.v56w-ma20{fill:none!important;stroke:#ff7a1a!important;stroke-width:1.55!important}
-.v54-ma60,.v56w-ma60{fill:none!important;stroke:#8e35c7!important;stroke-width:1.65!important}
-.v54-vma{fill:none!important;stroke:#2f80ff!important;stroke-width:1.35!important;opacity:.86!important}
+.v54-current,.v56w-current,.v56f-current-wide,.v56f-current-overlay{fill:none!important;stroke:#20c96b!important;stroke-linecap:round!important;stroke-linejoin:round!important;filter:none!important}
+.v56f-current-wide{stroke-width:5.2!important}.v56f-current-overlay{stroke-width:4.2!important}
+.v56f-current-area{fill:#20c96b!important;opacity:.08!important}
+.v54-nowline,.v56w-nowline,.v56f-active-line{stroke:#20a85c!important;stroke-width:1!important;stroke-dasharray:5 5!important}
+.v54-nowdot,.v56w-nowdot,.v56f-nowdot{fill:#20c96b!important;stroke:#fff!important;stroke-width:2.2!important}
+.v54-nowtext,.v56w-nowtext,.v56f-nowtext,.v56f-active-text{fill:#15834a!important;font-size:12px!important;font-weight:900!important}
+.v56w-after-zone,.v56f-after-zone{fill:#dff7e9!important;opacity:.38!important}.v56w-after-label,.v56f-after-label{fill:#5f8870!important;font-size:10px!important;font-weight:800!important}
 
-/* Current context remains an overlay, but should not swamp the real chart. */
-.v54-current,.v56w-current{
-  fill:none!important;
-  stroke:#20c96b!important;
-  stroke-width:4!important;
-  stroke-linecap:round!important;
-  stroke-linejoin:round!important;
-  filter:none!important;
-}
-.v54-nowline,.v56w-nowline{stroke:#20a85c!important;stroke-width:1!important;stroke-dasharray:5 5!important}
-.v54-nowdot,.v56w-nowdot{fill:#20c96b!important;stroke:#fff!important;stroke-width:2.2!important}
-.v54-nowtext,.v56w-nowtext{fill:#15834a!important;font-size:12px!important;font-weight:900!important}
-.v56w-after-zone{fill:#dff7e9!important;opacity:.38!important}
-.v56w-after-label{fill:#5f8870!important;font-size:10px!important;font-weight:800!important}
-
-/* Legend should read like a chart legend, not a dashboard badge cluster. */
-.v54-legend,.v56w-legend{color:#667786!important;font-size:9px!important;gap:10px!important;padding:7px 3px 3px!important}
-.v54-legend .current i,.v56w-legend .current{background:#20c96b!important}
-
-/* The preview selectors stay dark as UI controls, but their chart canvases are white. */
-.v56w-preview{background:#081722!important;border-color:#29465a!important}
-.v56w-preview.active{border-color:#74a9ca!important;box-shadow:inset 0 0 0 1px rgba(116,169,202,.24)!important}
-.v56w-preview .v56w-svg{border-radius:5px!important}
-
-/* The chart should be the visual focus, like the supplied examples. */
-.v56w-main-head{margin:0 2px 8px!important}
-.v56w-main-head b{font-size:15px!important}
-.v56w-main-head span{font-size:10px!important;color:#8ba0af!important}
-.v56w-main-head strong{font-size:10px!important;background:#0b1d29!important;border-color:#31516a!important;color:#d8e8f2!important}
-.v56w-meta{margin-top:7px!important}
+.v56f-current-card{border-color:#29465a!important;background:#081722!important}
+.v56f-current-head b{color:#eef7fb!important}.v56f-current-head span{color:#8ba0af!important}.v56f-current-head strong{color:#b9ffd0!important;background:#0a2416!important;border-color:#2e6847!important}
+.v56f-preview{background:#081722!important;border-color:#29465a!important}.v56f-preview.active{border-color:#74a9ca!important;box-shadow:inset 0 0 0 1px rgba(116,169,202,.24)!important}.v56f-preview .v56f-svg{border-radius:5px!important}
+.v56f-main-head{margin:0 2px 8px!important}.v56f-main-head b{font-size:15px!important}.v56f-main-head span{font-size:10px!important;color:#8ba0af!important}.v56f-main-head strong{font-size:10px!important;background:#0b1d29!important;border-color:#31516a!important;color:#d8e8f2!important}
+.v56f-legend{color:#8fa0ac!important}.v56f-legend .current{background:#20c96b!important}.v56f-meta{margin-top:7px!important}
 
 @media(max-width:700px){
-  .v54-chartbox,.v56w-main-chart{border-radius:4px!important}
-  .v54-axis,.v54-date,.v56w-axis,.v56w-date{font-size:11px!important}
-  .v54-pivottxt,.v56w-pivottxt{font-size:10px!important}
-  .v54-nowtext,.v56w-nowtext{font-size:10px!important}
-  .v54-current,.v56w-current{stroke-width:3.4!important}
-  .v54-ma5,.v56w-ma5{stroke-width:1.2!important}
-  .v54-ma20,.v56w-ma20{stroke-width:1.3!important}
-  .v54-ma60,.v56w-ma60{stroke-width:1.4!important}
-  .v54-legend,.v56w-legend{font-size:8px!important;gap:7px!important}
+  .v54-chartbox,.v56w-main-chart,.v56f-current-chart,.v56f-main-chart{border-radius:4px!important}
+  .v54-axis,.v54-date,.v56w-axis,.v56w-date,.v56f-axis,.v56f-date{font-size:11px!important}
+  .v54-pivottxt,.v56w-pivottxt,.v56f-pivottxt{font-size:10px!important}
+  .v54-nowtext,.v56w-nowtext,.v56f-nowtext,.v56f-active-text{font-size:10px!important}
+  .v56f-current-wide{stroke-width:4.4!important}.v56f-current-overlay{stroke-width:3.5!important}
+  .v54-ma5,.v56w-ma5,.v56f-ma5{stroke-width:1.2!important}.v54-ma20,.v56w-ma20,.v56f-ma20{stroke-width:1.3!important}.v54-ma60,.v56w-ma60,.v56f-ma60{stroke-width:1.4!important}
 }
