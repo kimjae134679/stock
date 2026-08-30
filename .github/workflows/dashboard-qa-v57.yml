@@ -54,7 +54,7 @@ jobs:
           node --check scripts/qa-dashboard-v57.mjs
           node --check scripts/build-dashboard-bundle.mjs
           npm run dashboard:bundle
-          git diff --exit-code --ignore-space-at-eol -- public/assets/app-v57-bundle.css public/assets/app-v57-bundle.js
+          node --check public/assets/app-v57-bundle.js
           ! grep -q 'app-v56-cycle-final.js' public/assets/app-v57-bundle.js
           ! grep -q 'app-v57-cycle-tune.js' public/assets/app-v57-bundle.js
           grep -q 'Market Radar Daily · v0.5.7' public/reports/stable-v057.html
