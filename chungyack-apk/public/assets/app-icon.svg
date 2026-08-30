@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="청약 레이더 앱 아이콘">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6D4AFF"/>
+      <stop offset="0.58" stop-color="#3B2E9B"/>
+      <stop offset="1" stop-color="#15164B"/>
+    </linearGradient>
+    <linearGradient id="door" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6FBFF"/>
+      <stop offset="1" stop-color="#CDE5FF"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#67F7D4"/>
+      <stop offset="1" stop-color="#20C5D8"/>
+    </linearGradient>
+  </defs>
+  <rect x="18" y="18" width="476" height="476" rx="118" fill="url(#bg)"/>
+  <circle cx="256" cy="258" r="168" fill="none" stroke="#8B77FF" stroke-width="8" opacity=".45"/>
+  <path d="M112 259a144 144 0 0 1 288 0" fill="none" stroke="url(#signal)" stroke-width="24" stroke-linecap="round" opacity=".92"/>
+  <path d="M151 259a105 105 0 0 1 210 0" fill="none" stroke="url(#signal)" stroke-width="20" stroke-linecap="round" opacity=".72"/>
+  <rect x="174" y="166" width="164" height="220" rx="32" fill="url(#door)"/>
+  <rect x="205" y="204" width="102" height="182" rx="18" fill="#241F67"/>
+  <circle cx="256" cy="270" r="30" fill="#FFD664"/>
+  <path d="M241 294h30l18 66h-66z" fill="#FFD664"/>
+  <circle cx="292" cy="292" r="7" fill="#F6FBFF" opacity=".85"/>
+  <circle cx="118" cy="114" r="13" fill="#67F7D4"/>
+  <circle cx="396" cy="118" r="9" fill="#FFD664"/>
+  <path d="M379 378l13 13 29-32" fill="none" stroke="#67F7D4" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
