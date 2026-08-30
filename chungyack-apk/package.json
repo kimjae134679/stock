@@ -1,0 +1,8 @@
+{
+  "name":"chungyack-radar-public-build",
+  "version":"0.3.0",
+  "private":true,
+  "scripts":{"android:brand":"node scripts/apply-android-branding.mjs"},
+  "dependencies":{"@capacitor/android":"^8.0.0","@capacitor/app":"^8.0.0","@capacitor/core":"^8.0.0"},
+  "devDependencies":{"@capacitor/cli":"^8.0.0"}
+}
