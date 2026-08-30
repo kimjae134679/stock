@@ -63,6 +63,8 @@ jobs:
           grep -q 'app-v57-bundle.js' public/reports/stable-v057.html
           grep -q '구조 점수' public/assets/app-v57-pivot-match.js
           grep -q '카드별 실제 범위로 자동 확대' public/assets/app-v57-pivot-match.js
+          grep -q 'FUTURE_DAYS=126' public/assets/app-v57-pivot-match.js
+          grep -q '현재 위치' public/assets/app-v57-pivot-match.js
           ! grep -q 'app-v46-enhance.js' public/reports/stable-v057.html
           ! grep -q 'app-v47-enhance.js' public/reports/stable-v057.html
           ! grep -q 'app-v48-enhance.js' public/reports/stable-v057.html
@@ -98,7 +100,7 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "0.5.7",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "pair-local-axis", "tall-cycle-charts", "structure-score-breakdown", "score-order", "no-lookahead-copy", "price-cutoff", "flat-intraday-hidden", "cycle-first-order", "bundled-assets", "ai-section", "load-collapse", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v57-latest.json
+          printf '{\n  "version": "0.5.7",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "pair-local-axis", "tall-cycle-charts", "structure-score-breakdown", "score-order", "no-lookahead-copy", "price-cutoff", "flat-intraday-hidden", "cycle-first-order", "current-position-marker", "historical-future-126d", "future-outcomes", "bundled-assets", "ai-section", "load-collapse", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v57-latest.json
           git add ops/dashboard-qa-v57-latest.json
           git commit -m "Mark dashboard v0.5.7 QA ${{ github.run_id }} successful" || true
           git push || true

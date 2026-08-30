@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test';
 import fs from 'node:fs/promises';
 
-const base='http://127.0.0.1:4173/reports/stable-v057.html?qa=57pivot3';
+const base='http://127.0.0.1:4173/reports/stable-v057.html?qa=57pivot4';
 await fs.mkdir('qa-artifacts',{recursive:true});
 
 function must(ok,message){if(!ok)throw new Error(message)}
@@ -34,6 +34,12 @@ async function run(name,viewport){
     axisLabels:document.querySelectorAll('#cycle-visual .v57p-axis').length,
     candles:document.querySelectorAll('#cycle-visual .v56f-body').length,
     volumes:document.querySelectorAll('#cycle-visual .v56f-vol').length,
+    nowLines:document.querySelectorAll('#cycle-visual .v57p-now-line').length,
+    nowDots:document.querySelectorAll('#cycle-visual .v57p-now-dot').length,
+    futureZones:document.querySelectorAll('#cycle-visual .v57p-future-zone').length,
+    outcomes:document.querySelectorAll('#cycle-visual .v57p-outcomes span').length,
+    futureDays:svgs.map(x=>Number(x.dataset.futureDays)),
+    currentState:document.querySelector('#cycle-visual .v57p-current-state')?.textContent||'',
     scores,ranges,currentHeight,
     viewHeights:svgs.map(x=>x.viewBox.baseVal.height),
     displayHeights:svgs.map(x=>x.getBoundingClientRect().height),
@@ -54,18 +60,22 @@ async function run(name,viewport){
   });
 
   must(r.mark==='MR057',`${name}: build mark ${r.mark}`);
-  must(r.title.includes('실제 사이클')&&r.title.includes('구조 점수'),`${name}: cycle title ${r.title}`);
+  must(r.title.includes('실제 사이클')&&r.title.includes('현재 이후 과거 경로'),`${name}: cycle title ${r.title}`);
   must(r.cards===5&&r.svgs===5,`${name}: five cycle cards missing ${JSON.stringify(r)}`);
   must(r.scoreParts===15,`${name}: score breakdown missing ${r.scoreParts}`);
   must(r.axisLabels===25,`${name}: y-axis labels missing ${r.axisLabels}`);
   must(r.candles>=350&&r.volumes>=175,`${name}: chart layers too sparse ${r.candles}/${r.volumes}`);
+  must(r.nowLines===5&&r.nowDots===5&&r.futureZones===5,`${name}: current/future markers missing ${JSON.stringify(r)}`);
+  must(r.outcomes===15,`${name}: historical future outcomes missing ${r.outcomes}`);
+  must(r.futureDays.every(x=>x===126),`${name}: future horizon invalid ${r.futureDays}`);
+  must(r.currentState.includes('현재 위치')&&r.currentState.includes('대응 저점 이후'),`${name}: current position summary missing`);
   must(r.viewHeights.every(x=>x>=380),`${name}: chart viewBox too flat ${r.viewHeights}`);
   must(r.displayHeights.every(x=>x>=185),`${name}: rendered chart too flat ${r.displayHeights}`);
   must(r.currentHeight.every(x=>x>=25),`${name}: current path visually flat ${r.currentHeight}`);
   must(new Set(r.ranges).size>=2,`${name}: cards still share one global scale ${r.ranges}`);
   must(r.scores.every((x,i)=>i===0||r.scores[i-1]>=x),`${name}: structure scores not descending ${r.scores}`);
-  must(r.method.includes('그래프 전체')&&r.method.includes('미래 방향'),`${name}: score warning missing`);
-  must(r.titleNote.includes('미래 하락폭으로 후보를 고르지 않고'),`${name}: look-ahead warning missing`);
+  must(r.method.includes('현재 위치까지만 계산')&&r.method.includes('미래를 보장하지 않습니다'),`${name}: score warning missing`);
+  must(r.titleNote.includes('미래 구간을 보지 않고 후보를 고른 뒤'),`${name}: look-ahead warning missing`);
   must(r.priceCutoff.includes('가격 기준'),`${name}: price cutoff missing ${r.priceCutoff}`);
   must(r.scoreLabel.includes('진입여건')&&r.scoreGuide.includes('직접 비교하지 않음'),`${name}: score semantics unclear`);
   must(r.flatNotice.includes('평면 그래프는 표시하지 않습니다'),`${name}: stale intraday state missing`);
