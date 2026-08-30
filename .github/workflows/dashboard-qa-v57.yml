@@ -5,17 +5,13 @@ on:
     branches: [main]
     paths:
       - 'public/reports/stable-v057.html'
-      - 'public/assets/app-v56.css'
-      - 'public/assets/app-v56-gems.js'
-      - 'public/assets/app-v56-cycle-guard.js'
-      - 'public/assets/app-v56-cycle-final.css'
-      - 'public/assets/app-v56-cycle-final.js'
-      - 'public/assets/app-v57-reference.css'
-      - 'public/assets/app-v57-reference.js'
+      - 'public/assets/app-v*.css'
+      - 'public/assets/app-v*.js'
       - 'public/data/ai-gems.json'
       - 'public/data/wave-cycles.json'
       - 'public/data/market-daily/**'
       - 'scripts/qa-dashboard-v57.mjs'
+      - 'scripts/build-dashboard-bundle.mjs'
       - 'package.json'
       - '.github/workflows/dashboard-qa-v57.yml'
   workflow_dispatch:
@@ -49,18 +45,24 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Static checks
         run: |
+          node --check public/assets/app-v44.js
           node --check public/assets/app-v56-gems.js
           node --check public/assets/app-v56-cycle-guard.js
           node --check public/assets/app-v56-cycle-final.js
           node --check public/assets/app-v57-reference.js
+          node --check public/assets/app-v57-pivot-match.js
           node --check scripts/qa-dashboard-v57.mjs
+          node --check scripts/build-dashboard-bundle.mjs
+          npm run dashboard:bundle
+          git diff --exit-code -- public/assets/app-v57-bundle.css public/assets/app-v57-bundle.js
+          ! grep -q 'app-v56-cycle-final.js' public/assets/app-v57-bundle.js
+          ! grep -q 'app-v57-cycle-tune.js' public/assets/app-v57-bundle.js
           grep -q 'Market Radar Daily · v0.5.7' public/reports/stable-v057.html
           grep -q 'MR057' public/reports/stable-v057.html
-          grep -q 'app-v56-cycle-guard.js' public/reports/stable-v057.html
-          grep -q 'app-v56-cycle-final.css' public/reports/stable-v057.html
-          grep -q 'app-v56-cycle-final.js' public/reports/stable-v057.html
-          grep -q 'app-v57-reference.css' public/reports/stable-v057.html
-          grep -q 'app-v57-reference.js' public/reports/stable-v057.html
+          grep -q 'app-v57-bundle.css' public/reports/stable-v057.html
+          grep -q 'app-v57-bundle.js' public/reports/stable-v057.html
+          grep -q '구조 점수' public/assets/app-v57-pivot-match.js
+          grep -q '카드별 실제 범위로 자동 확대' public/assets/app-v57-pivot-match.js
           ! grep -q 'app-v46-enhance.js' public/reports/stable-v057.html
           ! grep -q 'app-v47-enhance.js' public/reports/stable-v057.html
           ! grep -q 'app-v48-enhance.js' public/reports/stable-v057.html
@@ -96,7 +98,7 @@ jobs:
         run: |
           git pull --rebase || true
           mkdir -p ops
-          printf '{\n  "version": "0.5.7",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "final-only-cycle", "legacy-cycle-hidden", "current-green-100plus-days", "current-green-full-width", "white-stock-chart", "red-blue-candles", "moving-averages", "volume", "five-cycle-previews", "wide-history", "current-overlay", "ai-section", "load-collapse", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v57-latest.json
+          printf '{\n  "version": "0.5.7",\n  "run_id": %s,\n  "status": "success",\n  "checks": ["desktop", "mobile", "pair-local-axis", "tall-cycle-charts", "structure-score-breakdown", "score-order", "no-lookahead-copy", "price-cutoff", "flat-intraday-hidden", "cycle-first-order", "bundled-assets", "ai-section", "load-collapse", "overflow"]\n}\n' "${{ github.run_id }}" > ops/dashboard-qa-v57-latest.json
           git add ops/dashboard-qa-v57-latest.json
           git commit -m "Mark dashboard v0.5.7 QA ${{ github.run_id }} successful" || true
           git push || true

@@ -1,80 +1,89 @@
 import { chromium } from '@playwright/test';
 import fs from 'node:fs/promises';
-const base='http://127.0.0.1:4173/reports/stable-v057.html?qa=57final';
+
+const base='http://127.0.0.1:4173/reports/stable-v057.html?qa=57pivot3';
 await fs.mkdir('qa-artifacts',{recursive:true});
+
+function must(ok,message){if(!ok)throw new Error(message)}
 
 async function run(name,viewport){
  const browser=await chromium.launch({headless:true});
  let page;
  try{
   page=await browser.newPage({viewport});
-  const errors=[];page.on('pageerror',e=>errors.push(String(e)));
+  const errors=[];
+  page.on('pageerror',e=>errors.push(String(e)));
   await page.goto(base,{waitUntil:'domcontentloaded',timeout:60000});
-  await page.waitForFunction(()=>document.querySelector('#cycle-visual .v56f-board'),null,{timeout:45000});
-  await page.waitForFunction(()=>document.querySelectorAll('#cycle-visual .v56f-preview').length===5,null,{timeout:15000});
+  await page.waitForFunction(()=>document.querySelectorAll('#cycle-visual .v57p-card').length===5,null,{timeout:45000});
   await page.waitForFunction(()=>document.querySelectorAll('#ai-gems .ai-gem').length>=20,null,{timeout:20000});
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(500);
   const r=await page.evaluate(()=>{
-   const currentSvg=document.querySelector('#cycle-visual .v56f-current-card .v56f-svg');
-   const currentPath=document.querySelector('#cycle-visual .v56f-current-wide');
-   const main=document.querySelector('#cycle-visual .v56f-main .v56f-svg');
-   const up=document.querySelector('#cycle-visual .v56f-main .v56f-body.up');
-   const down=document.querySelector('#cycle-visual .v56f-main .v56f-body.down');
-   const ma20=document.querySelector('#cycle-visual .v56f-main .v56f-ma20');
-   let currentWidth=0,svgWidth=0;
-   try{currentWidth=currentPath?.getBBox().width||0;svgWidth=currentSvg?.viewBox?.baseVal?.width||0}catch{}
-   const legacySelectors=['.v45-cycle-svg','.v46-cycle-svg','.v47-cycle-wrap','.v48-shell','.v49-shell','.v50-shell','.v51-cycle','.v51b-cycle','.v51c-cycle','.v54-ref','.v56w-board'];
+   const cards=[...document.querySelectorAll('#cycle-visual .v57p-card')];
+   const svgs=cards.map(x=>x.querySelector('.v57p-svg')).filter(Boolean);
+   const scores=svgs.map(x=>Number(x.dataset.score));
+   const ranges=svgs.map(x=>`${x.dataset.ymin}|${x.dataset.ymax}`);
+   const appChildren=[...document.querySelector('#app')?.children||[]].map(x=>x.id).filter(Boolean);
+   const currentPaths=cards.map(x=>x.querySelector('.v57p-current')).filter(Boolean);
+   const currentHeight=currentPaths.map(x=>{try{return x.getBBox().height}catch{return 0}});
    return {
     mark:document.querySelector('.mr-buildmark')?.textContent,
-    ready:document.documentElement.classList.contains('mr-cycle-final-ready'),
-    bg:main?getComputedStyle(main).backgroundColor:'',
-    up:up?getComputedStyle(up).fill:'',
-    down:down?getComputedStyle(down).fill:'',
-    ma20:ma20?getComputedStyle(ma20).stroke:'',
-    currentDays:parseInt(document.querySelector('#cycle-visual .v56f-current-head strong')?.textContent||'0',10)||0,
-    currentWidth,svgWidth,
-    previews:document.querySelectorAll('#cycle-visual .v56f-preview').length,
-    previewSvgs:document.querySelectorAll('#cycle-visual .v56f-preview .v56f-svg').length,
-    wideRange:Number(main?.dataset.rangeDays||0),
-    overlayDays:Number(main?.dataset.currentDays||0),
-    candles:document.querySelectorAll('#cycle-visual .v56f-main .v56f-body').length,
-    volumes:document.querySelectorAll('#cycle-visual .v56f-main .v56f-vol').length,
-    ma5:!!document.querySelector('#cycle-visual .v56f-main .v56f-ma5'),
-    ma60:!!document.querySelector('#cycle-visual .v56f-main .v56f-ma60'),
-    currentOverlay:!!document.querySelector('#cycle-visual .v56f-main .v56f-current-overlay'),
-    legacyCount:legacySelectors.reduce((n,s)=>n+document.querySelectorAll('#cycle-visual '+s).length,0),
+    title:document.querySelector('#cycle-visual .mr-head h2')?.textContent||'',
+    cards:cards.length,
+    svgs:svgs.length,
+    scoreParts:document.querySelectorAll('#cycle-visual .v57p-scoreparts span').length,
+    axisLabels:document.querySelectorAll('#cycle-visual .v57p-axis').length,
+    candles:document.querySelectorAll('#cycle-visual .v56f-body').length,
+    volumes:document.querySelectorAll('#cycle-visual .v56f-vol').length,
+    scores,ranges,currentHeight,
+    viewHeights:svgs.map(x=>x.viewBox.baseVal.height),
+    displayHeights:svgs.map(x=>x.getBoundingClientRect().height),
+    method:document.querySelector('#cycle-visual .v57p-method')?.textContent||'',
+    titleNote:document.querySelector('#cycle-visual .v57p-title')?.textContent||'',
+    priceCutoff:document.querySelector('.info-tag.freshness')?.textContent||'',
+    scoreLabel:document.querySelector('.scores')?.textContent||'',
+    scoreGuide:document.querySelector('.score-guide')?.textContent||'',
+    flatNotice:[...document.querySelectorAll('#charts .notice')].map(x=>x.textContent).join(' '),
+    cycleIndex:appChildren.indexOf('cycle-visual'),
+    themesIndex:appChildren.indexOf('themes'),
     loadH:document.querySelector('#loadWrap')?.getBoundingClientRect().height||0,
     overflow:document.documentElement.scrollWidth-innerWidth,
-    aiAll:document.querySelectorAll('#ai-gems .ai-gem').length
+    aiAll:document.querySelectorAll('#ai-gems .ai-gem').length,
+    styles:document.styleSheets.length,
+    scripts:document.scripts.length
    };
   });
-  if(r.mark!=='MR057')throw new Error(name+': mark '+r.mark);
-  if(!r.ready)throw new Error(name+': final renderer not ready');
-  if(!/255, 255, 255/.test(r.bg))throw new Error(name+': final stock chart not white '+r.bg);
-  if(r.currentDays<100)throw new Error(name+': green current window too short '+r.currentDays);
-  if(r.svgWidth<900||r.currentWidth/r.svgWidth<0.78)throw new Error(name+': green graph does not fill width '+JSON.stringify({currentWidth:r.currentWidth,svgWidth:r.svgWidth}));
-  if(r.previews!==5||r.previewSvgs!==5)throw new Error(name+': five previews missing '+JSON.stringify(r));
-  if(r.wideRange<500||r.overlayDays<100)throw new Error(name+': comparison range too short '+JSON.stringify(r));
-  if(r.candles<120||r.volumes<120||!r.ma5||!r.ma20||!r.ma60||!r.currentOverlay)throw new Error(name+': stock-chart layers missing '+JSON.stringify(r));
-  if(r.legacyCount!==0)throw new Error(name+': legacy graph DOM rendered '+r.legacyCount);
-  if(r.loadH>2)throw new Error(name+': loading gap '+r.loadH);
-  if(r.overflow>3)throw new Error(name+': overflow '+r.overflow);
-  if(r.aiAll<20)throw new Error(name+': AI section regression '+r.aiAll);
 
-  const second=page.locator('#cycle-visual [data-v56f-select="1"]');
-  await second.click();await page.waitForTimeout(100);
-  const selected=await page.locator('#cycle-visual .v56f-board').getAttribute('data-selected');
-  if(selected!=='1')throw new Error(name+': preview selection failed '+selected);
+  must(r.mark==='MR057',`${name}: build mark ${r.mark}`);
+  must(r.title.includes('실제 사이클')&&r.title.includes('구조 점수'),`${name}: cycle title ${r.title}`);
+  must(r.cards===5&&r.svgs===5,`${name}: five cycle cards missing ${JSON.stringify(r)}`);
+  must(r.scoreParts===15,`${name}: score breakdown missing ${r.scoreParts}`);
+  must(r.axisLabels===25,`${name}: y-axis labels missing ${r.axisLabels}`);
+  must(r.candles>=350&&r.volumes>=175,`${name}: chart layers too sparse ${r.candles}/${r.volumes}`);
+  must(r.viewHeights.every(x=>x>=380),`${name}: chart viewBox too flat ${r.viewHeights}`);
+  must(r.displayHeights.every(x=>x>=185),`${name}: rendered chart too flat ${r.displayHeights}`);
+  must(r.currentHeight.every(x=>x>=25),`${name}: current path visually flat ${r.currentHeight}`);
+  must(new Set(r.ranges).size>=2,`${name}: cards still share one global scale ${r.ranges}`);
+  must(r.scores.every((x,i)=>i===0||r.scores[i-1]>=x),`${name}: structure scores not descending ${r.scores}`);
+  must(r.method.includes('그래프 전체')&&r.method.includes('미래 방향'),`${name}: score warning missing`);
+  must(r.titleNote.includes('미래 하락폭으로 후보를 고르지 않고'),`${name}: look-ahead warning missing`);
+  must(r.priceCutoff.includes('가격 기준'),`${name}: price cutoff missing ${r.priceCutoff}`);
+  must(r.scoreLabel.includes('진입여건')&&r.scoreGuide.includes('직접 비교하지 않음'),`${name}: score semantics unclear`);
+  must(r.flatNotice.includes('평면 그래프는 표시하지 않습니다'),`${name}: stale intraday state missing`);
+  must(r.cycleIndex>=0&&r.themesIndex>r.cycleIndex,`${name}: cycle is not prioritized ${r.cycleIndex}/${r.themesIndex}`);
+  must(r.loadH<=2,`${name}: loading gap ${r.loadH}`);
+  must(r.overflow<=3,`${name}: page overflow ${r.overflow}`);
+  must(r.aiAll>=20,`${name}: AI section regression ${r.aiAll}`);
+  must(r.styles<=2&&r.scripts<=3,`${name}: asset cascade not bundled ${r.styles}/${r.scripts}`);
+  must(errors.length===0,`${name}: ${errors.join(' | ')}`);
 
-  await page.locator('#cycle-visual .v56f-board').scrollIntoViewIfNeeded();
-  await page.screenshot({path:`qa-artifacts/${name}-final-current-wide.png`,fullPage:false});
-  if(errors.length)throw new Error(name+': '+errors.join(' | '));
+  await page.locator('#cycle-visual .v57p-card').first().scrollIntoViewIfNeeded();
+  await page.screenshot({path:`qa-artifacts/${name}-cycle-pivot.png`,fullPage:false});
   console.log(name,'PASS',r);
- } catch(e){
+ }catch(e){
   console.error(name,'FAIL',e);
   if(page){try{await page.screenshot({path:`qa-artifacts/${name}-FAIL.png`,fullPage:false})}catch{}}
   throw e;
- } finally { await browser.close(); }
+ }finally{await browser.close()}
 }
 
 await run('desktop-v057',{width:1440,height:1000});

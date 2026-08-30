@@ -4,7 +4,7 @@ const $=(s,r=document)=>r?.querySelector?.(s)||null;
 const $$=(s,r=document)=>r?[...r.querySelectorAll(s)]:[];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let GEMS=null,NAME_MAP={};
-function setMark(){const m=$('.mr-buildmark');if(m&&m.textContent!=='MR056')m.textContent='MR056'}
+function setMark(){const m=$('.mr-buildmark');if(m)m.textContent=window.__MR_RELEASE==='0.5.7'?'MR057':'MR056'}
 function tierClass(t=''){return t==='핵심'?'core':t.includes('+')?'plus':''}
 function gemCard(x){return `<button type="button" class="ai-gem" data-ticker="${esc(x.ticker)}" data-ai-ticker="${esc(x.ticker)}" data-market="${esc(x.market)}"><span class="ai-gem-top"><b><span class="ai-market-label">${esc(x.market==='KR'?'국내':'해외')}</span>${esc(x.ticker)}</b><span class="ai-tier ${tierClass(x.tier)}">${esc(x.tier)}</span></span><span class="ai-gem-name">${esc(x.name)}</span><span class="ai-gem-reason">${esc(x.reason)}</span><span class="ai-gem-risk">체크 · ${esc(x.risk)}</span></button>`}
 function groupBlock(g,secondary=false){const xs=(g.items||[]).filter(x=>secondary?x.tier!=='핵심':x.tier==='핵심');if(!xs.length)return'';return `<article class="ai-gem-group" data-ai-group="${esc(g.key)}"><h3>${esc(g.name)}</h3><div class="ai-gem-list">${xs.map(gemCard).join('')}</div></article>`}

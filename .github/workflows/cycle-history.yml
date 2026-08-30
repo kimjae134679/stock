@@ -47,12 +47,12 @@ jobs:
         run: node scripts/build-cycle-history.mjs
       - name: Build detailed full-cycle paths
         run: node scripts/build-cycle-full.mjs
+      - name: Build actual daily OHLCV cache
+        run: node scripts/build-market-daily.mjs
       - name: Build fixed multi-leg wave templates
         run: node scripts/build-wave-cycles.mjs
       - name: Exclude templates overlapping current context
         run: node scripts/filter-wave-history.mjs
-      - name: Build actual daily OHLCV cache
-        run: node scripts/build-market-daily.mjs
       - name: Validate cycle datasets
         run: |
           node - <<'NODE'
@@ -66,9 +66,12 @@ jobs:
           if(!w.assets?.QQQ?.current_context?.path?.length) throw new Error('QQQ wave context missing');
           if(!w.assets.QQQ.current_context.recent_drop) throw new Error('QQQ recent drop context missing');
           const reps=w.assets.QQQ.representatives||[];
+          const anchors=w.assets.QQQ.analog_anchors||[];
           if(reps.length<5) throw new Error('QQQ historical wave templates insufficient');
+          if(anchors.length<20) throw new Error('QQQ unbiased analog anchors insufficient');
           if(!reps.every(x=>Array.isArray(x.path)&&x.path.length>=5&&x.pivots?.length===5)) throw new Error('QQQ fixed wave path/pivots missing');
           if(reps.some(x=>String(x.second_low_date)>=String(w.assets.QQQ.current_context.start_date))) throw new Error('QQQ template overlaps current context');
+          if(anchors.some(x=>String(x.anchor_date)>=String(w.assets.QQQ.current_context.start_date))) throw new Error('QQQ analog anchor overlaps current context');
           if((q.rows||[]).length<3000||q.columns?.join(',')!=='date,open,high,low,close,volume') throw new Error('QQQ OHLCV cache invalid');
           const bytes=fs.statSync('public/data/cycle-history.json').size+fs.statSync('public/data/cycle-full.json').size+fs.statSync('public/data/wave-cycles.json').size;
           if(bytes>13_000_000) throw new Error('combined cycle payload too large: '+bytes);
