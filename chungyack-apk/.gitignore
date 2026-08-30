@@ -1,0 +1,4 @@
+node_modules/
+android/
+public/data/sh-2026.csv
+*.apk
