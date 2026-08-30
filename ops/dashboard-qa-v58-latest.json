@@ -1,5 +1,6 @@
 {
   "version": "0.5.8",
   "run_id": 33315641935,
-  "status": "building"
+  "status": "success",
+  "checks": ["desktop", "mobile", "current-marker", "history-continues-126-bars", "1-3-6-month-markers", "no-lookahead-score", "504-day-detail", "large-labels", "dark-chart", "ai-section", "load-collapse", "overflow"]
 }
