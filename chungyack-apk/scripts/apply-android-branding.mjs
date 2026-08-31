@@ -45,7 +45,7 @@ public class MainActivity extends BridgeActivity {
     }catch(Throwable ignored){}
   }
 
-  @Override protected void onResume(){
+  @Override public void onResume(){
     super.onResume();
     try{
       WebView webView=getBridge().getWebView();
