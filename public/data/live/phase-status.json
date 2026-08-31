@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-08-31T17:06:51+09:00",
+  "updated_at": "2026-08-31T17:52:14+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 현물은 아직 개장 전이라 8월 28일 종가를 마지막 검증값으로 유지한다. Reuters 8/31은 Trump가 올린 Kharg 섬 공격 영상이 AI 생성물이었고 이란 측이 Kharg 운영 정상이라고 밝혔다고 보도해 해당 공격 주장은 경보 근거에서 제외한다. 다만 Larak 섬 공격·이란 보복과 Brent $90대, 높은 금리 부담은 남아 독립 Phase는 유지한다.",
+  "summary": "미국 현물은 아직 개장 전이라 8월 28일 종가를 마지막 검증값으로 유지한다. 8월 31일 Reuters 최신 글로벌마켓에서 유가·금리·지정학 부담은 이어졌고, AI 광통신 수요는 구조적으로 강하지만 미국 현물의 새 Phase 전환 신호는 확인되지 않았다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장전 경계 유지","action":"그래서 지금은? 미국 개장 후 breadth·금리·유가가 동시에 악화되는지 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계 유지","action":"그래서 지금은? QQQ 상대강도와 장기금리가 함께 악화되는지 확인."},
@@ -13,10 +13,10 @@
   ],
   "sources": [
     "Reuters 2026-08-31 Global Markets: Asian shares ease as oil climbs and yields stay high",
-    "Reuters 2026-08-31 Kharg correction: AI-generated Trump video; Iran says operations normal",
-    "Reuters 2026-08-31 Europe: stocks ease as U.S.-Iran strikes fuel oil rally",
     "Reuters 2026-08-31 Soitec: AI silicon-photonics wafer demand drives multi-year supply deals",
+    "Reuters 2026-08-31 Europe: EuroHPC AI computing expansion",
+    "Reuters 2026-08-31 Oil/Larak Island",
     "Reuters 2026-08-28 Wall Street final close/Fed Warsh"
   ],
-  "data_status": "2026-08-31 17:06:51 KST 재검증 완료. 미국 현물은 아직 개장 전이므로 Reuters 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 검증 현물값으로 유지한다. Reuters 8/31은 Trump가 게시한 Kharg 섬 공격 영상이 AI 생성물이었고 이란 측이 Kharg 운영 정상이라고 밝혀 해당 공격 주장을 경보 근거에서 제외했다. 그러나 Larak 섬 공격과 이란 보복, Brent $90대, 높은 미국 금리 부담은 지속된다. Soitec의 다년 포토닉스 공급계약 추진은 AI 광연결 구조수요를 확인하지만 네트워크의 단기 가격 Phase를 뒤집는 미국 현물 신호로 보지 않았다. 독립 Phase 변화 없음. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-08-31 17:52:14 KST 재검증 완료. 미국 현물은 아직 개장 전이므로 Reuters 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 검증 현물값으로 유지한다. Reuters 8/31 최신 글로벌마켓은 Brent 약 $90.51, WTI 약 $85.57와 높은 금리 부담을 확인했다. Soitec의 다년 포토닉스 공급계약 추진과 EuroHPC AI 컴퓨팅 확장은 구조수요 확인 신호지만 미국 현물의 독립 Phase 전환 근거로 사용하지 않았다. 독립 Phase 변화 없음. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
