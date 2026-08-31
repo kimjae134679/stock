@@ -1,20 +1,19 @@
 {
-  "updated_at": "2026-09-01T03:52:02+09:00",
+  "updated_at": "2026-09-01T05:08:01+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 증시는 장중 약세가 소폭 확대됐고 유가·장기금리 부담도 높아졌다. 다만 세그먼트별 독립 Phase를 뒤집을 새 검증 근거는 부족해 기존 구분을 유지한다.",
+  "summary": "미국 증시는 약세를 이어갔지만 반도체는 상대강도를 유지했다. 유가·금리 부담과 약한 breadth가 남아 있어 기존 세그먼트별 독립 Phase를 유지한다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · breadth 약화","action":"그래서 지금은? 지수 약세와 장기금리 상승이 추가 확산되는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 상대방어","action":"그래서 지금은? 10년물 4.764%와 유가 상승 속 Nasdaq 상대방어 유지 여부를 확인."},
-    {"key":"semiconductor","name":"반도체","phase":"🟠 급락 후 반등 시도 · 상대강도 확인","action":"그래서 지금은? 앞선 NVDA·SNDK·QCOM 강세가 SOX·SMH 전반으로 확산되는지 확인."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · breadth 약화","action":"그래서 지금은? 지수 약세와 breadth 악화가 다음 거래일에도 이어지는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 상대방어","action":"그래서 지금은? 유가·금리 부담 속 Nasdaq 상대방어가 유지되는지 확인."},
+    {"key":"semiconductor","name":"반도체","phase":"🟠 급락 후 반등 시도 · 상대강도 확인","action":"그래서 지금은? NVDA·SNDK·QCOM 강세가 SOX·SMH 전반으로 이어지는지 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 구조수요는 유지","action":"그래서 지금은? MRVL 충격과 광통신 구조수요를 분리해 개별 회복 여부를 확인."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 관찰","action":"그래서 지금은? 금리 상승 환경에서 업종 상대강도가 유지되는지 확인."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 관찰","action":"그래서 지금은? 금리 부담 속 업종 상대강도가 유지되는지 확인."},
     {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? 구조수요는 유지하되 유가·금리 상승의 자금조달 부담을 함께 확인."},
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 breadth와 변동성이 안정되는지 먼저 확인."}
   ],
   "sources": [
-    "Reuters 2026-08-31 Global Markets latest retrieved 2026-09-01 03:52 KST",
-    "Reuters 2026-08-31 Wall Street 11:24 ET snapshot",
-    "Reuters 2026-08-31 Nvidia and chipmakers intraday"
+    "Reuters 2026-08-31 Wall Street latest page retrieved 2026-09-01 05:08 KST",
+    "Reuters 2026-08-31 Global Markets latest retrieved 2026-09-01 03:52 KST"
   ],
-  "data_status": "2026-09-01 03:52:02 KST 검증 완료. Reuters Global Markets 최신 확인 페이지 기준 Dow 53,203.40(-0.67%), S&P500 7,674.22(-0.49%), Nasdaq 26,298.72(-0.39%), WTI $85.51(+2.54%), Brent $90.34(+2.54%), 미국 10년물 4.764%, 9월 Fed 인상 확률 64%를 확인했다. 이전 11:24 ET 대비 지수 약세·유가·금리 부담은 소폭 강화됐으나 세그먼트별 독립 Phase를 바꿀 새 검증 근거는 부족해 유지. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-01 05:08:01 KST 검증 완료. Reuters Wall Street 최신 확인 페이지 기준 Dow 53,253.28(-0.57%), S&P500 7,683.81(-0.36%), Nasdaq 26,321.34(-0.31%), NVDA +0.9%, SNDK +1.2%, QCOM +3.4%, NYSE 하락우위 2.16:1, Nasdaq 하락우위 1.92:1, 9월 Fed 인상 확률 65.9%를 확인했다. 유가·10년물은 더 최신의 검증값을 확보하지 못해 기존 Reuters Global Markets 검증값을 유지하며 추정하지 않았다. 세그먼트별 독립 Phase는 유지. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
