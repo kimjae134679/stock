@@ -62,12 +62,14 @@ jobs:
           grep -q 'publicScheduleGroups' public/index.html
           grep -q 'hourly-report.json' public/assets/app-v4.js
           grep -q '현재 회차 경쟁률' public/assets/app-v4.js
+          grep -q 'raw.githubusercontent.com/kimjae134679/stock/main' public/assets/app-v4-remote.js
           grep -q '최근 제거 복원' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
           node --check public/assets/app.js
           node --check public/assets/app-v2-fixes.js
           node --check public/assets/app-v3.js
           node --check public/assets/app-v4.js
+          node --check public/assets/app-v4-remote.js
           node --check public/sw.js
           node --check scripts/apply-android-branding.mjs
 
@@ -90,6 +92,7 @@ jobs:
           grep -q '__CY_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q 'app-v4.js' android/app/src/main/assets/public/index.html
+          grep -q 'app-v4-remote.js' android/app/src/main/assets/public/index.html
           grep -q '대형공고' android/app/src/main/assets/public/index.html
 
       - name: Restore persistent ChungYack signing key
