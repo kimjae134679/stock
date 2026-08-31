@@ -1,0 +1,135 @@
+{
+  "schema": "chungyack-report-overrides-v1",
+  "updatedAt": "2026-08-31T12:37:00+09:00",
+  "groups": {
+    "open-ended": {
+      "title": "마감시각 미기재·대기자형",
+      "icon": "🔵"
+    }
+  },
+  "removeIds": [],
+  "moves": {
+    "lh-special-gaebong-rada": "open-ended",
+    "lh-special-youngdeungpo": "open-ended",
+    "lh-special-ui-winners": "open-ended",
+    "lh-special-bangi": "open-ended",
+    "lh-special-gojan": "open-ended"
+  },
+  "patches": {
+    "lh-special-gaebong-rada": {
+      "priority": "review",
+      "status": "접수 게시 확인 · 종료시각 미기재",
+      "timePrecision": "open-ended",
+      "timeLabel": "접수 게시 확인 · 종료시각 공고문 본문 미기재",
+      "supply": "청년 셰어형 · 단지 10세대 / 총 20실",
+      "type": "LH 청년특화형 셰어하우스",
+      "address": "서울특별시 구로구 고척로21가길 72, 라다팰리스",
+      "station": "구로구 개봉동",
+      "officialUrl": "https://www.xn--9r3bn6tz4i.kr/65",
+      "houseUrl": "https://www.xn--9r3bn6tz4i.kr/73",
+      "applyUrl": "https://forms.gle/b9zQ6bWZZaDSFnBM8",
+      "sourceLabel": "한지붕 운영기관 공고",
+      "verifiedAt": "2026-08-31T12:37:00+09:00",
+      "verificationNote": "운영기관 게시글에서 현재 모집 게시와 신청폼을 확인했으나 종료시각은 본문 텍스트에 기재되지 않아 임의 추정하지 않음.",
+      "note": "🔵 대기자 등록형 성격. 자격심사 통과 후 공실 발생 시 선정기준 순으로 개별 연락. 정확주소·신청폼·운영기관 링크 확인 완료."
+    },
+    "lh-special-youngdeungpo": {
+      "priority": "review",
+      "status": "추가모집 게시 확인 · 종료시각 미기재",
+      "timePrecision": "open-ended",
+      "timeLabel": "추가모집 게시 확인 · 종료시각 공고문 본문 미기재",
+      "type": "LH 청년특화형",
+      "address": "서울특별시 영등포구 버드나루로 74",
+      "station": "영등포동7가",
+      "officialUrl": "https://www.xn--9r3bn6tz4i.kr/65/?page=2",
+      "houseUrl": "https://www.xn--9r3bn6tz4i.kr/87",
+      "applyUrl": "https://forms.gle/8HLHd1wVGVY1Rs3F9",
+      "sourceLabel": "한지붕 운영기관 공고",
+      "verifiedAt": "2026-08-31T12:37:00+09:00",
+      "verificationNote": "운영기관이 추가모집 게시를 유지 중이며 신청폼도 공개되어 있으나 검색 가능한 본문에는 종료시각이 나타나지 않음.",
+      "note": "⚠️ 종료시각을 추정하지 않고 운영기관 본문 기준으로 미기재 표시. 공식 게시·주택 상세·신청폼·주소를 보존."
+    },
+    "lh-special-ui-winners": {
+      "priority": "normal",
+      "status": "대기자 등록형 · 종료시각 미기재",
+      "timePrecision": "open-ended",
+      "timeLabel": "대기자 등록형 · 종료시각 공고문 본문 미기재",
+      "supply": "셰어하우스 8세대 · 총 16실",
+      "type": "LH 청년특화형 셰어하우스",
+      "address": "서울특별시 강북구 삼양로173나길 5, 위너스빌",
+      "station": "북한산우이역 약 200m · 도보 약 5분",
+      "officialUrl": "https://oneroofcoop.imweb.me/65",
+      "houseUrl": "https://www.xn--9r3bn6tz4i.kr/72",
+      "applyUrl": "https://forms.gle/rDm75UdgxjF6HWfn8",
+      "sourceLabel": "한지붕 운영기관 공고",
+      "verifiedAt": "2026-08-31T12:37:00+09:00",
+      "verificationNote": "운영기관 모집 게시와 신청폼을 확인. 자격심사 후 대기 등록·공실 발생 시 연락 구조이며 종료시각은 본문 텍스트에 기재되지 않음.",
+      "note": "🔵 공실 대기자형. 정확주소와 역 접근성은 운영기관 주택 상세 및 공고 자료로 확인."
+    },
+    "lh-special-bangi": {
+      "priority": "review",
+      "status": "신청폼 공개 · 종료시각 미기재",
+      "timePrecision": "open-ended",
+      "timeLabel": "신청폼 공개 · 종료시각 공고문 본문 미기재",
+      "type": "LH 청년특화형 원룸·분리형 원룸",
+      "deposit": "624.3만~819.5만원",
+      "rent": "월 35.8만~63.9만원대",
+      "address": "서울특별시 송파구 오금로11길 61, 한지붕 방이",
+      "station": "잠실역·몽촌토성역·한성백제역 인접",
+      "officialUrl": "https://oneroofcoop.imweb.me/65/?bmode=view&idx=172689691",
+      "houseUrl": "https://www.xn--9r3bn6tz4i.kr/BuildingDetailBangi",
+      "applyUrl": "https://forms.gle/4AD2PXMoNM2kkibz7",
+      "sourceLabel": "한지붕 운영기관 공고",
+      "verifiedAt": "2026-08-31T12:37:00+09:00",
+      "verificationNote": "2026-07-27 운영기관 공고와 신청폼, 주택 상세주소·임대조건을 확인. 종료시각은 본문 텍스트에 기재되지 않음.",
+      "note": "🔥 송파 입지 검토가치. 공고 링크·신청폼·정확주소·주택 상세를 보존하고, 없는 마감시각은 임의 생성하지 않음."
+    },
+    "lh-special-gojan": {
+      "priority": "normal",
+      "status": "신청 접수 안내 게시 · 종료시각 미기재",
+      "timePrecision": "open-ended",
+      "timeLabel": "신청 접수 안내 게시 · 종료시각 공고문 본문 미기재",
+      "type": "LH 청년특화형",
+      "deposit": "300만~500만원대",
+      "rent": "월 13.8만~17.4만원대",
+      "address": "경기도 안산시 단원구 보배2길 64-3, 한지붕 고잔",
+      "station": "고잔역·중앙역 권역",
+      "officialUrl": "https://www.xn--9r3bn6tz4i.kr/65/?bmode=view&idx=172267986",
+      "houseUrl": "https://www.xn--9r3bn6tz4i.kr/BuildingDetailGojan",
+      "applyUrl": "https://forms.gle/NjXeK8gufXufci6N7",
+      "sourceLabel": "한지붕 운영기관 공고",
+      "verifiedAt": "2026-08-31T12:37:00+09:00",
+      "verificationNote": "2026-07-06 운영기관 모집공고의 접수방법·신청폼과 주택 상세주소를 확인. 종료시각은 본문 텍스트에 기재되지 않음.",
+      "note": "🔵 정확주소·신청폼은 확인됨. 안산 고잔 국민임대와 다른 청년특화형 공고이므로 별도 유지."
+    }
+  },
+  "additions": [
+    {
+      "groupId": "open-ended",
+      "item": {
+        "id": "lh-special-seongsan-260824",
+        "kind": "normal",
+        "priority": "review",
+        "name": "LH 청년특화형 매입임대 — 한지붕 성산",
+        "institution": "LH / 한지붕협동조합",
+        "status": "2026-08-24 모집 게시 · 종료시각 미기재",
+        "timePrecision": "open-ended",
+        "timeLabel": "2026-08-24 모집 게시 · 종료시각 공고문 본문 미기재",
+        "supply": "단지 58호실 · 현재 공고문 입주가능 호실 별도 확인",
+        "type": "청년형 원룸 · 19/23/24/29㎡",
+        "deposit": "518.2만~727.2만원대",
+        "rent": "월 32.5만~46.1만원대",
+        "address": "서울특별시 마포구 월드컵북로 120, 한지붕 성산",
+        "station": "6호선 마포구청역 약 550m · 경의중앙선 가좌역 약 850m",
+        "eligibility": "2026-08-24 기준 만 19~39세 미혼 청년. 소득·자산 세부기준은 운영기관 공고문 확인.",
+        "note": "🔥 마포권 신규 확인. 정확주소·주택 상세·신청폼 확인 완료. 종료시각은 운영기관 게시 본문에 없어 임의 추정하지 않음.",
+        "officialUrl": "https://www.xn--9r3bn6tz4i.kr/65/?bmode=view&idx=171181937",
+        "houseUrl": "https://www.xn--9r3bn6tz4i.kr/90",
+        "applyUrl": "https://forms.gle/dmvME1fqwrBg8Yge8",
+        "sourceLabel": "한지붕 운영기관 공고",
+        "verifiedAt": "2026-08-31T12:37:00+09:00",
+        "verificationNote": "운영기관이 2026-08-24 모집공고와 신청폼을 공개. 주택 상세에서 정확주소·역거리·임대조건을 확인. 종료시각은 본문 텍스트에 기재되지 않음."
+      }
+    }
+  ]
+}
