@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-09-01T06:00:25+09:00",
+  "updated_at": "2026-09-01T06:57:22+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국장은 약세로 마감했지만 Nasdaq은 상대적으로 방어했고 Reuters는 Nvidia·chipmakers 강세를 확인했다. breadth는 하락우위가 남아 있어 기존 세그먼트별 독립 Phase를 유지한다.",
+  "summary": "미국장은 약세로 마감했지만 Nasdaq은 상대적으로 방어했고 반도체 강세가 확인됐다. breadth 약세와 유가·금리 부담이 남아 있어 세그먼트별 독립 Phase는 유지한다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · breadth 약화","action":"그래서 지금은? 다음 거래일 breadth와 금리·유가 반응이 안정되는지 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 상대방어","action":"그래서 지금은? 지수 약세 속 Nasdaq 상대방어가 이어지는지 확인."},
@@ -12,8 +12,9 @@
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 breadth와 변동성이 안정되는지 먼저 확인."}
   ],
   "sources": [
-    "Reuters 2026-08-31 Wall Street official close retrieved 2026-09-01 06:00 KST",
-    "Reuters 2026-08-31 Global Markets latest retrieved 2026-09-01 03:52 KST"
+    "Reuters 2026-08-31 Wall Street official close revalidated 2026-09-01 06:57 KST",
+    "Associated Press 2026-08-31 US index official close revalidated 2026-09-01 06:57 KST",
+    "Reuters 2026-08-31 Global Markets"
   ],
-  "data_status": "2026-09-01 06:00:25 KST 검증 완료. Reuters 공식 마감 기준 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%). NYSE 하락우위 1.95:1, Nasdaq 하락우위 1.58:1이며 Reuters는 Nvidia·chipmakers 강세를 확인했다. 9월 Fed 인상 확률은 65% 초과. 정확한 최신 유가·10년물 종가 수치는 확보하지 못해 추정 갱신하지 않았다. 세그먼트별 독립 Phase는 유지. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-01 06:57:22 KST 검증 완료. 최종 종가 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%)를 Reuters/AP로 재검증했다. Reuters 마감 보도는 Nvidia·chipmakers 강세와 9월 Fed 인상 확률 65% 초과를 확인했고, AP는 Brent가 $90 위에서 마감하고 미국 10년물이 약 4.75%까지 오른 점을 확인했다. 세그먼트별 독립 Phase는 유지. 미확인 개별 종목 종가·정확 유가 종가는 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
