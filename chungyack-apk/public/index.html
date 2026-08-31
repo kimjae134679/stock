@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="assets/app-v3.css">
 <link rel="stylesheet" href="assets/app-v4.css">
 <link rel="stylesheet" href="assets/app-v4-ui.css">
+<link rel="stylesheet" href="assets/app-v5.css">
 <title>청약 레이더</title>
 </head>
 <body>
@@ -33,18 +34,20 @@
 <section class="page active" data-page="home" aria-hidden="false">
   <div class="section-head"><h2>지금 볼 공고</h2><small>청약2 최신 보고 그대로</small></div>
   <div class="home-section-note">일반 공고를 일정·정확주소·지도·가격·자격 순으로 먼저 보여줍니다. 수백·수천호짜리 통합공고는 별도 화면으로 분리합니다.</div>
+  <div class="notice-sortbar" aria-label="공고 정렬"><strong>공고 보기</strong><button type="button" class="sort-chip" data-cy5-sort="time">시간순</button><button type="button" class="sort-chip" data-cy5-sort="recommend">추천순</button><span class="cy5-skip-count">넘김 0건</span><span class="sort-hint">넘김 체크 시 공고명·시간·위치만 남기고 접힙니다.</span></div>
   <div id="megaTeaser"></div>
   <div id="homeLiveReport"><div class="empty-soft">최신 공고를 불러오는 중…</div></div>
 
   <div class="section-head"><h2>내 신청 현황</h2><small>내가 넣은 것만 표시</small></div>
-  <div class="notice">추적은 기기 로컬에만 저장합니다. 앱에서 상태를 바꾸거나 삭제해도 실제 청약 신청은 변경·취소되지 않습니다.</div>
+  <div class="notice">추적은 기본적으로 기기 로컬에 저장합니다. GitHub 동기화를 연결하면 내 넘김·정렬·추적 상태를 private ChungYack 저장소에도 저장할 수 있습니다. 앱에서 상태를 바꾸거나 삭제해도 실제 청약 신청은 변경·취소되지 않습니다.</div>
   <div class="grid" id="trackingGrid"></div>
   <button class="primary wide" id="homeAddTracking">+ 신청한 공고 직접 추가</button>
 </section>
 
 <section class="page" data-page="schedule" hidden aria-hidden="true">
   <div class="section-head"><h2>공고 일정</h2><small>앱이 탑재한 최신 보고 기준</small></div>
-  <div class="home-section-note">오늘·내일 → 2~3일 → 4~7일 → 이후 순으로 보여주며, 공식 정확주소가 있는 곳은 그룹마다 지도 바로가기를 제공합니다.</div>
+  <div class="home-section-note">오늘·내일 → 2~3일 → 4~7일 → 이후 → 마감시각 미기재 순으로 나눕니다. 확인된 정확주소·공식공고·신청 링크를 보존하고, 없는 마감시간은 임의로 만들지 않습니다.</div>
+  <div class="notice-sortbar" aria-label="일정 공고 정렬"><strong>그룹 안 정렬</strong><button type="button" class="sort-chip" data-cy5-sort="time">시간순</button><button type="button" class="sort-chip" data-cy5-sort="recommend">추천순</button><span class="cy5-skip-count">넘김 0건</span><span class="sort-hint">일정 그룹은 유지하면서 각 그룹 안에서 정렬합니다.</span></div>
   <div id="publicScheduleGroups"><div class="empty-soft">일정을 불러오는 중…</div></div>
   <div id="megaUpcomingSchedule"></div>
   <div class="tracking-schedule-wrap">
@@ -84,15 +87,23 @@
 </section>
 
 <section class="page" data-page="settings" hidden aria-hidden="true">
-  <div class="section-head"><h2>앱 정보</h2><small>공개 공고 / 로컬 추적 분리</small></div>
+  <div class="section-head"><h2>앱 정보</h2><small>공개 공고 / 개인 상태 분리</small></div>
   <div class="settings-list">
     <div class="setting"><b>버전</b><p id="settingsVersion">-</p></div>
     <div class="setting"><b>대형공고 데이터 갱신</b><p id="settingsUpdated">-</p></div>
     <div class="setting"><b>일반공고 보고 갱신</b><p id="reportUpdated">-</p></div>
-    <div class="setting"><b>공고 구조</b><p>일반 공고는 홈/일정에, 수백·수천호 대형 통합공고는 전용 탭에 분리합니다.</p></div>
+    <div class="setting"><b>공고 구조</b><p>일반 공고는 홈/일정에, 수백·수천호 대형 통합공고는 전용 탭에 분리합니다. 마감시각을 찾지 못한 운영기관 공고는 별도 그룹으로 분리합니다.</p></div>
     <div class="setting"><b>필터 저장</b><p>면적·지역·보증금·정렬 선택은 이 기기에 저장됩니다.</p></div>
-    <div class="setting"><b>내 추적 저장</b><p>신청 추적의 수정·상태변경·삭제는 기기 로컬 저장소에만 저장합니다.</p></div>
+    <div class="setting"><b>내 상태 저장</b><p>넘김 여부·공고 정렬·신청 추적은 즉시 로컬에 저장됩니다. 아래 GitHub 동기화를 연결하면 private ChungYack 저장소에도 동기화됩니다.</p></div>
     <div class="setting"><b>삭제 안전장치</b><p>추적에서 제거한 항목은 최근 제거 기록으로 임시 보관되어 되돌릴 수 있습니다.</p></div>
+    <div class="sync-card">
+      <h3>GitHub 개인 상태 동기화</h3>
+      <p>선택 기능입니다. Fine-grained token은 Android Keystore로 암호화해 이 기기에만 저장하고 HTML/localStorage/GitHub 파일에는 남기지 않습니다. private ChungYack 저장소 Contents 읽기·쓰기 권한만 주는 토큰을 사용하세요.</p>
+      <div class="sync-target">kimjae134679/ChungYack → data/app_user_state.json</div>
+      <div class="sync-token-row"><input id="githubToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…"><button type="button" class="primary" id="githubConnectBtn">연결</button></div>
+      <div class="sync-actions"><button type="button" class="ghost" id="githubSyncNowBtn" hidden>지금 양방향 동기화</button><button type="button" class="danger-light" id="githubDisconnectBtn" hidden>연결 해제</button></div>
+      <div id="githubSyncStatus" class="sync-status">동기화 상태 확인 중…</div>
+    </div>
     <button class="reload" id="reloadBtn">공고 데이터 다시 불러오기</button>
     <div class="backup-row"><button class="ghost" id="exportLocalBtn">내 설정/추적 백업</button><button class="ghost" id="importLocalBtn">백업 가져오기</button><input type="file" id="importLocalFile" accept="application/json,.json" hidden></div>
     <button class="danger-light" id="resetLocalBtn">로컬 설정/추적 초기화</button>
@@ -133,5 +144,6 @@
 <script src="assets/app-v4.js"></script>
 <script src="assets/app-v4-remote.js"></script>
 <script src="assets/app-v4-ui.js"></script>
+<script src="assets/app-v5.js"></script>
 </body>
 </html>
