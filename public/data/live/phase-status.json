@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-08-31T11:49:26+09:00",
+  "updated_at": "2026-08-31T13:07:00+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "아시아 증시는 지정학·유가·금리 부담으로 약세가 이어지고 있다. Reuters 8/31 기준 Nikkei -2.1%, 한국 증시 -2.4%, MSCI 아시아태평양(일본 제외) -0.7%, Brent $89.38이며 9월 Fed 인상 가능성은 57%다. 미국 현물은 아직 개장 전이라 독립 Phase 전환은 확정하지 않는다.",
+  "summary": "아시아 증시는 지정학·유가·금리 부담으로 약세가 이어지고 있다. Reuters 8/31 기준 Brent는 $90.60까지 상승했고 미국·유럽 선물도 약세다. 미국 현물은 아직 개장 전이라 독립 Phase 전환은 확정하지 않는다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장전 경계 유지","action":"그래서 지금은? 미국 개장 후 breadth·장기금리·유가가 동시에 악화되는지 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계 유지","action":"그래서 지금은? 선물 약세가 QQQ 상대강도 훼손과 장기금리 상승으로 이어지는지 확인."},
@@ -13,9 +13,9 @@
   ],
   "sources": [
     "Reuters 2026-08-31 Global Markets: Asian shares fall as oil and yields stay high",
-    "Reuters 2026-08-31 US-Iran exchange fire; additional sanctions signaled",
-    "Reuters 2026-08-31 Dollar near two-week high as Warsh boosts rate-hike bets",
+    "Reuters 2026-08-30 Oil: Brent near $90.60 after Larak strike and Iranian retaliation",
+    "Reuters 2026-08-31 Dollar/rates: Warsh boosts September hike bets",
     "Reuters 2026-08-28 Wall Street final close/Fed Warsh"
   ],
-  "data_status": "2026-08-31 11:49:26 KST 재검증. Reuters 8/31 기준 Nikkei -2.1%, 한국 증시 -2.4%, MSCI 아시아태평양(일본 제외) -0.7%, Brent $89.38, 9월 Fed 인상 가능성 57%, 미 2년물 4.33%가 확인됐다. Larak 섬 공격 뒤 이란의 요르단 미군기지 보복과 미국의 추가 대이란 제재 예고로 지정학 꼬리위험은 강화됐지만, 미국 현물은 아직 개장 전이므로 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 검증 현물값으로 유지한다. 독립 Phase는 전환하지 않고 개장 전 경보를 유지했다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-08-31 13:07:00 KST 재검증. Reuters 8/31 기준 Brent $90.60 부근, 아시아 증시 약세와 미국·유럽 선물 약세가 확인됐다. 9월 Fed 인상 가능성은 약 57~60% 수준으로 높아진 상태다. 미국 현물은 아직 개장 전이므로 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 검증 현물값으로 유지한다. 지정학·유가 경보는 강화됐지만 독립 Phase는 전환하지 않았다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
