@@ -1,10 +1,10 @@
 {
-  "version": "0.3.0",
-  "updatedAt": "2026-08-31T03:56:00+09:00",
+  "version": "0.4.0",
+  "updatedAt": "2026-08-31T09:31:00+09:00",
   "summary": {
-    "urgent": 1,
+    "urgent": 6,
     "catalog": 79,
-    "note": "면적·지역은 기본 제외 없이 사용자가 필터에서 직접 켜고 끔"
+    "note": "일반 공고는 최신 보고 피드, 대형 통합공고는 전용 79개 단지·타입 비교 화면으로 분리"
   },
   "trackingSeed": [],
   "insights": [
@@ -27,6 +27,8 @@
     {"year":"2024 1차","average":31.96,"detail":"재공급 1,060호 / 33,877건"}
   ],
   "sources": [
+    {"label":"서울시 청년안심주택 모집공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/list.do?menuNo=400008"},
+    {"label":"LH청약플러스 임대주택 공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?cntntsId=&mi=1026"},
     {"label":"2026 SH 국민임대 모집 정리","url":"https://jugeo.co.kr/announcements/a8258069-c10c-4bab-9a2c-2f5421972f9a"},
     {"label":"2026 SH 공가·예비 분석","url":"https://donbrief.com/sh-gukmin-imdae-2026/"},
     {"label":"2026 SH 단지별 임대조건 표","url":"https://dearmyhealths.com/서울/2026년-서울-국민임대주택-입주자모집-공고-총정리/"},
