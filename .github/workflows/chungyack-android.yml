@@ -47,7 +47,7 @@ jobs:
       - name: Privacy and data QA
         run: |
           cd chungyack-apk
-          node -e "const x=require('./public/data/app.json'); if(x.trackingSeed.length) throw new Error('public trackingSeed must be empty'); if(x.summary.catalog!==79) throw new Error('catalog count metadata'); if(x.version!=='0.4.1') throw new Error('app version');"
+          node -e "const fs=require('fs');const x=require('./public/data/app.json');if(x.trackingSeed.length)throw new Error('public trackingSeed must be empty');if(x.summary.catalog!==79)throw new Error('catalog count metadata');if(x.version!=='0.4.1')throw new Error('app version');const h=fs.readFileSync('./public/index.html','utf8');const nav=(h.match(/class=\"nav-btn/g)||[]).length;const pages=(h.match(/class=\"page(?: active)?\" data-page=/g)||[]).length;if(nav!==5)throw new Error('bottom nav count '+nav);if(pages!==5)throw new Error('page count '+pages);const ids=[...h.matchAll(/id=\"([^\"]+)\"/g)].map(m=>m[1]);const dup=ids.filter((x,i)=>ids.indexOf(x)!==i);if(dup.length)throw new Error('duplicate ids '+[...new Set(dup)].join(','));"
           node -e "const r=require('./public/data/hourly-report.json'); if(!r.groups?.length) throw new Error('public report groups empty'); if(!r.megaNotices?.length) throw new Error('mega notice missing'); const n=r.groups.flatMap(g=>g.items||[]).length; if(n<10) throw new Error('too few public notices '+n);"
           test "$(tail -n +2 public/data/sh-2026.csv | wc -l)" -eq 79
           grep -q ',29,' public/data/sh-2026.csv
@@ -72,6 +72,8 @@ jobs:
           grep -q 'window.scrollTo(0,0)' public/assets/app-v4-ui.js
           grep -q '최근 제거 복원' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
+          grep -q 'v041_native_cache_reset' scripts/apply-android-branding.mjs
+          grep -q 'navigator.serviceWorker.getRegistrations' scripts/apply-android-branding.mjs
           node --check public/assets/app.js
           node --check public/assets/app-v2-fixes.js
           node --check public/assets/app-v3.js
@@ -98,6 +100,9 @@ jobs:
           test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
           test -s android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q '__CY_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+          grep -q 'v041_native_cache_reset' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+          grep -q 'navigator.serviceWorker.getRegistrations' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+          grep -q 'setHorizontalScrollBarEnabled(false)' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q 'app-v4.js' android/app/src/main/assets/public/index.html
           grep -q 'app-v4-remote.js' android/app/src/main/assets/public/index.html
@@ -138,5 +143,5 @@ jobs:
           VERSION=$(tr -d '\r\n ' < chungyack-apk/VERSION)
           TAG="chungyack-apk-v${VERSION}"
           APK="ChungYack-Radar-v${VERSION}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${VERSION}" --notes "Android WebView 모바일 QA 수정. 화면 가로 잘림, 탭 전환 후 이전 화면 잔상, 하단 5개 메뉴 폭 흔들림, 상태바 겹침을 방지하고 일반 공고/일정/대형공고/추적/설정 화면을 완전히 분리합니다. 공고 데이터·SH 79개 상세·개인 로컬 추적 구조는 유지합니다."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${VERSION}" --notes "Android WebView 모바일 QA 수정. 화면 가로 잘림, 탭 전환 후 이전 화면 잔상, 하단 5개 메뉴 폭 흔들림, 상태바 겹침을 방지하고 일반 공고/일정/대형공고/추적/설정 화면을 완전히 분리합니다. 업데이트 직후 기존 Service Worker 캐시를 한 번 정리해 이전 버전 화면이 남는 문제도 방지합니다. 공고 데이터·SH 79개 상세·개인 로컬 추적 구조는 유지합니다."
           gh release upload "$TAG" "$APK" --clobber
