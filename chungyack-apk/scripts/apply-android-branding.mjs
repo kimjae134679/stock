@@ -24,10 +24,49 @@ fs.mkdirSync(path.dirname(javaPath),{recursive:true});
 fs.writeFileSync(javaPath,`package com.kimjae134679.chungyack;
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebView;
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
   private boolean exitDialogVisible=false;
+  private static final String UI_CACHE_RESET_KEY="v041_native_cache_reset";
+
+  @Override protected void onCreate(Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
+    try{
+      getWindow().setStatusBarColor(Color.rgb(238,243,248));
+      getWindow().setNavigationBarColor(Color.rgb(248,251,254));
+      View decor=getWindow().getDecorView();
+      decor.setSystemUiVisibility(decor.getSystemUiVisibility()|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }catch(Throwable ignored){}
+  }
+
+  @Override protected void onResume(){
+    super.onResume();
+    try{
+      WebView webView=getBridge().getWebView();
+      webView.setHorizontalScrollBarEnabled(false);
+      webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+      resetStaleWebCacheOnce(webView);
+    }catch(Throwable ignored){}
+  }
+
+  private void resetStaleWebCacheOnce(WebView webView){
+    SharedPreferences prefs=getSharedPreferences("chungyack_ui",MODE_PRIVATE);
+    if(prefs.getBoolean(UI_CACHE_RESET_KEY,false))return;
+    webView.postDelayed(()->{
+      String js="(async function(){try{if('serviceWorker' in navigator){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}if('caches' in window){const ks=await caches.keys();await Promise.all(ks.filter(k=>k.indexOf('chungyack-radar-')===0).map(k=>caches.delete(k)));}return 'ok';}catch(e){return 'err';}})()";
+      webView.evaluateJavascript(js,value->{
+        prefs.edit().putBoolean(UI_CACHE_RESET_KEY,true).apply();
+        webView.postDelayed(webView::reload,120);
+      });
+    },700);
+  }
+
   @Override public void onBackPressed(){
     try{getBridge().getWebView().evaluateJavascript("(function(){try{return String(!!(window.__CY_HANDLE_NATIVE_BACK__&&window.__CY_HANDLE_NATIVE_BACK__()));}catch(e){return 'false';}})()",value->{boolean consumed=value!=null&&value.toLowerCase().contains("true");if(!consumed)showExitConfirm();});}
     catch(Throwable t){showExitConfirm();}
@@ -35,4 +74,4 @@ public class MainActivity extends BridgeActivity {
   private void showExitConfirm(){if(exitDialogVisible||isFinishing())return;exitDialogVisible=true;runOnUiThread(()->new AlertDialog.Builder(this).setTitle("청약 레이더").setMessage("앱을 종료하시겠습니까?").setNegativeButton("취소",(d,w)->{exitDialogVisible=false;d.dismiss();}).setPositiveButton("종료",(d,w)->{exitDialogVisible=false;finishAffinity();}).setOnCancelListener(d->exitDialogVisible=false).show());}
 }
 `,'utf8');
-console.log('[branding] ChungYack beacon icon + native Back fallback applied.');
+console.log('[branding] ChungYack icon + native back + v0.4.1 WebView cache/viewport hardening applied.');
