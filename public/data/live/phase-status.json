@@ -1,21 +1,21 @@
 {
-  "updated_at": "2026-08-31T22:15:52+09:00",
+  "updated_at": "2026-08-31T22:58:17+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 현물은 아직 개장 직전이라 8월 28일 종가를 마지막 검증값으로 유지한다. Reuters 8월 31일 기준 Brent는 $92를 웃돌고 9월 Fed 인상 확률은 약 60%로 올라 유가·금리 부담이 강화됐지만 독립 Phase 전환은 미국 현물 확인 전까지 보류한다.",
+  "summary": "미국 현물이 개장했고 Reuters 8월 31일 시가 기준 Dow -0.18%, S&P500 -0.18%, Nasdaq -0.17%로 약세 출발했다. 유가·금리·지정학 부담이 실제 현물 약세로 확인됐지만 개장 초 낙폭은 제한적이라 독립 Phase는 유지한다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장직전 경계 강화","action":"그래서 지금은? 유가·금리 상승이 개장 후 breadth 악화로 이어지는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계 강화","action":"그래서 지금은? 실제 QQQ breadth와 장기금리 반응을 우선 확인."},
-    {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계 · 현물 확인 대기","action":"그래서 지금은? SOX·SMH가 프리마켓 반등을 현물 상대강도로 이어가는지 확인."},
-    {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 구조수요는 유지","action":"그래서 지금은? 단기 가격 훼손과 실리콘포토닉스 구조수요를 분리해 현물 상대강도 확인."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 개선","action":"그래서 지금은? 금리 상승에도 소프트웨어 상대강도가 유지되는지 확인."},
-    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 에너지비용 경계 강화","action":"그래서 지금은? 구조수요는 유효하지만 유가·금리 상승이 밸류에이션과 자금조달에 주는 부담을 함께 확인."},
-    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 현물 추세·변동성·breadth 회복 여부에 따라 접근 여건을 재평가."}
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장 약세 확인","action":"그래서 지금은? 개장 초 -0.2% 안팎 약세가 breadth 확대로 번지는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계","action":"그래서 지금은? Nasdaq 약세와 2년물 4.34%가 성장주 상대강도를 더 훼손하는지 확인."},
+    {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계 · 장중 확인 단계","action":"그래서 지금은? SOX·SMH와 NVDA의 실제 장중 상대강도 회복 여부를 확인."},
+    {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 구조수요는 유지","action":"그래서 지금은? MRVL 이후 약세 전염과 실리콘포토닉스 구조수요를 분리해 확인."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 개선","action":"그래서 지금은? 금리 부담 속에서도 소프트웨어 상대강도가 유지되는지 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 에너지비용 경계","action":"그래서 지금은? 구조수요는 유효하지만 유가·금리 상승이 밸류에이션과 자금조달에 주는 부담을 함께 확인."},
+    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 현물 추세·변동성·breadth가 안정되는지 먼저 확인."}
   ],
   "sources": [
-    "Reuters 2026-08-31 global markets / bond yields / U.S. futures",
-    "Reuters 2026-08-31 oil above $92 after U.S.-Iran attacks",
+    "Reuters 2026-08-31 Wall Street open / U.S.-Iran / oil",
+    "Reuters 2026-08-31 Global Markets / bond yields / Fed hike odds",
     "Reuters 2026-08-31 Soitec AI silicon-photonics demand",
     "Reuters 2026-08-28 Wall Street final close/Fed Warsh"
   ],
-  "data_status": "2026-08-31 22:15:52 KST 재검증 완료. 미국 현물은 개장 직전이라 Reuters 8/28 최종 종가를 마지막 검증값으로 유지했다. Reuters 8/31 최신 글로벌마켓에서 Brent는 $92를 웃돌았고 9월 Fed 인상 확률은 약 60%로 상승했다. 유가·금리 경보는 강화했지만 미국 현물 breadth와 SOX·SMH·QQQ 반응 확인 전 독립 Phase는 전환하지 않았다. Soitec의 실리콘포토닉스 수요 급증은 AI 네트워크 구조수요를 재확인한다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-08-31 22:58:17 KST 재검증 완료. Reuters 8/31 미국 시가 기준 Dow 53,462.6(-0.18%), S&P500 7,697.52(-0.18%), Nasdaq 26,358.559(-0.17%)로 약세 출발했다. Brent는 장중 $92를 웃돌았고 9월 Fed 인상 확률은 약 60%, 미국 2년물은 4.34% 부근으로 유가·금리 부담이 높다. 다만 개장 초 지수 낙폭은 제한적이고 세그먼트별 새 현물 상대강도는 충분히 확인되지 않아 독립 Phase는 유지한다. 미확인 개별종목 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
