@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="assets/app-v2.css">
 <link rel="stylesheet" href="assets/app-v3.css">
 <link rel="stylesheet" href="assets/app-v4.css">
+<link rel="stylesheet" href="assets/app-v4-ui.css">
 <title>청약 레이더</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
 <div class="updated" id="updatedAt">데이터 불러오는 중…</div>
 <div id="loadError" class="error" hidden></div>
 
-<section class="page active" data-page="home">
+<section class="page active" data-page="home" aria-hidden="false">
   <div class="section-head"><h2>지금 볼 공고</h2><small>청약2 최신 보고 그대로</small></div>
   <div class="home-section-note">일반 공고를 일정·정확주소·지도·가격·자격 순으로 먼저 보여줍니다. 수백·수천호짜리 통합공고는 별도 화면으로 분리합니다.</div>
   <div id="megaTeaser"></div>
@@ -41,7 +42,7 @@
   <button class="primary wide" id="homeAddTracking">+ 신청한 공고 직접 추가</button>
 </section>
 
-<section class="page" data-page="schedule">
+<section class="page" data-page="schedule" hidden aria-hidden="true">
   <div class="section-head"><h2>공고 일정</h2><small>앱이 탑재한 최신 보고 기준</small></div>
   <div class="home-section-note">오늘·내일 → 2~3일 → 4~7일 → 이후 순으로 보여주며, 공식 정확주소가 있는 곳은 그룹마다 지도 바로가기를 제공합니다.</div>
   <div id="publicScheduleGroups"><div class="empty-soft">일정을 불러오는 중…</div></div>
@@ -53,7 +54,7 @@
   <div id="scheduleList" class="hidden-compat"></div>
 </section>
 
-<section class="page" data-page="mega">
+<section class="page" data-page="mega" hidden aria-hidden="true">
   <div class="section-head"><h2>대형 통합공고</h2><small>수백·수천호 공고 전용</small></div>
   <div class="home-section-note">대형 공고는 일반 공고와 섞지 않습니다. 단지·타입별 공급호수, 주소, 가격, 공가/예비 성격, 공식·과거 경쟁률을 이 화면에서 비교합니다.</div>
   <div id="megaSummary"></div>
@@ -76,13 +77,13 @@
   <div class="recommend-list" id="recommendList"></div>
 </section>
 
-<section class="page" data-page="tracking">
+<section class="page" data-page="tracking" hidden aria-hidden="true">
   <div class="section-head"><h2>내 추적</h2><small>실제 신청한 것만</small></div>
   <div class="tracking-toolbar"><button class="primary" id="addTrackingBtn">+ 신청한 공고 추가</button><span>신청완료 후 상태·다음 일정·메모를 직접 수정</span></div>
   <div class="grid" id="trackingGridMirror"></div>
 </section>
 
-<section class="page" data-page="settings">
+<section class="page" data-page="settings" hidden aria-hidden="true">
   <div class="section-head"><h2>앱 정보</h2><small>공개 공고 / 로컬 추적 분리</small></div>
   <div class="settings-list">
     <div class="setting"><b>버전</b><p id="settingsVersion">-</p></div>
@@ -101,8 +102,8 @@
 </section>
 </main>
 
-<nav class="bottom-nav"><div class="bottom-inner">
-  <button class="nav-btn active" data-page="home"><b>⌂</b>홈</button>
+<nav class="bottom-nav" aria-label="주요 메뉴"><div class="bottom-inner">
+  <button class="nav-btn active" data-page="home" aria-current="page"><b>⌂</b>홈</button>
   <button class="nav-btn" data-page="schedule"><b>◷</b>일정</button>
   <button class="nav-btn" data-page="mega"><b>▦</b>대형공고</button>
   <button class="nav-btn" data-page="tracking"><b>✓</b>추적</button>
@@ -131,5 +132,6 @@
 <script src="assets/app-v3.js"></script>
 <script src="assets/app-v4.js"></script>
 <script src="assets/app-v4-remote.js"></script>
+<script src="assets/app-v4-ui.js"></script>
 </body>
 </html>
