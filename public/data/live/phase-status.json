@@ -1,22 +1,22 @@
 {
-  "updated_at": "2026-08-31T17:52:14+09:00",
+  "updated_at": "2026-08-31T18:52:50+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 현물은 아직 개장 전이라 8월 28일 종가를 마지막 검증값으로 유지한다. 8월 31일 Reuters 최신 글로벌마켓에서 유가·금리·지정학 부담은 이어졌고, AI 광통신 수요는 구조적으로 강하지만 미국 현물의 새 Phase 전환 신호는 확인되지 않았다.",
+  "summary": "미국 현물은 아직 개장 전이라 8월 28일 종가를 마지막 검증값으로 유지한다. 8월 31일 05:02 ET Reuters 기준 Dow 선물 -0.10%, S&P500 선물 -0.13%, Nasdaq100 선물 -0.04%로 약하지만 NVDA +0.72% 등 일부 반도체는 프리마켓 반등해 독립 Phase 전환은 보류한다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장전 경계 유지","action":"그래서 지금은? 미국 개장 후 breadth·금리·유가가 동시에 악화되는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계 유지","action":"그래서 지금은? QQQ 상대강도와 장기금리가 함께 악화되는지 확인."},
-    {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계","action":"그래서 지금은? NVDA -4.6% 이후 SOX·SMH의 실제 개장 반응과 종목별 상대강도를 확인."},
-    {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? MRVL 약세 전염 여부를 확인하되 실리콘포토닉스 구조수요와 단기 주가 흐름을 분리해 본다."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 개선","action":"그래서 지금은? 금리상승 환경에서도 CRM·IGV 상대강도가 유지되는지 확인."},
-    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 에너지비용 경계","action":"그래서 지금은? 구조수요는 유효하나 유가·금리·자금조달 비용 상승이 밸류에이션에 미치는 영향을 확인."},
-    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세·변동성·breadth 회복 여부를 확인한 뒤 작은 비중부터 단계적으로 접근."}
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장전 경계 유지","action":"그래서 지금은? 선물 약세가 현물 breadth 악화로 이어지는지 개장 후 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계 유지","action":"그래서 지금은? Nasdaq100 선물 -0.04%보다 실제 QQQ breadth·장기금리 반응을 우선 확인."},
+    {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계 · 프리마켓 반등 확인","action":"그래서 지금은? NVDA +0.72%, INTC +1.73%, LRCX +1.00% 프리마켓 반등이 SOX·SMH 현물로 이어지는지 확인."},
+    {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? MRVL 약세 전염 여부와 광통신 구조수요를 분리해 보며 현물 상대강도 확인."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 개선","action":"그래서 지금은? 높은 금리 환경에서도 CRM·IGV 상대강도가 유지되는지 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 에너지비용 경계","action":"그래서 지금은? 구조수요는 유효하나 Brent 2%대 상승이 금리·자금조달 비용을 자극하는지 확인."},
+    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 현물 추세·변동성·breadth 회복이 확인될 때 단계적 접근 여건을 재평가."}
   ],
   "sources": [
-    "Reuters 2026-08-31 Global Markets: Asian shares ease as oil climbs and yields stay high",
-    "Reuters 2026-08-31 Soitec: AI silicon-photonics wafer demand drives multi-year supply deals",
-    "Reuters 2026-08-31 Europe: EuroHPC AI computing expansion",
+    "Reuters 2026-08-31 U.S. stock index futures: Dow -0.10%, S&P500 -0.13%, Nasdaq100 -0.04% at 05:02 ET",
+    "Reuters 2026-08-31 premarket semiconductors: NVDA +0.72%, INTC +1.73%, LRCX +1.00%, TXN +0.92%",
+    "Reuters 2026-08-31 Global Markets: oil, yields and U.S.-Iran escalation",
     "Reuters 2026-08-31 Oil/Larak Island",
     "Reuters 2026-08-28 Wall Street final close/Fed Warsh"
   ],
-  "data_status": "2026-08-31 17:52:14 KST 재검증 완료. 미국 현물은 아직 개장 전이므로 Reuters 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 검증 현물값으로 유지한다. Reuters 8/31 최신 글로벌마켓은 Brent 약 $90.51, WTI 약 $85.57와 높은 금리 부담을 확인했다. Soitec의 다년 포토닉스 공급계약 추진과 EuroHPC AI 컴퓨팅 확장은 구조수요 확인 신호지만 미국 현물의 독립 Phase 전환 근거로 사용하지 않았다. 독립 Phase 변화 없음. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-08-31 18:52:50 KST 재검증 완료. Reuters 8/31 05:02 ET 기준 Dow 선물 -0.10%, S&P500 선물 -0.13%, Nasdaq100 선물 -0.04%다. NVDA +0.72%, INTC +1.73%, LRCX +1.00%, TXN +0.92%로 일부 반도체는 프리마켓 반등했지만 미국 현물은 아직 개장 전이므로 Reuters 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 현물 검증값으로 유지한다. 중동 긴장·유가·금리 부담과 반도체 프리마켓 반등이 엇갈려 독립 Phase 변화 없음. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
