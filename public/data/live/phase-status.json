@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-31T09:58:42+09:00",
+  "updated_at": "2026-08-31T10:53:43+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "아시아 증시가 지정학·유가·금리 부담으로 약세를 확대했고 Nikkei -2.1%, 한국 증시 -2.4%, MSCI 아시아태평양(일본 제외) -0.7%로 확인됐다. Brent $89.38, WTI $84.50으로 에너지 부담이 다시 높아졌고 미국·유럽 선물도 약세지만, 미국 현물은 아직 개장 전이라 독립 Phase 전환은 확정하지 않는다.",
+  "summary": "아시아 증시는 지정학·유가·금리 부담으로 약세가 이어지고 있다. Reuters 8/31 기준 Nikkei -2.1%, 한국 증시 -2.4%, MSCI 아시아태평양(일본 제외) -0.7%, Brent $89.38이며 9월 Fed 인상 가능성은 57%로 높아졌다. 미국 현물은 아직 개장 전이라 독립 Phase 전환은 확정하지 않는다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장전 경계 강화","action":"그래서 지금은? 미국 개장 후 breadth·장기금리·유가가 동시에 악화되는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계 강화","action":"그래서 지금은? 선물 약세가 QQQ 상대강도 훼손과 장기금리 상승으로 이어지는지 확인."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 개장전 경계 유지","action":"그래서 지금은? 미국 개장 후 breadth·장기금리·유가가 동시에 악화되는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감 경계 유지","action":"그래서 지금은? 선물 약세가 QQQ 상대강도 훼손과 장기금리 상승으로 이어지는지 확인."},
     {"key":"semiconductor","name":"반도체","phase":"🔴 추세붕괴/급락 경계","action":"그래서 지금은? NVDA -4.6% 이후 SOX·SMH의 실제 개장 반응과 아시아 반도체 약세 전염 여부를 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? MRVL -10.3% 약세가 ANET·CRDO·광통신으로 더 확산되는지 확인."},
     {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 개선","action":"그래서 지금은? 금리상승 환경에서도 CRM·IGV 상대강도가 유지되는지 확인."},
@@ -13,9 +13,9 @@
   ],
   "sources": [
     "Reuters 2026-08-31 Global Markets: Asian shares fall as oil and yields stay high",
+    "Reuters 2026-08-31 Dollar near two-week high as Warsh boosts rate-hike bets",
     "Reuters 2026-08-30 US forces strike two Iranian launchers on Larak Island",
-    "Reuters 2026-08-30 oil jumps after U.S. attack on Larak Island",
     "Reuters 2026-08-28 Wall Street final close/Fed Warsh"
   ],
-  "data_status": "2026-08-31 09:58:42 KST 재검증. Reuters 8/31 기준 Nikkei -2.1%, 한국 증시 -2.4%, MSCI 아시아태평양(일본 제외) -0.7%, Brent $89.38, WTI $84.50, 미국·유럽 선물 약세를 확인했다. 9월 Fed 인상 가능성은 Reuters 보도에서 57%까지 높아졌다. 미국 현물은 아직 개장 전이므로 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 검증 현물값으로 유지한다. 독립 Phase는 전환하지 않고 개장 전 경보만 강화했다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-08-31 10:53:43 KST 재검증. Reuters 8/31 기준 Nikkei -2.1%, 한국 증시 -2.4%, MSCI 아시아태평양(일본 제외) -0.7%, Brent $89.38, 9월 Fed 인상 가능성 57%, 미 2년물 4.33%가 확인됐다. 미국 현물은 아직 개장 전이므로 8/28 최종 마감 Dow 53,559.99(-0.02%), S&P500 7,711.76(-0.25%), Nasdaq 26,402.42(-0.52%), NVDA -4.6%, MRVL -10.3%를 마지막 검증 현물값으로 유지한다. 독립 Phase는 전환하지 않고 개장 전 경보를 유지했다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
