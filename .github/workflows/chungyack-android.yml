@@ -47,7 +47,8 @@ jobs:
       - name: Privacy and data QA
         run: |
           cd chungyack-apk
-          node -e "const x=require('./public/data/app.json'); if(x.trackingSeed.length) throw new Error('public trackingSeed must be empty'); if(x.summary.catalog!==79) throw new Error('catalog count metadata');"
+          node -e "const x=require('./public/data/app.json'); if(x.trackingSeed.length) throw new Error('public trackingSeed must be empty'); if(x.summary.catalog!==79) throw new Error('catalog count metadata'); if(x.version!=='0.4.0') throw new Error('app version');"
+          node -e "const r=require('./public/data/hourly-report.json'); if(!r.groups?.length) throw new Error('public report groups empty'); if(!r.megaNotices?.length) throw new Error('mega notice missing'); const n=r.groups.flatMap(g=>g.items||[]).length; if(n<10) throw new Error('too few public notices '+n);"
           test "$(tail -n +2 public/data/sh-2026.csv | wc -l)" -eq 79
           grep -q ',29,' public/data/sh-2026.csv
           grep -q ',39,' public/data/sh-2026.csv
@@ -56,13 +57,17 @@ jobs:
           grep -q ',59,' public/data/sh-2026.csv
           grep -q '마곡지구 마곡엠밸리' public/data/sh-2026.csv
           ! grep -R -E '김재원|011016|예비 80번대|소득 1순위|지역 2순위' public data-parts 2>/dev/null
-          grep -q '59㎡나 북부권도 기본 제외하지 않습니다' public/index.html
-          grep -q '취소/추적중단' public/index.html
+          grep -q '수백·수천호' public/index.html
+          grep -q 'data-page="mega"' public/index.html
+          grep -q 'publicScheduleGroups' public/index.html
+          grep -q 'hourly-report.json' public/assets/app-v4.js
+          grep -q '현재 회차 경쟁률' public/assets/app-v4.js
           grep -q '최근 제거 복원' public/assets/app-v3.js
           grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
           node --check public/assets/app.js
           node --check public/assets/app-v2-fixes.js
           node --check public/assets/app-v3.js
+          node --check public/assets/app-v4.js
           node --check public/sw.js
           node --check scripts/apply-android-branding.mjs
 
@@ -84,6 +89,8 @@ jobs:
           test -s android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q '__CY_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+          grep -q 'app-v4.js' android/app/src/main/assets/public/index.html
+          grep -q '대형공고' android/app/src/main/assets/public/index.html
 
       - name: Restore persistent ChungYack signing key
         uses: actions/cache@v4
@@ -106,8 +113,8 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ChungYack-Radar-v0.3.0-debug-apk
-          path: ChungYack-Radar-v0.3.0-debug.apk
+          name: ChungYack-Radar-v0.4.0-debug-apk
+          path: ChungYack-Radar-v0.4.0-debug.apk
           retention-days: 90
 
       - name: Publish APK release
@@ -118,5 +125,5 @@ jobs:
           VERSION=$(tr -d '\r\n ' < chungyack-apk/VERSION)
           TAG="chungyack-apk-v${VERSION}"
           APK="ChungYack-Radar-v${VERSION}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${VERSION}" --notes "공개 공고 데이터와 개인 로컬 추적을 분리한 Android APK. 29/39/46/49/59㎡ 자유 필터, 수정·상태변경·제거/복원, JSON 백업/복원, 전용 아이콘 포함."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${VERSION}" --notes "일반 공고 최신 일정과 수백·수천호 대형 통합공고를 분리한 Android APK. 홈/일정에는 최신 일반공고·정확주소·지도·상세일정을, 대형공고 탭에는 SH 79개 단지·타입·가격·과거 경쟁률 분석을 제공하며 개인 추적은 로컬에만 저장합니다."
           gh release upload "$TAG" "$APK" --clobber
