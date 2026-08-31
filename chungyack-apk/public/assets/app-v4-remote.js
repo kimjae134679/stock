@@ -1,0 +1,4 @@
+// v0.4 remote feed layer. General notices can refresh without reinstalling the APK.
+const CY4_REMOTE_REPORT='https://raw.githubusercontent.com/kimjae134679/stock/main/chungyack-apk/public/data/hourly-report.json';
+async function cy4ReadJson(url){const r=await fetch(url+(url.includes('?')?'&':'?')+'ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}
+cy4LoadReport=async function(){let report=null;try{const remote=await cy4ReadJson(CY4_REMOTE_REPORT);if(Array.isArray(remote?.groups)&&remote.groups.length&&Array.isArray(remote?.megaNotices))report=remote}catch(e){console.warn('remote report fallback',e)}try{if(!report)report=await cy4ReadJson('data/hourly-report.json')}catch(e){console.error('bundled report',e)}if(!report){const b=$('#homeLiveReport');if(b)b.innerHTML='<div class="error">최신 공고 일정 데이터를 불러오지 못했습니다.</div>';return}CY4_REPORT=report;cy4Home();cy4PublicSchedule();cy4MegaSummary();renderHero();renderSettings()};
