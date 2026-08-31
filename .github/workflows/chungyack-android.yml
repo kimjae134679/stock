@@ -1,0 +1,122 @@
+name: Build ChungYack Radar Android APK
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'chungyack-apk/**'
+      - '.github/workflows/chungyack-android.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'chungyack-apk/**'
+      - '.github/workflows/chungyack-android.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: chungyack-radar-android-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Assemble sanitized public SH catalog
+        run: |
+          cd chungyack-apk
+          mkdir -p public/data
+          cat data-parts/*.csv > public/data/sh-2026.csv
+          test "$(wc -l < public/data/sh-2026.csv)" -eq 80
+
+      - name: Privacy and data QA
+        run: |
+          cd chungyack-apk
+          node -e "const x=require('./public/data/app.json'); if(x.trackingSeed.length) throw new Error('public trackingSeed must be empty'); if(x.summary.catalog!==79) throw new Error('catalog count metadata');"
+          test "$(tail -n +2 public/data/sh-2026.csv | wc -l)" -eq 79
+          grep -q ',29,' public/data/sh-2026.csv
+          grep -q ',39,' public/data/sh-2026.csv
+          grep -q ',46,' public/data/sh-2026.csv
+          grep -q ',49,' public/data/sh-2026.csv
+          grep -q ',59,' public/data/sh-2026.csv
+          grep -q '마곡지구 마곡엠밸리' public/data/sh-2026.csv
+          ! grep -R -E '김재원|011016|예비 80번대|소득 1순위|지역 2순위' public data-parts 2>/dev/null
+          grep -q '59㎡나 북부권도 기본 제외하지 않습니다' public/index.html
+          grep -q '취소/추적중단' public/index.html
+          grep -q '최근 제거 복원' public/assets/app-v3.js
+          grep -q 'chungyack-local-backup-v1' public/assets/app-v3.js
+          node --check public/assets/app.js
+          node --check public/assets/app-v2-fixes.js
+          node --check public/assets/app-v3.js
+          node --check public/sw.js
+          node --check scripts/apply-android-branding.mjs
+
+      - name: Install dependencies
+        run: cd chungyack-apk && npm install --no-audit --no-fund
+
+      - name: Create and sync Android project
+        run: |
+          cd chungyack-apk
+          npx cap add android
+          npx cap sync android
+          npm run android:brand
+
+      - name: Verify Android app shell
+        run: |
+          cd chungyack-apk
+          test -s android/app/src/main/res/drawable/chungyack_icon_foreground.xml
+          test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+          test -s android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+          grep -q '__CY_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+          grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
+
+      - name: Restore persistent ChungYack signing key
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: chungyack-radar-debug-keystore-v1
+
+      - name: Build debug APK
+        run: |
+          cd chungyack-apk/android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Package APK
+        run: |
+          VERSION=$(tr -d '\r\n ' < chungyack-apk/VERSION)
+          cp chungyack-apk/android/app/build/outputs/apk/debug/app-debug.apk "ChungYack-Radar-v${VERSION}-debug.apk"
+          test -s "ChungYack-Radar-v${VERSION}-debug.apk"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChungYack-Radar-v0.3.0-debug-apk
+          path: ChungYack-Radar-v0.3.0-debug.apk
+          retention-days: 90
+
+      - name: Publish APK release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(tr -d '\r\n ' < chungyack-apk/VERSION)
+          TAG="chungyack-apk-v${VERSION}"
+          APK="ChungYack-Radar-v${VERSION}-debug.apk"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${VERSION}" --notes "공개 공고 데이터와 개인 로컬 추적을 분리한 Android APK. 29/39/46/49/59㎡ 자유 필터, 수정·상태변경·제거/복원, JSON 백업/복원, 전용 아이콘 포함."
+          gh release upload "$TAG" "$APK" --clobber
