@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-09-01T17:04:00+09:00",
+  "updated_at": "2026-09-01T18:07:00+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 현물은 8월 31일 약세 마감 뒤 새 가격이 없다. 일본 10년물이 3%에 도달하며 글로벌 채권 매도가 심화됐고 Brent $91.15·WTI $86.46가 확인됐지만 AI·반도체 구조수요도 유지돼 세그먼트별 독립 Phase는 그대로 둔다.",
+  "summary": "미국 현물은 8월 31일 약세 마감 뒤 새 가격이 없다. Brent $91.67·WTI $87.03, 9월 Fed 인상확률 66%와 글로벌 채권 매도 부담이 이어지지만 AI·반도체 구조수요도 유지돼 세그먼트별 독립 Phase는 그대로 둔다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 매크로 압력 강화","action":"그래서 지금은? 다음 거래일 breadth와 글로벌 장기금리·유가가 안정되는지 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 상대방어","action":"그래서 지금은? 글로벌 채권 매도 속에서도 Nasdaq 상대방어가 이어지는지 확인."},
@@ -12,11 +12,11 @@
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 breadth와 변동성, 장기금리가 함께 안정되는지 먼저 확인."}
   ],
   "sources": [
-    "Reuters 2026-09-01 Global bond selloff: Japan 10Y reached 3%",
-    "Reuters 2026-09-01 Oil: Brent $91.15, WTI $86.46",
-    "Reuters 2026-09-01 FX: September Fed hike odds about 65%",
+    "Reuters 2026-09-01 Oil: Brent $91.67, WTI $87.03",
+    "Reuters 2026-09-01 Gold/Treasuries: September Fed hike odds 66%",
+    "Reuters 2026-09-01 FX: global bond selloff; Japan 10Y at 3%",
     "Reuters 2026-09-01 Nvidia-MediaTek AI ecosystem investment",
     "Reuters 2026-08-31 Wall Street official close"
   ],
-  "data_status": "2026-09-01 17:04:00 KST 재검증 완료. 미국 현물은 마감 후라 최종 종가 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%)를 보존했다. Reuters 9/1에서 일본 10년물 3%와 글로벌 채권 매도 심화, Brent $91.15, WTI $86.46 및 9월 Fed 인상확률 약 65%를 확인했다. 신규 미국 현물 가격이나 세그먼트 Phase 전환 신호는 없어 독립 Phase를 유지했다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-01 18:07:00 KST 재검증 완료. 미국 현물은 새 거래 세션 전이라 최종 종가 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%)를 보존했다. Reuters 9/1에서 Brent $91.67, WTI $87.03, 일본 10년물 3%, 9월 Fed 인상확률 66%를 확인했다. 신규 미국 현물 가격이나 세그먼트 Phase 전환 신호는 없어 독립 Phase를 유지했다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
