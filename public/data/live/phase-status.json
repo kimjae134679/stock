@@ -1,21 +1,22 @@
 {
-  "updated_at": "2026-09-01T08:04:37+09:00",
+  "updated_at": "2026-09-01T09:50:00+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국장은 약세 마감했지만 Nasdaq은 상대적으로 방어했고 반도체 강세가 확인됐다. 밤사이 Nvidia의 MediaTek 투자와 데이터센터 냉각 M&A는 AI 구조수요를 보강하지만 breadth·유가·금리 부담이 남아 세그먼트별 독립 Phase는 유지한다.",
+  "summary": "미국장은 약세 마감했지만 Nasdaq 상대방어와 반도체 강세는 유지됐다. Anthropic-Lambda 대형 클라우드 계약과 일본 AI·반도체 수요 개선은 구조수요를 보강하지만 새 미국 현물 가격 신호는 없어 세그먼트별 독립 Phase는 유지한다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · breadth 약화","action":"그래서 지금은? 다음 거래일 breadth와 금리·유가 반응이 안정되는지 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 상대방어","action":"그래서 지금은? 지수 약세 속 Nasdaq 상대방어가 이어지는지 확인."},
-    {"key":"semiconductor","name":"반도체","phase":"🟠 급락 후 반등 시도 · 상대강도 확인","action":"그래서 지금은? Nvidia·chipmakers 강세와 MediaTek 생태계 확장이 SOX·SMH 전반의 상대강도로 이어지는지 확인."},
+    {"key":"semiconductor","name":"반도체","phase":"🟠 급락 후 반등 시도 · 상대강도 확인","action":"그래서 지금은? Nvidia·chipmakers 강세와 AI 반도체 수요 개선이 SOX·SMH 전반의 상대강도로 이어지는지 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 구조수요는 유지","action":"그래서 지금은? MRVL 충격과 NVLink·광통신 구조수요를 분리해 개별 회복 여부를 확인."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 관찰","action":"그래서 지금은? 금리 부담 속 업종 상대강도가 유지되는지 확인."},
-    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? 냉각·전력 구조수요는 유지하되 유가·금리 상승의 자금조달 부담을 함께 확인."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·상대강도 관찰","action":"그래서 지금은? Anthropic의 대형 GPU 클라우드 수요가 업종 전반의 실제 가격 상대강도로 이어지는지 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? GPU 클라우드·냉각 구조수요는 유지하되 유가·금리 상승의 자금조달 부담을 함께 확인."},
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 breadth와 변동성이 안정되는지 먼저 확인."}
   ],
   "sources": [
-    "Reuters 2026-08-31 Wall Street official close revalidated 2026-09-01 08:04 KST",
+    "Reuters 2026-08-31 Wall Street official close revalidated 2026-09-01 09:50 KST",
+    "Reuters 2026-08-31 Anthropic $35B Lambda cloud deal",
+    "Reuters 2026-09-01 Japan manufacturing PMI / AI semiconductor demand",
     "Reuters 2026-08-31 Nvidia $3.5B MediaTek investment",
-    "Reuters 2026-08-31 SLB $4.1B Kelvion data-center cooling deal",
-    "Reuters 2026-08-31 Global Markets"
+    "Reuters 2026-08-31 SLB $4.1B Kelvion data-center cooling deal"
   ],
-  "data_status": "2026-09-01 08:04:37 KST 검증 완료. 최종 종가 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%)를 Reuters 마감 보도로 재검증했다. Reuters는 Nvidia·chipmakers 강세, 9월 Fed 인상 확률 65% 초과를 확인했다. Nvidia의 MediaTek $3.5B 투자와 SLB의 Kelvion $4.1B 인수는 각각 AI 반도체 생태계와 데이터센터 냉각 구조수요를 보강하는 기업 이벤트로 반영했으나 가격 Phase를 바꿀 신규 현물 수치는 없어 세그먼트별 독립 Phase는 유지했다. 미확인 개별 종목 종가·정확 유가 종가는 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-01 09:50:00 KST 검증 완료. 미국 현물은 마감 후라 최종 종가 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%)를 보존했다. Reuters에서 Anthropic의 Nvidia-backed Lambda와 $35B 클라우드 계약 및 일본 제조업 PMI의 AI·반도체 수요 개선을 추가 확인했다. 두 이벤트는 AI 소프트웨어·클라우드 및 반도체 구조수요를 보강하지만 신규 미국 현물 가격 신호가 아니므로 세그먼트별 독립 Phase는 유지했다. 미확인 가격은 추정하지 않음. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
