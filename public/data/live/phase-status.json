@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T07:57:28+09:00",
+  "updated_at": "2026-09-02T08:54:00+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
   "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. SOX는 -2.1%였고 전 구성종목이 하락했으며, 높은 유가·장기금리가 성장주 부담을 이어갔다.",
   "segments": [
@@ -17,5 +17,5 @@
     "Reuters 2026-09-01 oil close: Brent $94.65, WTI $90.22",
     "Reuters 2026-09-01 Dell results: AI server FY2027 revenue forecast raised to $74B; annual revenue/profit forecasts raised"
   ],
-  "data_status": "2026-09-02 07:57:28 KST 재검증 완료. 종가 이후 새 미국 현물 세션은 없었고 독립 Phase 변화도 없었다. Dell의 AI 서버 수요·가이던스 상향은 AI 인프라 구조수요 근거로만 반영했으며 가격 Phase를 추정해 상향하지 않았다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 08:54:00 KST 재검증 완료. 종가 이후 새 미국 현물 세션은 없었고 독립 Phase 변화도 없었다. Reuters 종가 기준 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%, SOX -2.1%, Brent $94.65, WTI $90.22를 재확인했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
