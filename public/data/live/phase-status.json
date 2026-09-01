@@ -1,22 +1,21 @@
 {
-  "updated_at": "2026-09-01T20:03:00+09:00",
+  "updated_at": "2026-09-01T21:02:26+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 현물은 8월 31일 약세 마감 뒤 새 가격이 없다. Reuters 최신 글로벌 마켓에서 Brent $92.20, 미국 10년물 4.79%, S&P 500 선물 -0.6%로 매크로 압력이 더 강해졌지만 AI·반도체 구조수요도 유지돼 세그먼트별 독립 Phase는 유지한다.",
+  "summary": "미국 현물은 8월 31일 약세 마감 뒤 새 가격이 없다. Reuters 최신 확인에서 Brent $92.25, 미국 10년물은 약 4.79%, 9월 Fed 인상확률은 약 65%로 매크로 압력이 지속되지만 AI·반도체 구조수요도 유지돼 세그먼트별 독립 Phase는 유지한다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 매크로 압력 강화","action":"그래서 지금은? 새 현물 세션 전이므로 선물 약세와 10년물·유가 상승이 실제 breadth 약화로 이어지는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감","action":"그래서 지금은? 미국 10년물 4.79% 환경에서 Nasdaq 상대방어가 새 세션에도 유지되는지 확인."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점근처/조정 · 매크로 압력 강화","action":"그래서 지금은? 새 현물 세션 전이므로 장기금리·유가 압력이 실제 breadth 약화로 이어지는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🟠 고점근처/조정 · 금리민감","action":"그래서 지금은? 미국 10년물 약 4.79% 환경에서 Nasdaq 상대방어가 새 세션에도 유지되는지 확인."},
     {"key":"semiconductor","name":"반도체","phase":"🟠 급락 후 반등 시도 · 상대강도 확인","action":"그래서 지금은? AI 수요가 SOX·SMH 전반의 상대강도로 이어지는지 새 세션에서 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 구조수요는 유지","action":"그래서 지금은? MRVL 충격과 NVLink·광통신 구조수요를 분리해 개별 회복 여부를 확인."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 클라우드 구조수요가 4.79% 장기금리의 밸류에이션 부담을 견디는지 확인."},
-    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? 구조수요는 유지하되 Brent $92.20와 장기금리 상승의 자금조달·비용 부담을 함께 확인."},
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 클라우드 구조수요가 높은 장기금리의 밸류에이션 부담을 견디는지 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? 구조수요는 유지하되 Brent $92.25와 장기금리 상승의 자금조달·비용 부담을 함께 확인."},
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 breadth와 변동성, 장기금리가 함께 안정되는지 먼저 확인."}
   ],
   "sources": [
-    "Reuters 2026-09-01 Global Markets: Brent $92.20, US 10Y 4.79%, S&P 500 futures -0.6%",
-    "Reuters 2026-09-01 Oil: renewed US-Iran strikes and Hormuz supply risk",
-    "Reuters 2026-09-01 Japan 10Y: 3%",
-    "Reuters 2026-09-01 Nvidia-MediaTek AI ecosystem investment",
+    "Reuters 2026-09-01: Brent $92.25, US 10Y near 4.79%, Fed September hike probability about 65%",
+    "Reuters 2026-09-01 global bond selloff / Japan 10Y 3%",
+    "Reuters 2026-09-01 AI infrastructure demand signals",
     "Reuters 2026-08-31 Wall Street official close"
   ],
-  "data_status": "2026-09-01 20:03:00 KST 재검증 완료. 미국 현물은 새 거래 세션 전이라 최종 종가 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%)를 보존했다. Reuters 최신 글로벌 마켓에서 Brent $92.20, 미국 10년물 4.79%, S&P 500 선물 -0.6%, 일본 10년물 3%를 확인했다. 선물은 현물값으로 섞지 않았고 미확인 가격은 추정하지 않았다. 세그먼트별 독립 Phase는 유지하되 매크로 압력 강화로 행동 코멘트를 조정했다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-01 21:02:26 KST 재검증 완료. 미국 현물은 새 거래 세션 전이라 최종 종가 Dow 53,185.90(-0.70%), S&P500 7,686.14(-0.33%), Nasdaq 26,370.89(-0.12%)를 보존했다. Reuters 최신 확인에서 Brent $92.25, 미국 10년물 약 4.79%, 9월 Fed 인상확률 약 65%, 일본 10년물 3%를 확인했다. 미확인 가격은 추정하지 않았고 세그먼트별 독립 Phase는 유지했다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
