@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T06:00:17+09:00",
+  "updated_at": "2026-09-02T06:53:37+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
   "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. SOX는 -2.1%였고 전 구성종목이 하락했으며, Brent $94.65·WTI $90.22와 높은 장기금리가 성장주 부담을 이어갔다.",
   "segments": [
@@ -17,5 +17,5 @@
     "Reuters 2026-09-01 oil close: Brent $94.65, WTI $90.22",
     "Reuters 2026-09-01 Fed context: September 25bp hike probability about 68.2%"
   ],
-  "data_status": "2026-09-02 06:00:17 KST 재검증 완료. 미국 종가·SOX·breadth·유가 종가를 반영했고 독립 Phase는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 06:53:37 KST 재검증 완료. 종가 이후 새 미국 현물 세션이나 더 최신의 정확 검증 현물값은 확인되지 않아 직전 검증 종가를 유지했다. 독립 Phase 변화 없음. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
