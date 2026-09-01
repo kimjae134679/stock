@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-09-02T01:50:23+09:00",
+  "updated_at": "2026-09-02T02:56:32+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국장은 약세지만 개장 직후보다 낙폭은 줄었다. Reuters 11:31 ET 기준 Dow -0.41%, S&P 500 -0.43%, Nasdaq -0.70%이며 기술주와 반도체 압력은 이어진다.",
+  "summary": "미국장은 약세지만 개장 직후보다 낙폭은 줄었다. Reuters 최신 확인값에서 Dow -0.39%, S&P 500 -0.38%, Nasdaq -0.61%이며 유가는 Brent $93.93까지 올라 매크로 부담은 강화됐다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 낙폭 축소가 breadth 개선으로 이어지는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? Nasdaq 상대약세와 장기금리 부담이 더 완화되는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? Nasdaq 상대약세와 장기금리·유가 부담이 더 완화되는지 확인."},
     {"key":"semiconductor","name":"반도체","phase":"🟠 구조수요 유지 · 가격 재압력","action":"그래서 지금은? SOX의 1개월 저점권 압력이 추가 확산되는지 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? 개별 종목 충격과 구조수요를 분리해 회복 여부를 확인."},
     {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 높은 장기금리 속 상대강도가 유지되는지 확인."},
@@ -12,9 +12,9 @@
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세와 변동성, breadth가 함께 안정되는지 확인."}
   ],
   "sources": [
-    "Reuters 2026-09-01 11:31 ET: Dow -0.41%, S&P 500 -0.43%, Nasdaq -0.70%",
-    "Reuters 2026-09-01: SOX near one-month low; NVDA/INTC/AMD down 0.68%-2.56%",
-    "Reuters 2026-09-01: NYSE decliners/advancers 1.96:1, Nasdaq 2.2:1; Nasdaq 19 new highs vs 128 new lows"
+    "Reuters 2026-09-01 global markets: Dow -0.39%, S&P 500 -0.38%, Nasdaq -0.61%",
+    "Reuters 2026-09-01 Wall St 11:31 ET: SOX near one-month low; NVDA/INTC/AMD down 0.68%-2.56%",
+    "Reuters 2026-09-01 oil: Brent $93.93, WTI $89.48; renewed US-Iran fighting raised supply risk"
   ],
-  "data_status": "2026-09-02 01:50:23 KST 재검증 완료. Reuters의 더 최신 장중 현물·breadth를 반영했다. 미확인 가격은 추정하지 않았다. 세그먼트별 독립 Phase는 유지했다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 02:56:32 KST 재검증 완료. 더 최신의 확인 가능한 미국 현물 지수와 유가 급등을 반영했다. 미확인 가격은 추정하지 않았다. 유가 경보는 강화했지만 세그먼트별 독립 Phase 변화 조건은 충족하지 않아 유지했다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
