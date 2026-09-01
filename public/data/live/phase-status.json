@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-09-02T02:56:32+09:00",
+  "updated_at": "2026-09-02T03:52:40+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국장은 약세지만 개장 직후보다 낙폭은 줄었다. Reuters 최신 확인값에서 Dow -0.39%, S&P 500 -0.38%, Nasdaq -0.61%이며 유가는 Brent $93.93까지 올라 매크로 부담은 강화됐다.",
+  "summary": "미국장은 약세 흐름이 이어진다. 가장 최신의 정확 검증 현물 스냅샷은 Dow -0.39%, S&P 500 -0.38%, Nasdaq -0.61%이며 Brent $93.93과 높은 장기금리가 성장주 부담으로 남아 있다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 낙폭 축소가 breadth 개선으로 이어지는지 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? Nasdaq 상대약세와 장기금리·유가 부담이 더 완화되는지 확인."},
@@ -12,9 +12,9 @@
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세와 변동성, breadth가 함께 안정되는지 확인."}
   ],
   "sources": [
-    "Reuters 2026-09-01 global markets: Dow -0.39%, S&P 500 -0.38%, Nasdaq -0.61%",
-    "Reuters 2026-09-01 Wall St 11:31 ET: SOX near one-month low; NVDA/INTC/AMD down 0.68%-2.56%",
+    "Reuters 2026-09-01 global markets: Dow -0.39%, S&P 500 -0.38%, Nasdaq -0.61%; US10Y 4.77% after 4.798% intraday high",
+    "Reuters 2026-09-01 Wall St 11:31 ET: SOX near one-month low; NVDA/INTC/AMD down 0.68%-2.56%; breadth weak",
     "Reuters 2026-09-01 oil: Brent $93.93, WTI $89.48; renewed US-Iran fighting raised supply risk"
   ],
-  "data_status": "2026-09-02 02:56:32 KST 재검증 완료. 더 최신의 확인 가능한 미국 현물 지수와 유가 급등을 반영했다. 미확인 가격은 추정하지 않았다. 유가 경보는 강화했지만 세그먼트별 독립 Phase 변화 조건은 충족하지 않아 유지했다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 03:52:40 KST 재검증 완료. 직전 회차 이후 더 최신의 정확 검증 미국 현물·breadth·반도체 구성종목 스냅샷은 확보되지 않아 값을 추정하지 않았다. 가장 최신의 검증값과 독립 세그먼트 Phase를 유지했다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
