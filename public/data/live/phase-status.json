@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-09-02T23:58:23+09:00",
+  "updated_at": "2026-09-03T00:51:00+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "9월 2일 미국장은 Dow +0.47%, S&P 500 +0.11%, Nasdaq -0.06%로 혼조다. Dell의 AI 서버 수요가 AI 인프라 구조수요를 지지하지만 높은 미국 장기금리와 지정학·유가 부담이 이어져 기존 독립 Phase는 유지했다.",
+  "summary": "9월 2일 미국장은 Dow +0.47%, S&P 500 +0.11%, Nasdaq -0.06%로 전일 급락 뒤 혼조 반등했다. Dell의 AI 서버 수요는 AI 인프라 구조수요를 지지하지만 높은 장기금리와 지정학·유가 부담이 남아 있어 기존 독립 Phase는 유지했다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 지수 강세가 breadth와 종가까지 이어지는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 높은 장기금리 속 Nasdaq·QQQ 상대강도 회복이 이어지는지 확인."},
-    {"key":"semiconductor","name":"반도체","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? 전일 SOX 약세 뒤 실제 가격 회복과 AI 수요를 분리해 확인."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 반등이 breadth와 종가까지 이어지는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 높은 장기금리 속 Nasdaq·QQQ 상대강도 회복이 실제로 이어지는지 확인."},
+    {"key":"semiconductor","name":"반도체","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? 전일 SOX 약세 뒤 가격 안정과 AI 수요를 분리해 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? 개별 종목 충격과 구조수요를 분리해 회복 여부를 확인."},
     {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 높은 할인율 환경에서도 상대강도가 유지되는지 확인."},
     {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? Dell의 AI 서버 수요는 구조수요 근거로 반영하되 금리·에너지 비용 부담도 함께 확인."},
@@ -15,7 +15,7 @@
     "Reuters 2026-09-02 Wall Street: Dow +0.47%, S&P 500 +0.11%, Nasdaq -0.06%",
     "Reuters 2026-09-02 Dell: strong AI-server demand, shares +6.7% in latest Wall Street report",
     "Reuters 2026-09-02 Oil: Brent $94.22, WTI $89.51; intraday highs $97.04/$92.29",
-    "Reuters 2026-09-02 Morning Bid: US 10-year yield near highest since 2023"
+    "Reuters 2026-09-02 Morning Bid: U.S. 10-year yield near highest since 2023"
   ],
-  "data_status": "2026-09-02 23:58:23 KST 검증 완료. Reuters 최신 확인에서 Dow +0.47%, S&P 500 +0.11%, Nasdaq -0.06%로 혼조이며 Dell AI 서버 수요가 구조수요를 지지한다. 높은 장기금리·지정학 부담 때문에 기존 독립 Phase는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-03 00:51:00 KST 검증 완료. Reuters 최신 확인에서 Dow +0.47%, S&P 500 +0.11%, Nasdaq -0.06%로 전일 급락 뒤 혼조 반등했고 Dell AI 서버 수요가 구조수요를 지지한다. 높은 장기금리·지정학 부담 때문에 기존 독립 Phase는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
