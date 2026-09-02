@@ -1,21 +1,22 @@
 {
-  "updated_at": "2026-09-03T01:54:00+09:00",
+  "updated_at": "2026-09-03T03:07:25+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "9월 2일 미국장은 정오 기준 Dow +0.55%, S&P 500 +0.58%, Nasdaq +0.52%로 반등했다. Dell +5.35%, Nvidia +4.65%와 긍정적 상승/하락 종목 비율은 AI·대형주 심리를 지지하지만 Nasdaq 신저가가 신고가보다 많고 장기금리 부담이 남아 기존 독립 Phase는 유지했다.",
+  "summary": "9월 2일 미국장은 Reuters 정오 기준 Dow +0.55%, S&P 500 +0.58%, Nasdaq +0.52%로 반등했다. Dell +5.35%, Nvidia +4.65%가 AI 심리를 지지했지만 Nasdaq 신저가 우위와 높은 장기금리가 남아 독립 Phase는 유지했다. 최신 검증 유가는 Brent $95.76, WTI $91.18로 다시 높아졌다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 긍정적 breadth가 종가까지 유지되는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 정오 반등이 Nasdaq·QQQ 상대강도 회복으로 이어지는지 확인."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 반등 breadth의 종가 지속 여부와 유가·금리 압력을 함께 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? Nasdaq·QQQ 상대강도 회복이 장기금리 부담을 이기는지 확인."},
     {"key":"semiconductor","name":"반도체","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? Nvidia 반등이 SOX·SMH와 주요 구성종목으로 확산되는지 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? 개별 종목 충격과 구조수요를 분리해 업종 전반 회복 여부를 확인."},
-    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 지수 반등 속에서도 높은 할인율을 이기는 상대강도가 유지되는지 확인."},
-    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? Dell의 AI 서버 수요는 구조수요 근거로 반영하되 금리·에너지 비용 부담도 함께 확인."},
-    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세와 breadth가 종가까지 회복되고 장기금리가 안정되는지 확인."}
+    {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 높은 할인율 환경에서도 상대강도가 유지되는지 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? Dell의 AI 서버 수요는 구조수요 근거로 반영하되 유가·자금조달 비용 부담도 함께 확인."},
+    {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세·breadth·변동성과 장기금리가 함께 안정되는지 확인."}
   ],
   "sources": [
     "Reuters 2026-09-02 12:00 p.m. ET Wall Street: Dow +0.55%, S&P 500 +0.58%, Nasdaq +0.52%",
     "Reuters 2026-09-02 Wall Street: Dell +5.35%, Nvidia +4.65%, S&P tech +0.45%",
     "Reuters 2026-09-02 breadth: NYSE adv/decl 1.89:1, Nasdaq 1.61:1; Nasdaq new highs 38 vs new lows 107",
+    "Reuters 2026-09-02 Oil: Brent $95.76, WTI $91.18",
     "Reuters 2026-09-02: September Fed hike probability 64%; 10-year yield marginally higher near levels not seen since January 2025"
   ],
-  "data_status": "2026-09-03 01:54:00 KST 검증 완료. Reuters 정오 스냅샷에서 미국 3대 지수와 breadth가 개선되고 Dell·Nvidia가 강세였지만 Nasdaq 신저가 우위와 높은 장기금리 부담이 남아 독립 Phase는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-03 03:07:25 KST 검증 완료. 미국 지수의 더 최신 정확 종가 스냅샷은 확보하지 못해 Reuters 정오 검증값을 유지했고, 최신 확인 유가는 Brent $95.76·WTI $91.18로 갱신했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
