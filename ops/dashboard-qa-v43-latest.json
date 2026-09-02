@@ -1,6 +1,5 @@
 {
   "version": "0.4.3",
-  "run_id": 33633805378,
-  "status": "success",
-  "checks": ["desktop", "mobile", "load-collapse", "compact-hero", "phase-dedup", "action-compact", "fold-toggle", "modal", "blank-panel", "overflow"]
+  "run_id": 33639613370,
+  "status": "building"
 }
