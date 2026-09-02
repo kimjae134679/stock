@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-09-02T19:02:36+09:00",
+  "updated_at": "2026-09-02T20:05:44+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. 9월 2일 미국 10년물은 4.8122%, Brent는 $94.87로 높은 매크로 압력이 이어졌지만 새 미국 현물 세션은 없어 독립 Phase는 유지했다.",
+  "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. 9월 2일 Reuters 최신 유가는 Brent $94.76, WTI $90.26으로 여전히 높지만 새 미국 현물 세션은 없어 독립 Phase는 유지했다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 새 미국 세션 전이라 종가 Phase를 유지하고 유가·금리와 글로벌 위험회피의 추가 확산을 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 장기금리가 높은 상태에서 다음 세션 상대강도 회복 여부를 확인."},
@@ -14,8 +14,9 @@
   "sources": [
     "Reuters 2026-09-01 Wall Street close: Dow 52,766.93 (-0.79%), S&P 500 7,631.47 (-0.71%), Nasdaq 26,099.77 (-1.03%)",
     "Reuters 2026-09-01 Wall Street close: SOX -2.1%, every constituent lower; NYSE and Nasdaq decliners outnumbered advancers 2.8:1",
-    "Reuters 2026-09-02 global markets/bonds: US10Y 4.8122%, Brent $94.87; MSCI all-country -0.2%, STOXX 600 -0.3%, KOSPI -4%, Nikkei -2.9%",
+    "Reuters 2026-09-02 global markets/bonds: US10Y 4.8122%, global risk-off remained elevated",
+    "Reuters 2026-09-02 oil update: Brent $94.76, WTI $90.26; earlier session highs remained elevated",
     "Reuters 2026-09-02 Dell premarket: shares nearly +10% after stronger AI-server demand and raised annual forecasts"
   ],
-  "data_status": "2026-09-02 19:02:36 KST 검증 완료. Reuters 기준 미국 10년물 4.8122%, Brent $94.87과 글로벌 위험회피를 확인했다. Dell은 AI 서버 수요와 전망 상향으로 프리마켓 약 10% 강세였으나 새 미국 현물 세션은 없어 미국·Nasdaq·반도체 등 기존 독립 Phase와 위험 점수는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 20:05:44 KST 검증 완료. Reuters 최신 유가에서 Brent $94.76, WTI $90.26을 확인했고, 직전 검증의 미국 10년물 4.8122%와 글로벌 위험회피 압력은 여전히 높은 상태다. 새 미국 현물 세션은 없어 미국·Nasdaq·반도체 등 기존 독립 Phase와 위험 점수는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
