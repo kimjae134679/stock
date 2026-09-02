@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-09-02T11:06:00+09:00",
+  "updated_at": "2026-09-02T12:07:00+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. 9월 2일 아시아 장에서는 위험회피가 확대되고 Brent가 $95.52까지 올라 금리·유가 압력이 한 단계 더 강해졌다.",
+  "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. 9월 2일 아시아 위험회피가 더 확대되고 미국 10년물 4.8122%, Brent $95.91까지 올라 매크로 압력이 추가 강화됐다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 새 미국 세션 전이라 종가 Phase는 유지하고 유가·금리와 글로벌 위험회피의 추가 확산을 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 장기금리와 유가가 높은 상태에서 다음 세션 상대강도 회복 여부를 확인."},
@@ -14,8 +14,8 @@
   "sources": [
     "Reuters 2026-09-01 Wall Street close: Dow 52,766.93 (-0.79%), S&P 500 7,631.47 (-0.71%), Nasdaq 26,099.77 (-1.03%)",
     "Reuters 2026-09-01 Wall Street close: SOX -2.1%, every constituent lower; NYSE and Nasdaq decliners outnumbered advancers 2.8:1",
-    "Reuters 2026-09-02 Asia/global markets: MSCI Asia ex-Japan -0.8%, KOSPI -3.0%, Nikkei -2.2%, US10Y 4.798%",
-    "Reuters 2026-09-02 oil: Brent $95.52, WTI $91.02; September Fed hike probability about 67%"
+    "Reuters 2026-09-02 Asia/global markets: MSCI Asia-Pacific -1.5%, KOSPI over -3%, Nikkei -2.6%, US10Y 4.8122%",
+    "Reuters 2026-09-02 oil/global markets: Brent $95.91; September Fed hike probability about 67%"
   ],
-  "data_status": "2026-09-02 11:06 KST 검증 완료. 새 미국 현물 세션은 없어 미국·Nasdaq·반도체 등 기존 독립 Phase는 유지했다. 다만 Reuters 기준 아시아 위험회피 확대, 미국 10년물 4.798%, Brent $95.52, WTI $91.02, 9월 Fed 25bp 인상 확률 약 67%를 확인해 글로벌 매크로 압력 코멘트를 강화했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 12:07 KST 검증 완료. 새 미국 현물 세션은 없어 미국·Nasdaq·반도체 등 기존 독립 Phase는 유지했다. Reuters 기준 아시아 위험회피가 MSCI Asia-Pacific -1.5%, KOSPI 3% 이상 하락, Nikkei -2.6%로 확대됐고 미국 10년물 4.8122%, Brent $95.91를 확인해 글로벌 매크로 압력 근거를 강화했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
