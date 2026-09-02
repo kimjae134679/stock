@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-09-02T20:05:44+09:00",
+  "updated_at": "2026-09-02T20:56:01+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. 9월 2일 Reuters 최신 유가는 Brent $94.76, WTI $90.26으로 여전히 높지만 새 미국 현물 세션은 없어 독립 Phase는 유지했다.",
+  "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. 9월 2일 개장 전 선물은 Dow -0.15%, S&P 500 -0.25%, Nasdaq 100 -0.52%로 약세이며 Brent $94.76, WTI $90.26과 높은 장기금리 부담이 이어지지만 현물 세션 전이라 독립 Phase는 유지했다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 새 미국 세션 전이라 종가 Phase를 유지하고 유가·금리와 글로벌 위험회피의 추가 확산을 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 장기금리가 높은 상태에서 다음 세션 상대강도 회복 여부를 확인."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 개장 전 선물 약세가 실제 현물 breadth와 종가 흐름으로 이어지는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? Nasdaq 100 선물 상대약세와 높은 장기금리가 현물 상대강도에 이어지는지 확인."},
     {"key":"semiconductor","name":"반도체","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? SOX 약세 이후 구조수요와 실제 가격 회복 신호를 분리해 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? 개별 종목 충격과 구조수요를 분리해 회복 여부를 확인."},
     {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 높은 할인율 환경에서도 상대강도가 유지되는지 확인."},
@@ -14,9 +14,10 @@
   "sources": [
     "Reuters 2026-09-01 Wall Street close: Dow 52,766.93 (-0.79%), S&P 500 7,631.47 (-0.71%), Nasdaq 26,099.77 (-1.03%)",
     "Reuters 2026-09-01 Wall Street close: SOX -2.1%, every constituent lower; NYSE and Nasdaq decliners outnumbered advancers 2.8:1",
+    "Reuters 2026-09-02 Wall Street futures: Dow -0.15%, S&P 500 -0.25%, Nasdaq 100 -0.52%",
     "Reuters 2026-09-02 global markets/bonds: US10Y 4.8122%, global risk-off remained elevated",
-    "Reuters 2026-09-02 oil update: Brent $94.76, WTI $90.26; earlier session highs remained elevated",
+    "Reuters 2026-09-02 oil update: Brent $94.76, WTI $90.26",
     "Reuters 2026-09-02 Dell premarket: shares nearly +10% after stronger AI-server demand and raised annual forecasts"
   ],
-  "data_status": "2026-09-02 20:05:44 KST 검증 완료. Reuters 최신 유가에서 Brent $94.76, WTI $90.26을 확인했고, 직전 검증의 미국 10년물 4.8122%와 글로벌 위험회피 압력은 여전히 높은 상태다. 새 미국 현물 세션은 없어 미국·Nasdaq·반도체 등 기존 독립 Phase와 위험 점수는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 20:56:01 KST 검증 완료. Reuters 개장 전 선물은 Dow -0.15%, S&P 500 -0.25%, Nasdaq 100 -0.52%로 약세이며 Brent $94.76, WTI $90.26과 미국 10년물 4.8122%의 높은 매크로 압력이 이어진다. 아직 미국 현물 세션 전이라 기존 독립 Phase와 위험 점수는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
