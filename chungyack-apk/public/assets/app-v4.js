@@ -1,26 +1,112 @@
-// v0.4: current report is the main experience; huge integrated notices live in a separate mega view.
-const CY4_APP_VERSION='0.4.0';
-let CY4_REPORT=null;
-const cy4MapUrl=q=>'https://map.naver.com/p/search/'+encodeURIComponent(q||'');
-function cy4FmtDate(v){if(!v)return'';const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return new Intl.DateTimeFormat('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(d)}
-function cy4Countdown(ms){const abs=Math.abs(ms);const m=Math.floor(abs/60000);if(m<60)return`${m}분`;const h=Math.floor(m/60),rm=m%60;if(h<48)return`${h}시간${rm?` ${rm}분`:''}`;const d=Math.floor(h/24),rh=h%24;return`${d}일${rh?` ${rh}시간`:''}`}
-function cy4State(x){const now=Date.now(),start=x.startAt?new Date(x.startAt).getTime():null,end=x.endAt?new Date(x.endAt).getTime():null;if(start&&now<start)return{cls:'soon',text:`시작까지 ${cy4Countdown(start-now)}`};if(start&&end&&now>=start&&now<=end)return{cls:'active',text:`접수 중 · 마감까지 ${cy4Countdown(end-now)}`};if(end&&now>end)return{cls:'closed',text:'접수 마감'};return{cls:'',text:x.status||'일정 확인'} }
-function cy4Links(x){const links=[];if(x.officialUrl)links.push(`<a class="primary-link" target="_blank" rel="noopener" href="${esc(x.officialUrl)}">공식 공고</a>`);if(x.pdfUrl)links.push(`<a target="_blank" rel="noopener" href="${esc(x.pdfUrl)}">공고 PDF</a>`);if(x.applyUrl)links.push(`<a target="_blank" rel="noopener" href="${esc(x.applyUrl)}">신청하기</a>`);if(x.address)links.push(`<a target="_blank" rel="noopener" href="${cy4MapUrl(x.address)}">지도</a>`);return links.join('')}
-function cy4Events(x){const list=x.nextEvents||[];if(!list.length)return'';return list.map(e=>`<div class="detail-line"><b>${esc(e.label||'다음 일정')}</b> · ${esc(e.at?cy4FmtDate(e.at):(e.start&&e.end?`${e.start} ~ ${e.end}`:e.start||''))}</div>`).join('')}
-function cy4LiveCard(x){const s=cy4State(x);const priority=x.priority||'normal';return`<article class="live-card ${priority}"><div class="live-top"><div><div class="live-name">${esc(x.name)}</div><div class="live-inst">${esc(x.institution||'')}</div></div><span class="live-state ${s.cls}">${esc(s.text)}</span></div><div class="live-tags">${x.supply?`<span class="live-tag supply">${esc(x.supply)}</span>`:''}${x.type?`<span class="live-tag">${esc(x.type)}</span>`:''}${x.deposit?`<span class="live-tag price">보증금 ${esc(x.deposit)}</span>`:''}${x.rent?`<span class="live-tag price">${esc(x.rent)}</span>`:''}</div>${x.address?`<div class="live-address"><b>정확 주소</b><br>${esc(x.address)}${x.station?`<br><span>${esc(x.station)}</span>`:''}</div>`:''}${x.note?`<div class="live-note">${esc(x.note)}</div>`:''}<details class="live-details"><summary>상세 일정·자격 보기</summary><div class="detail-lines">${x.startAt?`<div class="detail-line"><b>접수</b> · ${esc(cy4FmtDate(x.startAt))}${x.endAt?` ~ ${esc(cy4FmtDate(x.endAt))}`:''}</div>`:''}${x.eligibility?`<div class="detail-line"><b>자격</b> · ${esc(x.eligibility)}</div>`:''}${cy4Events(x)}</div></details><div class="live-actions">${cy4Links(x)}</div></article>`}
-function cy4MapStrip(items){const pins=items.filter(x=>x.address);if(!pins.length)return'<div class="map-strip"><strong>지도</strong><div class="sub">공식 정확주소가 확인된 후보가 아직 없습니다.</div></div>';return`<div class="map-strip"><strong>정확주소 지도 바로가기</strong><div class="map-links">${pins.map(x=>`<a target="_blank" rel="noopener" href="${cy4MapUrl(x.address)}">📍 ${esc(x.name)}</a>`).join('')}</div></div>`}
-function cy4Group(group,normalOnly=true){const items=(group.items||[]).filter(x=>normalOnly?x.kind==='normal':true);if(!items.length)return'';return`<section class="schedule-group"><div class="schedule-title"><h3>${esc(group.icon||'')} ${esc(group.title)}</h3><span>${items.length}건</span></div>${cy4MapStrip(items)}<div class="live-grid">${items.map(cy4LiveCard).join('')}</div></section>`}
-function cy4Home(){const box=$('#homeLiveReport');if(!box||!CY4_REPORT)return;const groups=CY4_REPORT.groups||[];const today=groups.find(g=>g.id==='today-tomorrow');const upcoming=groups.filter(g=>g.id!=='today-tomorrow').flatMap(g=>(g.items||[]).filter(x=>x.kind==='normal')).slice(0,5);box.innerHTML=`<div class="priority-row"><span class="priority-pill">🔥 입지·가격 검토</span><span class="priority-pill">🔴⏰ 마감/시작 임박</span><span class="priority-pill">🟠⚠️ 며칠 내 일정</span></div>${today?cy4Group(today,true):'<div class="empty-soft">오늘·내일 일반 공고 없음</div>'}${upcoming.length?`<div class="section-head"><h2>곧 볼 공고</h2><small>다음 일정</small></div><div class="live-grid">${upcoming.map(cy4LiveCard).join('')}</div>`:''}`;cy4MegaTeaser()}
-function cy4MegaTeaser(){const host=$('#megaTeaser');if(!host||!CY4_REPORT)return;const x=(CY4_REPORT.megaNotices||[])[0];if(!x){host.innerHTML='';return}const s=cy4State(x);host.innerHTML=`<div class="mega-banner"><div class="mega-banner-top"><div><b>🏢 대형 통합공고는 별도 분석</b><p>${esc(x.name)} · ${x.total?.toLocaleString()||'-'}호 · 공가 ${x.vacancy??'-'} / 예비 ${x.waitlist??'-'} · ${esc(s.text)}</p></div></div><button id="openMegaFromHome">대형공고 전용 화면 열기</button></div>`;$('#openMegaFromHome')?.addEventListener('click',()=>openPage('mega'))}
-function cy4PublicSchedule(){const box=$('#publicScheduleGroups');if(!box)return;if(!CY4_REPORT){box.innerHTML='<div class="empty-soft">최신 공고 일정을 불러오는 중…</div>';return}box.innerHTML=(CY4_REPORT.groups||[]).map(g=>cy4Group(g,true)).join('')||'<div class="empty-soft">일반 공고 일정 없음</div>';cy4MegaUpcoming()}
-function cy4MegaUpcoming(){const box=$('#megaUpcomingSchedule');if(!box||!CY4_REPORT)return;const arr=(CY4_REPORT.groups||[]).flatMap(g=>(g.items||[]).filter(x=>x.kind==='mega-upcoming'));box.innerHTML=arr.length?`<div class="mega-only-note"><b>대형 통합공고 예정</b><br>수백·수천호 규모는 일반 공고와 섞지 않고 본공고가 나오면 단지·타입별 전용 분석으로 이동합니다.</div><div class="live-grid">${arr.map(cy4LiveCard).join('')}</div>`:''}
-function cy4TrackingSchedule(){const box=$('#trackingScheduleList');if(!box)return;const arr=TRACKING.filter(x=>x.next&&x.status!=='취소/추적중단'&&x.status!=='입주완료');box.innerHTML=arr.length?arr.map(x=>`<article class="card"><div class="status-name">${esc(cyStatusIcon(x.status))} ${esc(x.name)}</div><div class="status-next">${esc(x.next)}</div><div class="status-detail">${esc(x.status)}${x.detail?' · '+esc(x.detail):''}</div><button class="mini edit-track" data-id="${esc(x.id)}">수정</button></article>`).join(''):'<div class="empty-soft">내 추적에 등록된 다음 일정이 없습니다.</div>'}
-function cy4MegaSummary(){const box=$('#megaSummary');if(!box||!CY4_REPORT)return;const x=(CY4_REPORT.megaNotices||[])[0];if(!x){box.innerHTML='<div class="empty-soft">현재 대형 통합공고 없음</div>';return}const s=cy4State(x);box.innerHTML=`<section class="mega-summary"><h3>${esc(x.name)}</h3><p>${esc(x.note||'')}</p><div class="mega-metrics"><div class="mega-metric"><span>총 모집</span><b>${Number(x.total||0).toLocaleString()}호</b></div><div class="mega-metric"><span>공가</span><b>${Number(x.vacancy||0).toLocaleString()}호</b></div><div class="mega-metric"><span>예비</span><b>${Number(x.waitlist||0).toLocaleString()}호</b></div><div class="mega-metric"><span>단지·타입 행</span><b>${x.catalogRows||'-'}개</b></div></div><div class="mega-status"><b>${esc(s.text)}</b><br>${esc(x.competitionStatus||'')}</div><div class="mega-actions"><a target="_blank" rel="noopener" href="${esc(x.officialUrl||'#')}">공식 SH</a></div></section>`}
-const cy4BaseRecommendationCard=recommendationCard;
-recommendationCard=function(x){const i=insightFor(x);return`<article class="rec-card ${i&&Number(i.weight)>=85?'top':''}"><div class="rec-head"><div><div class="rec-name">${esc(x.name)}</div><div class="tags"><span class="tag">${esc(x.region)}</span><span class="tag blue">${x.type}㎡</span>${i?`<span class="tag good">${esc(i.label)}</span>`:''}</div></div></div><div class="metrics"><div class="metric"><span>모집세대수</span><b>${x.units}세대</b></div><div class="metric"><span>보증금</span><b>${esc(x.deposit)}</b></div><div class="metric"><span>월 임대료</span><b>${esc(x.rent)}</b></div><div class="metric"><span>과거사례 유추</span><b>${i?esc(i.competition):'자료 부족'}</b></div></div><div class="current-comp"><b>현재 회차 경쟁률</b> · 아직 공식 미발표${i?`<br><b>과거사례 기반 예상</b> · ${esc(i.competition)} / 신뢰도 ${esc(i.confidence)}`:''}</div>${i?`<div class="reason"><b>검토 포인트</b><br>${esc(i.reason)}</div><div class="warning"><b>주의</b> ${esc(i.warning)}</div>`:'<div class="neutral-note">공식 경쟁률 발표 전입니다. 모집세대수·가격·입지와 함께 판단하세요.</div>'}${addressesHtml(x)}<div class="actions"><a class="btn" href="${mapUrl(x.address||x.name)}" target="_blank" rel="noopener">네이버지도</a><button class="btn primary-lite add-from-catalog" data-id="${esc(x.id)}">신청했음 → 추적 추가</button></div></article>`}
-const cy4PrevHero=renderHero;renderHero=function(){cy4PrevHero();if($('#appVersion'))$('#appVersion').textContent='v'+CY4_APP_VERSION;if(CY4_REPORT){const t=(CY4_REPORT.groups||[]).find(g=>g.id==='today-tomorrow');if($('#urgentCount'))$('#urgentCount').textContent=(t?.items||[]).filter(x=>x.kind==='normal').length}}
-const cy4PrevSettings=renderSettings;renderSettings=function(){cy4PrevSettings();if($('#settingsVersion'))$('#settingsVersion').textContent=CY4_APP_VERSION;if($('#reportUpdated')&&CY4_REPORT)$('#reportUpdated').textContent=new Date(CY4_REPORT.updatedAt).toLocaleString('ko-KR')}
-renderSchedule=function(){cy4PublicSchedule();cy4TrackingSchedule()}
-async function cy4LoadReport(){try{const r=await fetch('data/hourly-report.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);CY4_REPORT=await r.json();cy4Home();cy4PublicSchedule();cy4MegaSummary();renderHero();renderSettings()}catch(e){console.error('report feed',e);const b=$('#homeLiveReport');if(b)b.innerHTML='<div class="error">최신 공고 일정 데이터를 불러오지 못했습니다.</div>'}}
-function cy4Wire(){cy4LoadReport();setInterval(()=>{if(CY4_REPORT){cy4Home();cy4PublicSchedule();cy4MegaSummary();renderHero()}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)cy4LoadReport()})}
-window.addEventListener('DOMContentLoaded',cy4Wire);
+// v0.4 current-opportunity layer.
+// SH 국민임대 카탈로그를 기본 공고 화면에서 내리고, 최신 검토 공고/자격판정 중심으로 전환한다.
+let CY_OPPORTUNITY_DATA=null;
+let CY_OPPORTUNITY_FILTER={level:'action',agency:'',search:''};
+
+function cyV4MapUrl(address){return 'https://map.naver.com/p/search/'+encodeURIComponent(address||'')}
+function cyV4Level(item){
+  const level=item?.eligibility?.level||'review';
+  if(level==='impossible')return 'impossible';
+  if((item?.eligibility?.title||'').includes('보류'))return 'hold';
+  if(level==='conditional')return 'conditional';
+  return 'action';
+}
+function cyV4EligibilityHtml(item){
+  const x=item?.eligibility;
+  if(!x)return '';
+  const level=cyV4Level(item);
+  return `<div class="cy-v4-eligibility cy-v4-${level}"><b>${esc(x.title||'⚠️ 내 조건 판정')}</b>${x.reason?`<div class="cy-v4-reason">${esc(x.reason)}</div>`:''}${x.check?`<div class="cy-v4-check"><b>다시 볼 조건:</b> ${esc(x.check)}</div>`:''}</div>`;
+}
+function cyV4AddressesHtml(item){
+  const list=Array.isArray(item?.addresses)?item.addresses.filter(Boolean):[];
+  if(!list.length)return '<div class="cy-v4-no-map">정확한 공급주택 주소 확인 전 · 추정 지도핀 없음</div>';
+  if(list.length===1)return `<div class="cy-v4-address">${esc(list[0])} <a href="${cyV4MapUrl(list[0])}" target="_blank" rel="noopener">지도</a></div>`;
+  return `<details class="cy-v4-addresses"><summary>정확주소 ${list.length}곳</summary>${list.map(a=>`<div>${esc(a)} <a href="${cyV4MapUrl(a)}" target="_blank" rel="noopener">지도</a></div>`).join('')}</details>`;
+}
+function cyV4OpportunityCard(item){
+  const level=cyV4Level(item);
+  const canTrack=level!=='impossible'&&level!=='hold';
+  return `<article class="cy-v4-card ${level}">
+    <div class="cy-v4-head"><div class="cy-v4-status">${esc(item.status||'')}</div><div><div class="cy-v4-agency">${esc(item.agency||'')}</div><div class="cy-v4-name">${esc(item.name||'')}</div><div class="cy-v4-sub">${esc(item.category||'')} · ${esc(item.region||'')}</div></div></div>
+    <div class="cy-v4-metrics"><div><span>접수</span><b>${esc(item.period||'-')}</b></div><div><span>모집</span><b>${esc(item.units||'-')}</b></div></div>
+    ${cyV4EligibilityHtml(item)}
+    <div class="cy-v4-next"><b>다음 확인</b><div>${esc(item.next||'-')}</div></div>
+    ${cyV4AddressesHtml(item)}
+    <div class="cy-v4-actions"><a class="btn" href="${esc(item.source||'#')}" target="_blank" rel="noopener">공식 공고</a>${canTrack?`<button class="btn primary-lite cy-v4-track" data-opportunity-id="${esc(item.id)}">신청했음 → 추적 추가</button>`:''}</div>
+  </article>`;
+}
+function cyV4FilteredItems(){
+  const items=Array.isArray(CY_OPPORTUNITY_DATA?.items)?CY_OPPORTUNITY_DATA.items:[];
+  const q=CY_OPPORTUNITY_FILTER.search.trim().toLowerCase();
+  return items.filter(item=>{
+    const level=cyV4Level(item);
+    if(CY_OPPORTUNITY_FILTER.level!=='all'&&level!==CY_OPPORTUNITY_FILTER.level)return false;
+    if(CY_OPPORTUNITY_FILTER.agency&&item.agency!==CY_OPPORTUNITY_FILTER.agency)return false;
+    if(q&&!`${item.name} ${item.region} ${item.category} ${item.agency}`.toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+function cyV4ToolbarHtml(){
+  const items=Array.isArray(CY_OPPORTUNITY_DATA?.items)?CY_OPPORTUNITY_DATA.items:[];
+  const agencies=[...new Set(items.map(x=>x.agency).filter(Boolean))];
+  return `<div class="cy-v4-toolbar">
+    <div class="cy-v4-filter-buttons">
+      <button data-cy-level="action" class="${CY_OPPORTUNITY_FILTER.level==='action'?'on':''}">검토 후보</button>
+      <button data-cy-level="conditional" class="${CY_OPPORTUNITY_FILTER.level==='conditional'?'on':''}">조건부</button>
+      <button data-cy-level="hold" class="${CY_OPPORTUNITY_FILTER.level==='hold'?'on':''}">보류</button>
+      <button data-cy-level="impossible" class="${CY_OPPORTUNITY_FILTER.level==='impossible'?'on':''}">절대 불가</button>
+      <button data-cy-level="all" class="${CY_OPPORTUNITY_FILTER.level==='all'?'on':''}">전체</button>
+    </div>
+    <div class="cy-v4-controls"><select id="cyV4Agency"><option value="">기관 전체</option>${agencies.map(a=>`<option ${CY_OPPORTUNITY_FILTER.agency===a?'selected':''}>${esc(a)}</option>`).join('')}</select><input id="cyV4Search" value="${esc(CY_OPPORTUNITY_FILTER.search)}" placeholder="공고·지역 검색"></div>
+  </div>`;
+}
+function cyV4PassHtml(){
+  const passes=Array.isArray(CY_OPPORTUNITY_DATA?.passes)?CY_OPPORTUNITY_DATA.passes:[];
+  if(!passes.length)return '';
+  return `<div class="cy-v4-pass-list">${passes.map(x=>`<div>❌ <b>${esc(x.name)}</b> — ${esc(x.period||'')} — ${esc(x.reason||'사용자 판단으로 패스')}</div>`).join('')}</div>`;
+}
+function renderRecommendations(){
+  const list=document.getElementById('recommendList');
+  if(!list)return;
+  if(!CY_OPPORTUNITY_DATA){list.innerHTML='<div class="empty">현재 공고 데이터 불러오는 중…</div>';return;}
+  const rows=cyV4FilteredItems();
+  list.innerHTML=`${cyV4ToolbarHtml()}<div class="cy-v4-summary"><div>현재 표시 <b>${rows.length}</b></div><div>검토 후보 <b>${CY_OPPORTUNITY_DATA.items.filter(x=>cyV4Level(x)==='action').length}</b></div><div>조건부 <b>${CY_OPPORTUNITY_DATA.items.filter(x=>cyV4Level(x)==='conditional').length}</b></div></div>${CY_OPPORTUNITY_DATA.notice?`<div class="cy-v4-notice">${esc(CY_OPPORTUNITY_DATA.notice)}</div>`:''}<div class="cy-v4-list">${rows.length?rows.map(cyV4OpportunityCard).join(''):'<div class="empty">현재 필터에 맞는 공고가 없습니다.</div>'}</div>${cyV4PassHtml()}`;
+  if(document.getElementById('recommendCount'))document.getElementById('recommendCount').textContent=rows.length;
+  document.querySelectorAll('[data-cy-level]').forEach(b=>b.addEventListener('click',()=>{CY_OPPORTUNITY_FILTER.level=b.dataset.cyLevel;renderRecommendations()}));
+  const agency=document.getElementById('cyV4Agency');if(agency)agency.addEventListener('change',()=>{CY_OPPORTUNITY_FILTER.agency=agency.value;renderRecommendations()});
+  const search=document.getElementById('cyV4Search');if(search)search.addEventListener('input',()=>{CY_OPPORTUNITY_FILTER.search=search.value;renderRecommendations()});
+  document.querySelectorAll('.cy-v4-track').forEach(b=>b.addEventListener('click',()=>cyV4AddTracking(b.dataset.opportunityId)));
+}
+function cyV4AddTracking(id){
+  const item=CY_OPPORTUNITY_DATA?.items?.find(x=>x.id===id);if(!item)return;
+  const stableId=`opportunity-${id}`;
+  const existing=TRACKING.find(x=>x.id===stableId);if(existing){openTrackEditor(existing);return;}
+  openTrackEditor({id:stableId,name:item.name,type:item.category||'',appliedAt:new Date().toISOString().slice(0,10),status:'신청완료',next:item.next||'',detail:`${item.units||''} · ${item.period||''}`,address:(item.addresses||[])[0]||''});
+}
+function cyV4SetupPage(){
+  const page=document.querySelector('.page[data-page="recommend"]');
+  if(page){
+    const head=page.querySelector('.section-head h2');if(head)head.textContent='현재 검토 공고';
+    const small=page.querySelector('.section-head small');if(small)small.textContent='내 조건 판정 · 일정 · 공식링크';
+    page.querySelector('.filter-card')?.classList.add('cy-v4-legacy-hidden');
+    page.querySelector('.summary')?.classList.add('cy-v4-legacy-hidden');
+  }
+  const home=document.querySelector('.page[data-page="home"]');
+  if(home){
+    const heads=[...home.querySelectorAll('.section-head')];
+    const old=heads.find(x=>x.textContent.includes('과거 SH 국민임대 평균 경쟁률'));
+    if(old){old.classList.add('cy-v4-legacy-hidden');old.nextElementSibling?.classList.add('cy-v4-legacy-hidden')}
+  }
+}
+async function cyV4LoadOpportunities(){
+  try{
+    const res=await fetch('data/current-opportunities.json?ts='+Date.now(),{cache:'no-store'});
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    CY_OPPORTUNITY_DATA=await res.json();
+    renderRecommendations();
+  }catch(e){
+    console.error('current opportunities load failed',e);
+    const list=document.getElementById('recommendList');if(list)list.innerHTML=`<div class="empty">현재 공고 데이터를 불러오지 못했습니다. ${esc(e.message)}</div>`;
+  }
+}
+window.addEventListener('DOMContentLoaded',()=>{cyV4SetupPage();cyV4LoadOpportunities()});

@@ -2,5 +2,9 @@
   "appId": "com.kimjae134679.chungyack",
   "appName": "청약 레이더",
   "webDir": "public",
-  "server": {"androidScheme":"https"}
+  "server": {
+    "url": "https://kimjae134679.github.io/stock/chungyack/",
+    "androidScheme": "https",
+    "cleartext": false
+  }
 }

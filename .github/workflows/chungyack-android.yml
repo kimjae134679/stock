@@ -1,15 +1,23 @@
-name: Build ChungYack Radar Android APK
+name: Build ChungYack Stable Remote Shell APK
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - 'chungyack-apk/**'
+      - 'chungyack-apk/VERSION'
+      - 'chungyack-apk/package.json'
+      - 'chungyack-apk/capacitor.config.json'
+      - 'chungyack-apk/scripts/apply-android-branding.mjs'
+      - 'chungyack-apk/rebuild-shell.request'
       - '.github/workflows/chungyack-android.yml'
   push:
     branches: [main]
     paths:
-      - 'chungyack-apk/**'
+      - 'chungyack-apk/VERSION'
+      - 'chungyack-apk/package.json'
+      - 'chungyack-apk/capacitor.config.json'
+      - 'chungyack-apk/scripts/apply-android-branding.mjs'
+      - 'chungyack-apk/rebuild-shell.request'
       - '.github/workflows/chungyack-android.yml'
   workflow_dispatch:
 
@@ -17,7 +25,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: chungyack-radar-android-${{ github.event_name }}
+  group: chungyack-stable-shell-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
@@ -25,6 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - id: ver
+        shell: bash
+        run: echo "version=$(tr -d '\r\n ' < chungyack-apk/VERSION)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-node@v4
         with:
@@ -37,79 +49,44 @@ jobs:
 
       - uses: android-actions/setup-android@v3
 
-      - name: Assemble sanitized public SH catalog
+      - name: Verify remote-shell contract
+        shell: bash
         run: |
           cd chungyack-apk
-          mkdir -p public/data
-          cat data-parts/*.csv > public/data/sh-2026.csv
-          test "$(wc -l < public/data/sh-2026.csv)" -eq 80
-
-      - name: Privacy, report and UI QA
-        run: |
-          cd chungyack-apk
-          node -e "const fs=require('fs');const x=require('./public/data/app.json');if(x.trackingSeed.length)throw new Error('public trackingSeed must be empty');if(x.summary.catalog!==79)throw new Error('catalog count metadata');if(x.version!=='0.5.0')throw new Error('app version');const h=fs.readFileSync('./public/index.html','utf8');const nav=(h.match(/class=\"nav-btn/g)||[]).length;const pages=(h.match(/class=\"page(?: active)?\" data-page=/g)||[]).length;if(nav!==5)throw new Error('bottom nav count '+nav);if(pages!==5)throw new Error('page count '+pages);const ids=[...h.matchAll(/id=\"([^\"]+)\"/g)].map(m=>m[1]);const dup=ids.filter((x,i)=>ids.indexOf(x)!==i);if(dup.length)throw new Error('duplicate ids '+[...new Set(dup)].join(','));"
-          node -e "const r=require('./public/data/hourly-report.json');if(!r.groups?.length)throw new Error('public report groups empty');if(!r.megaNotices?.length)throw new Error('mega notice missing');const n=r.groups.flatMap(g=>g.items||[]).length;if(n<10)throw new Error('too few public notices '+n);const o=require('./public/data/report-overrides.json');if(o.schema!=='chungyack-report-overrides-v1')throw new Error('override schema');if(!o.groups?.['open-ended'])throw new Error('open-ended group missing');if(!o.additions?.some(x=>x.item?.id==='lh-special-seongsan-260824'))throw new Error('seongsan override missing');"
-          test "$(tail -n +2 public/data/sh-2026.csv | wc -l)" -eq 79
-          grep -q ',29,' public/data/sh-2026.csv
-          grep -q ',39,' public/data/sh-2026.csv
-          grep -q ',46,' public/data/sh-2026.csv
-          grep -q ',49,' public/data/sh-2026.csv
-          grep -q ',59,' public/data/sh-2026.csv
-          grep -q '마곡지구 마곡엠밸리' public/data/sh-2026.csv
-          ! grep -R -E '김재원|011016|예비 80번대|소득 1순위|지역 2순위' public data-parts 2>/dev/null
-          grep -q 'app-v5.css' public/index.html
-          grep -q 'app-v5.js' public/index.html
-          grep -q 'data-cy5-sort="time"' public/index.html
-          grep -q 'data-cy5-sort="recommend"' public/index.html
-          grep -q 'githubToken' public/index.html
-          grep -q 'chungyack.notice-decisions.v1' public/assets/app-v5.js
-          grep -q 'skipped-collapsed' public/assets/app-v5.js
-          grep -q 'report-overrides.json' public/assets/app-v5.js
-          grep -q 'GitHubSync' public/assets/app-v5.js
-          grep -q 'overflow-x:clip' public/assets/app-v4-ui.css
-          grep -q 'repeat(5,minmax(0,1fr))' public/assets/app-v4-ui.css
-          grep -q 'v050_native_cache_reset' scripts/apply-android-branding.mjs
-          grep -q 'GitHubSyncPlugin.java' scripts/apply-android-branding.mjs
-          grep -q 'AndroidKeyStore' scripts/apply-android-branding.mjs
+          node -e "const c=require('./capacitor.config.json');if(c.server?.url!=='https://kimjae134679.github.io/stock/chungyack/')throw new Error('remote URL mismatch');if(c.appId!=='com.kimjae134679.chungyack')throw new Error('app id mismatch');const p=require('./package.json');const v=require('fs').readFileSync('VERSION','utf8').trim();if(p.version!==v)throw new Error('version mismatch');"
+          node -e "const a=require('./public/data/app.json');if(a.trackingSeed?.length)throw new Error('public trackingSeed must be empty');const r=require('./public/data/hourly-report.json');if(r.groups?.some(g=>g.id==='already-applied'))throw new Error('private applied group must not be public');"
           node --check public/assets/app.js
           node --check public/assets/app-v2-fixes.js
           node --check public/assets/app-v3.js
           node --check public/assets/app-v4.js
-          node --check public/assets/app-v4-remote.js
-          node --check public/assets/app-v4-ui.js
           node --check public/assets/app-v5.js
+          node --check public/assets/app-v6.js
+          node --check public/assets/app-v61.js
+          node --check public/assets/app-v7.js
           node --check public/sw.js
           node --check scripts/apply-android-branding.mjs
+          grep -q "CY_V7_SAVED_KEY" public/assets/app-v7.js
+          grep -q "CY_V7_HIDDEN_KEY" public/assets/app-v7.js
+          grep -q "networkFirst" public/sw.js
 
       - name: Install dependencies
         run: cd chungyack-apk && npm install --no-audit --no-fund
 
-      - name: Create and sync Android project
+      - name: Create stable Android shell
         run: |
           cd chungyack-apk
           npx cap add android
           npx cap sync android
           npm run android:brand
 
-      - name: Verify Android app shell and secure sync plugin
+      - name: Verify Android shell
+        shell: bash
         run: |
           cd chungyack-apk
-          test -s android/app/src/main/res/drawable/chungyack_icon_foreground.xml
-          test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
-          test -s android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-          test -s android/app/src/main/java/com/kimjae134679/chungyack/GitHubSyncPlugin.java
+          grep -q '청약 레이더' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
           grep -q '__CY_HANDLE_NATIVE_BACK__' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-          grep -q 'v050_native_cache_reset' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-          grep -q 'registerPlugin(GitHubSyncPlugin.class)' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-          grep -q '@CapacitorPlugin(name="GitHubSync")' android/app/src/main/java/com/kimjae134679/chungyack/GitHubSyncPlugin.java
-          grep -q 'AndroidKeyStore' android/app/src/main/java/com/kimjae134679/chungyack/GitHubSyncPlugin.java
-          grep -q 'api.github.com' android/app/src/main/java/com/kimjae134679/chungyack/GitHubSyncPlugin.java
-          grep -q 'setHorizontalScrollBarEnabled(false)' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-          grep -q '앱을 종료하시겠습니까' android/app/src/main/java/com/kimjae134679/chungyack/MainActivity.java
-          grep -q 'app-v5.js' android/app/src/main/assets/public/index.html
-          grep -q 'app-v5.css' android/app/src/main/assets/public/index.html
-          grep -q 'report-overrides.json' android/app/src/main/assets/public/assets/app-v5.js
-          grep -q '대형공고' android/app/src/main/assets/public/index.html
+          grep -q 'https://kimjae134679.github.io/stock/chungyack/' android/app/src/main/assets/capacitor.config.json
+          grep -q 'app-v7.js' android/app/src/main/assets/public/index.html
 
       - name: Restore persistent ChungYack signing key
         uses: actions/cache@v4
@@ -124,25 +101,22 @@ jobs:
           ./gradlew assembleDebug
 
       - name: Package APK
-        run: |
-          VERSION=$(tr -d '\r\n ' < chungyack-apk/VERSION)
-          cp chungyack-apk/android/app/build/outputs/apk/debug/app-debug.apk "ChungYack-Radar-v${VERSION}-debug.apk"
-          test -s "ChungYack-Radar-v${VERSION}-debug.apk"
+        shell: bash
+        run: cp chungyack-apk/android/app/build/outputs/apk/debug/app-debug.apk "ChungYack-Radar-Live-Shell-v${{ steps.ver.outputs.version }}.apk"
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: ChungYack-Radar-v0.5.0-debug-apk
-          path: ChungYack-Radar-v0.5.0-debug.apk
+          name: ChungYack-Radar-Live-Shell-v${{ steps.ver.outputs.version }}
+          path: ChungYack-Radar-Live-Shell-v${{ steps.ver.outputs.version }}.apk
           retention-days: 90
 
-      - name: Publish APK release
+      - name: Publish stable shell release
         if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
-          VERSION=$(tr -d '\r\n ' < chungyack-apk/VERSION)
-          TAG="chungyack-apk-v${VERSION}"
-          APK="ChungYack-Radar-v${VERSION}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 v${VERSION}" --notes "일반공고 시간순/추천순 정렬, 공고별 넘김 체크와 접힌 요약 표시/취소, 공식공고·신청·정확주소 지도 링크 보존, 종료시각이 없는 운영기관 공고의 별도 분리, 원격 report-overrides 적용을 추가했습니다. 선택적으로 private ChungYack 저장소에 넘김·정렬·추적 상태를 실시간 동기화할 수 있으며 GitHub token은 Android Keystore에 암호화 저장합니다."
+          TAG="chungyack-live-shell-v${{ steps.ver.outputs.version }}"
+          APK="ChungYack-Radar-Live-Shell-v${{ steps.ver.outputs.version }}.apk"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "청약 레이더 라이브 셸 v${{ steps.ver.outputs.version }}" --notes "한 번 설치하는 원격 HTML 셸입니다. 이후 HTML·공고 수정은 APK 재설치 없이 반영되고, 저장·숨김·신청추적 상태는 기기에 유지됩니다."
           gh release upload "$TAG" "$APK" --clobber

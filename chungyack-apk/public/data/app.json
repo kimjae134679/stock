@@ -1,40 +1,117 @@
 {
-  "version": "0.5.0",
-  "updatedAt": "2026-08-31T09:31:00+09:00",
+  "version": "0.8.0-live",
+  "updatedAt": "2026-09-03T02:16:00+09:00",
   "summary": {
-    "urgent": 6,
-    "catalog": 79,
-    "note": "일반 공고는 최신 보고 피드, 대형 통합공고는 전용 79개 단지·타입 비교 화면으로 분리"
+    "urgent": 3,
+    "catalog": 80,
+    "note": "공개 공고 데이터만 제공한다. 저장·숨김·신청추적 상태는 설치된 앱의 기기 로컬 저장소에만 보관하며 HTML 갱신으로 초기화하지 않는다."
   },
   "trackingSeed": [],
   "insights": [
-    {"matchName":"장지지구 송파파인타운","type":39,"competition":"45~90:1","confidence":"중간","label":"🔥 검토가치 높음","reason":"송파권 + 낮은 보증금 + 큰 모집물량으로 입지·가격·물량 균형이 좋음","warning":"이번 회차 공식 경쟁률 공개 전 과거사례 기반 추정","weight":100},
-    {"matchName":"오금지구 송파레미니스","type":39,"competition":"60~110:1","confidence":"중간","label":"🔥 검토가치 높음","reason":"송파 입지와 월세가 좋고 물량도 비교적 충분","warning":"동일 39㎡ 직접표본보다 유사사례 비중이 큼","weight":95},
-    {"matchName":"강동권역 강일지구 강일리버파크","type":39,"competition":"45~100:1","confidence":"중간","label":"🟢 물량·가격 강점","reason":"공급이 많고 보증금·월세가 낮아 가성비와 확률 측면에서 강함","warning":"집계 서비스 사이 공급 숫자 차이는 SH 원문으로 최종 확인","weight":88},
-    {"matchName":"고덕강일2지구 강동리버스트","type":29,"competition":"25~60:1","confidence":"낮음","label":"🟢 비용 강점","reason":"보증금 2천만원 안팎·월세 10만원대로 비용 부담이 낮음","warning":"29㎡ 공간 크기는 감수해야 함","weight":84},
-    {"matchName":"세곡지구 (강남신동아 外)","type":39,"competition":"100~160:1","confidence":"높음","label":"🔥 입지 상향지원","reason":"강남권 입지와 3천만원대 보증금이 매력적","warning":"2022 동일지구 39㎡ 실제 130.2:1 수준으로 경쟁이 높았음","weight":82},
-    {"matchName":"위례포레샤인 23단지","type":39,"competition":"70~130:1","confidence":"낮음","label":"🟢 입지 검토","reason":"송파·위례 입지와 물량이 장점","warning":"상위 저보증금 후보보다 보증금이 높음","weight":78},
-    {"matchName":"항동지구 항동하버라인","type":39,"competition":"25~60:1","confidence":"낮음","label":"🟢 확률형 검토","reason":"물량이 많고 예상 경쟁률이 상대적으로 낮은 편","warning":"강남·송파 선호 기준에서는 입지가 밀림","weight":75},
-    {"matchName":"고덕강일2지구 강동리버스트","type":39,"competition":"40~90:1","confidence":"낮음","label":"🟢 현실형 검토","reason":"39㎡ 물량과 가격이 현실적인 편","warning":"과거 강동권 경쟁률 편차가 큼","weight":73},
-    {"matchName":"마천지구 송파파크데일","type":39,"competition":"65~100:1","confidence":"높음","label":"🟢 소량 상향지원","reason":"송파 입지와 가격은 좋음","warning":"2023 동일지구 39㎡ 실제 79:1, 모집호수가 적어 변동 가능","weight":70},
-    {"matchName":"내곡지구 서초포레스타","type":39,"competition":"90~140:1","confidence":"높음","label":"🟠 예비 중심","reason":"서초 입지는 좋지만 빠른 입주보다 장기 대기 성격","warning":"과거 내곡39 92.5:1, 서초포레스타2 135.8:1 사례","weight":64},
-    {"matchName":"천왕지구 천왕이펜하우스","type":39,"competition":"55~80:1","confidence":"높음","label":"🟠 예비 중심","reason":"과거 경쟁률은 비교적 안정적","warning":"공가보다 예비 성격이 강한 후보","weight":61},
-    {"matchName":"우면2지구 서초네이처힐","type":39,"competition":"160~260:1","confidence":"높음","label":"🟠 입지 올인형","reason":"서초 입지는 매우 좋음","warning":"2023 동일지구 39㎡ 실제 238.17:1로 경쟁이 매우 높았음","weight":55}
+    {
+      "matchName": "장지지구 송파파인타운",
+      "type": 39,
+      "competition": "45~90:1",
+      "confidence": "중간",
+      "label": "🔥 검토가치 높음",
+      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
+      "warning": "SH 국민임대는 2026-09-01 사용자 판단으로 이번 회차 패스",
+      "weight": 100
+    },
+    {
+      "matchName": "오금지구 송파레미니스",
+      "type": 39,
+      "competition": "60~110:1",
+      "confidence": "중간",
+      "label": "과거 참고",
+      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
+      "warning": "현재 행동후보에서 사용하지 않음",
+      "weight": 95
+    },
+    {
+      "matchName": "강동권역 강일지구 강일리버파크",
+      "type": 39,
+      "competition": "45~100:1",
+      "confidence": "중간",
+      "label": "과거 참고",
+      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
+      "warning": "현재 행동후보에서 사용하지 않음",
+      "weight": 88
+    },
+    {
+      "matchName": "고덕강일2지구 강동리버스트",
+      "type": 29,
+      "competition": "25~60:1",
+      "confidence": "낮음",
+      "label": "과거 참고",
+      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
+      "warning": "현재 행동후보에서 사용하지 않음",
+      "weight": 84
+    },
+    {
+      "matchName": "세곡지구 (강남신동아 外)",
+      "type": 39,
+      "competition": "100~160:1",
+      "confidence": "높음",
+      "label": "과거 참고",
+      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
+      "warning": "현재 행동후보에서 사용하지 않음",
+      "weight": 82
+    }
   ],
   "history": [
-    {"year":"2022 1차","average":14.2,"detail":"2,138호 / 30,448건"},
-    {"year":"2023 1차","average":25.0,"detail":"전체 평균 약 25:1"},
-    {"year":"2024 1차","average":31.96,"detail":"재공급 1,060호 / 33,877건"}
+    {
+      "year": "2022 1차",
+      "average": 14.2,
+      "detail": "과거 SH 국민임대 비교 참고"
+    },
+    {
+      "year": "2023 1차",
+      "average": 25,
+      "detail": "과거 SH 국민임대 비교 참고"
+    },
+    {
+      "year": "2024 1차",
+      "average": 31.96,
+      "detail": "과거 SH 국민임대 비교 참고"
+    }
   ],
   "sources": [
-    {"label":"서울시 청년안심주택 모집공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/list.do?menuNo=400008"},
-    {"label":"LH청약플러스 임대주택 공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?cntntsId=&mi=1026"},
-    {"label":"한지붕협동조합 운영기관 모집공고","url":"https://www.xn--9r3bn6tz4i.kr/65"},
-    {"label":"2026 SH 국민임대 모집 정리","url":"https://jugeo.co.kr/announcements/a8258069-c10c-4bab-9a2c-2f5421972f9a"},
-    {"label":"2026 SH 공가·예비 분석","url":"https://donbrief.com/sh-gukmin-imdae-2026/"},
-    {"label":"2026 SH 단지별 임대조건 표","url":"https://dearmyhealths.com/서울/2026년-서울-국민임대주택-입주자모집-공고-총정리/"},
-    {"label":"2022 SH 국민임대 경쟁률 참고","url":"https://azmicx.tistory.com/2881"},
-    {"label":"2023 SH 국민임대 경쟁률 참고","url":"https://azmicx.tistory.com/m/4039"},
-    {"label":"2024 SH 국민임대 경쟁률 참고","url":"https://azmicx.tistory.com/m/4753"}
+    {
+      "label": "서울 청년몽땅정보통 SH 공공임대 목록",
+      "url": "https://youth.seoul.go.kr/api/sh/list.do?key=2309250014"
+    },
+    {
+      "label": "서울주거포털 행복주택 안내",
+      "url": "https://housing.seoul.go.kr/site/main/content/sh01_030500"
+    },
+    {
+      "label": "청년안심주택 세이지움 태릉입구역 2026-09-01 최초모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6645&menuNo=400008&optn1=2026-09-01"
+    },
+    {
+      "label": "LH 인천검단 AA19블록 국민임대 정정공고",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=07&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020607&uppAisTpCd=06"
+    },
+    {
+      "label": "LH 경기북부 2026년 3차 비분양전환형 든든전세 공식공고",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020553&uppAisTpCd=13"
+    },
+    {
+      "label": "LH 경기남부 26년 3차 청년 매입임대 공식공고",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"
+    },
+    {
+      "label": "LH 인천·부천 26년 6차 청년 매입임대 공식공고",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020630&uppAisTpCd=13"
+    },
+    {
+      "label": "금천구 청년 맞춤형주택 공식공고",
+      "url": "https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"
+    },
+    {
+      "label": "비바힐스강변 2026-08-27 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6644&menuNo=400008&optn1=2026-08-27"
+    }
   ]
 }

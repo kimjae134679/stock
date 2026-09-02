@@ -1,4 +1,4 @@
-name: Deploy Market Radar Pages
+name: Deploy Market Radar and ChungYack Pages
 
 on:
   push:
@@ -6,6 +6,8 @@ on:
     paths:
       - 'public/**'
       - 'VERSION'
+      - 'chungyack-apk/public/**'
+      - 'chungyack-apk/data-parts/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -28,14 +30,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Assemble combined Pages site
+        shell: bash
+        run: |
+          rm -rf _pages-site
+          mkdir -p _pages-site/chungyack/data
+          cp -a public/. _pages-site/
+          cp -a chungyack-apk/public/. _pages-site/chungyack/
+          cat chungyack-apk/data-parts/*.csv > _pages-site/chungyack/data/sh-2026.csv
+          test "$(wc -l < _pages-site/chungyack/data/sh-2026.csv)" -eq 80
+          node -e "const a=require('./_pages-site/chungyack/data/app.json');if(a.trackingSeed?.length)throw new Error('public trackingSeed must be empty');const c=require('./_pages-site/chungyack/data/hourly-report.json');if(c.groups?.some(g=>g.id==='already-applied'))throw new Error('private applied group must not be public');"
+          grep -q "chungyack.opportunity.hidden.v1" _pages-site/chungyack/assets/app-v7.js
+          grep -q "networkFirst" _pages-site/chungyack/sw.js
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload committed public site
+      - name: Upload combined site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: public
+          path: _pages-site
 
-      - name: Deploy committed dashboard
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

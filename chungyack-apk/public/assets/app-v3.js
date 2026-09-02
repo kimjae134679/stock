@@ -1,5 +1,5 @@
 // v0.3 usability/safety layer: backup+restore, undo removal, better native Back.
-const CY_APP_VERSION='0.3.0';
+const CY_APP_VERSION='0.6.1';
 const CY_TRASH_KEY='chungyack.tracking.trash.v1';
 function cyStatusIcon(status){return {'신청완료':'✅','결과확인 필요':'🎯','당첨':'🎯','예비':'✅','서류':'📄','계약':'🏠','입주예정':'🏠','입주완료':'🏠','취소/추적중단':'⏸'}[status]||'✅'}
 function cyTrash(){try{const x=JSON.parse(localStorage.getItem(CY_TRASH_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return[]}}

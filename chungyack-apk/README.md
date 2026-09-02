@@ -1,12 +1,24 @@
-# ChungYack Radar APK build mirror
+# ChungYack Radar live HTML + stable Android shell
 
-이 폴더는 `kimjae134679/ChungYack`의 Android APK를 GitHub Actions에서 빌드하기 위한 **공개·비개인정보 미러**다.
+이 폴더는 청약 레이더의 공개 라이브 화면과 한 번만 설치하는 Android 셸의 기준점이다.
 
-- 공개 가능한 SH 공고/주소/임대조건/경쟁률 참고 데이터만 포함한다.
-- `public/data/app.json`의 `trackingSeed`는 반드시 빈 배열이다.
-- 사용자가 앱에서 추가·수정하는 추적 정보는 Android WebView의 로컬 저장소에만 저장한다.
-- 29/39/46/49/59㎡를 강제 제외하지 않고 필터로 직접 켜고 끈다.
-- 추적 수정, 상태 변경, 제거/되돌리기, JSON 백업/복원을 지원한다.
-- `data-parts/*.csv`는 빌드 때 `public/data/sh-2026.csv`로 결합되며 총 79행이어야 한다.
+## 동작 구조
 
-공개 저장소에 개인 신청자 이름, 생년월일, 개인 순위/예비번호 등 개인 추적 데이터를 넣지 않는다.
+- 라이브 HTML: `https://kimjae134679.github.io/stock/chungyack/`
+- Android package: `com.kimjae134679.chungyack`
+- APK는 위 HTTPS 주소를 여는 고정 Capacitor WebView 셸이다.
+- `public/**` 변경은 GitHub Pages에만 배포되며 APK 재빌드를 발생시키지 않는다.
+- APK 재빌드는 셸 설정·Android 브랜딩·내부 버전을 바꿀 때만 수행한다.
+
+## 상태 보존
+
+저장, 숨김, 현재 보기, 필터, 실제 신청 추적, 삭제 복원 기록은 같은 원격 origin의 Android WebView `localStorage`에 남는다. HTML/CSS/JS/공고 데이터가 교체되어도 키를 삭제하거나 앱 데이터를 지우지 않는 한 유지된다.
+
+공개 배포본의 `public/data/app.json`은 `trackingSeed: []`이어야 한다. 개인 신청 상태·예비번호·결과·서류 여부를 Pages나 공개 저장소에 넣지 않는다.
+
+## 수정 규칙
+
+- UI와 공개 공고 데이터 수정: `chungyack-apk/public/**`
+- 셸 APK 수정: `capacitor.config.json`, `VERSION`, `package.json`, `scripts/apply-android-branding.mjs`
+- HTML 수정만으로 APK 버전을 올리거나 APK를 다시 만들지 않는다.
+- 저장/숨김 키와 공고의 안정적인 `id`를 임의 변경하지 않는다.
