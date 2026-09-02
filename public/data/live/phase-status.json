@@ -1,22 +1,21 @@
 {
-  "updated_at": "2026-09-02T22:05:11+09:00",
+  "updated_at": "2026-09-02T23:03:00+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "9월 1일 미국장은 Dow -0.79%, S&P 500 -0.71%, Nasdaq -1.03%로 마감했다. 9월 2일 미국 현물 개장 전에는 높은 장기금리 압력이 이어지는 가운데 Brent $94.08, WTI $89.50으로 장중 고점에서 일부 완화됐다. 새 현물 가격 신호 전이라 독립 Phase는 유지했다.",
+  "summary": "9월 2일 미국장은 개장 직후 Dow +0.12%, S&P 500 +0.04%, Nasdaq -0.02%로 혼조 출발했다. 미국 10년물은 약 4.8%로 높은 수준이고 유가는 Brent $94.08, WTI $89.50으로 장중 고점에서 일부 완화됐다. AI 인프라 강세 신호와 높은 금리 부담이 엇갈려 기존 독립 Phase는 유지했다.",
   "segments": [
-    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 현물 개장 뒤 breadth와 종가 흐름에서 매크로 압력이 실제 약세로 이어지는지 확인."},
-    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 높은 장기금리 속 Nasdaq·QQQ 상대강도가 회복되는지 확인."},
-    {"key":"semiconductor","name":"반도체","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? SOX 약세 이후 구조수요와 실제 가격 회복 신호를 분리해 확인."},
+    {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 개장 직후 혼조가 breadth와 종가까지 유지되는지 확인."},
+    {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 높은 장기금리 속 Nasdaq·QQQ 상대강도 회복이 이어지는지 확인."},
+    {"key":"semiconductor","name":"반도체","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? 전일 SOX 약세 뒤 실제 가격 회복과 AI 수요를 분리해 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? 개별 종목 충격과 구조수요를 분리해 회복 여부를 확인."},
     {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? 높은 할인율 환경에서도 상대강도가 유지되는지 확인."},
-    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? Dell의 AI 서버 수요는 구조수요 근거로 반영하되 장기금리와 에너지 비용 부담도 함께 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? Dell의 AI 서버 수요는 구조수요 근거로 반영하되 금리·에너지 비용 부담도 함께 확인."},
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세와 변동성, breadth, 장기금리가 함께 안정되는지 확인."}
   ],
   "sources": [
-    "Reuters 2026-09-01 Wall Street close: Dow 52,766.93 (-0.79%), S&P 500 7,631.47 (-0.71%), Nasdaq 26,099.77 (-1.03%)",
-    "Reuters 2026-09-01 Wall Street close: SOX -2.1%, every constituent lower; NYSE and Nasdaq decliners outnumbered advancers 2.8:1",
-    "Reuters 2026-09-02 Global Markets: US10Y 4.8182%, global risk-off remained elevated",
+    "Reuters 2026-09-02 Wall Street open: Dow 52,829.58 (+0.12%), S&P 500 7,634.58 (+0.04%), Nasdaq 26,094.004 (-0.02%)",
+    "Reuters 2026-09-02 Morning Bid: US10Y about 4.8%, highest since 2023",
     "Reuters 2026-09-02 Oil: Brent $94.08, WTI $89.50; intraday highs $97.04/$92.29",
-    "Reuters 2026-09-02 Dell premarket: shares nearly +10% after stronger AI-server demand and raised annual forecasts"
+    "Reuters 2026-09-02 Dell: nearly +10% premarket after stronger AI-server demand and raised annual forecasts"
   ],
-  "data_status": "2026-09-02 22:05:11 KST 검증 완료. Reuters 최신 확인에서 미국 10년물 4.8182%, Brent $94.08, WTI $89.50이다. 유가는 장중 고점에서 일부 완화됐지만 장기금리와 글로벌 위험회피 압력은 높다. 미국 현물 개장 전이라 기존 독립 Phase와 위험 점수는 유지했다. 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-02 23:03:00 KST 검증 완료. 미국 현물은 Dow +0.12%, S&P 500 +0.04%, Nasdaq -0.02%로 혼조 출발했다. 미국 10년물은 약 4.8%, Brent $94.08, WTI $89.50이다. 개장 직후만으로 기존 독립 Phase를 바꾸지 않았고 미확인 가격은 추정하지 않았다. 지정된 사이클·AI 알짜·market-daily·UI 파일은 수정하지 않음. 실제 주문 없음."
 }
