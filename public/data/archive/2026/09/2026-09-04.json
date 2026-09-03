@@ -1,0 +1,40 @@
+{
+  "date": "2026-09-04",
+  "timezone": "Asia/Seoul",
+  "updated_at": "2026-09-04T00:02:46+09:00",
+  "market_phase": "🟠 고점권 조정·내부 로테이션",
+  "summary": "미국장은 상승 출발과 breadth 개선을 보였지만 Broadcom 약세와 6주 고점권 유가가 남아 있다. 소프트웨어는 강세가 업종으로 확산됐고 다른 AI 세그먼트는 구조수요와 단기 가격신호를 분리해 본다.",
+  "segments": [
+    {"key":"us_market","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? breadth 개선이 중후반까지 유지되는지 확인."},
+    {"key":"nasdaq","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 반등이 상대강도 회복으로 이어지는지 확인."},
+    {"key":"semiconductor","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? Broadcom 단기 약세와 장기 AI 수요를 분리해 SOX·SMH 확산 여부를 확인."},
+    {"key":"network","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? 네트워크·광통신 가격 회복이 개별주를 넘어 확산되는지 확인."},
+    {"key":"software","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? Snowflake발 강세가 주요 소프트웨어 종목으로 계속 확산되는지 확인."},
+    {"key":"power","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? 구조수요와 높은 유가의 비용 부담을 함께 확인."},
+    {"key":"leveraged","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세·breadth·변동성과 장기금리 안정이 함께 나타나는지 확인."}
+  ],
+  "verified": {
+    "Dow_pct": 0.74,
+    "SP500_pct": 0.54,
+    "Nasdaq_pct": 0.61,
+    "NYSE_adv_decl_ratio": "3.33:1",
+    "Nasdaq_adv_decl_ratio": "2.36:1",
+    "Broadcom_pct": -5.26,
+    "Snowflake_pct": 25.17,
+    "ServiceNow_pct": 5.43,
+    "Salesforce_pct": 3.14,
+    "Adobe_pct": 3.62,
+    "Brent": 97.29,
+    "WTI": 93.04,
+    "Fed_Sep_hike_probability_pct": 48
+  },
+  "changes": [
+    {"time":"00:02","title":"새 KST 날짜 시작 · 독립 Phase 유지","detail":"Reuters 최신 확보 현물 스냅샷에서 미국 3대 지수와 breadth가 개선됐고 소프트웨어 강세가 업종으로 확산됐다. Broadcom은 약세였고 Brent·WTI는 6주 고점권이라 Phase 상향 없이 독립 평가를 유지했다."}
+  ],
+  "reference_sources": [
+    {"name":"Reuters 2026-09-03 Wall Street","url":"https://www.reuters.com/business/wall-st-futures-subdued-investors-weigh-earnings-oil-prices-2026-09-03/"},
+    {"name":"Reuters 2026-09-03 Snowflake","url":"https://www.reuters.com/business/snowflake-shares-surge-ai-demand-powers-growth-lifts-outlook-2026-09-03/"},
+    {"name":"Reuters 2026-09-03 Oil","url":"https://www.reuters.com/business/energy/oil-edges-down-investors-weigh-uncertainty-over-us-iran-strikes-2026-09-03/"}
+  ],
+  "data_status": "2026-09-04 00:02:46 KST 검증 완료. 더 최신 정확 미국 지수·SOX/SMH·미국 10년물 수치는 확보하지 못해 추정하지 않았다. 보호 대상 cycle-history/cycle-full/wave-cycles/compounder-returns/ai-gems/market-daily 및 HTML/JS/CSS/VERSION/handoff UI/롤백 기준은 수정하지 않음. 실제 주문 없음."
+}
