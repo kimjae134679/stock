@@ -1,10 +1,10 @@
 {
   "version": "0.8.0-live",
-  "updatedAt": "2026-09-04T06:20:28+09:00",
+  "updatedAt": "2026-09-04T07:19:45+09:00",
   "summary": {
     "urgent": 3,
-    "catalog": 13,
-    "note": "공개 공고 데이터만 제공한다. 저장·숨김·신청추적 상태는 설치된 앱의 기기 로컬 저장소에만 보관하며 HTML 갱신으로 초기화하지 않는다. 2026-09-04 06:20 KST 기준 공식 일정 재검증 결과를 라이브 데이터에 동기화했다. 새 공식 모집 추가나 일정 정정은 확인되지 않았다. 왕십리역 라봄성동은 오늘 10:00 접수 시작 전이며 약 3시간 40분 후 시작, 아차산역 백악관타워는 9월 5일 00:00 접수 시작 전이다. 화랑대역 에이트플레이스는 금회 신혼 39A/B/C 예비자 모집으로 확인되어 청년 활성 후보에서는 제외한다. SH 2026년 국민임대와 인천권 및 사용자 확정 패스 공고는 활성 추천에서 제외한다. 개인 추적 데이터는 공개 파일에 포함하지 않는다."
+    "catalog": 14,
+    "note": "공개 공고 데이터만 제공한다. 저장·숨김·신청추적 상태는 설치된 앱의 기기 로컬 저장소에만 보관하며 HTML 갱신으로 초기화하지 않는다. 2026-09-04 07:19 KST 기준 공식 일정 재검증 결과를 라이브 데이터에 동기화했다. 새 공식 모집 추가나 일정 정정은 확인되지 않았다. 왕십리역 라봄성동은 오늘 10:00 접수 시작 전이며 약 2시간 41분 후 시작, 아차산역 백악관타워는 9월 5일 00:00 접수 시작 전이다. 시간별 보고에 있던 파주시 2026년 파인(FINE)주택 매입형을 공식 파주시 고시·공고로 재확인해 추천 카드 원장에도 추가했다. 화랑대역 에이트플레이스는 금회 신혼 39A/B/C 예비자 모집으로 확인되어 청년 활성 후보에서는 제외한다. SH 2026년 국민임대와 인천권 및 사용자 확정 패스 공고는 활성 추천에서 제외한다. 개인 추적 데이터는 공개 파일에 포함하지 않는다."
   },
   "trackingSeed": [],
   "insights": [
@@ -27,6 +27,7 @@
     {"label":"개봉역 세이지움 개봉 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6651&menuNo=400008&optn1=2026-09-03"},
     {"label":"신논현역 List 강남 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6649&menuNo=400008&optn1=2026-09-03"},
     {"label":"LH 경기남부 26년 3차 청년 매입임대 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"},
+    {"label":"파주시 2026년 파인(FINE)주택 매입형 공식 고시·공고","url":"https://dong.paju.go.kr/dong/user/board/BD_board.list.do?bbsCd=1022&delDesc=&pageType=&q_ctgCd=4063&q_currPage=4&q_parentCtgCd=&q_rowPerPage=10&q_searchKeyType=&q_searchVal=&q_sortName=&q_sortOrder=&seq=20181010180046180&showSummaryYn=N"},
     {"label":"금천구 청년 맞춤형주택 공식공고","url":"https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"}
   ]
 }
