@@ -1,10 +1,10 @@
 {
   "version": "0.8.0-live",
-  "updatedAt": "2026-09-04T02:16:18+09:00",
+  "updatedAt": "2026-09-04T03:19:24+09:00",
   "summary": {
     "urgent": 3,
     "catalog": 13,
-    "note": "공개 공고 데이터만 제공한다. 저장·숨김·신청추적 상태는 설치된 앱의 기기 로컬 저장소에만 보관하며 HTML 갱신으로 초기화하지 않는다. 2026-09-04 02:16 KST 기준 공식 일정 재검증 결과를 라이브 데이터에 동기화했다. 왕십리역 라봄성동은 오늘 10:00 접수 시작 전, 아차산역 백악관타워는 9월 5일 00:00 접수 시작 전이며 개인 추적 데이터는 공개 파일에 포함하지 않는다."
+    "note": "공개 공고 데이터만 제공한다. 저장·숨김·신청추적 상태는 설치된 앱의 기기 로컬 저장소에만 보관하며 HTML 갱신으로 초기화하지 않는다. 2026-09-04 03:19 KST 기준 공식 일정 재검증 결과를 라이브 데이터에 동기화했다. 왕십리역 라봄성동은 오늘 10:00 접수 시작 전, 아차산역 백악관타워는 9월 5일 00:00 접수 시작 전이다. 화랑대역 에이트플레이스는 공식 첨부 PDF상 금회 신혼 39A/B/C 예비자 모집으로 재확인되어 청년 단독 활성 후보에서 제외한다. 개인 추적 데이터는 공개 파일에 포함하지 않는다."
   },
   "trackingSeed": [],
   "insights": [
@@ -20,6 +20,7 @@
     {"label":"서울시 청년안심주택 모집공고","url":"https://soco.seoul.go.kr/youth/main/main.do"},
     {"label":"왕십리역 라봄성동 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6648&menuNo=400008&optn1=2026-09-03"},
     {"label":"아차산역 백악관타워 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6650&menuNo=400008&optn1=2026-09-03"},
+    {"label":"화랑대역 에이트플레이스 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6647&menuNo=400008&optn1=2026-09-03"},
     {"label":"천호역 천호한강청년주택 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6653&menuNo=400008&optn1=2026-09-03"},
     {"label":"등촌역 아르체움 등촌 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6652&menuNo=400008&optn1=2026-09-03"},
     {"label":"동묘앞역 청계로벤하임 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6646&menuNo=400008&optn1=2026-09-03"},
