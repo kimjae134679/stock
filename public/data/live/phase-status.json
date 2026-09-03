@@ -1,20 +1,21 @@
 {
-  "updated_at": "2026-09-03T21:01:39+09:00",
+  "updated_at": "2026-09-03T22:05:36+09:00",
   "market_phase": "🟠 고점권 조정·내부 로테이션",
-  "summary": "미국 현물 개장 전 지수 선물은 대체로 보합권이다. 유가는 장중 Brent $97.39·WTI $92.92의 6주 고점을 기록한 뒤 Reuters 글로벌 보도에서 Brent $94.57까지 되밀려 변동성이 커졌고, 국채금리는 최근 고점에서 완화돼 독립 Phase는 유지한다.",
+  "summary": "미국 개장 직전 고용지표는 큰 방향 전환 신호를 주지 않았다. 신규 실업수당 청구는 20.6만건으로 예상 20.5만건에 근접했고, 유가는 6주 고점권 변동성을 유지해 독립 Phase는 유지한다.",
   "segments": [
     {"key":"us_market","name":"미국 전체시장","phase":"🟠 고점권 조정 · 매크로 압력","action":"그래서 지금은? 개장 후 breadth와 유가 재상승 여부를 함께 확인."},
     {"key":"nasdaq","name":"Nasdaq·성장주","phase":"🔴 금리민감 약세 · 상대압력 확대","action":"그래서 지금은? 금리 완화가 현물 상대강도 회복으로 이어지는지 확인."},
     {"key":"semiconductor","name":"반도체","phase":"🔴 구조수요 유지 · 가격압력 확대","action":"그래서 지금은? Broadcom 약세와 AI 수요 근거를 분리하고 SOX·SMH 확산 여부를 확인."},
     {"key":"network","name":"AI 네트워크·광통신","phase":"🔴 과열/분배 이후 급락 · 종목분화","action":"그래서 지금은? Broadcom 네트워킹·커스텀칩 수요와 개별 가격 회복을 분리해 확인."},
     {"key":"software","name":"AI 소프트웨어·클라우드","phase":"🟠 실적 민감·금리 부담","action":"그래서 지금은? Snowflake 강세가 CRM·IGV·NOW·ADBE·ORCL로 확산되는지 확인."},
-    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? 구조수요는 유지하되 유가 급등 변동성이 비용·자금조달 부담으로 이어지는지 확인."},
+    {"key":"power","name":"AI 전력·데이터센터","phase":"🟡 구조성장·조정 · 비용민감","action":"그래서 지금은? 구조수요는 유지하되 높은 유가가 비용·자금조달 부담으로 이어지는지 확인."},
     {"key":"leveraged","name":"TQQQ·SOXL 등 레버리지","phase":"🔴 고위험·추세훼손","action":"그래서 지금은? 기초지수 추세·breadth·변동성과 장기금리 안정이 함께 나타나는지 확인."}
   ],
   "sources": [
-    "Reuters 2026-09-03 Wall Street premarket: U.S. index futures subdued/near flat; Broadcom premarket -2.82%, Snowflake +24%+",
-    "Reuters 2026-09-03 Oil: Brent intraday high $97.39, WTI $92.92, fresh six-week highs",
-    "Reuters 2026-09-03 Global Markets: Brent later $94.57; U.S. benchmark yields declined from recent highs; September Fed hike probability about 60%"
+    "Reuters 2026-09-03 U.S. weekly jobless claims: initial claims 206,000 vs Reuters poll 205,000; labor market showed no material shift",
+    "Reuters 2026-09-03 Wall Street premarket: U.S. index futures largely static; Broadcom weak and Snowflake strong",
+    "Reuters 2026-09-03 Oil: Brent $97.29 and WTI $93.04 in latest retrieved six-week-high snapshot",
+    "Reuters 2026-09-03 Morning Bid: U.S. Treasury yields eased from multi-year highs"
   ],
-  "data_status": "2026-09-03 21:01:39 KST 검증 완료. Reuters 9월 3일 최신 보도에서 미국 지수 선물은 보합권, Broadcom 프리마켓 -2.82%, Snowflake +24% 이상을 확인했다. 유가는 장중 Brent $97.39·WTI $92.92의 6주 고점을 기록했으나 이후 Reuters 글로벌시장 보도에서는 Brent $94.57로 되밀렸다. 미국 국채 수익률은 최근 고점에서 완화됐고 9월 Fed 인상확률은 약 60%다. 미국 현물 개장 전이므로 독립 Phase와 위험 점수는 유지했다. 지정된 사이클·AI 알짜·market-daily·UI·롤백 파일은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-03 22:05:36 KST 검증 완료. Reuters 9월 3일 최신 고용 보도에서 신규 실업수당 청구 206,000건(예상 205,000건)을 확인했고 노동시장에 큰 변화 신호는 없었다. 미국 개장 전 선물은 큰 방향성이 없고 Broadcom 약세·Snowflake 강세가 엇갈린다. 유가는 최신 Reuters 스냅샷에서 Brent $97.29·WTI $93.04로 6주 고점권이며 국채금리는 최근 고점에서 완화됐다. 현물 breadth 확인 전이므로 각 독립 Phase와 위험 점수는 유지했다. 지정된 사이클·AI 알짜·market-daily·UI·롤백 파일은 수정하지 않음. 실제 주문 없음."
 }
