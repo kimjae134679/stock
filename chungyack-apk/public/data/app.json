@@ -1,117 +1,31 @@
 {
   "version": "0.8.0-live",
-  "updatedAt": "2026-09-03T02:16:00+09:00",
+  "updatedAt": "2026-09-04T00:33:00+09:00",
   "summary": {
     "urgent": 3,
-    "catalog": 80,
-    "note": "공개 공고 데이터만 제공한다. 저장·숨김·신청추적 상태는 설치된 앱의 기기 로컬 저장소에만 보관하며 HTML 갱신으로 초기화하지 않는다."
+    "catalog": 13,
+    "note": "공개 공고 데이터만 제공한다. 저장·숨김·신청추적 상태는 설치된 앱의 기기 로컬 저장소에만 보관하며 HTML 갱신으로 초기화하지 않는다. 2026-09-04 00:33 KST 라이브 데이터와 일정 그룹을 최신 공식 공고 기준으로 동기화했다."
   },
   "trackingSeed": [],
   "insights": [
-    {
-      "matchName": "장지지구 송파파인타운",
-      "type": 39,
-      "competition": "45~90:1",
-      "confidence": "중간",
-      "label": "🔥 검토가치 높음",
-      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
-      "warning": "SH 국민임대는 2026-09-01 사용자 판단으로 이번 회차 패스",
-      "weight": 100
-    },
-    {
-      "matchName": "오금지구 송파레미니스",
-      "type": 39,
-      "competition": "60~110:1",
-      "confidence": "중간",
-      "label": "과거 참고",
-      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
-      "warning": "현재 행동후보에서 사용하지 않음",
-      "weight": 95
-    },
-    {
-      "matchName": "강동권역 강일지구 강일리버파크",
-      "type": 39,
-      "competition": "45~100:1",
-      "confidence": "중간",
-      "label": "과거 참고",
-      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
-      "warning": "현재 행동후보에서 사용하지 않음",
-      "weight": 88
-    },
-    {
-      "matchName": "고덕강일2지구 강동리버스트",
-      "type": 29,
-      "competition": "25~60:1",
-      "confidence": "낮음",
-      "label": "과거 참고",
-      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
-      "warning": "현재 행동후보에서 사용하지 않음",
-      "weight": 84
-    },
-    {
-      "matchName": "세곡지구 (강남신동아 外)",
-      "type": 39,
-      "competition": "100~160:1",
-      "confidence": "높음",
-      "label": "과거 참고",
-      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
-      "warning": "현재 행동후보에서 사용하지 않음",
-      "weight": 82
-    }
+    {"matchName":"장지지구 송파파인타운","type":39,"competition":"45~90:1","confidence":"중간","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"SH 국민임대는 이번 회차 패스","weight":100},
+    {"matchName":"오금지구 송파레미니스","type":39,"competition":"60~110:1","confidence":"중간","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"현재 행동후보에서 사용하지 않음","weight":95}
   ],
   "history": [
-    {
-      "year": "2022 1차",
-      "average": 14.2,
-      "detail": "과거 SH 국민임대 비교 참고"
-    },
-    {
-      "year": "2023 1차",
-      "average": 25,
-      "detail": "과거 SH 국민임대 비교 참고"
-    },
-    {
-      "year": "2024 1차",
-      "average": 31.96,
-      "detail": "과거 SH 국민임대 비교 참고"
-    }
+    {"year":"2022 1차","average":14.2,"detail":"과거 SH 국민임대 비교 참고"},
+    {"year":"2023 1차","average":25.0,"detail":"과거 SH 국민임대 비교 참고"},
+    {"year":"2024 1차","average":31.96,"detail":"과거 SH 국민임대 비교 참고"}
   ],
   "sources": [
-    {
-      "label": "서울 청년몽땅정보통 SH 공공임대 목록",
-      "url": "https://youth.seoul.go.kr/api/sh/list.do?key=2309250014"
-    },
-    {
-      "label": "서울주거포털 행복주택 안내",
-      "url": "https://housing.seoul.go.kr/site/main/content/sh01_030500"
-    },
-    {
-      "label": "청년안심주택 세이지움 태릉입구역 2026-09-01 최초모집 공식공고",
-      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6645&menuNo=400008&optn1=2026-09-01"
-    },
-    {
-      "label": "LH 인천검단 AA19블록 국민임대 정정공고",
-      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=07&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020607&uppAisTpCd=06"
-    },
-    {
-      "label": "LH 경기북부 2026년 3차 비분양전환형 든든전세 공식공고",
-      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020553&uppAisTpCd=13"
-    },
-    {
-      "label": "LH 경기남부 26년 3차 청년 매입임대 공식공고",
-      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"
-    },
-    {
-      "label": "LH 인천·부천 26년 6차 청년 매입임대 공식공고",
-      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020630&uppAisTpCd=13"
-    },
-    {
-      "label": "금천구 청년 맞춤형주택 공식공고",
-      "url": "https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"
-    },
-    {
-      "label": "비바힐스강변 2026-08-27 추가모집 공식공고",
-      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6644&menuNo=400008&optn1=2026-08-27"
-    }
+    {"label":"서울시 청년안심주택 모집공고","url":"https://soco.seoul.go.kr/youth/main/main.do"},
+    {"label":"왕십리역 라봄성동 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6648&menuNo=400008&optn1=2026-09-03"},
+    {"label":"아차산역 백악관타워 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6650&menuNo=400008&optn1=2026-09-03"},
+    {"label":"천호역 천호한강청년주택 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6653&menuNo=400008&optn1=2026-09-03"},
+    {"label":"등촌역 아르체움 등촌 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6652&menuNo=400008&optn1=2026-09-03"},
+    {"label":"동묘앞역 청계로벤하임 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6646&menuNo=400008&optn1=2026-09-03"},
+    {"label":"개봉역 세이지움 개봉 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6651&menuNo=400008&optn1=2026-09-03"},
+    {"label":"신논현역 List 강남 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6649&menuNo=400008&optn1=2026-09-03"},
+    {"label":"LH 경기남부 26년 3차 청년 매입임대 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"},
+    {"label":"금천구 청년 맞춤형주택 공식공고","url":"https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"}
   ]
 }
