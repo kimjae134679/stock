@@ -6,43 +6,24 @@
     {
       "time": "00:02",
       "market": {"buy_timing":37,"risk":85,"bottom":16,"top_risk":90,"trend":28},
-      "indexes": {
-        "Dow": null,
-        "Dow_pct": 0.74,
-        "SP500": null,
-        "SP500_pct": 0.54,
-        "Nasdaq": null,
-        "Nasdaq_pct": 0.61,
-        "snapshot": "Reuters 2026-09-03 09:34 ET latest exact U.S. percentage snapshot available in this run; exact index levels were not inserted because they were not provided in the retrieved report"
-      },
-      "theme": {
-        "software_note": "Snowflake +25.17%, ServiceNow +5.43%, Salesforce +3.14%, Adobe +3.62%; software strength broadened beyond one stock in the latest verified snapshot",
-        "semiconductor_note": "Broadcom -5.26% while long-term AI demand signals remain strong; independent semiconductor pressure Phase retained",
-        "network_note": "Broadcom weakness keeps network/optical price confirmation cautious despite structural AI networking demand"
-      },
-      "breadth": {
-        "NYSE_adv_decl_ratio": "3.33:1",
-        "Nasdaq_adv_decl_ratio": "2.36:1",
-        "note": "Reuters 09:34 ET breadth was positive; no newer exact breadth snapshot was verified and none was estimated"
-      },
-      "macro": {
-        "Brent": 97.29,
-        "WTI": 93.04,
-        "Fed_Sep_hike_probability_pct": 48,
-        "Treasury_10Y_note": "No newer exact U.S. 10-year yield print was verified in this run; not estimated",
-        "macro_note": "Reuters oil report confirmed six-week highs in Brent and WTI. Elevated energy prices remain a macro pressure despite improved equity breadth."
-      },
+      "indexes": {"Dow":null,"Dow_pct":0.74,"SP500":null,"SP500_pct":0.54,"Nasdaq":null,"Nasdaq_pct":0.61,"snapshot":"Reuters 2026-09-03 09:34 ET latest exact U.S. percentage snapshot available in this run; exact index levels were not inserted because they were not provided in the retrieved report"},
+      "theme": {"software_note":"Snowflake +25.17%, ServiceNow +5.43%, Salesforce +3.14%, Adobe +3.62%; software strength broadened beyond one stock in the latest verified snapshot","semiconductor_note":"Broadcom -5.26% while long-term AI demand signals remain strong; independent semiconductor pressure Phase retained","network_note":"Broadcom weakness keeps network/optical price confirmation cautious despite structural AI networking demand"},
+      "breadth": {"NYSE_adv_decl_ratio":"3.33:1","Nasdaq_adv_decl_ratio":"2.36:1","note":"Reuters 09:34 ET breadth was positive; no newer exact breadth snapshot was verified and none was estimated"},
+      "macro": {"Brent":97.29,"WTI":93.04,"Fed_Sep_hike_probability_pct":48,"Treasury_10Y_note":"No newer exact U.S. 10-year yield print was verified in this run; not estimated","macro_note":"Reuters oil report confirmed six-week highs in Brent and WTI. Elevated energy prices remain a macro pressure despite improved equity breadth."},
       "context": "미국장은 장초반 3대 지수와 breadth가 개선됐고 소프트웨어 강세가 업종으로 확산됐다. 반면 Broadcom 약세와 6주 고점권 유가가 남아 있어 시장 전체·Nasdaq·반도체·네트워크·소프트웨어·전력·레버리지를 각각 독립 평가하며 기존 Phase를 유지한다.",
-      "actions": [
-        "그래서 지금은? 미국 전체와 Nasdaq은 breadth 개선이 중후반까지 유지되는지 확인.",
-        "그래서 지금은? 반도체·네트워크는 Broadcom 약세와 장기 AI 수요를 분리해 SOX·SMH 확산 여부를 확인.",
-        "그래서 지금은? 소프트웨어·AI 전력은 업종 확산과 높은 유가의 비용 부담을 함께 확인."
-      ],
-      "sources": [
-        "Reuters 2026-09-03 Wall Street 09:34 ET",
-        "Reuters 2026-09-03 Snowflake/software",
-        "Reuters 2026-09-03 Oil 12:00 GMT"
-      ]
+      "actions": ["그래서 지금은? 미국 전체와 Nasdaq은 breadth 개선이 중후반까지 유지되는지 확인.","그래서 지금은? 반도체·네트워크는 Broadcom 약세와 장기 AI 수요를 분리해 SOX·SMH 확산 여부를 확인.","그래서 지금은? 소프트웨어·AI 전력은 업종 확산과 높은 유가의 비용 부담을 함께 확인."],
+      "sources": ["Reuters 2026-09-03 Wall Street 09:34 ET","Reuters 2026-09-03 Snowflake/software","Reuters 2026-09-03 Oil 12:00 GMT"]
+    },
+    {
+      "time": "00:56",
+      "market": {"buy_timing":37,"risk":85,"bottom":16,"top_risk":90,"trend":28},
+      "indexes": {"Dow":null,"Dow_pct":0.74,"SP500":null,"SP500_pct":0.54,"Nasdaq":null,"Nasdaq_pct":0.61,"snapshot":"No newer exact broad-market percentage snapshot was verified; prior Reuters 09:34 ET values retained without estimation"},
+      "theme": {"software_note":"Snowflake-led software breadth remains the latest verified positive sector signal","semiconductor_note":"Nvidia announced a $12.93B Hugging Face acquisition, strengthening structural AI platform demand evidence; no newer verified SOX/SMH price snapshot, so semiconductor Phase unchanged","network_note":"Broadcom short-term weakness remains separate from long-term AI networking demand; no newer verified network/optical breadth"},
+      "breadth": {"NYSE_adv_decl_ratio":"3.33:1","Nasdaq_adv_decl_ratio":"2.36:1","note":"No newer exact breadth snapshot verified; prior Reuters 09:34 ET values retained"},
+      "macro": {"Brent":97.29,"WTI":93.04,"Fed_Sep_hike_probability_pct":48,"Treasury_10Y_note":"No newer exact U.S. 10-year yield print verified; not estimated","macro_note":"No newer exact oil print was used; previously verified six-week-high oil levels remain the current confirmed reference"},
+      "context": "Nvidia의 Hugging Face 인수 발표는 AI 플랫폼·컴퓨트 구조수요 근거를 보강하지만, 더 최신 지수·breadth·SOX/SMH 확정 가격이 없어 가격 Phase는 유지한다.",
+      "actions": ["그래서 지금은? 미국 전체와 Nasdaq은 더 최신 breadth·상대강도 확인 전 기존 Phase를 유지.","그래서 지금은? 반도체·네트워크는 Nvidia의 구조수요 신호와 실제 ETF·구성종목 가격 확산을 분리해 확인.","그래서 지금은? 소프트웨어·AI 전력은 기존 강세 확산과 유가·금리 부담의 균형을 확인."],
+      "sources": ["Reuters 2026-09-03 Wall Street 09:34 ET","Reuters 2026-09-03 Nvidia/Hugging Face","Reuters 2026-09-03 Snowflake/software","Reuters 2026-09-03 Oil"]
     }
   ]
 }
