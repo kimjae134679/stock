@@ -1,137 +1,125 @@
 # Market Radar 운영 인수인계 — CURRENT
 
-기준 서비스 UI: **v0.5.6 / MR056**  
-기준일: **2026-08-24 KST**  
+기준 서비스 UI: **v0.5.8 / MR058**  
+기준일: **2026-09-03 KST**  
 저장소: `kimjae134679/stock` (Public)
 
-## 0. 현재 결정
-v0.5.6은 v0.5.5의 정상 사이클 기능을 삭제하지 않고 두 가지를 additive enhancement로 추가한다.
-1. **주식/사이클 비교 그래프를 다시 검정 배경 + 기존 표기 방식으로 복원**한다.
-2. **AI 알짜 추적 후보 · 국내/해외** 섹션을 테마 바로 아래에 추가한다.
+## 0. 현재 상태
+현재 라이브 UI는 v0.5.8이다.
+- `public/app-live.html` → `public/reports/stable-v058.html`
+- `public/index.html` → app-live → v0.5.8
+- `VERSION` → `0.5.8`
+- `package.json`도 `0.5.8`로 맞춘다.
 
-현재 라이브 진입:
-- `public/app-live.html` → `public/reports/stable-v056.html`
-- `public/reports/latest.html` → `public/reports/stable-v056.html`
-- `public/index.html` → app-live → v0.5.6
+v0.5.8 핵심은 사용자가 지적한 **“현재 위치가 그래프 맨 오른쪽 끝이라 과거 사례의 다음 경로를 비교할 수 없음”** 문제를 해결한 것이다.
 
-## 1. 사이클 영역 절대 유지사항
-아래 3개는 동시에 유지한다.
-1. `실제 사이클 비교 · 캔들 기준`: 실제 OHLC 캔들 + 5/20/60일선 + 거래량 + 현재 경로.
-2. `과거 사이클 겹쳐 비교`: 여러 실제 과거 경로 색 선 + 굵은 연두 현재선.
-3. `현재 vs 과거 1대1 비교`: #1, #2… 과거 구간과 현재를 둘만 놓는 pair 카드.
+## 1. 사이클 비교 v0.5.8 절대 규칙
+1. 초록색 현재 실제 경로는 실제 현재 날짜에서 정확히 종료한다.
+2. 현재 위치는 굵은 세로선 + 초록 점 + `현재 위치` 라벨로 표시한다.
+3. 현재 위치 오른쪽에는 선정된 과거 유사사례가 그 대응 시점 이후 실제로 움직였던 **126거래일(약 6개월)**을 표시한다.
+4. 오른쪽에는 `+1개월 / +3개월 / +6개월` 기준선과 과거 사례의 실제 후속 수익률을 표시한다.
+5. 오른쪽 음영은 예측값이 아니며, 과거의 실제 사후 경로다.
+6. 후보 선정과 구조 점수 계산에는 현재 대응 시점 이후의 과거 데이터가 절대 들어가지 않는다. 후속 126거래일의 가격·고점·저점·수익률은 점수에 **0% 사용**한다.
+7. 현재 실제 데이터에 가짜 미래값을 생성하지 않는다.
+8. 과거 경로의 실제 거래일 간격을 유지하고 시간축을 억지로 늘이거나 줄이지 않는다.
+9. 과거 후속 결과가 126거래일 존재하는지 여부만 표시 가능성 필터로 사용할 수 있으며, 그 구간의 수익률/방향은 후보 선택에 사용하지 않는다.
 
-v0.5.6 색상 규칙:
-- `.v54-chartbox`, `.v54-svg`, `.v51c-zoom`은 검정/짙은 남흑 배경을 유지한다.
-- 상승 캔들 빨강, 하락 캔들 파랑, 5/20/60일선과 현재선 색 구분 유지.
-- 축/날짜/변곡점 글씨는 기존처럼 작고 읽기 쉽게 표시한다. 차트 내부 고봉밥 금지.
-- 종횡비 강제 왜곡 금지. `preserveAspectRatio="none"` 금지.
+## 2. 표시 기간 / 가독성
+- 한 카드 전체: 약 `504거래일` = 대략 2년.
+- 현재 위치 오른쪽 과거 후속 구간: `126거래일` = 약 6개월.
+- 날짜는 전 거래일을 텍스트로 다 쓰지 않고 축 라벨을 샘플링하되, 실제 일별 캔들 데이터는 충분히 유지한다.
+- 검정/짙은 남흑 배경 유지.
+- 상승 캔들 빨강, 하락 캔들 파랑, 현재 경로 굵은 연두색.
+- 모바일에서 현재 위치/축/날짜가 보이도록 글씨를 크게 유지한다.
+- `preserveAspectRatio="none"`으로 차트를 강제 왜곡하지 않는다.
 
-## 2. AI 알짜 추적 후보
-데이터: `public/data/ai-gems.json`  
-렌더/복구: `public/assets/app-v56-enhance.js`  
-스타일: `public/assets/app-v56.css`
+## 3. 구조 점수
+후보는 `analog_anchors` 기반으로 선택한다.
+- 직전 상승: 30점
+- 직전 하락: 40점
+- 현재 반등 초반 경로: 30점
 
-원칙:
-- 이름은 **`AI 알짜 추적 후보 · 국내/해외`**.
-- 매수 추천 목록이 아니다. AI CAPEX와 실제 사업 연결이 비교적 분명한 후보를 추적한다.
-- 컴퓨트·메모리 / 네트워크·인터커넥트 / 전력·그리드·냉각 / 플랫폼·클라우드로 구분한다.
-- 각 카드에 국내/해외, 티커, 이름, `핵심/관찰+/관찰`, 포함 이유, 체크할 리스크를 표시한다.
-- 첫 화면은 핵심 후보 위주, 나머지는 `2순위·고베타 후보 더 보기` details로 보존한다.
-- `전부 / 해외 / 국내` 필터 정상 동작.
-- 카드 클릭 시 기존 ticker modal을 그대로 사용하고, 한국 숫자 티커는 TradingView `KRX:6자리`로 연다.
-- 국내/해외 정보량은 동일하게 제공한다.
+현재 이후 과거 126거래일은 이 100점 어디에도 들어가지 않는다.
+`data-score-lookahead="0"` 계약을 QA에서 검사한다.
 
-현재 큐레이션 예시:
-- 해외 컴퓨트/메모리: NVDA, AVGO, TSM, MU
-- 해외 네트워크: ANET, CRDO, ALAB, MRVL
-- 해외 전력/데이터센터: VRT, ETN, PWR, GEV, CEG, POWL, NVT, FIX
-- 해외 플랫폼: MSFT, GOOGL, AMZN, META, PLTR
-- 국내 AI/HBM: SK하이닉스, 삼성전자, 한미반도체, ISC
-- 국내 네트워크: 이수페타시스
-- 국내 전력: HD현대일렉트릭, LS ELECTRIC, 효성중공업, 두산에너빌리티, 산일전기, 일진전기
-- 국내 플랫폼: NAVER, 삼성SDS
-
-큐레이션은 수주/실적/시장지위가 바뀌면 수동 검토로 조정한다. 매시간 시장 자동화가 이 파일을 덮어쓰면 안 된다.
-
-## 3. 롤백/백업 기준
-- 비상 Known-Good: `public/reports/stable-v042-baseline.html` / MR042.
-- 추가 Known-Good: `public/reports/stable-v051-baseline.html` 및 branch `backup/v0.5.1-known-good`.
-- v0.5.5는 `public/reports/stable-v055.html`로 그대로 보존한다.
-- 과거 버전 파일과 데이터셋을 삭제하지 않는다.
-- baseline 파일 자체는 수정하지 않는다.
-
-## 4. 반드시 유지할 공통 동작
-- 전체 대시보드가 중간에서 끊기거나 거대한 빈칸을 만들지 않는다.
-- 로딩 완료 뒤 `#loadWrap` 전체가 사라져 빈 공간이 남지 않는다.
-- 접기/펼치기 정상 동작.
-- ticker/theme 클릭 시 상세 modal.
-- modal 열린 상태 Android/browser Back → modal 닫기.
-- root Back → `앱을 종료하시겠습니까?` 확인 후 명시적 종료만 앱 종료.
-- modal 끝에서 background scroll lock.
-- PC/모바일 같은 정보 제공.
-- 자체 `1시간/일봉/주봉/월봉` 버튼 복원 금지.
-- 새 기능을 넣을 때 기존 정상 기능을 삭제하지 않는다.
-
-## 5. 사이클 비교 원칙
-- 단순 최근 반등만 보고 장기 상승장으로 단정하지 않는다.
-- 최근 큰 상승/하락 문맥을 포함해 현재 위치를 본다.
-- 과거 역사 경로는 실제 데이터와 실제 거래일 흐름을 유지한다.
-- 과거를 억지 0~100 정규화해서 현재에 맞추지 않는다.
-- 현재 경로와 과거 경로를 겹쳐 비교하는 시각화와 1대1 비교를 동시에 제공한다.
-- 과거 유사도/평균은 미래 고점·저점 날짜 예측으로 표현하지 않는다.
-
-## 6. 데이터/시장평가 규칙
-- 시장 전체 하나의 Phase를 모든 자산에 강제하지 않는다.
-- 미국 전체시장, Nasdaq/성장, 반도체, AI 네트워크/광통신, AI SW/클라우드, AI 전력/데이터센터, 레버리지, 주요 테마/종목을 독립 평가한다.
-- 모든 평가에는 `그래서 지금은?` 행동 코멘트를 둔다.
-- UI 문장은 짧고 스캔 가능하게 작성한다. 반복 고봉밥 금지.
-- `3x 사지마`, `레버리지 사지 마`, `매수 금지` 같은 훈계조 문구 금지. 조건과 이유 중심의 중립 표현 사용.
-- 미확인 가격 추정 금지.
-- `updated_at`은 실제 데이터 갱신 완료 KST 시각.
-
-## 7. 매시간 자동화 수정 범위
-수정 가능:
+## 4. 데이터 / 자동화 규칙
+시장 자동화가 수정 가능한 파일:
 - `public/data/latest.json`
 - `public/data/live/intraday.json`
 - `public/data/live/phase-status.json`
 - 당일 archive JSON
 
-수정 금지:
+시장 자동화 수정 금지:
 - HTML / JS / CSS / VERSION
-- 모든 baseline/backup
+- baseline/backup
 - `cycle-history.json`
 - `cycle-full.json`
 - `wave-cycles.json`
 - `market-daily/**`
 - `compounder-returns.json`
-- **`ai-gems.json`**
+- `ai-gems.json`
 
-## 8. 현재 핵심 파일
-- `public/reports/stable-v056.html`
-- `public/assets/app-v54-enhance.js` / `app-v54.css`: 실제 캔들·이평·거래량 비교 차트
-- `public/assets/app-v55.css`: v0.5.5 비교 UI 복원 규칙
-- `public/assets/app-v56-enhance.js` / `app-v56.css`: 검정 차트 복원 + 기존 비교 유지 + AI 알짜 섹션
-- `public/assets/app-v51c-enhance.js`: 기존 과거 사이클 겹침/pair renderer
-- `public/data/ai-gems.json`
+사이클/market-daily/compounder 데이터는 전용 빌드 워크플로에서만 갱신한다.
+
+## 5. 공통 UI 유지사항
+- 로딩 완료 뒤 `#loadWrap` 전체가 사라져 빈 공간이 남지 않는다.
+- 접기/펼치기 정상 동작.
+- ticker/theme 클릭 시 상세 modal.
+- modal 열린 상태 Android/browser Back → modal 닫기.
+- root Back → `앱을 종료하시겠습니까?` 확인 후 명시적 종료만 앱 종료.
+- PC/모바일 같은 정보 제공.
+- 자체 `1시간/일봉/주봉/월봉` 버튼 복원 금지.
+- 새 기능을 넣을 때 기존 정상 기능을 삭제하지 않는다.
+- 미확인 가격 추정 금지.
+
+## 6. AI 알짜 추적 후보
+- 데이터: `public/data/ai-gems.json`
+- 렌더러: `public/assets/app-v56-gems.js`
+- 이름: `AI 알짜 추적 후보 · 국내/해외`
+- 매수 추천 목록이 아니라 추적 후보 목록.
+- 국내/해외 필터와 기존 ticker modal 유지.
+- 자동 시장 갱신이 `ai-gems.json`을 덮어쓰지 않는다.
+
+## 7. 현재 핵심 파일
+- `public/reports/stable-v058.html`
+- `public/assets/cycle-future-v58.js`
+- `public/assets/cycle-future-v58.css`
+- `public/assets/app-v44.js`
+- `public/assets/app-v56-gems.js`
+- `public/assets/app-v57-bundle.css`
 - `public/data/wave-cycles.json`
-- `public/data/market-daily/**`
+- `public/data/market-daily/QQQ.json`
+- `scripts/qa-dashboard-v58.mjs`
+- `.github/workflows/dashboard-qa-v58.yml`
+- `.github/workflows/android.yml`
 
-## 9. QA / 완료 기준
-Workflow: `.github/workflows/dashboard-qa-v56.yml`  
-Script: `scripts/qa-dashboard-v56.mjs`
+## 8. QA / 배포
+v0.5.8 전용 Browser QA:
+- Run ID: `33315641935`
+- 결과: **SUCCESS**
+- Viewports: `1440×1000`, `390×844`
+- artifact: `dashboard-v058-qa-screenshots` / ID `9733353788`
+- 검증: 카드 5개, 현재 위치 선/점 5개, 오른쪽 과거 후속 126거래일, +1/+3/+6개월 마커, look-ahead 0, 가로 overflow 0, page error 0.
 
-반드시 PC `1440×1000` + 모바일 `390×844` 검사.
-필수 항목:
-- MR056 / v0.5.6
-- 실제 차트가 흰색으로 회귀하지 않음
-- 기존 표기 글씨 크기/축 유지
-- 실제 캔들 30개 이상
-- multi-history overlay + 1대1 pair 유지
-- AI 후보 25개 이상, 해외 12개 이상, 국내 8개 이상
-- 해외/국내 필터
-- 한국 숫자 티커 modal 이름/차트
-- 로딩 빈칸 0
-- horizontal overflow 없음
+2026-09-03 시장 데이터 갱신 후 일반 dashboard QA도 Run `33702181760` SUCCESS.
+
+Pages 배포 기준 v0.5.8 라이브 경로를 유지한다.
+
+## 9. Android
+이전 최신 APK 기록은 v0.5.6이라 웹 v0.5.8과 불일치했다.
+`.github/workflows/android.yml`을 v0.5.8 파일 검증 기준으로 갱신하고 `ops/android-rebuild.request`로 새 빌드를 요청한다.
+
+APK 완료 기준:
+1. Android Actions success
+2. artifact 존재
+3. release asset 존재
+4. 실제 APK 다운로드 가능 여부 확인
+5. 가능하면 APK 내부에 `stable-v058.html`, `cycle-future-v58.js/css`가 포함됐는지 확인
+
+## 10. 롤백
+- 직전 UI: `public/reports/stable-v057.html` / MR057
+- Known-Good: `public/reports/stable-v051-baseline.html` + branch `backup/v0.5.1-known-good`
+- 비상 Known-Good: `public/reports/stable-v042-baseline.html` / MR042
+- 과거 안정판/데이터셋 삭제 금지.
 
 QA 성공 전 완료라고 말하지 않는다.
-APK 새 배포 시 Actions 성공 + artifact 존재 + 실제 APK 다운로드/내부 확인 후 사용자에게 직접 파일을 제공한다.

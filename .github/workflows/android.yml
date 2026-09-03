@@ -30,7 +30,7 @@ jobs:
           mkdir -p ops
           printf '{\n  "version": "%s",\n  "run_id": %s,\n  "status": "building",\n  "artifact": "MarketRadar-v%s-debug-apk"\n}\n' "${{ steps.ver.outputs.version }}" "${{ github.run_id }}" "${{ steps.ver.outputs.version }}" > ops/android-latest-run.json
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.email '41898282+kimjae134679@users.noreply.github.com'
           git add ops/android-latest-run.json
           git commit -m "Record Android build run ${{ github.run_id }}" || true
           git push || true
@@ -46,30 +46,30 @@ jobs:
       - name: Standalone dashboard checks
         run: |
           test -s public/app-live.html
-          test -s public/reports/stable-v056.html
+          test -s public/reports/stable-v058.html
+          test -s public/reports/stable-v057.html
           test -s public/reports/stable-v051-baseline.html
           test -s public/reports/stable-v042-baseline.html
           test -s public/assets/app-v44.js
-          test -s public/assets/app-v49-modal-bridge.js
-          test -s public/assets/app-v54-enhance.js
-          test -s public/assets/app-v55.css
-          test -s public/assets/app-v56-enhance.js
-          test -s public/assets/app-v56.css
+          test -s public/assets/app-v56-gems.js
+          test -s public/assets/app-v57-bundle.css
+          test -s public/assets/cycle-future-v58.js
+          test -s public/assets/cycle-future-v58.css
           test -s public/data/ai-gems.json
-          test -s public/data/cycle-history.json
-          test -s public/data/cycle-full.json
           test -s public/data/wave-cycles.json
           test -s public/data/market-daily/QQQ.json
-          grep -q 'Market Radar Daily · v0.5.6' public/reports/stable-v056.html
-          grep -q 'MR056' public/reports/stable-v056.html
-          grep -q 'app-v56-enhance.js' public/reports/stable-v056.html
-          grep -q 'stable-v056.html' public/app-live.html
+          grep -q 'Market Radar Daily · v0.5.8' public/reports/stable-v058.html
+          grep -q 'MR058' public/reports/stable-v058.html
+          grep -q 'cycle-future-v58.js' public/reports/stable-v058.html
+          grep -q 'stable-v058.html' public/app-live.html
+          grep -q 'FUTURE_DAYS=126' public/assets/cycle-future-v58.js
+          grep -q 'data-score-lookahead="0"' public/assets/cycle-future-v58.js
           grep -q 'SK하이닉스' public/data/ai-gems.json
           grep -q 'HD현대일렉트릭' public/data/ai-gems.json
           grep -q 'allowNavigation' capacitor.config.json
           node --check public/assets/app-v44.js
-          node --check public/assets/app-v54-enhance.js
-          node --check public/assets/app-v56-enhance.js
+          node --check public/assets/app-v56-gems.js
+          node --check public/assets/cycle-future-v58.js
           node --check scripts/apply-android-branding.mjs
       - run: npx cap add android
       - run: npx cap sync android
@@ -103,7 +103,7 @@ jobs:
         run: |
           TAG="v${{ steps.ver.outputs.version }}"
           APK="MarketRadar-v${{ steps.ver.outputs.version }}-debug.apk"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Dark stock comparison charts restored and curated US/Korea AI infrastructure watchlist added. v0.5.1 known-good backup and v0.4.2 rollback remain preserved."
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Market Radar $TAG" --notes "Current position is explicitly marked; selected historical analogs continue for the actual next 126 trading days as descriptive history only. Candidate scoring remains look-ahead free."
           gh release upload "$TAG" "$APK" --clobber
       - name: Mark build success
         if: success()

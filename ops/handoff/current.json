@@ -1,72 +1,46 @@
 {
-  "version": "0.5.1",
-  "updated_kst": "2026-08-23",
+  "version": "0.5.8",
+  "updated_kst": "2026-09-03",
   "repository": "kimjae134679/stock",
   "authoritative_handoff": "ops/handoff/CURRENT.md",
-  "automation_id": "6a847ce3f5dc81918ccab0a7bafaa8fe",
-  "current_entry": "public/reports/stable-v051.html",
-  "current_build_mark": "MR051",
-  "stable_baselines": [
-    {
-      "version": "0.5.0",
-      "mark": "MR050",
-      "entry": "public/reports/stable-v050-baseline.html",
-      "role": "Latest user-confirmed stable baseline; immutable."
-    },
-    {
-      "version": "0.4.2",
-      "mark": "MR042",
-      "entry": "public/reports/stable-v042-baseline.html",
-      "role": "Emergency known-good rollback; immutable."
-    }
-  ],
-  "architecture": "v0.4.4 core renderer plus additive v45-v51 enhancements; v51 centers the current active leg and shows adjacent historical legs for context.",
+  "current_entry": "public/reports/stable-v058.html",
+  "current_build_mark": "MR058",
+  "architecture": "v0.5.7 structure matching plus v0.5.8 historical post-current continuation. Actual current data ends at the verified current date; only selected historical analogs continue for 126 trading days to the right.",
   "ui_assets": [
     "public/assets/app-v44.js",
-    "public/assets/app-v50-enhance.js",
-    "public/assets/app-v50.css",
-    "public/assets/app-v51-enhance.js",
-    "public/assets/app-v51.css",
-    "public/assets/app-v49-modal-bridge.js"
+    "public/assets/app-v56-gems.js",
+    "public/assets/app-v57-bundle.css",
+    "public/assets/cycle-future-v58.js",
+    "public/assets/cycle-future-v58.css"
   ],
-  "required_sections": ["themes","cycle-visual","charts","picks","mr-famous","mr-compounders","mr-universe","expanded","etfs","allocation","research","smart-money","sources","history","replay","macro"],
-  "removed_by_user_request": ["action section (#action)", "quicknav action button"],
-  "phase_contract": "#segmentPhaseNow must be directly after #market hero.",
-  "hero_readability": "Break market summary into readable sentence lines; keep key evaluation/action compact and avoid duplicated dense prose.",
   "cycle": {
-    "title": "실제 사이클 비교",
-    "current_leg_rule": "If current direction is low-to-high, compare that active rise/rebound leg. If current direction is high-to-low, compare that active decline leg.",
-    "context_rule": "Historical comparison must also show one immediately preceding leg and one immediately following leg so the active leg is understood inside its surrounding regime.",
-    "rise_context": ["이전 고점", "비교 저점", "고점", "이후 저점"],
-    "fall_context": ["이전 저점", "비교 고점", "저점", "이후 고점"],
-    "historical_path_rule": "Keep actual trading-day spacing and actual return path; do not normalize/stretch historical paths to 0-100.",
-    "alignment_rule": "Only align the start anchor of the active comparison leg; do not time-stretch or amplitude-stretch historical paths.",
-    "elapsed_rule": "Show current N trading days, start-to-current dates and current move directly below the graph.",
-    "pair_rule": "Each lower #1/#2/#3 comparison chart contains exactly two lines: current + that single historical path.",
-    "font_rule": "Graph axis/pivot/current labels are roughly 2x the previous size for mobile readability.",
-    "forecast_rule": "Historical post-match path is descriptive history, never a future high/low date forecast."
+    "title": "실제 사이클 비교 · 현재 이후 과거 6개월 포함",
+    "total_display_trading_days": 504,
+    "historical_continuation_trading_days": 126,
+    "horizon_markers": [21,63,126],
+    "current_path_rule": "Actual current series stops exactly at current_context.current_date and is never extended with synthetic future values.",
+    "historical_after_rule": "After the aligned current point, show the selected historical analog's actual next 126 trading days in a shaded region.",
+    "forecast_rule": "Historical continuation is descriptive history, not a forecast or predicted future high/low date.",
+    "selection_rule": "Candidate score uses prior rise/fall structure and current rebound shape only through the aligned current point.",
+    "lookahead_score_weight": 0,
+    "score_weights": {"prior_rise":30,"prior_fall":40,"current_early_shape":30}
   },
-  "cycle_data": ["public/data/cycle-history.json", "public/data/cycle-full.json", "public/data/wave-cycles.json"],
   "browser_qa": {
-    "workflow": ".github/workflows/dashboard-qa-v51.yml",
-    "script": "scripts/qa-dashboard-v51.mjs",
-    "run_id": 32584630504,
-    "status": "success",
-    "viewports": ["1440x1000", "390x844"],
-    "checks": ["stable-v050-backup","action-guide-removed","phase-directly-below-hero","actual-cycle-title","active-leg-direction","previous-current-next-context","elapsed-days","overlay","pair-current-plus-one-history","3-4-5-toggle","modal","load-collapse","overflow"]
+    "v58_run_id": 33315641935,
+    "v58_status": "success",
+    "latest_general_run_id": 33702181760,
+    "latest_general_status": "success",
+    "viewports": ["1440x1000","390x844"]
   },
   "android_build": {
-    "run_id": 32584630518,
-    "status": "success",
-    "artifact_id": 9478732657,
-    "artifact": "MarketRadar-v0.5.1-debug-apk",
-    "apk_size_bytes": 5879205,
-    "apk_sha256": "91f66bd0c3ee6eed40799047e26584ad2fda369d58435e34e5fcba6783eccc55",
-    "verified_embedded_files": ["assets/public/reports/stable-v051.html","assets/public/reports/stable-v050-baseline.html","assets/public/assets/app-v51-enhance.js","assets/public/assets/app-v51.css","assets/public/data/wave-cycles.json"]
+    "status": "rebuild_requested_for_v0.5.8",
+    "workflow": ".github/workflows/android.yml"
   },
-  "loading": {"success": "100.000% then remove whole #loadWrap", "no_gap_rule": true},
-  "android_back_contract": ["modal open -> hardware Back closes modal", "root -> ask 앱을 종료하시겠습니까?", "only explicit 종료 exits"],
-  "hourly_automation_rule": "Update market JSON only; never rewrite HTML/JS/CSS/VERSION or cycle datasets. Keep prose compact and conditional, not commanding.",
-  "removed_ui": ["Custom 1시간/일봉/주봉/월봉 controls; keep removed."],
-  "apk_done_definition": "Desktop/mobile Browser QA success -> Android Actions success -> artifact exists -> APK downloaded and integrity checked -> provide APK directly to user"
+  "rollback": [
+    {"version":"0.5.7","entry":"public/reports/stable-v057.html"},
+    {"version":"0.5.1","entry":"public/reports/stable-v051-baseline.html","branch":"backup/v0.5.1-known-good"},
+    {"version":"0.4.2","entry":"public/reports/stable-v042-baseline.html"}
+  ],
+  "hourly_automation_rule": "Update market live/latest/archive JSON only; never rewrite UI, VERSION, cycle datasets, market-daily, compounder returns, or ai-gems.",
+  "apk_done_definition": "Browser QA success -> Android Actions success -> artifact exists -> APK downloadable and verified -> provide APK directly to user"
 }
