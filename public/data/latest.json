@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "app_version": "0.2.9",
-  "updated_at": "2026-09-04T00:02:46+09:00",
+  "updated_at": "2026-09-04T00:57:34+09:00",
   "report_path": "reports/2026/08/US_Market_Daily_2026-08-19.html",
   "report_latest_path": "reports/latest.html",
   "market": {
@@ -25,6 +25,7 @@
     {"date":"2024-08-02","similarity":36,"reason":"급락은 유사하나 당시 공포가 더 극단적"}
   ],
   "changes": [
+    {"title":"00:57 Nvidia·Hugging Face 구조수요 근거 추가 · 독립 Phase 유지","detail":"Reuters에서 Nvidia가 Hugging Face를 약 $12.93B에 인수한다고 발표한 사실을 확인했다. AI 플랫폼·컴퓨트 구조수요 근거는 보강됐지만 더 최신 확정 지수·breadth·SOX/SMH 가격은 확보하지 못해 반도체·Nasdaq 등 가격 Phase는 변경하지 않았다."},
     {"title":"00:02 새 KST 날짜 · 장초반 breadth 개선·소프트웨어 확산 · 독립 Phase 유지","detail":"Reuters 9월 3일 09:34 ET 현물 스냅샷에서 Dow +0.74%, S&P 500 +0.54%, Nasdaq +0.61%, NYSE 상승/하락 3.33:1, Nasdaq 2.36:1을 확인했다. Broadcom -5.26%와 달리 Snowflake +25.17%, ServiceNow +5.43%, Salesforce +3.14%, Adobe +3.62%로 소프트웨어 강세가 확산됐다. Reuters 유가 보도에서는 Brent $97.29, WTI $93.04의 6주 고점권을 확인했다. 더 최신 정확 지수·SOX/SMH·미국 10년물 수치는 확보하지 못해 추정하지 않았으며 독립 Phase는 유지했다."},
     {"title":"20:08 미국 개장 전 선물 보합 · Snowflake/Broadcom 분화 · 독립 Phase 유지","detail":"Reuters 9월 3일 5:42 a.m. ET 보도에서 Dow E-minis +0.17%, S&P 500 E-minis +0.05%, Nasdaq 100 E-minis -0.04%를 확인했다. Snowflake는 강한 연간 매출 전망으로 프리마켓 +23.76%, Broadcom은 Q4 매출 전망 부담으로 -2.29%였다."}
   ],
@@ -32,7 +33,7 @@
     {"key":"software","name":"소프트웨어/SaaS","emoji":"🟦","score":76,"timing":65,"bottom_score":52,"top_risk":50,"trend_confirmation":59,"chase_risk":56,"wealth_potential":80,"phase":"🟠 실적 민감·금리 부담","overheat":41,"upside":70,"action":"그래서 지금은? Snowflake발 강세가 CRM·NOW·ADBE 등 주요 소프트웨어 종목으로 계속 확산되는지 확인"},
     {"key":"power","name":"AI 전력·원전·그리드","emoji":"🟩","score":70,"timing":57,"bottom_score":44,"top_risk":71,"trend_confirmation":60,"chase_risk":65,"wealth_potential":86,"phase":"🟡 구조성장·조정 · 비용민감","overheat":64,"upside":63,"action":"그래서 지금은? 데이터센터 전력 구조수요와 Brent 6주 고점권의 비용·자금조달 부담을 함께 확인"},
     {"key":"index","name":"지수·분산","emoji":"⬜","score":52,"timing":36,"bottom_score":16,"top_risk":90,"trend_confirmation":28,"chase_risk":81,"wealth_potential":79,"phase":"🟠 고점권 조정 · 매크로 압력","overheat":53,"upside":42,"action":"그래서 지금은? 장초반 breadth 개선이 중후반·종가까지 유지되는지 확인"},
-    {"key":"compute","name":"AI 컴퓨트·GPU·반도체","emoji":"🟪","score":50,"timing":30,"bottom_score":22,"top_risk":86,"trend_confirmation":30,"chase_risk":90,"wealth_potential":91,"phase":"🔴 구조수요 유지 · 가격압력 확대","overheat":78,"upside":44,"action":"그래서 지금은? Broadcom 단기 약세와 장기 AI 수요를 분리하고 SOX·SMH 및 주요 구성종목 확산 여부를 확인"},
+    {"key":"compute","name":"AI 컴퓨트·GPU·반도체","emoji":"🟪","score":50,"timing":30,"bottom_score":22,"top_risk":86,"trend_confirmation":30,"chase_risk":90,"wealth_potential":91,"phase":"🔴 구조수요 유지 · 가격압력 확대","overheat":78,"upside":44,"action":"그래서 지금은? Nvidia의 구조수요 신호와 Broadcom 단기 약세를 분리하고 SOX·SMH 및 주요 구성종목 확산 여부를 확인"},
     {"key":"defense","name":"방어·헬스·다음테마","emoji":"🟨","score":64,"timing":61,"bottom_score":51,"top_risk":44,"trend_confirmation":60,"chase_risk":44,"wealth_potential":65,"phase":"🟡 로테이션","overheat":45,"upside":61,"action":"그래서 지금은? 위험선호가 넓어지는지와 방어주 상대강도 변화를 함께 확인"},
     {"key":"network","name":"AI 네트워크·광통신","emoji":"🟧","score":40,"timing":22,"bottom_score":22,"top_risk":93,"trend_confirmation":19,"chase_risk":97,"wealth_potential":84,"phase":"🔴 과열/분배 이후 급락 · 종목분화","overheat":92,"upside":31,"action":"그래서 지금은? Broadcom 네트워킹·커스텀칩 장기수요와 ANET·CRDO·광통신 가격 회복을 분리해 확인"},
     {"key":"aggressive","name":"공격형·레버리지","emoji":"🟥","score":18,"timing":7,"bottom_score":13,"top_risk":97,"trend_confirmation":14,"chase_risk":98,"wealth_potential":92,"phase":"🔴 고위험·추세훼손","overheat":92,"upside":39,"action":"그래서 지금은? 기초지수 추세·변동성·breadth와 장기금리가 함께 안정되는지 먼저 확인"}
@@ -56,7 +57,7 @@
     {"ticker":"GOOGL","name":"알파벳","theme":"software","score":75,"timing":62,"wealth":86,"phase":"🟡 중간상승","action":"분할/관찰","note":"AI 플랫폼+현금흐름"},
     {"ticker":"CEG","name":"콘스텔레이션 에너지","theme":"power","score":71,"timing":58,"wealth":84,"phase":"🟡 구조성장·조정","action":"분할/관찰","note":"AI 전력·원전 구조수혜; 자금조달·에너지 비용 확인"},
     {"ticker":"QQQ","name":"인베스코 QQQ","theme":"index","score":52,"timing":36,"wealth":80,"phase":"🔴 금리민감 약세","action":"코어 소규모 분할","note":"장초반 breadth 개선이 상대강도 회복으로 이어지는지 확인"},
-    {"ticker":"NVDA","name":"엔비디아","theme":"compute","score":52,"timing":31,"wealth":95,"phase":"🔴 구조수요 유지·가격압력 확대","action":"업종 확산 확인","note":"AI 구조수요와 SOX·SMH 가격 확산 여부 확인"},
+    {"ticker":"NVDA","name":"엔비디아","theme":"compute","score":52,"timing":31,"wealth":95,"phase":"🔴 구조수요 유지·가격압력 확대","action":"업종 확산 확인","note":"Hugging Face 인수로 구조수요 근거는 보강됐지만 SOX·SMH 가격 확산 여부를 별도 확인"},
     {"ticker":"SMH","name":"VanEck Semiconductor ETF","theme":"compute","score":47,"timing":28,"wealth":86,"phase":"🔴 가격압력 확대","action":"상대강도 확인","note":"Broadcom 약세와 장기 수요 신호를 분리해 ETF·구성종목 반응 확인"},
     {"ticker":"TQQQ","name":"ProShares UltraPro QQQ","theme":"aggressive","score":18,"timing":7,"wealth":98,"phase":"🔴 추세약화","action":"확인 후 단계적 접근","note":"기초지수 추세 회복과 변동성·금리 안정 확인"},
     {"ticker":"SOXL","name":"Direxion Semiconductor Bull 3X","theme":"aggressive","score":8,"timing":5,"wealth":100,"phase":"🔴 고위험·추세훼손","action":"확인 후 단계적 접근","note":"반도체 구조수요와 별개로 기초지수 추세·breadth·매크로 안정 확인 필요"}
@@ -115,18 +116,20 @@
     {"asset":"QQQ/SPY 코어","weight":27},{"asset":"소프트웨어","weight":18},{"asset":"AI 전력","weight":17},{"asset":"반도체·네트워크","weight":14},{"asset":"품질주","weight":12},{"asset":"QLD","weight":4},{"asset":"현금","weight":8}
   ],
   "research": [
+    {"org":"Reuters 9/3 Nvidia/Hugging Face","take":"Nvidia가 Hugging Face를 약 $12.93B에 인수한다고 발표했다. 오픈 AI 모델·개발자 플랫폼까지 직접 확장하는 구조적 투자다.","action":"구조수요 신호와 실제 NVDA·SOX·SMH 가격 확산을 분리해 확인한다.","trust":"높음"},
     {"org":"Reuters 9/3 Wall Street","take":"09:34 ET 기준 Dow +0.74%, S&P 500 +0.54%, Nasdaq +0.61%, NYSE 상승/하락 3.33:1, Nasdaq 2.36:1. Broadcom -5.26%였지만 Snowflake +25.17%, ServiceNow +5.43%, Salesforce +3.14%, Adobe +3.62%였다.","action":"장초반 breadth와 소프트웨어 확산이 중후반까지 이어지는지 확인한다.","trust":"높음"},
     {"org":"Reuters 9/3 Oil","take":"Brent $97.29, WTI $93.04로 6주 고점권을 확인했다.","action":"AI 전력·데이터센터 및 성장주의 비용·할인율 부담이 추가 확대되는지 확인한다.","trust":"높음"},
     {"org":"Reuters 9/3 Snowflake","take":"연간 product revenue 전망을 $6.07B로 높였고 AI가 최근 성장 가속의 약 절반을 설명했다.","action":"개별 실적 강세가 소프트웨어 업종 상대강도 회복으로 이어지는지 확인한다.","trust":"높음"},
     {"org":"Reuters 9/3 Broadcom","take":"단기 가이던스 부담으로 주가가 약세였지만 장기 AI 칩·네트워킹 수요 근거는 유지됐다.","action":"구조수요와 단기 가격신호를 분리해 반도체·네트워크 확산 여부를 확인한다.","trust":"높음"}
   ],
   "research_consensus": {
-    "conclusion": "시장 전체는 고점권 조정 상태를 유지한다. 장초반 미국 지수와 breadth는 개선됐고 소프트웨어는 업종 확산 신호가 나왔지만, Broadcom 약세와 6주 고점권 유가가 남아 각 세그먼트 독립 Phase 상향은 보류한다.",
+    "conclusion": "시장 전체는 고점권 조정 상태를 유지한다. 장초반 미국 지수와 breadth는 개선됐고 소프트웨어는 업종 확산 신호가 나왔으며 Nvidia의 Hugging Face 인수는 AI 구조수요 근거를 보강했다. 다만 Broadcom 약세와 6주 고점권 유가, 더 최신 가격 확정치 부재로 각 세그먼트 독립 Phase 상향은 보류한다.",
     "action": "코어는 소규모 분할. Nasdaq·QQQ·SOX·SMH 상대강도와 breadth 지속 여부, 유가·장기금리 안정 여부를 확인하고 소프트웨어 강세가 종가까지 확산되는지 본다."
   },
   "smart_money": [{"name":"13F/13D/13G","note":"후행성; 총점 가중 10~15% 이하."}],
   "reference_sources": [
     {"name":"Reuters 2026-09-03 Wall Street","url":"https://www.reuters.com/business/wall-st-futures-subdued-investors-weigh-earnings-oil-prices-2026-09-03/"},
+    {"name":"Reuters 2026-09-03 Nvidia/Hugging Face","url":"https://www.reuters.com/business/nvidia-buy-hugging-face-nearly-13-billion-big-bet-open-ai-models-2026-09-03/"},
     {"name":"Reuters 2026-09-03 Oil","url":"https://www.reuters.com/business/energy/oil-edges-down-investors-weigh-uncertainty-over-us-iran-strikes-2026-09-03/"},
     {"name":"Reuters 2026-09-03 Snowflake","url":"https://www.reuters.com/business/snowflake-shares-surge-ai-demand-powers-growth-lifts-outlook-2026-09-03/"}
   ],
@@ -147,9 +150,9 @@
   },
   "details": {
     "QQQ":{"type":"etf","summary":"장기 코어지만 현재 Nasdaq 상대압력과 높은 유가·금리 부담을 함께 본다. 장초반 breadth 개선이 중후반까지 이어지는지 확인하며 소규모 분할 접근."},
-    "NVDA":{"type":"stock","summary":"AI 구조수요는 유지된다. 반도체·네트워크의 종목별 분화가 남아 있어 SOX·SMH 구성종목 전반 확산 여부를 확인한다."},
+    "NVDA":{"type":"stock","summary":"AI 구조수요는 유지되며 Hugging Face 인수로 오픈 모델·개발자 플랫폼 확장 근거가 추가됐다. 가격 Phase는 SOX·SMH 구성종목 전반 확산 여부를 별도로 확인한다."},
     "ADBE":{"type":"stock","summary":"Snowflake발 소프트웨어 확산 신호가 확인됐다. 높은 장기금리와 추정치 안정 여부를 함께 평가한다."},
     "CRM":{"type":"stock","summary":"Snowflake발 업종 강세에 동반 상승했다. 상대강도 지속과 높은 장기금리 속 추정치 흐름을 함께 확인한다."}
   },
-  "data_status": "2026-09-04 00:02:46 KST 검증 완료. Reuters 9월 3일 09:34 ET 현물 스냅샷에서 Dow +0.74%, S&P 500 +0.54%, Nasdaq +0.61%, NYSE 상승/하락 3.33:1, Nasdaq 2.36:1을 확인했다. Broadcom -5.26%와 달리 Snowflake +25.17%, ServiceNow +5.43%, Salesforce +3.14%, Adobe +3.62%로 소프트웨어 강세가 확산됐다. 유가는 Brent $97.29, WTI $93.04의 6주 고점권을 확인했다. 더 최신 정확 미국 지수·SOX/SMH·미국 10년물 수치는 확보하지 못해 추정하지 않았다. 지정된 cycle-history/cycle-full/wave-cycles/compounder-returns/ai-gems/market-daily 및 HTML/JS/CSS/VERSION/handoff UI/롤백 기준은 수정하지 않음. 실제 주문 없음."
+  "data_status": "2026-09-04 00:57:34 KST 검증 완료. Reuters에서 Nvidia의 Hugging Face 약 $12.93B 인수 발표를 새 구조수요 근거로 확인했다. 최신 확보 미국 현물 스냅샷은 Reuters 9월 3일 09:34 ET의 Dow +0.74%, S&P 500 +0.54%, Nasdaq +0.61%, NYSE 상승/하락 3.33:1, Nasdaq 2.36:1이다. Broadcom -5.26%와 달리 Snowflake +25.17%, ServiceNow +5.43%, Salesforce +3.14%, Adobe +3.62%로 소프트웨어 강세가 확산됐다. 유가는 Brent $97.29, WTI $93.04의 6주 고점권을 확인했다. 더 최신 정확 미국 지수·SOX/SMH·미국 10년물 수치는 확보하지 못해 추정하지 않았다. 지정된 cycle-history/cycle-full/wave-cycles/compounder-returns/ai-gems/market-daily 및 HTML/JS/CSS/VERSION/handoff UI/롤백 기준은 수정하지 않음. 실제 주문 없음."
 }
