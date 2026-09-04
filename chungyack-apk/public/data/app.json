@@ -1,6 +1,6 @@
 {
   "version": "0.8.0-live",
-  "updatedAt": "2026-09-04T14:17:54+09:00",
+  "updatedAt": "2026-09-04T14:53:00+09:00",
   "summary": {
     "urgent": 3,
     "catalog": 14,
@@ -8,28 +8,104 @@
   },
   "trackingSeed": [],
   "insights": [
-    {"matchName":"장지지구 송파파인타운","type":39,"competition":"45~90:1","confidence":"중간","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"SH 국민임대는 이번 회차 패스","weight":100},
-    {"matchName":"오금지구 송파레미니스","type":39,"competition":"60~110:1","confidence":"중간","label":"과거 참고","reason":"과거 SH 국민임대 비교 참고용 레거시 데이터","warning":"현재 행동후보에서 사용하지 않음","weight":95}
+    {
+      "matchName": "장지지구 송파파인타운",
+      "type": 39,
+      "competition": "45~90:1",
+      "confidence": "중간",
+      "label": "과거 참고",
+      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
+      "warning": "SH 국민임대는 이번 회차 패스",
+      "weight": 100
+    },
+    {
+      "matchName": "오금지구 송파레미니스",
+      "type": 39,
+      "competition": "60~110:1",
+      "confidence": "중간",
+      "label": "과거 참고",
+      "reason": "과거 SH 국민임대 비교 참고용 레거시 데이터",
+      "warning": "현재 행동후보에서 사용하지 않음",
+      "weight": 95
+    }
   ],
   "history": [
-    {"year":"2022 1차","average":14.2,"detail":"과거 SH 국민임대 비교 참고"},
-    {"year":"2023 1차","average":25.0,"detail":"과거 SH 국민임대 비교 참고"},
-    {"year":"2024 1차","average":31.96,"detail":"과거 SH 국민임대 비교 참고"}
+    {
+      "year": "2022 1차",
+      "average": 14.2,
+      "detail": "과거 SH 국민임대 비교 참고"
+    },
+    {
+      "year": "2023 1차",
+      "average": 25,
+      "detail": "과거 SH 국민임대 비교 참고"
+    },
+    {
+      "year": "2024 1차",
+      "average": 31.96,
+      "detail": "과거 SH 국민임대 비교 참고"
+    }
   ],
   "sources": [
-    {"label":"서울시 청년안심주택 모집공고","url":"https://soco.seoul.go.kr/youth/main/main.do"},
-    {"label":"왕십리역 라봄성동 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6648&menuNo=400008&optn1=2026-09-03"},
-    {"label":"아차산역 백악관타워 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6650&menuNo=400008&optn1=2026-09-03"},
-    {"label":"화랑대역 에이트플레이스 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6647&menuNo=400008&optn1=2026-09-03"},
-    {"label":"천호역 천호한강청년주택 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6653&menuNo=400008&optn1=2026-09-03"},
-    {"label":"등촌역 아르체움 등촌 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6652&menuNo=400008&optn1=2026-09-03"},
-    {"label":"동묘앞역 청계로벤하임 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6646&menuNo=400008&optn1=2026-09-03"},
-    {"label":"개봉역 세이지움 개봉 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6651&menuNo=400008&optn1=2026-09-03"},
-    {"label":"신논현역 List 강남 추가모집 공식공고","url":"https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6649&menuNo=400008&optn1=2026-09-03"},
-    {"label":"LH 경기남부 26년 3차 청년 매입임대 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"},
-    {"label":"LH 경기북부 2026년 3차 비분양전환형 든든전세 공식공고","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020553&uppAisTpCd=13"},
-    {"label":"LH 공식 임대주택 공고목록","url":"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026"},
-    {"label":"파주시 2026년 파인(FINE)주택 매입형 공식 고시·공고","url":"https://dong.paju.go.kr/dong/user/board/BD_board.list.do?bbsCd=1022&delDesc=&pageType=&q_ctgCd=4063&q_currPage=4&q_parentCtgCd=&q_rowPerPage=10&q_searchKeyType=&q_searchVal=&q_sortName=&q_sortOrder=&seq=20181010180046180&showSummaryYn=N"},
-    {"label":"금천구 청년 맞춤형주택 공식공고","url":"https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"}
+    {
+      "label": "서울시 청년안심주택 모집공고",
+      "url": "https://soco.seoul.go.kr/youth/main/main.do"
+    },
+    {
+      "label": "왕십리역 라봄성동 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6648&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "아차산역 백악관타워 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6650&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "화랑대역 에이트플레이스 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6647&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "천호역 천호한강청년주택 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6653&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "등촌역 아르체움 등촌 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6652&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "동묘앞역 청계로벤하임 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6646&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "개봉역 세이지움 개봉 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6651&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "신논현역 List 강남 추가모집 공식공고",
+      "url": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6649&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "label": "LH 경기남부 26년 3차 청년 매입임대 공식공고",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"
+    },
+    {
+      "label": "LH 경기북부 2026년 3차 비분양전환형 든든전세 공식공고",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020553&uppAisTpCd=13"
+    },
+    {
+      "label": "LH 공식 임대주택 공고목록",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026"
+    },
+    {
+      "label": "파주시 2026년 파인(FINE)주택 매입형 공식 고시·공고",
+      "url": "https://dong.paju.go.kr/dong/user/board/BD_board.list.do?bbsCd=1022&delDesc=&pageType=&q_ctgCd=4063&q_currPage=4&q_parentCtgCd=&q_rowPerPage=10&q_searchKeyType=&q_searchVal=&q_sortName=&q_sortOrder=&seq=20181010180046180&showSummaryYn=N"
+    },
+    {
+      "label": "금천구 청년 맞춤형주택 공식공고",
+      "url": "https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192"
+    },
+    {
+      "label": "발견용 · 네이버 블로그 rrguswns (공식 공고 재확인 필수)",
+      "url": "https://m.blog.naver.com/rrguswns/224400628992"
+    }
   ]
 }
