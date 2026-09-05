@@ -1,6 +1,6 @@
 # ChungYack Live Shell — Latest Handoff
 
-최종 갱신: 2026-09-04 00:45 KST
+최종 갱신: 2026-09-05 20:24 KST
 
 ## 1. 절대 기준
 
@@ -67,4 +67,33 @@
 
 ## 7. 마지막 배포 검증
 
-2026-09-04 라이브 데이터 동기화 커밋 이후 GitHub Pages `Deploy Market Radar and ChungYack Pages` 워크플로가 SUCCESS로 완료되었다.
+2026-09-05 20:22 KST 기준 새 UI 반영 커밋 `9e42474a411a23768d1a90bf25629fdcc5c29d49`에 대해 GitHub Pages `Deploy Market Radar and ChungYack Pages` run `33963161475`가 **SUCCESS**로 완료되었다.
+
+## 8. 2026-09-05 승인 목업 기반 UI 개편
+
+사용자가 승인한 두 UI 목업을 실제 라이브 HTML에 반영했다. APK 셸은 건드리지 않았고 기존 설치 APK가 같은 원격 HTML을 계속 읽는다.
+
+활성 파일:
+
+- `public/assets/app-v8-ui.css`
+- `public/assets/app-v8-ui.js`
+- `public/index.html`에서 v8 CSS/JS를 v7 뒤에 마지막 레이어로 로드
+- `public/sw.js` cache `chungyack-live-v0.8.1-r1`
+
+화면 방향:
+
+- 홈의 시간별 보고를 `오늘·내일 / 2~3일 / 4~7일 / 그 이후` 색상 그룹형 목록으로 재구성했다.
+- 공고 화면은 좌측 상태색 + 상태/기관/유형 칩 + 굵은 공고명 + `접수 기간 / 모집` 두 정보 타일 + 현재 상태 요약 + 다음 일정/주소 + 하단 행동버튼 구조로 바꿨다.
+- `저장 / 공식 공고 / 신청했음 → 추적 / 숨기기` 기능은 그대로 유지한다.
+- 기존 좋아요·북마크 중복은 다시 만들지 않는다.
+- 기본 카드에는 검증 원문 전체를 펼치지 않고 필요한 요약만 표시한다.
+- 중첩 accordion은 다시 만들지 않는다.
+
+상태 호환성:
+
+- `chungyack.opportunity.saved.v1`
+- `chungyack.opportunity.hidden.v1`
+- `chungyack.opportunity.view.v1`
+- 기존 필터/추적/삭제복원 localStorage
+
+위 키와 기존 공고 `id`를 유지했으므로 UI 갱신 전 저장·숨김·추적 기록을 끊지 않는다.
