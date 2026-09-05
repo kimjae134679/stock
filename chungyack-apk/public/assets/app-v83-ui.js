@@ -57,6 +57,7 @@ function cyV83SheetButton(label,cls='',attr=''){
 }
 function cyV83OpenActionSheet(ctx){
   const d=cyV83EnsureActionSheet();
+  if(d.open)d.close();
   const panel=d.querySelector('#cyV83SheetPanel');
   const isHome=ctx.type==='home';
   const name=isHome?ctx.name:(ctx.item?.name||'');
@@ -123,6 +124,19 @@ renderHourlyReport=function(report){
   root.querySelector('#cyV83ToggleHiddenHome')?.addEventListener('click',()=>{CY_V83_SHOW_HIDDEN=!CY_V83_SHOW_HIDDEN;renderHourlyReport(report)});
   root.querySelector('#cyV83RestoreAllHome')?.addEventListener('click',cyV83RestoreAllHome);
   if(CY_OPPORTUNITY_DATA)setTimeout(()=>renderRecommendations(),0);
+};
+
+// Keep the same hidden state synchronized between the home timeline and the notice tab.
+const _cyV83ToggleHiddenBase=cyV7ToggleHidden;
+cyV7ToggleHidden=function(id){
+  _cyV83ToggleHiddenBase(id);
+  if(CY_V82_HOURLY_REPORT)renderHourlyReport(CY_V82_HOURLY_REPORT);
+};
+const _cyV83ClearHiddenBase=cyV7ClearHidden;
+cyV7ClearHidden=function(){
+  _cyV83ClearHiddenBase();
+  CY_V83_SHOW_HIDDEN=false;
+  if(CY_V82_HOURLY_REPORT)renderHourlyReport(CY_V82_HOURLY_REPORT);
 };
 
 function cyV83LongPressContext(el){
