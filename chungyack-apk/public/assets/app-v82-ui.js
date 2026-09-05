@@ -150,3 +150,18 @@ window.addEventListener('DOMContentLoaded',()=>{
   const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V82_VERSION;
   const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V82_VERSION;
 });
+
+// v0.8.3 is a live-only interaction layer so the installed remote-shell APK does not need rebuilding.
+(function cyV82LoadV83(){
+  if(!document.querySelector('link[data-cy-v83]')){
+    const link=document.createElement('link');link.rel='stylesheet';link.href='assets/app-v83-ui.css';link.dataset.cyV83='1';document.head.appendChild(link);
+  }
+  if(document.querySelector('script[data-cy-v83]'))return;
+  const script=document.createElement('script');script.src='assets/app-v83-ui.js';script.dataset.cyV83='1';
+  script.onload=()=>{
+    try{renderHero();renderSettings()}catch{}
+    try{if(CY_V82_HOURLY_REPORT)renderHourlyReport(CY_V82_HOURLY_REPORT)}catch{}
+    try{if(CY_OPPORTUNITY_DATA)renderRecommendations()}catch{}
+  };
+  document.head.appendChild(script);
+})();
