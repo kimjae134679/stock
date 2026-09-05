@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="assets/app-v7.css">
 <link rel="stylesheet" href="assets/app-v8-ui.css">
 <link rel="stylesheet" href="assets/app-v82-ui.css">
+<link rel="stylesheet" href="assets/app-v83-ui.css">
+<link rel="stylesheet" href="assets/app-v84-ui.css">
 <title>청약 레이더</title>
 </head>
 <body>
@@ -82,7 +84,7 @@
     <div class="setting"><b>내 추적 저장</b><p>실제로 신청한 공고만 추적에 넣고 결과·예비·서류·계약 상태를 계속 관리합니다.</p></div>
     <div class="setting"><b>업데이트/백업</b><p>필터·저장·숨김·신청추적 상태를 JSON으로 백업/복원할 수 있습니다. HTML과 공고가 갱신되어도 이 기기의 저장·숨김·추적 기록은 그대로 이어집니다.</p></div>
     <div class="setting"><b>삭제 안전장치</b><p>추적에서 제거한 항목은 최근 제거 기록으로 임시 보관되어 바로 되돌릴 수 있습니다.</p></div>
-    <div class="setting"><b>화면 원칙</b><p>기본 화면에는 접수기간·모집수·내 조건·다음 행동만 우선 표시합니다. 검증용 대량 데이터는 기본 카드에 쌓지 않습니다.</p></div>
+    <div class="setting"><b>화면 원칙</b><p>기본 화면에는 접수기간·모집수·보증금·월세·결과일정·내 조건·다음 행동을 우선 표시합니다. 검증용 대량 데이터는 기본 카드에 쌓지 않습니다.</p></div>
     <button class="reload" id="reloadBtn">공고 데이터 다시 불러오기</button>
     <div class="backup-row"><button class="ghost" id="exportLocalBtn">내 설정/추적 백업</button><button class="ghost" id="importLocalBtn">백업 가져오기</button><input type="file" id="importLocalFile" accept="application/json,.json" hidden></div>
     <button class="danger-light" id="resetLocalBtn">로컬 설정/추적 초기화</button>
@@ -127,5 +129,7 @@
 <script src="assets/app-v7.js"></script>
 <script src="assets/app-v8-ui.js"></script>
 <script src="assets/app-v82-ui.js"></script>
+<script src="assets/app-v83-ui.js"></script>
+<script src="assets/app-v84-ui.js"></script>
 </body>
 </html>
