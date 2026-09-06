@@ -1,4 +1,4 @@
-const CACHE='chungyack-live-v0.8.9-r2';
+const CACHE='chungyack-live-v0.8.9-r3';
 const ASSETS=['./','./index.html','./assets/app.css','./assets/app-v2.css','./assets/app-v3.css','./assets/app-v4.css','./assets/app-v5.css','./assets/app-v6.css','./assets/app-v61.css','./assets/app-v7.css','./assets/app-v8-ui.css','./assets/app-v82-ui.css','./assets/app-v83-ui.css','./assets/app-v84-ui.css','./assets/app-v85-ui.css','./assets/app-v86-ui.css','./assets/app-v87-tracking.css','./assets/app-v88-sync.css','./assets/app.js','./assets/app-v2-fixes.js','./assets/app-v3.js','./assets/app-v4.js','./assets/app-v5.js','./assets/app-v6.js','./assets/app-v61.js','./assets/app-v7.js','./assets/app-v8-ui.js','./assets/app-v82-ui.js','./assets/app-v83-ui.js','./assets/app-v84-ui.js','./assets/app-v85-ui.js','./assets/app-v86-ui.js','./assets/app-v87-tracking.js','./assets/app-v88-sync-config.js','./assets/app-v88-sync.js','./assets/app-icon.svg','./data/app.json','./data/hourly-report.json','./data/current-opportunities.json','./data/tracking-milestones.json','./data/discovery-extra.json','./data/sh-happy-2026-2-youth.json','./data/sh-2026.csv','./manifest.webmanifest'];
 
 async function putFresh(request,response){
@@ -8,7 +8,6 @@ async function putFresh(request,response){
 async function networkFirst(request){
   try{return await putFresh(request,await fetch(request,{cache:'no-store'}))}
   catch(error){return (await caches.match(request))||(request.mode==='navigate'?await caches.match('./index.html'):Promise.reject(error))}
-}
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
