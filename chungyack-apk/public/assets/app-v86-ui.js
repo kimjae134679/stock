@@ -27,12 +27,13 @@ function cyV86HomeRow(x){
 // v85 calls cyV83HomeRow for visible items; replace it with the clearer v86 row.
 cyV83HomeRow=cyV86HomeRow;
 
+function cyV86RefreshHome(){if(CY_V82_HOURLY_REPORT)renderHourlyReport(CY_V82_HOURLY_REPORT)}
 function cyV86WireHomeActions(root=document){
   root.querySelectorAll('[data-cy-v86-save]').forEach(b=>b.addEventListener('click',e=>{
-    e.preventDefault();e.stopPropagation();cyV7ToggleSaved(b.dataset.cyV86Save);
+    e.preventDefault();e.stopPropagation();cyV7ToggleSaved(b.dataset.cyV86Save);cyV86RefreshHome();
   }));
   root.querySelectorAll('[data-cy-v86-track]').forEach(b=>b.addEventListener('click',e=>{
-    e.preventDefault();e.stopPropagation();cyV4AddTracking(b.dataset.cyV86Track);
+    e.preventDefault();e.stopPropagation();cyV4AddTracking(b.dataset.cyV86Track);cyV86RefreshHome();
   }));
 }
 const _cyV86RenderHourly=renderHourlyReport;
