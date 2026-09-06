@@ -1,0 +1,4 @@
+/* v0.8.8 private cloud sync status */
+.cy-v88-sync-setting strong{color:#1269a8}.cy-v88-sync-setting small{display:block;margin-top:5px;color:#7a8795;line-height:1.45}
+.cy-v88-cloud-badge{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 9px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-size:10px;font-weight:850;white-space:nowrap}
+@media(max-width:420px){.cy-v88-cloud-badge{min-height:26px;padding:0 7px;font-size:9px}}
