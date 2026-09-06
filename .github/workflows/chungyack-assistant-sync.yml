@@ -1,0 +1,88 @@
+name: ChungYack Assistant State Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/chungyack-assistant-sync.yml'
+      - 'chungyack-apk/public/data/tracking-milestones.json'
+      - 'chungyack-apk/public/data/current-opportunities.json'
+      - 'chungyack-apk/public/data/hourly-report.json'
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    env:
+      SUPABASE_URL: https://mgnjwkpmxjepdgincyxo.supabase.co
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Supabase client
+        run: npm install --no-save @supabase/supabase-js@2
+      - name: Push assistant milestones to active APK clients
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const { createClient } = require('@supabase/supabase-js');
+
+          const url = process.env.SUPABASE_URL;
+          const secret = process.env.SUPABASE_SECRET_KEY;
+          if (!secret || !secret.startsWith('sb_secret_')) {
+            throw new Error('SUPABASE_SECRET_KEY is missing or invalid');
+          }
+
+          const supabase = createClient(url, secret, {
+            auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+          });
+
+          let milestones = [];
+          const p = 'chungyack-apk/public/data/tracking-milestones.json';
+          if (fs.existsSync(p)) {
+            const raw = JSON.parse(fs.readFileSync(p, 'utf8'));
+            milestones = Array.isArray(raw) ? raw : (Array.isArray(raw.milestones) ? raw.milestones : []);
+          }
+
+          (async () => {
+            const clients = await supabase
+              .from('chungyack_client_state')
+              .select('user_id,updated_at')
+              .order('updated_at', { ascending: false });
+            if (clients.error) throw clients.error;
+
+            const ids = [...new Set((clients.data || []).map(x => x.user_id).filter(Boolean))];
+            for (const userId of ids) {
+              const old = await supabase
+                .from('chungyack_assistant_state')
+                .select('state')
+                .eq('user_id', userId)
+                .maybeSingle();
+              if (old.error) throw old.error;
+
+              const state = {
+                ...(old.data?.state || {}),
+                milestones,
+                publicDataUpdatedAt: new Date().toISOString()
+              };
+
+              const up = await supabase
+                .from('chungyack_assistant_state')
+                .upsert({
+                  user_id: userId,
+                  state,
+                  updated_at: new Date().toISOString()
+                }, { onConflict: 'user_id' });
+              if (up.error) throw up.error;
+            }
+
+            console.log(`SUPABASE_ADMIN_SECRET=OK active_clients=${ids.length} milestones=${milestones.length}`);
+          })().catch(err => {
+            console.error(err?.message || err);
+            process.exit(1);
+          });
+          NODE
