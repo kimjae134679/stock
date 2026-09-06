@@ -74,11 +74,3 @@ window.addEventListener('DOMContentLoaded',()=>{
   const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V87_VERSION;
   cyV87LoadMilestones();
 });
-
-// v0.8.8 loader: keep the shell unchanged while loading the optional private-sync layer.
-(function cyV88LoadLayer(){
-  const css=document.createElement('link');css.rel='stylesheet';css.href='assets/app-v88-sync.css';document.head.appendChild(css);
-  const cfg=document.createElement('script');cfg.src='assets/app-v88-sync-config.js';cfg.onload=()=>{
-    const sync=document.createElement('script');sync.src='assets/app-v88-sync.js';document.body.appendChild(sync);
-  };document.body.appendChild(cfg);
-})();
