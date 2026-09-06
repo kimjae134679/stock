@@ -1,0 +1,51 @@
+{
+  "updatedAt": "2026-09-07T00:15:00+09:00",
+  "items": [
+    {
+      "id": "youth-soco-list-gangnam-2026-09-03",
+      "name": "신논현역 List 강남 추가모집",
+      "result": {"label":"서류심사 대상자 발표","at":"2026-09-09T17:00:00+09:00"},
+      "documents": {"label":"서류사본 제출(이메일)","text":"2026-09-10 ~ 2026-09-11"},
+      "contract": {"label":"계약체결 및 원본서류 제출","text":"2026-09-17 ~ 2026-09-21 10:00~17:00"},
+      "check": "List 강남 홈페이지·신청 시 등록한 연락처·서울 청년안심주택 공식 공고를 함께 확인",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6649&menuNo=40&optn1=2026-09-03&pageIndex=1&searchCondition=&searchKeyword=",
+      "warning": "현재 사용자 캡처는 '대기신청 > 대기자등록' 화면으로 보입니다. 이번 9/7~9/8 추가모집 청약 완료 화면인지 반드시 재확인하세요."
+    },
+    {
+      "id": "youth-soco-sageium-gaebong-2026-09-03",
+      "name": "개봉역 세이지움 개봉 추가모집",
+      "result": {"label":"서류심사 대상자 발표","at":"2026-09-09T17:00:00+09:00"},
+      "documents": {"label":"서류사본 제출(이메일)","text":"2026-09-10 ~ 2026-09-11"},
+      "contract": {"label":"계약체결 및 원본서류 제출","text":"2026-09-15 ~ 2026-09-18 10:00~17:00"},
+      "check": "신청 시 등록한 연락처·사업자 안내·서울 청년안심주택 공식 공고 확인",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6651&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "id": "youth-soco-archeum-deungchon-2026-09-03",
+      "name": "등촌역 아르체움 등촌 추가모집",
+      "result": {"label":"서류심사 대상자 발표","at":"2026-09-08T15:00:00+09:00"},
+      "documents": {"label":"서류사본 제출(이메일)","text":"2026-09-09"},
+      "contract": {"label":"계약체결 및 원본서류 제출","text":"2026-09-17 09:00~18:00"},
+      "check": "신청폼 안내상 당첨자에게만 개별 연락하며 미당첨자 별도 안내·공개 명단이 없습니다. 문자·전화·이메일 확인",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6652&menuNo=40&optn1=2026-09-03&pageIndex=1&searchCondition=&searchKeyword="
+    },
+    {
+      "id": "youth-soco-baekak-achasan-2026-09-03",
+      "name": "아차산역 백악관타워 추가모집",
+      "result": {"label":"서류심사 대상자 발표","at":"2026-09-08T17:00:00+09:00"},
+      "documents": {"label":"서류사본 제출(이메일)","text":"2026-09-09 ~ 2026-09-11"},
+      "contract": {"label":"계약체결 및 원본서류 제출","text":"2026-09-16 ~ 2026-09-17 10:00~17:00"},
+      "check": "신청 시 등록한 연락처·사업자 안내·서울 청년안심주택 공식 공고 확인",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6650&menuNo=40&optn1=2026-09-03&pageIndex=1&searchCondition=&searchKeyword="
+    },
+    {
+      "id": "youth-soco-labom-seongdong-2026-09-03",
+      "name": "왕십리역 라봄성동 추가모집",
+      "result": {"label":"서류심사 대상자 발표","at":"2026-09-08T12:00:00+09:00"},
+      "documents": {"label":"서류사본 제출(이메일)","text":"~ 2026-09-10 17:00"},
+      "contract": {"label":"계약체결 및 원본서류 제출","text":"2026-09-11 ~ 2026-09-14"},
+      "check": "등록 연락처·라봄성동 입주지원센터·서울 청년안심주택 공식 공고 확인",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6648&menuNo=400008&optn1=2026-09-03"
+    }
+  ]
+}
