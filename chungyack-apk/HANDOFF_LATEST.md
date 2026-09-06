@@ -1,6 +1,6 @@
 # ChungYack Live Shell — Latest Handoff
 
-최종 갱신: 2026-09-07 01:43 KST
+최종 갱신: 2026-09-07 01:56 KST
 
 ## 1. 절대 기준
 
@@ -64,9 +64,11 @@
 
 ## 7. 최신 배포 검증
 
-2026-09-07 01:43 KST 기준 `public/index.html`에서 v0.8.8 Supabase sync layer를 실제 로드하도록 수정했고 `public/sw.js` cache를 `chungyack-live-v0.8.8-r2`로 올렸다.
+2026-09-07 01:55 KST 기준 `public/index.html`은 v0.8.8 Supabase sync layer를 직접 로드한다.
 
-GitHub Pages `Deploy Market Radar and ChungYack Pages` run `34046323896`가 **SUCCESS**로 완료되었다.
+`public/assets/app-v87-tracking.js` 안에 남아 있던 구형 v0.8.8 동적 loader를 제거해 sync layer가 중복 실행되지 않도록 수정했다.
+
+GitHub Pages `Deploy Market Radar and ChungYack Pages` run `34046983813`가 **SUCCESS**로 완료되었다.
 
 ## 8. UI 상태 호환성
 
@@ -123,4 +125,31 @@ GitHub Actions `ChungYack Supabase Smoke Test` run `34046254255` SUCCESS.
 - test row cleanup: OK
 - `CHUNGYACK_SUPABASE_SMOKE=PASS`
 
-남은 사항: ChatGPT/관리자 측에서 `chungyack_assistant_state`를 직접 쓰려면 별도의 신뢰된 Supabase 관리자 연결(예: Supabase plugin/MCP/service-side integration)이 필요하다. APK의 개인 상태 클라우드 동기화 자체는 연결 완료 상태다.
+## 10. 관리자/공용 일정 → Supabase → APK 역방향 동기화
+
+GitHub repository secret `SUPABASE_SECRET_KEY`가 등록되었으며 실제 관리자 호출로 검증했다. secret 값은 GitHub Actions에서만 사용하고 로그/코드/APK에는 노출하지 않는다.
+
+워크플로:
+
+- `.github/workflows/chungyack-assistant-sync.yml`
+- `tracking-milestones.json`, `current-opportunities.json`, `hourly-report.json` 갱신 시 실행
+- 공개 일정 데이터만 읽어 각 활성 client의 `chungyack_assistant_state`에 반영
+- 개인 추적 원문을 공개 GitHub 파일/로그에 쓰지 않는다.
+
+2026-09-07 01:56 KST 실제 검증:
+
+- `SUPABASE_ADMIN_SECRET=OK`
+- `active_clients=1`
+- `milestones=5`
+- 관리자 secret으로 `chungyack_assistant_state` upsert 성공
+
+따라서 현재 실제 경로는 다음과 같다.
+
+`APK 개인 상태 -> Supabase client_state`
+
+`공용 발표/서류/계약 데이터 -> GitHub Actions -> Supabase assistant_state -> APK pull`
+
+남은 한계:
+
+- 현재 anonymous auth는 기기별 세션이므로 앱 데이터 삭제/기기 분실 후 동일 계정을 자동 복구하는 영구 로그인 계정은 아직 없다. 완전한 재설치/기기교체 복구까지 원하면 이메일 OTP/패스키 등 영구 계정 연결을 별도 추가해야 한다.
+- ChatGPT가 사용자의 비공개 개인 추적 원문을 직접 읽고 임의 수정하는 통로는 공개 GitHub를 거치면 안 되므로, Supabase plugin/MCP 같은 신뢰된 비공개 관리자 연결이 생기기 전까지는 공개 일정 자동 반영까지만 사용한다.
