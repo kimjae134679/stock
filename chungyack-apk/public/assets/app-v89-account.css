@@ -1,0 +1,9 @@
+/* v0.8.9 recoverable account controls */
+.cy-v89-account small{display:block;margin-top:5px;color:#7a8795;line-height:1.5}
+.cy-v89-fields{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+.cy-v89-fields input{width:100%;min-height:42px;border:1px solid #d9e0e8;border-radius:12px;padding:0 12px;background:#fff;color:#152033;font:inherit;box-sizing:border-box}
+.cy-v89-fields button{width:100%}
+.cy-v89-message{margin-top:10px;padding:10px 12px;border-radius:12px;background:#f3f7fb;color:#34506b;font-size:12px;line-height:1.45}
+.cy-v89-login{margin-top:10px}.cy-v89-login[hidden]{display:none!important}
+.cy-v89-login-toggle{margin-top:10px;width:100%}
+@media(min-width:560px){.cy-v89-fields{grid-template-columns:1fr auto}.cy-v89-fields input[type=password]{grid-column:1/2}.cy-v89-fields .primary{grid-column:2/3}}
