@@ -1,0 +1,101 @@
+name: ChungYack Supabase Smoke Test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'chungyack-apk/public/assets/app-v88-sync-config.js'
+      - 'chungyack-apk/supabase/**'
+      - '.github/workflows/chungyack-supabase-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Supabase client
+        run: npm install --no-save @supabase/supabase-js@2
+      - name: Test anonymous auth and RLS
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const crypto = require('crypto');
+          const { createClient } = require('@supabase/supabase-js');
+
+          const text = fs.readFileSync('chungyack-apk/public/assets/app-v88-sync-config.js', 'utf8');
+          const url = text.match(/url:'([^']+)'/)?.[1];
+          const key = text.match(/anonKey:'([^']+)'/)?.[1];
+          const enabled = /enabled:true/.test(text);
+          if (!enabled || !url || !key) throw new Error('Supabase sync config is incomplete');
+
+          const supabase = createClient(url, key, {
+            auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+          });
+
+          (async () => {
+            const { data: auth, error: authError } = await supabase.auth.signInAnonymously();
+            if (authError) throw authError;
+            const uid = auth.user?.id;
+            if (!uid) throw new Error('Anonymous user id missing');
+            console.log('anonymous auth: OK');
+
+            const now = new Date().toISOString();
+            const state = {
+              format: 'chungyack-cloud-state-v1',
+              appVersion: 'smoke-test',
+              updatedAt: now,
+              tracking: [],
+              savedOpportunities: [],
+              hiddenOpportunities: [],
+              filters: null
+            };
+
+            let res = await supabase.from('chungyack_client_state')
+              .upsert({ user_id: uid, state, updated_at: now }, { onConflict: 'user_id' });
+            if (res.error) throw res.error;
+            console.log('client upsert own row: OK');
+
+            res = await supabase.from('chungyack_client_state')
+              .select('user_id,state,updated_at').eq('user_id', uid).maybeSingle();
+            if (res.error) throw res.error;
+            if (!res.data || res.data.user_id !== uid) throw new Error('Own row read failed');
+            console.log('client select own row: OK');
+
+            const foreignId = crypto.randomUUID();
+            res = await supabase.from('chungyack_client_state')
+              .insert({ user_id: foreignId, state, updated_at: now });
+            if (!res.error) throw new Error('RLS failure: foreign user_id insert was allowed');
+            console.log('RLS foreign insert blocked: OK');
+
+            res = await supabase.from('chungyack_client_state')
+              .select('user_id').eq('user_id', foreignId);
+            if (res.error) throw res.error;
+            if ((res.data || []).length !== 0) throw new Error('RLS failure: foreign row became visible');
+            console.log('RLS foreign select hidden: OK');
+
+            res = await supabase.from('chungyack_assistant_state')
+              .insert({ user_id: uid, state: { smoke: true }, updated_at: now });
+            if (!res.error) throw new Error('RLS failure: app could write assistant state');
+            console.log('assistant state app write blocked: OK');
+
+            res = await supabase.from('chungyack_assistant_state')
+              .select('user_id,state').eq('user_id', uid).maybeSingle();
+            if (res.error) throw res.error;
+            console.log('assistant state own read permitted: OK');
+
+            res = await supabase.from('chungyack_client_state').delete().eq('user_id', uid);
+            if (res.error) throw res.error;
+            console.log('cleanup own row: OK');
+            console.log('CHUNGYACK_SUPABASE_SMOKE=PASS');
+          })().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          NODE
