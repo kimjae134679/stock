@@ -45,7 +45,11 @@ jobs:
           const p = 'chungyack-apk/public/data/tracking-milestones.json';
           if (fs.existsSync(p)) {
             const raw = JSON.parse(fs.readFileSync(p, 'utf8'));
-            milestones = Array.isArray(raw) ? raw : (Array.isArray(raw.milestones) ? raw.milestones : []);
+            milestones = Array.isArray(raw)
+              ? raw
+              : (Array.isArray(raw.items)
+                  ? raw.items
+                  : (Array.isArray(raw.milestones) ? raw.milestones : []));
           }
 
           (async () => {
