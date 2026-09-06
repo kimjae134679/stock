@@ -1,6 +1,6 @@
 # ChungYack Live Shell — Latest Handoff
 
-최종 갱신: 2026-09-07 01:56 KST
+최종 갱신: 2026-09-07 02:11 KST
 
 ## 1. 절대 기준
 
@@ -62,13 +62,13 @@
 3. LH 경기남부 26년 3차 청년 매입임대 XLSX를 실제 주택 단위로 전개 — 성남·용인 우선
 4. SH 2026년 2차 장기미임대 매입임대 개별 주소·면적·임대조건 전개
 
-## 7. 최신 배포 검증
+## 7. 최신 배포/로드 원칙
 
-2026-09-07 01:55 KST 기준 `public/index.html`은 v0.8.8 Supabase sync layer를 직접 로드한다.
+`public/index.html`은 v0.8.8 Supabase sync layer만 직접 로드한다.
 
-`public/assets/app-v87-tracking.js` 안에 남아 있던 구형 v0.8.8 동적 loader를 제거해 sync layer가 중복 실행되지 않도록 수정했다.
+`public/assets/app-v87-tracking.js` 안에 남아 있던 구형 v0.8.8 동적 loader는 제거되어 sync layer가 중복 실행되지 않는다.
 
-GitHub Pages `Deploy Market Radar and ChungYack Pages` run `34046983813`가 **SUCCESS**로 완료되었다.
+복구용 이메일/비밀번호 UI로 추가했던 `app-v89-account.js/css`는 사용자 요구에 따라 제거했다. 서비스워커 cache도 `chungyack-live-v0.8.9-r2`로 갱신해 해당 UI 잔재를 purge한다.
 
 ## 8. UI 상태 호환성
 
@@ -79,7 +79,7 @@ GitHub Pages `Deploy Market Radar and ChungYack Pages` run `34046983813`가 **SU
 
 위 키와 기존 공고 `id`를 유지하므로 클라우드 동기화 도입 전 로컬 기록을 유지한다.
 
-## 9. Supabase 개인 동기화 — 2026-09-07 완료
+## 9. Supabase 개인 동기화 — 완료
 
 프로젝트:
 
@@ -99,7 +99,7 @@ DB:
 Auth:
 
 - Anonymous Sign-Ins 활성화됨
-- 앱은 Supabase anonymous auth 세션을 기기에 유지한다.
+- 앱은 별도 로그인 UI 없이 Supabase anonymous auth 세션을 자동 생성/유지한다.
 
 라이브 파일:
 
@@ -136,7 +136,7 @@ GitHub repository secret `SUPABASE_SECRET_KEY`가 등록되었으며 실제 관�
 - 공개 일정 데이터만 읽어 각 활성 client의 `chungyack_assistant_state`에 반영
 - 개인 추적 원문을 공개 GitHub 파일/로그에 쓰지 않는다.
 
-2026-09-07 01:56 KST 실제 검증:
+실제 검증:
 
 - `SUPABASE_ADMIN_SECRET=OK`
 - `active_clients=1`
@@ -149,7 +149,13 @@ GitHub repository secret `SUPABASE_SECRET_KEY`가 등록되었으며 실제 관�
 
 `공용 발표/서류/계약 데이터 -> GitHub Actions -> Supabase assistant_state -> APK pull`
 
-남은 한계:
+## 11. 사용자 경험 원칙 — 2026-09-07 변경
 
-- 현재 anonymous auth는 기기별 세션이므로 앱 데이터 삭제/기기 분실 후 동일 계정을 자동 복구하는 영구 로그인 계정은 아직 없다. 완전한 재설치/기기교체 복구까지 원하면 이메일 OTP/패스키 등 영구 계정 연결을 별도 추가해야 한다.
-- ChatGPT가 사용자의 비공개 개인 추적 원문을 직접 읽고 임의 수정하는 통로는 공개 GitHub를 거치면 안 되므로, Supabase plugin/MCP 같은 신뢰된 비공개 관리자 연결이 생기기 전까지는 공개 일정 자동 반영까지만 사용한다.
+- 이메일 로그인 UI 없음
+- 비밀번호 없음
+- 복구코드 없음
+- 사용자가 계정 설정을 따로 하지 않아도 됨
+- APK는 실행 시 자동으로 익명 Supabase 세션을 만들고 동기화
+- 현재 기기의 데이터는 localStorage + Supabase 이중 저장
+
+주의: 앱 데이터 삭제/완전한 새 기기에서 **동일한 익명 사용자 ID를 재식별하는 기능은 별도 인증수단 없이 보장할 수 없다**. 사용자에게는 불필요한 로그인/복구 UI를 노출하지 않고, 현재 단일 사용자 자동 동기화 흐름을 유지한다.
