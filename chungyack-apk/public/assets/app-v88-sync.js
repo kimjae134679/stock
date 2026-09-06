@@ -1,6 +1,6 @@
-// v0.8.8 live: private cloud sync bridge for tracking/saved/hidden/filter state.
+// v0.8.9 live: private cloud sync bridge for tracking/saved/hidden/filter state.
 // Backend is Supabase with anonymous auth + RLS. LocalStorage remains the offline source of truth.
-const CY_V88_VERSION='0.8.8-live';
+const CY_V88_VERSION='0.8.9-live';
 const CY_V88_LOCAL_STAMP='chungyack.sync.localUpdatedAt.v1';
 const CY_V88_LAST_PULL='chungyack.sync.lastPullAt.v1';
 const CY_V88_ASSISTANT_CACHE='chungyack.sync.assistantState.v1';
