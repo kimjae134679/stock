@@ -10,11 +10,11 @@ window.CY_CLOUD_SYNC_CONFIG={
   assistantTable:'chungyack_assistant_state'
 };
 
-// v0.8.9 loader: account recovery UI is layered on top of the existing live shell.
+// v0.9.0 loader: favorites-first UI. Runs after the legacy layers finish loading.
 window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
-  if(document.getElementById('cyV89AccountScript'))return;
+  if(document.getElementById('cyV90FavoritesScript'))return;
   const css=document.createElement('link');
-  css.rel='stylesheet';css.href='assets/app-v89-account.css';css.id='cyV89AccountCss';document.head.appendChild(css);
+  css.rel='stylesheet';css.href='assets/app-v90-favorites.css?v=0900';css.id='cyV90FavoritesCss';document.head.appendChild(css);
   const js=document.createElement('script');
-  js.src='assets/app-v89-account.js';js.id='cyV89AccountScript';document.body.appendChild(js);
-},700));
+  js.src='assets/app-v90-favorites.js?v=0900';js.id='cyV90FavoritesScript';document.body.appendChild(js);
+},350));
