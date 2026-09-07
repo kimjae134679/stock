@@ -1,0 +1,24 @@
+/* v0.9.0 favorites-first UI */
+.cy-v90-favorites{display:grid;gap:12px!important}
+.cy-v90-fav-card{overflow:hidden;background:#fff;border:1px solid #e2e9f1;border-radius:22px;box-shadow:0 7px 22px rgba(37,64,98,.07)}
+.cy-v90-fav-card.is-tracked{border-color:#cbddef}.cy-v90-fav-card.is-hidden{opacity:.76}
+.cy-v90-fav-main{display:block;width:100%;border:0;background:transparent;text-align:left;padding:16px 16px 12px;color:inherit}
+.cy-v90-fav-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.cy-v90-fav-flags{display:flex;flex-wrap:wrap;gap:6px}
+.cy-v90-flag{display:inline-flex;align-items:center;min-height:24px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:800;background:#f1f5f9;color:#536579}
+.cy-v90-flag.heart{background:#fff0f4;color:#b23d62}.cy-v90-flag.track{background:#eaf5ff;color:#17689e}.cy-v90-flag.hidden{background:#f1f3f5;color:#66717e}
+.cy-v90-chevron{font-size:25px;color:#9aa8b8;line-height:1}.cy-v90-fav-card h3{margin:10px 0 4px;font-size:18px;line-height:1.35;color:#17263b}.cy-v90-fav-meta{margin:0;color:#788697;font-size:12px}
+.cy-v90-fav-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.cy-v90-fav-facts>span{display:grid;gap:3px;padding:9px 10px;border-radius:12px;background:#f7f9fc}.cy-v90-fav-facts small{font-size:10px;color:#8996a5}.cy-v90-fav-facts b{font-size:12px;line-height:1.35;color:#33465d}
+.cy-v90-fav-line{margin-top:9px;font-size:12px;color:#52677f;line-height:1.45}.cy-v90-fav-line.result{color:#17689e;font-weight:750}
+.cy-v90-fav-actions{display:flex;align-items:center;gap:7px;padding:10px 12px 12px;border-top:1px solid #eef2f6;background:#fbfcfe}
+.cy-v90-icon-action,.cy-v90-mini-action{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;width:auto!important;min-width:46px!important;min-height:36px!important;padding:0 9px!important;border:1px solid #dce5ee!important;border-radius:12px!important;background:#fff!important;color:#52677f!important;text-decoration:none!important;font-weight:750!important;box-sizing:border-box!important}
+.cy-v90-icon-action b,.cy-v90-mini-action b{font-size:16px;line-height:1}.cy-v90-icon-action small,.cy-v90-mini-action small{font-size:10px!important;font-weight:800!important;line-height:1!important}
+.cy-v90-icon-action.heart.on,.cy-v90-mini-action.heart.on{border-color:#f2cbd6!important;background:#fff4f7!important;color:#b23d62!important}.cy-v90-icon-action.track.on,.cy-v90-mini-action.track.on{border-color:#c9dfef!important;background:#eef8ff!important;color:#17689e!important}.cy-v90-icon-action.hide.on{background:#f1f3f5!important;color:#56616d!important}
+.cy-v90-empty{display:grid;place-items:center;gap:6px;padding:42px 18px;border:1px dashed #cbd7e3;border-radius:20px;background:#f8fafc;text-align:center}.cy-v90-empty b{font-size:17px;color:#33465d}.cy-v90-empty span{font-size:12px;color:#8290a0}
+
+.cy-v8-actions,.cy-v7-actions{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:7px!important}
+.cy-v8-actions .btn,.cy-v7-actions .btn{flex:0 0 auto!important;width:auto!important;min-width:46px!important;min-height:36px!important;padding:0 10px!important;border-radius:12px!important;font-size:11px!important;line-height:1!important}
+.cy-v8-actions .btn b,.cy-v7-actions .btn b{font-size:16px;margin-right:4px}.cy-v8-actions .btn small,.cy-v7-actions .btn small{font-size:10px;font-weight:800}
+.cy-v8-save.on,.cy-v7-save.on{background:#fff4f7!important;border-color:#f2cbd6!important;color:#b23d62!important}.cy-v8-track.on,.cy-v7-track.on{background:#eef8ff!important;border-color:#c9dfef!important;color:#17689e!important}
+.cy-v8-view-row,.cy-v7-views{gap:6px!important}.cy-v8-view,.cy-v7-view{min-height:34px!important;padding:0 10px!important;border-radius:11px!important;font-size:11px!important}
+.cy-v90-home-actions{display:flex!important;justify-content:flex-start!important;gap:7px!important;padding-top:8px!important}.cy-v90-home-actions>span:empty{display:none}.cy-v90-home-row .cy-v86-home-open{padding-bottom:4px!important}
+.nav-btn[data-page="schedule"] b{font-size:20px!important;color:#b23d62}.nav-btn[data-page="schedule"].active b{color:inherit}
