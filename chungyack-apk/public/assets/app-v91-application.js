@@ -4,6 +4,8 @@ let CY_V91_NAV_BUSY=false;
 
 function cyV91NormalizeText(value){
   return String(value??'')
+    .replace(/아직\s*추적\s*중인\s*신청\s*공고가\s*없습니다/g,'아직 신청한 공고가 없습니다')
+    .replace(/추적\s*중인\s*신청\s*공고/g,'신청한 공고')
     .replace(/신청\s*추적/g,'신청')
     .replace(/추적에서\s*제거/g,'신청 목록에서 제거')
     .replace(/추적\s*수정/g,'신청 수정')
@@ -33,8 +35,8 @@ function cyV91RenameText(root=document){
     if(el.hasAttribute('aria-label'))el.setAttribute('aria-label',cyV91NormalizeText(el.getAttribute('aria-label')));
   });
 
-  const stop=document.querySelector('#trackStatus option[value="취소/추적중단"]');
-  if(stop)stop.textContent='취소/신청중단';
+  const stop=[...document.querySelectorAll('#trackStatus option')].find(o=>o.value==='취소/추적중단'||o.textContent.trim()==='취소/추적중단'||o.textContent.trim()==='취소/신청중단');
+  if(stop){stop.value='취소/추적중단';stop.textContent='취소/신청중단';}
 }
 
 function cyV91StaticLabels(){
@@ -46,6 +48,7 @@ function cyV91StaticLabels(){
   if(tracking){
     const h=tracking.querySelector('.section-head h2');if(h)h.textContent='내 신청';
     const s=tracking.querySelector('.section-head small');if(s)s.textContent='신청한 공고 · 결과 · 서류 · 계약';
+    const toolbar=tracking.querySelector('.tracking-toolbar span');if(toolbar)toolbar.textContent='신청완료 이후 발표·서류·계약 일정까지 관리';
   }
   const trackingNav=document.querySelector('.nav-btn[data-page="tracking"]');if(trackingNav)trackingNav.innerHTML='<b>✓</b>신청';
 
@@ -67,7 +70,7 @@ function cyV91StaticLabels(){
 if(typeof openPage==='function'){
   openPage=function(name){
     if(CY_V91_NAV_BUSY)return;
-    const target=document.querySelector(`.page[data-page="${String(name).replace(/"/g,'\\"')}"]`);
+    const target=[...document.querySelectorAll('.page')].find(page=>page.dataset.page===name);
     if(!target)return;
     CY_V91_NAV_BUSY=true;
     document.body.classList.add('cy-v91-nav-switching');
@@ -110,7 +113,19 @@ if(typeof renderHero==='function'){
 }
 if(typeof openTrackEditor==='function'){
   const _cyV91Editor=openTrackEditor;
-  openTrackEditor=function(item={}){_cyV91Editor(item);cyV91StaticLabels();};
+  openTrackEditor=function(item={}){
+    _cyV91Editor(item);
+    const title=document.getElementById('editorTitle');if(title)title.textContent=item.id?'신청 공고 수정':'신청한 공고 추가';
+    cyV91StaticLabels();
+  };
+}
+if(typeof removeTracking==='function'){
+  removeTracking=function(id){
+    const x=Array.isArray(TRACKING)?TRACKING.find(v=>v.id===id):null;if(!x)return;
+    if(!confirm(`'${x.name}'을 앱 신청 목록에서 제거할까요?\n실제 청약 신청은 취소되지 않습니다.`))return;
+    TRACKING=TRACKING.filter(v=>v.id!==id);
+    saveTracking();renderTracking();renderSchedule();renderHero();
+  };
 }
 if(typeof cyV83OpenActionSheet==='function'){
   const _cyV91Sheet=cyV83OpenActionSheet;
