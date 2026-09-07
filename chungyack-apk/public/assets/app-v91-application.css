@@ -1,0 +1,7 @@
+/* v0.9.1 application terminology + Android WebView navigation stability */
+html{scroll-behavior:auto!important}
+.bottom-nav,.bottom-inner,.nav-btn{touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important}
+.nav-btn{user-select:none;-webkit-user-select:none}
+body.cy-v91-nav-switching .bottom-nav{pointer-events:auto}
+body.cy-v91-nav-switching .page:not(.active){display:none!important}
+.nav-btn[data-page="tracking"] b{font-size:20px!important}
