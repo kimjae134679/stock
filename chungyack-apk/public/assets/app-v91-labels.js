@@ -107,9 +107,14 @@ function cyV91Boot(){
 function cyV91LoadV93(){
   if(document.getElementById('cyV93CompactScript'))return;
   if(!document.getElementById('cyV93CompactCss')){
-    const css=document.createElement('link');css.id='cyV93CompactCss';css.rel='stylesheet';css.href='assets/app-v93-compact.css?v=0930';document.head.appendChild(css);
+    const css=document.createElement('link');css.id='cyV93CompactCss';css.rel='stylesheet';css.href='assets/app-v93-compact.css?v=0931';document.head.appendChild(css);
   }
-  const js=document.createElement('script');js.id='cyV93CompactScript';js.src='assets/app-v93-compact.js?v=0930';document.body.appendChild(js);
+  const js=document.createElement('script');js.id='cyV93CompactScript';js.src='assets/app-v93-compact.js?v=0931';
+  js.onload=()=>{
+    if(document.getElementById('cyV93ResultFixScript'))return;
+    const fix=document.createElement('script');fix.id='cyV93ResultFixScript';fix.src='assets/app-v93-resultfix.js?v=0931';document.body.appendChild(fix);
+  };
+  document.body.appendChild(js);
 }
 
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',()=>{cyV91Boot();setTimeout(cyV91LoadV93,120)},{once:true});
