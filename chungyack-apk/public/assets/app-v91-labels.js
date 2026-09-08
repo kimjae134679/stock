@@ -1,4 +1,4 @@
-// v0.9.2 live: user-facing terminology uses "신청" instead of "추적".
+// v0.9.2 compatibility layer: user-facing terminology uses "신청" instead of "추적".
 // IMPORTANT: no MutationObserver. The previous observer could retrigger itself and freeze Android WebView.
 // Internal tracking keys/functions remain unchanged for backward compatibility and cloud sync safety.
 const CY_V91_VERSION='0.9.2-live';
@@ -27,7 +27,6 @@ function cyV91ApplyLabels(root=document){
   if(!root)return;
   const scope=root.nodeType===9?(root.querySelector('.app')||root):root;
 
-  // Only touch text nodes that actually still contain the old word.
   const walker=document.createTreeWalker(scope,NodeFilter.SHOW_TEXT,{acceptNode(node){
     const parent=node.parentElement;
     if(!parent||/^(SCRIPT|STYLE|TEXTAREA|OPTION)$/i.test(parent.tagName))return NodeFilter.FILTER_REJECT;
@@ -100,21 +99,29 @@ cyV91Wrap('openTrackEditor',()=>cyV91ApplyLabels(document.getElementById('tracki
 
 function cyV91Boot(){
   cyV91ApplyLabels(document);
-  // One delayed pass is enough for late-loaded live data; no continuous DOM observer.
   setTimeout(()=>{try{cyV91ApplyLabels(document)}catch{}},900);
 }
 
+function cyV91LoadV94(){
+  if(document.getElementById('cyV94LayoutScript'))return;
+  if(!document.getElementById('cyV94LayoutCss')){
+    const css=document.createElement('link');css.id='cyV94LayoutCss';css.rel='stylesheet';css.href='assets/app-v94-layout.css?v=0940';document.head.appendChild(css);
+  }
+  const js=document.createElement('script');js.id='cyV94LayoutScript';js.src='assets/app-v94-layout.js?v=0940';document.body.appendChild(js);
+}
+
+function cyV91LoadResultFixAndV94(){
+  const existing=document.getElementById('cyV93ResultFixScript');
+  if(existing){cyV91LoadV94();return}
+  const fix=document.createElement('script');fix.id='cyV93ResultFixScript';fix.src='assets/app-v93-resultfix.js?v=0931';fix.onload=cyV91LoadV94;document.body.appendChild(fix);
+}
+
 function cyV91LoadV93(){
-  if(document.getElementById('cyV93CompactScript'))return;
+  if(document.getElementById('cyV93CompactScript')){cyV91LoadResultFixAndV94();return}
   if(!document.getElementById('cyV93CompactCss')){
     const css=document.createElement('link');css.id='cyV93CompactCss';css.rel='stylesheet';css.href='assets/app-v93-compact.css?v=0931';document.head.appendChild(css);
   }
-  const js=document.createElement('script');js.id='cyV93CompactScript';js.src='assets/app-v93-compact.js?v=0931';
-  js.onload=()=>{
-    if(document.getElementById('cyV93ResultFixScript'))return;
-    const fix=document.createElement('script');fix.id='cyV93ResultFixScript';fix.src='assets/app-v93-resultfix.js?v=0931';document.body.appendChild(fix);
-  };
-  document.body.appendChild(js);
+  const js=document.createElement('script');js.id='cyV93CompactScript';js.src='assets/app-v93-compact.js?v=0931';js.onload=cyV91LoadResultFixAndV94;document.body.appendChild(js);
 }
 
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',()=>{cyV91Boot();setTimeout(cyV91LoadV93,120)},{once:true});
