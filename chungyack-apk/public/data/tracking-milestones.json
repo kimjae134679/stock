@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T00:15:00+09:00",
+  "updatedAt": "2026-09-08T17:08:00+09:00",
   "items": [
     {
       "id": "youth-soco-list-gangnam-2026-09-03",
@@ -46,6 +46,24 @@
       "contract": {"label":"계약체결 및 원본서류 제출","text":"2026-09-11 ~ 2026-09-14"},
       "check": "등록 연락처·라봄성동 입주지원센터·서울 청년안심주택 공식 공고 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6648&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "id": "youth-soco-cheonho-hangang-2026-09-03",
+      "name": "천호역 천호한강청년주택 추가모집",
+      "result": {"label":"서류심사 대상자 발표","at":"2026-09-11T10:00:00+09:00"},
+      "documents": {"label":"서류사본 제출","text":"2026-09-14 ~ 2026-09-16"},
+      "contract": {"label":"계약체결 및 원본서류 제출","text":"2026-09-21 ~ 2026-09-22"},
+      "check": "서울 청년안심주택 공식 공고·사업자 안내·신청 시 등록한 연락처 확인",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6653&menuNo=400008&optn1=2026-09-03"
+    },
+    {
+      "id": "lh-youth-south-gyeonggi-2026-3",
+      "name": "[정정공고] LH 경기남부 26년 3차 청년 매입임대주택 예비입주자 모집",
+      "result": {"label":"서류제출대상자 발표","at":"2026-09-11T17:00:00+09:00"},
+      "documents": {"label":"온라인 서류제출","text":"2026-09-14 10:00 ~ 2026-09-16 16:00"},
+      "contract": {"label":"예비입주자 순번 발표 후 계약","text":"2026-11-27 17:00 순번 발표 · 계약은 순번 도래 시 개별 안내"},
+      "check": "LH청약플러스 서류제출대상자 명단을 우선 확인. 최종 예비입주자 순번 발표는 2026-11-27 17:00",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020621&uppAisTpCd=13"
     }
   ]
 }
