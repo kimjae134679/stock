@@ -1,4 +1,4 @@
-// v0.9.5 live: result hub quick classification + official check links.
+// v0.9.5 compatibility: result hub quick classification + official check links.
 const CY_V95_VERSION='0.9.5-live';
 
 function cyV95OppForTrack(x){
@@ -72,4 +72,9 @@ if(typeof cyV94RenderResults==='function'&&!cyV94RenderResults.__cyV95Wrapped){
   wrapped.__cyV95Wrapped=true;cyV94RenderResults=wrapped;
 }
 function cyV95Boot(){try{if(typeof cyV94RenderResults==='function')cyV94RenderResults()}catch(e){console.warn('[ChungYack] v0.9.5 result actions failed',e)}const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V95_VERSION;const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V95_VERSION;}
-if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV95Boot,{once:true});else setTimeout(cyV95Boot,0);
+
+function cyV95LoadV96(){
+  if(document.getElementById('cyV96ExpiredFilterScript'))return;
+  const js=document.createElement('script');js.id='cyV96ExpiredFilterScript';js.src='assets/app-v96-expired-filter.js?v=0960';document.body.appendChild(js);
+}
+if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',()=>{cyV95Boot();setTimeout(cyV95LoadV96,80)},{once:true});else{setTimeout(cyV95Boot,0);setTimeout(cyV95LoadV96,80)}
