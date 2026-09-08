@@ -104,4 +104,13 @@ function cyV91Boot(){
   setTimeout(()=>{try{cyV91ApplyLabels(document)}catch{}},900);
 }
 
-if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV91Boot,{once:true});else cyV91Boot();
+function cyV91LoadV93(){
+  if(document.getElementById('cyV93CompactScript'))return;
+  if(!document.getElementById('cyV93CompactCss')){
+    const css=document.createElement('link');css.id='cyV93CompactCss';css.rel='stylesheet';css.href='assets/app-v93-compact.css?v=0930';document.head.appendChild(css);
+  }
+  const js=document.createElement('script');js.id='cyV93CompactScript';js.src='assets/app-v93-compact.js?v=0930';document.body.appendChild(js);
+}
+
+if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',()=>{cyV91Boot();setTimeout(cyV91LoadV93,120)},{once:true});
+else{cyV91Boot();setTimeout(cyV91LoadV93,120)}
