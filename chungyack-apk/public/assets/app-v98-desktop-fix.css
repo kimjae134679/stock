@@ -1,0 +1,116 @@
+/* v0.9.8: desktop layout repair. Mobile layout remains unchanged. */
+
+@media (min-width:700px){
+  .app{max-width:1080px!important;padding-left:22px!important;padding-right:22px!important}
+
+  /* The opportunity toolbar must stay above the cards on desktop. */
+  .page[data-page="home"][data-cy-v94="opportunities"] #recommendList,
+  .page[data-page="home"][data-cy-v94="opportunities"] .recommend-list{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+  }
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-toolbar,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-toolbar{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    gap:9px!important;
+    margin:4px 0 14px!important;
+    position:static!important;
+  }
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-view-row,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-level-row,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-views,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-levels{
+    display:flex!important;
+    flex-direction:row!important;
+    flex-wrap:wrap!important;
+    align-items:center!important;
+    align-content:center!important;
+    gap:7px!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+    padding:0!important;
+  }
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-view,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-level,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-view,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-levels button{
+    display:inline-flex!important;
+    flex:0 0 auto!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:38px!important;
+    min-height:38px!important;
+    padding:0 13px!important;
+    margin:0!important;
+    writing-mode:horizontal-tb!important;
+    text-orientation:mixed!important;
+    white-space:nowrap!important;
+  }
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-search-wrap,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-search-row{
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    gap:8px!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+  }
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-search,
+  .page[data-page="home"][data-cy-v94="opportunities"] #cyV7Search{
+    flex:1 1 auto!important;
+    width:100%!important;
+    max-width:none!important;
+    min-width:180px!important;
+  }
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-result,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-result{
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:2px 2px 0!important;
+    writing-mode:horizontal-tb!important;
+  }
+
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-list,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-list{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:start!important;
+    gap:15px!important;
+    width:100%!important;
+    max-width:none!important;
+  }
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-card,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-card,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v85-collapsed-card{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+  }
+
+  /* Results/applications should use the available desktop width without stretching text excessively. */
+  .cy-v94-result-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+  .page[data-page="tracking"] #trackingGridMirror,
+  .page[data-page="schedule"] #scheduleList{max-width:900px;margin-left:auto;margin-right:auto}
+}
+
+@media (min-width:700px) and (max-width:899px){
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-list,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-list,
+  .cy-v94-result-list{grid-template-columns:1fr!important}
+  .app{max-width:760px!important}
+}
