@@ -1,6 +1,6 @@
 # ChungYack Live Shell — Latest Handoff
 
-최종 갱신: 2026-09-07 02:11 KST
+최종 갱신: 2026-09-08 17:08 KST
 
 ## 1. 절대 기준
 
@@ -14,11 +14,11 @@
 
 다음 상태는 localStorage를 오프라인 폴백으로 유지하면서 Supabase 개인 사용자 상태와 동기화한다.
 
-- 저장
+- 찜(내부 호환 키는 saved 유지)
 - 숨김
 - 보기
 - 필터
-- 신청 추적
+- 신청(내부 호환 키/함수는 tracking 유지)
 - 삭제/복원
 
 공개 `app.json`은 항상 `trackingSeed: []`를 유지한다. 개인 신청완료·결과·예비순번·서류·계약·입주 상태를 공개 JSON에 넣지 않는다. 공고 `id`는 개인 기록 연결키이므로 같은 공고에서 임의 변경하지 않는다.
@@ -44,14 +44,15 @@
 - `hourly-report.json`, `current-opportunities.json`, `app.json`을 서로 모순 없게 함께 관리한다.
 - 자동화가 UI/CSS/JS를 재설계하지 않는다.
 - 일반 데이터 갱신으로 APK를 재빌드하지 않는다.
-- 공개 시간별 보고에는 개인 `이미 신청한 공고` 그룹을 만들지 않는다.
+- 공개 시간별 보고에는 개인 신청 목록을 노출하지 않는다.
+- 신청한 공고와 찜한 공고는 공고 재검증 우선순위로 취급한다.
 
 ## 5. 현재 활성 공고 축
 
-- 오늘/내일: 왕십리역 라봄성동, 아차산역 백악관타워, LH 경기북부 든든전세 발표 일정
-- 2~3일: LH 경기남부 청년 매입임대, 안성 기숙사형, 천호한강, 아르체움 등촌, 청계로벤하임, 세이지움 개봉, List 강남
-- 4~7일: SH 2026년 2차 행복주택
-- 이후: 세이지움 태릉입구, 파인(FINE)주택, 금천구 청년 맞춤형주택(보류), SH 2차 장기미임대
+- 오늘/내일: 왕십리역 라봄성동, 아차산역 백악관타워 등 결과/서류 일정 + 청년안심주택 접수 공고
+- 2~3일: LH 경기남부 청년 매입임대, 기숙사형, 청년안심주택 예정/접수
+- 4~7일: SH 행복주택 등
+- 이후: 파인주택, 금천구 청년 맞춤형주택(보류), SH 장기미임대 등
 
 확정 패스/제외 규칙을 계속 우선한다. 신혼전용은 청년 신청 불가 시 제외한다.
 
@@ -64,28 +65,25 @@
 
 ## 7. 최신 배포/로드 원칙
 
-`public/index.html`은 v0.8.8 Supabase sync layer만 직접 로드한다.
+`public/index.html`은 기존 Supabase sync layer를 직접 로드한다.
 
-`public/assets/app-v87-tracking.js` 안에 남아 있던 구형 v0.8.8 동적 loader는 제거되어 sync layer가 중복 실행되지 않는다.
+최신 UI는 `app-v88-sync-config.js -> app-v90-favorites.js -> app-v91-labels.js -> app-v93-compact.js` 흐름으로 늦게 덮어씌운다. `app-v91-labels.js`에는 Android WebView 프리즈를 만들었던 MutationObserver를 다시 넣지 않는다.
 
-복구용 이메일/비밀번호 UI로 추가했던 `app-v89-account.js/css`는 사용자 요구에 따라 제거했다. 서비스워커 cache도 `chungyack-live-v0.8.9-r2`로 갱신해 해당 UI 잔재를 purge한다.
+현재 최신 사용자 표시 버전은 `0.9.3-live`, 서비스워커 캐시는 `chungyack-live-v0.9.3-r1`이다.
 
 ## 8. UI 상태 호환성
 
 - `chungyack.opportunity.saved.v1`
 - `chungyack.opportunity.hidden.v1`
 - `chungyack.opportunity.view.v1`
-- 기존 필터/추적/삭제복원 localStorage
+- `chungyack.application.category.v1`
+- 기존 필터/tracking/삭제복원 localStorage
 
-위 키와 기존 공고 `id`를 유지하므로 클라우드 동기화 도입 전 로컬 기록을 유지한다.
+화면 용어는 `찜`, `신청`을 쓰되 기존 저장 키와 공고 `id`는 바꾸지 않는다.
 
 ## 9. Supabase 개인 동기화 — 완료
 
-프로젝트:
-
-- ref: `mgnjwkpmxjepdgincyxo`
-- URL: `https://mgnjwkpmxjepdgincyxo.supabase.co`
-- 앱에는 public publishable key만 포함한다. secret/service-role/database password는 GitHub/APK에 넣지 않는다.
+프로젝트 ref는 `mgnjwkpmxjepdgincyxo`. 앱에는 public publishable key만 포함한다. secret/service-role/database password는 GitHub/APK에 넣지 않는다.
 
 DB:
 
@@ -96,60 +94,40 @@ DB:
 - client는 `auth.uid() = user_id`인 자기 row만 CRUD 가능
 - assistant state는 앱에서 자기 row select만 가능하고 insert/update는 불가
 
-Auth:
+Auth는 anonymous sign-in을 사용하며 앱은 로그인 UI 없이 자동 세션을 만든다.
 
-- Anonymous Sign-Ins 활성화됨
-- 앱은 별도 로그인 UI 없이 Supabase anonymous auth 세션을 자동 생성/유지한다.
-
-라이브 파일:
-
-- `public/assets/app-v88-sync-config.js`
-- `public/assets/app-v88-sync.js`
-- `public/assets/app-v88-sync.css`
-- `public/index.html`에서 v88 config/sync 로드
-- localStorage는 오프라인 폴백으로 계속 유지
-
-실제 E2E 검증:
-
-GitHub Actions `ChungYack Supabase Smoke Test` run `34046254255` SUCCESS.
-
-검증된 항목:
-
-- anonymous auth: OK
-- own client row upsert: OK
-- own client row select: OK
-- foreign user_id insert blocked by RLS: OK
-- foreign row select hidden by RLS: OK
-- app write to assistant state blocked: OK
-- own assistant state read permitted: OK
-- test row cleanup: OK
-- `CHUNGYACK_SUPABASE_SMOKE=PASS`
+실제 E2E smoke에서 own-row CRUD, foreign-row 차단, assistant-state app write 차단이 검증됐다.
 
 ## 10. 관리자/공용 일정 → Supabase → APK 역방향 동기화
 
-GitHub repository secret `SUPABASE_SECRET_KEY`가 등록되었으며 실제 관리자 호출로 검증했다. secret 값은 GitHub Actions에서만 사용하고 로그/코드/APK에는 노출하지 않는다.
+워크플로 `.github/workflows/chungyack-assistant-sync.yml`이 공개 `tracking-milestones.json`을 각 활성 client의 `chungyack_assistant_state`에 반영한다.
 
-워크플로:
-
-- `.github/workflows/chungyack-assistant-sync.yml`
-- `tracking-milestones.json`, `current-opportunities.json`, `hourly-report.json` 갱신 시 실행
-- 공개 일정 데이터만 읽어 각 활성 client의 `chungyack_assistant_state`에 반영
-- 개인 추적 원문을 공개 GitHub 파일/로그에 쓰지 않는다.
-
-실제 검증:
-
-- `SUPABASE_ADMIN_SECRET=OK`
-- `active_clients=1`
-- `milestones=5`
-- 관리자 secret으로 `chungyack_assistant_state` upsert 성공
-
-따라서 현재 실제 경로는 다음과 같다.
+실제 경로:
 
 `APK 개인 상태 -> Supabase client_state`
 
 `공용 발표/서류/계약 데이터 -> GitHub Actions -> Supabase assistant_state -> APK pull`
 
-## 11. 사용자 경험 원칙 — 2026-09-07 변경
+개인 결과 확인을 붙일 때는 `assistant_state.state.trackingPatch[]`의 기존 id/name 매칭을 사용하고, `verification` 객체를 병합할 수 있다.
+
+권장 verification 예시:
+
+```json
+{
+  "id": "opportunity-...",
+  "status": "서류",
+  "verification": {
+    "state": "found",
+    "stage": "documents",
+    "checkedAt": "2026-09-08T17:10:00+09:00",
+    "note": "공식 서류심사 대상자 명단에서 확인"
+  }
+}
+```
+
+`state`는 `pending | found | not_found | unavailable`, `stage`는 `screening | documents | final`을 사용한다. `not_found`만으로 탈락 확정하지 말고 최종 명단임이 확인된 경우에만 `final: true`를 붙인다.
+
+## 11. 사용자 경험 원칙
 
 - 이메일 로그인 UI 없음
 - 비밀번호 없음
@@ -158,4 +136,38 @@ GitHub repository secret `SUPABASE_SECRET_KEY`가 등록되었으며 실제 관�
 - APK는 실행 시 자동으로 익명 Supabase 세션을 만들고 동기화
 - 현재 기기의 데이터는 localStorage + Supabase 이중 저장
 
-주의: 앱 데이터 삭제/완전한 새 기기에서 **동일한 익명 사용자 ID를 재식별하는 기능은 별도 인증수단 없이 보장할 수 없다**. 사용자에게는 불필요한 로그인/복구 UI를 노출하지 않고, 현재 단일 사용자 자동 동기화 흐름을 유지한다.
+주의: 앱 데이터 삭제/완전한 새 기기에서 동일한 익명 사용자 ID를 재식별하는 기능은 별도 인증수단 없이 보장할 수 없다.
+
+## 12. v0.9.3 UI / 신청 결과 분류 규칙 — 2026-09-08
+
+홈 공고 카드의 긴 문장형 상태 설명을 기본 화면에서 제거한다. 카드에는 제목과 아래 핵심 정보만 짧게 보여준다.
+
+- 상태: 접수중 / 확인 필요 / 서류 / 예정 / 마감
+- 접수기간
+- 발표일
+- 모집세대
+- 임대료 요약(확인된 경우만)
+- 하단 빠른 액션: 찜 / 신청 / 숨김
+
+긴 자격·계약·주의문구는 상세 화면/공식 공고에서 확인하며 기본 카드에 중복해서 쌓지 않는다.
+
+하단 공고 탭의 돋보기 아이콘은 사용하지 않고 문서형 `▤` 아이콘을 사용한다.
+
+신청 탭은 다음 4개 분류를 표시한다.
+
+- `확인 필요`: 결과/서류심사 대상자 발표시각이 지났는데 아직 개인 결과를 확정하지 않은 신청건
+- `진행중`: 신청완료, 서류, 계약, 입주 등 계속 진행하는 건
+- `합격·예비`: 당첨/예비 또는 최종 명단 확인된 건
+- `탈락`: 공식 최종 결과에서 탈락/부적격/미선정이 확인된 건
+
+공개 milestone의 결과시각이 지나면 별도 수동 상태 변경이 없어도 UI가 `확인 필요`로 분류할 수 있다.
+
+### 개인 명단 조회 규칙
+
+결과/서류심사 대상자 명단이 공식 PDF, 공식 게시글, 운영사 공식 페이지 등에서 공개되면 신청자의 개인 식별정보로 본인 포함 여부를 가능한 범위에서 확인한다. 단:
+
+- 성명/전화번호/생년월일 등 개인 식별값 원문을 공개 GitHub JSON, JS, 로그에 절대 넣지 않는다.
+- 공식 명단이 마스킹되어 있어 신뢰성 있게 매칭할 수 있을 때만 `found/not_found`를 기록한다.
+- 불완전한 명단, 일부 페이지, 운영사 개별연락 방식이면 `unavailable` 또는 `pending`으로 둔다.
+- `not_found`는 최종 공식 명단임이 명확할 때만 `final:true`로 탈락 분류한다.
+- 확인 결과는 가능하면 private Supabase `trackingPatch.verification`으로 APK에 반영한다.
