@@ -1,0 +1,11 @@
+/* v0.9.5 result movement controls */
+.cy-v95-result-actions{margin-top:13px;padding-top:12px;border-top:1px solid #edf0f4;display:grid;gap:9px}
+.cy-v95-official,.cy-v95-no-link{min-height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:850;text-decoration:none}
+.cy-v95-official{background:#edf7ff;border:1px solid #cbe4f5;color:#126b9b}
+.cy-v95-no-link{background:#f6f7f9;color:#9aa3ad;border:1px solid #eceff3}
+.cy-v95-move-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.cy-v95-move-row button{appearance:none;border:1px solid #dde5ed;background:#fff;border-radius:11px;padding:9px 4px;font:inherit;font-size:11px;font-weight:850;color:#526174;white-space:nowrap}
+.cy-v95-move-row button.on{border-color:#8fc8eb;background:#eaf7ff;color:#126a99}
+.cy-v95-move-row button.danger{color:#a85050}
+.cy-v95-move-row button.danger.on{border-color:#e3a9a9;background:#fff0f0;color:#9d3434}
+@media(max-width:370px){.cy-v95-move-row{grid-template-columns:repeat(2,minmax(0,1fr))}.cy-v95-move-row button{font-size:12px}}
