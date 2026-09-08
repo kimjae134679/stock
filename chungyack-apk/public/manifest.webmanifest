@@ -1,12 +1,13 @@
 {
   "name": "청약 레이더",
   "short_name": "청약레이더",
-  "start_url": "./index.html",
+  "start_url": "./?v=0970",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#eef3f8",
   "theme_color": "#14245c",
   "lang": "ko-KR",
-  "description": "청약 공고 추천·필터·신청추적·결과·일정을 한 화면에서 보는 개인 대시보드",
+  "description": "청약 공고·신청·결과·찜을 PC와 APK에서 같은 라이브 화면으로 관리하는 개인 대시보드",
   "icons": [
     {
       "src": "assets/app-icon.svg",
