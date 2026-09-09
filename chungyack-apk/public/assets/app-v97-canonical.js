@@ -46,13 +46,22 @@ function cyV97LoadV98(){
     const js=document.createElement('script');js.id='cyV98RuntimeFixScript';js.src='assets/app-v98-runtime-fix.js?v=0980';document.body.appendChild(js);
   }
 }
+function cyV97LoadV99(){
+  if(!document.getElementById('cyV99ContactHoldCss')){
+    const css=document.createElement('link');css.id='cyV99ContactHoldCss';css.rel='stylesheet';css.href='assets/app-v99-contact-hold.css?v=0990';document.head.appendChild(css);
+  }
+  if(!document.getElementById('cyV99ContactHoldScript')){
+    const js=document.createElement('script');js.id='cyV99ContactHoldScript';js.src='assets/app-v99-contact-hold.js?v=0990';document.body.appendChild(js);
+  }
+}
 
 function cyV97Boot(){
   cyV97Stamp();
   const err=document.getElementById('loadError');
   if(err&&/HTTP\s+200\/404/.test(err.textContent||''))err.hidden=true;
   cyV97LoadV98();
+  setTimeout(cyV97LoadV99,120);
   setTimeout(cyV97Stamp,250);
-  setTimeout(()=>{cyV97LoadV98()},900);
+  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99()},900);
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV97Boot,{once:true});else cyV97Boot();
