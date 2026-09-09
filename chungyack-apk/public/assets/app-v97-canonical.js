@@ -1,4 +1,4 @@
-// v0.9.7 compatibility shell: canonical PC/APK entry + v0.9.8 runtime/desktop loader.
+// v0.9.7 compatibility shell: canonical PC/APK entry + latest runtime loaders.
 // Keeps modern opportunity JSON working even when the legacy SH CSV is unavailable.
 const CY_V97_VERSION='0.9.7-live';
 
@@ -54,6 +54,10 @@ function cyV97LoadV99(){
     const js=document.createElement('script');js.id='cyV99ContactHoldScript';js.src='assets/app-v99-contact-hold.js?v=0990';document.body.appendChild(js);
   }
 }
+function cyV97LoadV100(){
+  if(document.getElementById('cyV100HomeCurrentScript'))return;
+  const js=document.createElement('script');js.id='cyV100HomeCurrentScript';js.src='assets/app-v100-home-current.js?v=1000';document.body.appendChild(js);
+}
 
 function cyV97Boot(){
   cyV97Stamp();
@@ -61,7 +65,8 @@ function cyV97Boot(){
   if(err&&/HTTP\s+200\/404/.test(err.textContent||''))err.hidden=true;
   cyV97LoadV98();
   setTimeout(cyV97LoadV99,120);
+  setTimeout(cyV97LoadV100,260);
   setTimeout(cyV97Stamp,250);
-  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99()},900);
+  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100()},900);
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV97Boot,{once:true});else cyV97Boot();
