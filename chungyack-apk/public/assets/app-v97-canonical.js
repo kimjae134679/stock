@@ -58,6 +58,14 @@ function cyV97LoadV100(){
   if(document.getElementById('cyV100HomeCurrentScript'))return;
   const js=document.createElement('script');js.id='cyV100HomeCurrentScript';js.src='assets/app-v100-home-current.js?v=1000';document.body.appendChild(js);
 }
+function cyV97LoadV101(){
+  if(!document.getElementById('cyV101MapFullResultCss')){
+    const css=document.createElement('link');css.id='cyV101MapFullResultCss';css.rel='stylesheet';css.href='assets/app-v101-map-fullresult.css?v=1010';document.head.appendChild(css);
+  }
+  if(!document.getElementById('cyV101MapFullResultScript')){
+    const js=document.createElement('script');js.id='cyV101MapFullResultScript';js.src='assets/app-v101-map-fullresult.js?v=1010';document.body.appendChild(js);
+  }
+}
 
 function cyV97Boot(){
   cyV97Stamp();
@@ -66,7 +74,8 @@ function cyV97Boot(){
   cyV97LoadV98();
   setTimeout(cyV97LoadV99,120);
   setTimeout(cyV97LoadV100,260);
+  setTimeout(cyV97LoadV101,420);
   setTimeout(cyV97Stamp,250);
-  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100()},900);
+  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100();cyV97LoadV101()},900);
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV97Boot,{once:true});else cyV97Boot();
