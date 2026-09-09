@@ -1,0 +1,10 @@
+/* v0.9.9: contact-result HOLD state */
+.cy-v99-result-tabs{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.cy-v94-result-card.hold{border-color:#eadfb6;background:#fffdf5}
+.cy-v94-result-state.hold{background:#fff3bf;color:#7b5b00}
+.cy-v99-move-row{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+.cy-v99-move-row button.hold.on{background:#fff1b8!important;border-color:#e7ca5c!important;color:#755700!important}
+@media(max-width:520px){
+  .cy-v99-result-tabs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .cy-v99-move-row{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
