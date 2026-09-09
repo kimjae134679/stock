@@ -27,7 +27,6 @@ function cyV99DocumentEnd(m){
   const year=Number(d[1]),month=Number(d[2])-1,day=Number(d[3]);
   const hour=d[4]===undefined?23:Number(d[4]);
   const minute=d[5]===undefined?59:Number(d[5]);
-  // Milestone dates are Korea local time. Convert explicitly to UTC millis.
   return Date.UTC(year,month,day,hour-9,minute,d[4]===undefined?59:0);
 }
 function cyV99AutoRejectAt(m){
@@ -40,21 +39,17 @@ function cyV99FmtDate(ms){
   if(!ms)return '';
   try{return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(ms))}catch{return new Date(ms).toLocaleString('ko-KR')}
 }
-function cyV99ExplicitCategory(x){
-  if(x?.resultOverride==='hold')return 'hold';
+function cyV99ManualResult(x){
+  if(x?.resultOverride==='selected'||/당첨|예비/.test(String(x?.status||'')))return 'selected';
+  if(x?.resultOverride==='rejected'||/탈락|부적격|미선정/.test(`${x?.status||''} ${x?.detail||''}`))return 'rejected';
   if(x?.resultOverride==='check')return 'check';
-  if(x?.resultOverride==='selected')return 'selected';
-  if(x?.resultOverride==='rejected')return 'rejected';
-  const s=`${x?.status||''} ${x?.detail||''}`;
-  if(/탈락|부적격|미선정/.test(s))return 'rejected';
-  if(/당첨|예비/.test(s))return 'selected';
   return null;
 }
 
 if(typeof cyV94Category==='function'){
   const _cyV99BaseCategory=cyV94Category;
   cyV94Category=function(x){
-    const explicit=cyV99ExplicitCategory(x);if(explicit)return explicit;
+    const manual=cyV99ManualResult(x);if(manual)return manual;
     const v=cyV99Verification(x);
     if(v?.state==='found'&&v?.stage==='final')return 'selected';
     if(v?.state==='not_found'&&v?.final===true)return 'rejected';
@@ -65,11 +60,11 @@ if(typeof cyV94Category==='function'){
       if(rejectAt&&now>=rejectAt)return 'rejected';
       return 'hold';
     }
+    if(x?.resultOverride==='hold'||String(x?.status||'')==='보류')return 'hold';
     return _cyV99BaseCategory(x);
   };
 }
 
-// Extend result metadata and notes with HOLD.
 if(typeof cyV94Meta==='function'){
   const _cyV99BaseMeta=cyV94Meta;
   cyV94Meta=function(cat){if(cat==='hold')return ['⏸','보류'];return _cyV99BaseMeta(cat)};
@@ -85,7 +80,6 @@ if(typeof cyV94ResultNote==='function'){
   };
 }
 
-// Manual result move includes HOLD.
 if(typeof cyV95SetResult==='function'){
   const _cyV99BaseSetResult=cyV95SetResult;
   cyV95SetResult=function(id,state){
