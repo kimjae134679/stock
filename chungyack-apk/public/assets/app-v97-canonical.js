@@ -66,6 +66,10 @@ function cyV97LoadV101(){
     const js=document.createElement('script');js.id='cyV101MapFullResultScript';js.src='assets/app-v101-map-fullresult.js?v=1010';document.body.appendChild(js);
   }
 }
+function cyV97LoadV102(){
+  if(document.getElementById('cyV102FinanceRangesScript'))return;
+  const js=document.createElement('script');js.id='cyV102FinanceRangesScript';js.src='assets/app-v102-finance-ranges.js?v=1020';document.body.appendChild(js);
+}
 
 function cyV97Boot(){
   cyV97Stamp();
@@ -75,7 +79,8 @@ function cyV97Boot(){
   setTimeout(cyV97LoadV99,120);
   setTimeout(cyV97LoadV100,260);
   setTimeout(cyV97LoadV101,420);
+  setTimeout(cyV97LoadV102,560);
   setTimeout(cyV97Stamp,250);
-  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100();cyV97LoadV101()},900);
+  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100();cyV97LoadV101();cyV97LoadV102()},900);
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV97Boot,{once:true});else cyV97Boot();
