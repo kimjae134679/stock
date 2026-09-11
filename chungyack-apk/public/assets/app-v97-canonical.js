@@ -70,6 +70,14 @@ function cyV97LoadV102(){
   if(document.getElementById('cyV102FinanceRangesScript'))return;
   const js=document.createElement('script');js.id='cyV102FinanceRangesScript';js.src='assets/app-v102-finance-ranges.js?v=1020';document.body.appendChild(js);
 }
+function cyV97LoadV103(){
+  if(!document.getElementById('cyV103SortCss')){
+    const css=document.createElement('link');css.id='cyV103SortCss';css.rel='stylesheet';css.href='assets/app-v103-sort.css?v=1030';document.head.appendChild(css);
+  }
+  if(!document.getElementById('cyV103SortScript')){
+    const js=document.createElement('script');js.id='cyV103SortScript';js.src='assets/app-v103-sort.js?v=1030';document.body.appendChild(js);
+  }
+}
 
 function cyV97Boot(){
   cyV97Stamp();
@@ -80,7 +88,8 @@ function cyV97Boot(){
   setTimeout(cyV97LoadV100,260);
   setTimeout(cyV97LoadV101,420);
   setTimeout(cyV97LoadV102,560);
+  setTimeout(cyV97LoadV103,700);
   setTimeout(cyV97Stamp,250);
-  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100();cyV97LoadV101();cyV97LoadV102()},900);
+  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100();cyV97LoadV101();cyV97LoadV102();cyV97LoadV103()},1000);
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV97Boot,{once:true});else cyV97Boot();
