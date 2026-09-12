@@ -1,6 +1,5 @@
-// v0.10.2 live: verified current-notice finance ranges for active/upcoming opportunities.
-// Values intentionally reflect only youth/user-applicable types in the current notice, not whole-building spouse-only ranges.
-const CY_V102_VERSION='0.10.2-live';
+// v0.10.2 compatibility: verified current-notice finance ranges for active/upcoming opportunities.
+const CY_V102_VERSION=window.CY_LATEST_VERSION||'0.10.2-live';
 const CY_V102_FINANCE={
   'youth-soco-heritz-mia-2026-09-10':{deposit:'1억~1억6,600만원',rent:'24만~47만원'},
   'youth-soco-unit125-2026-09-10':{deposit:'6,620만~1억1,030만원',rent:'47만~66만원'},
@@ -26,8 +25,9 @@ if(typeof cyV84Finance==='function'&&!cyV84Finance.__cyV102Wrapped){
   wrapped.__cyV102Wrapped=true;cyV84Finance=wrapped;
 }
 function cyV102Stamp(){
-  const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V102_VERSION;
-  const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V102_VERSION;
+  const version=window.CY_LATEST_VERSION||CY_V102_VERSION;
+  const v=document.getElementById('appVersion');if(v)v.textContent='v'+version;
+  const s=document.getElementById('settingsVersion');if(s)s.textContent=version;
 }
 function cyV102Refresh(){
   try{if(typeof renderRecommendations==='function')renderRecommendations()}catch(e){console.warn('[ChungYack] finance range home refresh failed',e)}
@@ -36,4 +36,4 @@ function cyV102Refresh(){
   try{if(typeof cyV94RenderResults==='function')cyV94RenderResults()}catch{}
   cyV102Stamp();
 }
-if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',()=>setTimeout(cyV102Refresh,500),{once:true});else setTimeout(cyV102Refresh,500);
+if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',()=>setTimeout(cyV102Refresh,50),{once:true});else setTimeout(cyV102Refresh,0);
