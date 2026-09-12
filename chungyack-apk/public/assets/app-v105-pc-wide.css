@@ -1,0 +1,61 @@
+/* v0.10.5: PC view is roughly two mobile columns wide while keeping the mobile card rhythm. */
+@media (min-width:900px){
+  .app{
+    width:100%!important;
+    max-width:960px!important;
+    margin:0 auto!important;
+    padding-left:16px!important;
+    padding-right:16px!important;
+    padding-bottom:94px!important;
+    box-sizing:border-box!important;
+  }
+  .hero,.page,.updated,.error{width:100%!important;max-width:none!important;box-sizing:border-box!important}
+
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-list,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-list,
+  .cy-v94-result-list,
+  .page[data-page="tracking"] #trackingGridMirror,
+  .page[data-page="schedule"] #scheduleList{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:14px!important;
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    align-items:start!important;
+  }
+
+  .page[data-page="home"][data-cy-v94="opportunities"] #recommendList,
+  .page[data-page="home"][data-cy-v94="opportunities"] .recommend-list,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-toolbar,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-toolbar{
+    width:100%!important;
+    max-width:none!important;
+  }
+
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v8-card,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v7-card,
+  .page[data-page="home"][data-cy-v94="opportunities"] .cy-v85-collapsed-card,
+  .cy-v94-result-card,.track-card,.cy-v90-fav-card{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+  }
+
+  .bottom-nav .bottom-inner{
+    width:100%!important;
+    max-width:960px!important;
+    margin:0 auto!important;
+    padding-left:12px!important;
+    padding-right:12px!important;
+    box-sizing:border-box!important;
+  }
+}
+
+/* Never show an older compatibility-layer version while newer scripts finish booting. */
+#appVersion{font-size:0!important}
+#appVersion::after{content:'v0.10.5-live';font-size:11px!important}
+#settingsVersion{font-size:0!important}
+#settingsVersion::after{content:'0.10.5-live';font-size:14px!important}
