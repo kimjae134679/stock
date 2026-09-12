@@ -1,9 +1,10 @@
-// v0.10.4 live: desktop/mobile visual parity marker + final version stamp.
-const CY_V104_VERSION='0.10.4-live';
+// v0.10.4 compatibility layer: desktop/mobile parity marker.
+const CY_V104_VERSION=window.CY_LATEST_VERSION||'0.10.4-live';
 function cyV104Stamp(){
-  const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V104_VERSION;
-  const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V104_VERSION;
-  document.documentElement.dataset.chungyackVersion=CY_V104_VERSION;
+  const version=window.CY_LATEST_VERSION||CY_V104_VERSION;
+  const v=document.getElementById('appVersion');if(v)v.textContent='v'+version;
+  const s=document.getElementById('settingsVersion');if(s)s.textContent=version;
+  document.documentElement.dataset.chungyackVersion=version;
 }
 function cyV104Boot(){
   cyV104Stamp();
