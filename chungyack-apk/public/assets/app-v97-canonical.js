@@ -72,4 +72,5 @@ function cyV97Boot(){
   cyV97LoadV105();
   cyV97Stamp();
 }
-if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV97Boot,{once:true});else cyV97Boot();
+// This script is already at the end of <body>, so boot now instead of waiting for DOMContentLoaded.
+cyV97Boot();
