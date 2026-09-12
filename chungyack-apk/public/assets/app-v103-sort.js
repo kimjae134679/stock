@@ -1,5 +1,5 @@
-// v0.10.3 live: persistent sorting for opportunity/home lists.
-const CY_V103_VERSION='0.10.3-live';
+// v0.10.3 compatibility: persistent sorting for opportunity/home lists.
+const CY_V103_VERSION=window.CY_LATEST_VERSION||'0.10.3-live';
 const CY_V103_SORT_KEY='chungyack.opportunity.sort.v1';
 let CY_V103_SORT=localStorage.getItem(CY_V103_SORT_KEY)||'default';
 const CY_V103_SORTS=new Set(['default','deadline','start','rent','deposit','units','name']);
@@ -93,8 +93,9 @@ function cyV103Wire(){
   });
 }
 function cyV103Stamp(){
-  const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V103_VERSION;
-  const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V103_VERSION;
+  const version=window.CY_LATEST_VERSION||CY_V103_VERSION;
+  const v=document.getElementById('appVersion');if(v)v.textContent='v'+version;
+  const s=document.getElementById('settingsVersion');if(s)s.textContent=version;
 }
 if(typeof renderRecommendations==='function'&&!renderRecommendations.__cyV103Wrapped){
   const base=renderRecommendations;
@@ -105,5 +106,5 @@ if(typeof renderRecommendations==='function'&&!renderRecommendations.__cyV103Wra
   const fn=window[name];if(typeof fn!=='function'||fn.__cyV103Wrapped)return;
   const wrapped=function(){const out=fn.apply(this,arguments);cyV103Stamp();return out};wrapped.__cyV103Wrapped=true;window[name]=wrapped;
 });
-function cyV103Boot(){try{renderRecommendations()}catch{}cyV103Wire();cyV103Stamp();setTimeout(()=>{cyV103Wire();cyV103Stamp()},700)}
+function cyV103Boot(){try{renderRecommendations()}catch{}cyV103Wire();cyV103Stamp();setTimeout(()=>{cyV103Wire();cyV103Stamp()},120)}
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV103Boot,{once:true});else setTimeout(cyV103Boot,0);
