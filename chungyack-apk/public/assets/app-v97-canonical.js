@@ -1,6 +1,7 @@
 // v0.9.7 compatibility shell: canonical PC/APK entry + latest runtime loaders.
-// Keeps modern opportunity JSON working even when the legacy SH CSV is unavailable.
-const CY_V97_VERSION='0.9.7-live';
+// v0.10.5 boot change: load all compatibility layers immediately and keep one visible latest version.
+window.CY_LATEST_VERSION='0.10.5-live';
+const CY_V97_VERSION=window.CY_LATEST_VERSION;
 
 if(typeof loadData==='function'){
   loadData=async function(){
@@ -28,8 +29,9 @@ if(typeof loadData==='function'){
 }
 
 function cyV97Stamp(){
-  const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V97_VERSION;
-  const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V97_VERSION;
+  const version=window.CY_LATEST_VERSION||CY_V97_VERSION;
+  const v=document.getElementById('appVersion');if(v)v.textContent='v'+version;
+  const s=document.getElementById('settingsVersion');if(s)s.textContent=version;
 }
 function cyV97Wrap(name){
   const fn=window[name];if(typeof fn!=='function'||fn.__cyV97Wrapped)return;
@@ -38,67 +40,36 @@ function cyV97Wrap(name){
 }
 ['renderHero','renderSettings','renderRecommendations','renderTracking','cyV94RenderResults','cyV94Static','cyV94Refresh'].forEach(cyV97Wrap);
 
-function cyV97LoadV98(){
-  if(!document.getElementById('cyV98DesktopFixCss')){
-    const css=document.createElement('link');css.id='cyV98DesktopFixCss';css.rel='stylesheet';css.href='assets/app-v98-desktop-fix.css?v=0980';document.head.appendChild(css);
-  }
-  if(!document.getElementById('cyV98RuntimeFixScript')){
-    const js=document.createElement('script');js.id='cyV98RuntimeFixScript';js.src='assets/app-v98-runtime-fix.js?v=0980';document.body.appendChild(js);
-  }
+function cyV97Css(id,href){
+  if(document.getElementById(id))return;
+  const css=document.createElement('link');css.id=id;css.rel='stylesheet';css.href=href;document.head.appendChild(css);
 }
-function cyV97LoadV99(){
-  if(!document.getElementById('cyV99ContactHoldCss')){
-    const css=document.createElement('link');css.id='cyV99ContactHoldCss';css.rel='stylesheet';css.href='assets/app-v99-contact-hold.css?v=0990';document.head.appendChild(css);
-  }
-  if(!document.getElementById('cyV99ContactHoldScript')){
-    const js=document.createElement('script');js.id='cyV99ContactHoldScript';js.src='assets/app-v99-contact-hold.js?v=0990';document.body.appendChild(js);
-  }
+function cyV97Js(id,src){
+  if(document.getElementById(id))return;
+  const js=document.createElement('script');js.id=id;js.src=src;js.async=false;document.body.appendChild(js);
 }
-function cyV97LoadV100(){
-  if(document.getElementById('cyV100HomeCurrentScript'))return;
-  const js=document.createElement('script');js.id='cyV100HomeCurrentScript';js.src='assets/app-v100-home-current.js?v=1000';document.body.appendChild(js);
-}
-function cyV97LoadV101(){
-  if(!document.getElementById('cyV101MapFullResultCss')){
-    const css=document.createElement('link');css.id='cyV101MapFullResultCss';css.rel='stylesheet';css.href='assets/app-v101-map-fullresult.css?v=1010';document.head.appendChild(css);
-  }
-  if(!document.getElementById('cyV101MapFullResultScript')){
-    const js=document.createElement('script');js.id='cyV101MapFullResultScript';js.src='assets/app-v101-map-fullresult.js?v=1010';document.body.appendChild(js);
-  }
-}
-function cyV97LoadV102(){
-  if(document.getElementById('cyV102FinanceRangesScript'))return;
-  const js=document.createElement('script');js.id='cyV102FinanceRangesScript';js.src='assets/app-v102-finance-ranges.js?v=1020';document.body.appendChild(js);
-}
-function cyV97LoadV103(){
-  if(!document.getElementById('cyV103SortCss')){
-    const css=document.createElement('link');css.id='cyV103SortCss';css.rel='stylesheet';css.href='assets/app-v103-sort.css?v=1030';document.head.appendChild(css);
-  }
-  if(!document.getElementById('cyV103SortScript')){
-    const js=document.createElement('script');js.id='cyV103SortScript';js.src='assets/app-v103-sort.js?v=1030';document.body.appendChild(js);
-  }
-}
-function cyV97LoadV104(){
-  if(!document.getElementById('cyV104PcMobileCss')){
-    const css=document.createElement('link');css.id='cyV104PcMobileCss';css.rel='stylesheet';css.href='assets/app-v104-pc-mobile.css?v=1040';document.head.appendChild(css);
-  }
-  if(!document.getElementById('cyV104PcMobileScript')){
-    const js=document.createElement('script');js.id='cyV104PcMobileScript';js.src='assets/app-v104-pc-mobile.js?v=1040';document.body.appendChild(js);
-  }
-}
+function cyV97LoadV98(){cyV97Css('cyV98DesktopFixCss','assets/app-v98-desktop-fix.css?v=1050');cyV97Js('cyV98RuntimeFixScript','assets/app-v98-runtime-fix.js?v=1050')}
+function cyV97LoadV99(){cyV97Css('cyV99ContactHoldCss','assets/app-v99-contact-hold.css?v=1050');cyV97Js('cyV99ContactHoldScript','assets/app-v99-contact-hold.js?v=1050')}
+function cyV97LoadV100(){cyV97Js('cyV100HomeCurrentScript','assets/app-v100-home-current.js?v=1050')}
+function cyV97LoadV101(){cyV97Css('cyV101MapFullResultCss','assets/app-v101-map-fullresult.css?v=1050');cyV97Js('cyV101MapFullResultScript','assets/app-v101-map-fullresult.js?v=1050')}
+function cyV97LoadV102(){cyV97Js('cyV102FinanceRangesScript','assets/app-v102-finance-ranges.js?v=1050')}
+function cyV97LoadV103(){cyV97Css('cyV103SortCss','assets/app-v103-sort.css?v=1050');cyV97Js('cyV103SortScript','assets/app-v103-sort.js?v=1050')}
+function cyV97LoadV104(){cyV97Css('cyV104PcMobileCss','assets/app-v104-pc-mobile.css?v=1050');cyV97Js('cyV104PcMobileScript','assets/app-v104-pc-mobile.js?v=1050')}
+function cyV97LoadV105(){cyV97Css('cyV105PcWideCss','assets/app-v105-pc-wide.css?v=1050');cyV97Js('cyV105PcWideScript','assets/app-v105-pc-wide.js?v=1050')}
 
 function cyV97Boot(){
   cyV97Stamp();
   const err=document.getElementById('loadError');
   if(err&&/HTTP\s+200\/404/.test(err.textContent||''))err.hidden=true;
+  // No staged delays: request all current compatibility layers immediately.
   cyV97LoadV98();
-  setTimeout(cyV97LoadV99,120);
-  setTimeout(cyV97LoadV100,260);
-  setTimeout(cyV97LoadV101,420);
-  setTimeout(cyV97LoadV102,560);
-  setTimeout(cyV97LoadV103,700);
-  setTimeout(cyV97LoadV104,840);
-  setTimeout(cyV97Stamp,250);
-  setTimeout(()=>{cyV97LoadV98();cyV97LoadV99();cyV97LoadV100();cyV97LoadV101();cyV97LoadV102();cyV97LoadV103();cyV97LoadV104()},1100);
+  cyV97LoadV99();
+  cyV97LoadV100();
+  cyV97LoadV101();
+  cyV97LoadV102();
+  cyV97LoadV103();
+  cyV97LoadV104();
+  cyV97LoadV105();
+  cyV97Stamp();
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',cyV97Boot,{once:true});else cyV97Boot();
