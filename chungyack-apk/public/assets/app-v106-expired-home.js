@@ -1,7 +1,7 @@
-// v0.10.6 live: final guard that removes expired reception notices from Home.
-// No exception for applied/favorited items; those continue in 신청/결과/찜 only.
+// v0.10.6 compatibility: final guard that removes expired reception notices from Home.
+// No exception for applied/favorited items; those remain in their additive 찜/신청/결과 views.
 const CY_V106_VERSION='0.10.6-live';
-window.CY_LATEST_VERSION=CY_V106_VERSION;
+if(!window.CY_LATEST_VERSION)window.CY_LATEST_VERSION=CY_V106_VERSION;
 
 function cyV106RangeEnd(period){
   let s=String(period||'').trim();
@@ -38,8 +38,9 @@ if(typeof cyV7Items==='function'&&!cyV7Items.__cyV106Wrapped){
   cyV7Items=wrapped;
 }
 function cyV106Stamp(){
-  const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V106_VERSION;
-  const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V106_VERSION;
+  const version=window.CY_LATEST_VERSION||CY_V106_VERSION;
+  const v=document.getElementById('appVersion');if(v)v.textContent='v'+version;
+  const s=document.getElementById('settingsVersion');if(s)s.textContent=version;
 }
 function cyV106Refresh(){
   try{if(typeof renderRecommendations==='function')renderRecommendations()}catch(e){console.warn('[ChungYack] expired-home final refresh failed',e)}
