@@ -1,0 +1,44 @@
+name: ChungYack Seoul Youth Housing Watch
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'chungyack-apk/scripts/sync-soco-youth.py'
+      - '.github/workflows/chungyack-soco-watch.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: chungyack-soco-watch
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Scan Seoul youth-housing official board
+        run: python3 chungyack-apk/scripts/sync-soco-youth.py
+
+      - name: Commit discovered notices
+        shell: bash
+        run: |
+          if git diff --quiet -- chungyack-apk/public/data; then
+            echo "No new notices."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chungyack-apk/public/data/current-opportunities.json                   chungyack-apk/public/data/hourly-report.json                   chungyack-apk/public/data/app.json
+          git commit -m "chore(chungyack): auto-sync Seoul youth housing notices"
+          git pull --rebase origin main
+          git push origin HEAD:main
