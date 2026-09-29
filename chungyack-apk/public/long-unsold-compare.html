@@ -1,148 +1,189 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SH 2026년 2차 장기미임대 비교기</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>청약 주택 비교지도</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--text:#16181d;--muted:#6b7280;--line:#e5e7eb;--accent:#3559c7;--accent2:#e8edff;--good:#0f766e;--warn:#b45309;--bad:#b91c1c}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Pretendard","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
-a{color:inherit}.wrap{max-width:1500px;margin:0 auto;padding:18px}.hero{display:flex;gap:16px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
-h1{font-size:24px;margin:0 0 6px}.sub{color:var(--muted);font-size:14px}.stats{display:flex;gap:8px;flex-wrap:wrap}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 13px;min-width:110px}.stat b{font-size:19px;display:block}.stat span{font-size:12px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:14px}.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
-#map{height:430px;border-radius:11px;overflow:hidden}.mapnote{font-size:12px;color:var(--muted);margin-top:8px}.districts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;cursor:pointer;font-size:13px}.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-.filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 4px}.field input,.field select{width:100%;height:40px;border:1px solid var(--line);border-radius:9px;padding:0 10px;background:#fff;font-size:14px}
-.segment{display:flex;gap:5px;flex-wrap:wrap}.seg{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 11px;cursor:pointer}.seg.on{background:var(--accent2);color:var(--accent);border-color:#b8c6ff;font-weight:700}
-.actions{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 12px;cursor:pointer;text-decoration:none;font-size:13px}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.notice{margin-top:10px;padding:10px;border-radius:9px;background:#fff7ed;color:#92400e;font-size:12px;line-height:1.55}.compare{margin-top:14px;display:none}.compare.on{display:block}
-.compareGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}.compareCard{border:1px solid var(--line);border-radius:10px;padding:10px}.compareCard h3{font-size:14px;margin:0 0 7px}
-.resultsHead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0 9px}.resultsHead h2{margin:0;font-size:18px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;min-width:0}.cardTop{display:flex;justify-content:space-between;gap:8px}.card h3{font-size:16px;margin:0;line-height:1.35}.tag{font-size:12px;border-radius:999px;padding:4px 7px;white-space:nowrap;height:max-content;background:#eef2ff;color:#4338ca}
-.tag.low{background:#ecfdf5;color:#047857}.tag.mid{background:#fff7ed;color:#b45309}.tag.high{background:#fef2f2;color:#b91c1c}.meta{font-size:12px;color:var(--muted);margin-top:5px}
-.money{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:11px 0}.money div{background:#f8fafc;border-radius:9px;padding:8px}.money span{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}.money b{font-size:14px}
-.row{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0;border-bottom:1px dashed #eee}.row:last-child{border:0}.row span:first-child{color:var(--muted)}
-.cardActions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.small{padding:7px 9px;font-size:12px}.check{display:flex;align-items:center;gap:6px;font-size:12px}
-.empty{padding:40px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:12px;grid-column:1/-1}
-.foot{font-size:12px;color:var(--muted);margin:18px 0 30px;line-height:1.6}
-@media(max-width:1100px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:680px){.wrap{padding:10px}.cards{grid-template-columns:1fr}.filters{grid-template-columns:1fr}#map{height:330px}h1{font-size:20px}}
+:root{--bg:#f3f5f9;--card:#fff;--text:#111827;--muted:#667085;--line:#e4e7ec;--accent:#3159d8;--accent2:#eef2ff;--green:#087f5b;--orange:#c06014;--red:#d92d20}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Pretendard","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}button,select,input{font:inherit}
+.wrap{max-width:1540px;margin:0 auto;padding:16px}.hero{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}
+h1{margin:0 0 4px;font-size:25px}.sub{color:var(--muted);font-size:13px}.topSelect{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.topSelect select{height:44px;border:1px solid #cfd5df;border-radius:10px;background:white;padding:0 36px 0 12px;font-weight:700;min-width:310px}
+.stats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.stat{background:white;border:1px solid var(--line);border-radius:11px;padding:9px 12px;min-width:112px}.stat b{display:block;font-size:18px}.stat span{color:var(--muted);font-size:11px}
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);gap:12px}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px}
+#map{height:440px;border-radius:10px;overflow:hidden}.mapBar{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}.mapStatus{font-size:12px;color:var(--muted)}.districts{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.chip,.seg,.sortBtn,.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 10px;cursor:pointer}.chip{border-radius:999px;font-size:12px}.chip.on,.seg.on,.sortBtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}.seg{font-size:13px}.btn{font-size:12px;text-decoration:none;color:inherit;display:inline-flex;align-items:center;justify-content:center}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.modeTitle{font-size:12px;color:var(--muted);margin:0 0 5px}.segment{display:flex;gap:5px;flex-wrap:wrap}.filterTop{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 0}.toggle{display:flex;gap:7px;align-items:center;border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:#fafafa;font-size:13px}.toggle input{width:18px;height:18px}
+.filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.field input,.field select{width:100%;height:39px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 9px;font-size:13px}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:7px;flex-wrap:wrap;margin-top:9px}.notice{margin-top:9px;border-radius:9px;background:#fff7ed;color:#9a4814;padding:9px;font-size:11px;line-height:1.45}
+.sortBar{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:12px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}.sortBar b{font-size:13px;margin-right:3px}.sortBtn{padding:7px 10px;font-size:12px}
+.resultsHead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:13px 0 8px}.resultsHead h2{margin:0;font-size:18px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px;min-width:0;cursor:pointer;position:relative;transition:border-color .15s,transform .15s}.card:hover{border-color:#9eb0ef}.card.active{border:2px solid var(--accent);padding:11px}.cardTop{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.rankNo{font-size:11px;color:#98a2b3;margin-bottom:3px}.card h3{margin:0;font-size:16px;line-height:1.3}.meta{font-size:11px;color:var(--muted);margin-top:4px}.tag{font-size:11px;border-radius:999px;padding:4px 7px;white-space:nowrap;background:#fef2f2;color:var(--red)}.tag.mid{background:#fff7ed;color:var(--orange)}.tag.low{background:#ecfdf3;color:var(--green)}
+.priceBox{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0}.price{background:#f8fafc;border:1px solid #f1f3f5;border-radius:9px;padding:9px}.price span{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.price b{font-size:15px;line-height:1.3}
+.infoChips{display:flex;gap:5px;flex-wrap:wrap;margin:7px 0}.infoChip{background:#f2f4f7;color:#344054;border-radius:7px;padding:5px 7px;font-size:11px}.infoChip strong{font-size:12px}
+.address{background:#fafafa;border-radius:8px;padding:8px;margin-top:7px;font-size:11px;line-height:1.45;color:#475467}.address b{color:#111827}.clickHint{font-size:10px;color:var(--accent);margin-top:6px}
+.cardActions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:8px}.check{display:flex;align-items:center;gap:4px;font-size:11px}.check input{width:16px;height:16px}
+.compare{display:none;margin-top:12px}.compare.on{display:block}.compareGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}.compareCard{border:1px solid var(--line);border-radius:10px;padding:10px}.compareCard h3{font-size:13px;margin:0 0 6px}.cmpRow{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px dashed #eee;font-size:12px}.cmpRow:last-child{border:0}.cmpRow span{color:var(--muted)}
+.empty{grid-column:1/-1;padding:35px;text-align:center;background:#fff;border:1px dashed var(--line);border-radius:11px;color:var(--muted)}.foot{font-size:11px;color:var(--muted);line-height:1.55;margin:14px 0 30px}
+.leaflet-popup-content{font-family:system-ui,-apple-system,"Pretendard","Noto Sans KR",sans-serif}
+@media(max-width:1120px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.wrap{padding:9px}.cards{grid-template-columns:1fr}.filters{grid-template-columns:1fr}#map{height:340px}.topSelect select{min-width:0;width:100%}h1{font-size:20px}.price b{font-size:14px}}
 </style>
 </head>
-<body>
-<div class="wrap">
+<body><div class="wrap">
 <section class="hero">
-<div><h1>SH 2026년 2차 장기미임대 비교기</h1><div class="sub">473호 · 132개 단지 · 지역/가격/면적/공급호수 정렬 + 지도 필터 + 최대 4곳 비교</div></div>
-<div class="stats" id="stats"></div>
+<div><h1>청약 주택 비교지도</h1><div class="sub">공고를 바꿔가며 지도·가격·면적·공급량을 같은 방식으로 비교</div></div>
+<div class="topSelect"><label><span class="sub">공고 선택</span><br><select id="announcement">
+<option value="sh">SH 2026년 2차 장기미임대 · 473호</option>
+<option value="lh">LH 서울 26년 3차 청년 매입임대 · 420호</option>
+</select></label><a id="officialLink" class="btn primary" target="_blank" rel="noopener">공식 공고</a></div>
 </section>
+<div class="stats" id="stats"></div>
 <div class="grid">
 <section class="panel">
 <div id="map"></div>
-<div class="mapnote">지도는 구 단위 공급현황 필터입니다. 단지의 정확한 위치는 각 카드의 네이버/카카오 지도 버튼으로 열 수 있습니다.</div>
+<div class="mapBar"><div class="mapStatus" id="mapStatus">자치구를 누르면 필터됩니다. 아래 단지를 누르면 정확한 주소를 찾아 지도에 표시합니다.</div><button class="btn" id="resetMap">서울 전체 보기</button></div>
 <div class="districts" id="districtChips"></div>
 </section>
 <section class="panel">
-<div class="segment" id="priceMode">
-<button class="seg on" data-mode="base">기준 보증금·월세</button>
-<button class="seg" data-mode="jeonse">전세전환 80%</button>
-<button class="seg" data-mode="wolse">월세전환 60%</button>
+<div class="modeTitle">임대조건</div><div class="segment" id="priceMode"></div>
+<div class="filterTop">
+<div class="segment" id="viewMode"><button class="seg on" data-view="group">단지로 묶기</button><button class="seg" data-view="unit">개별 호실 전체</button></div>
+<label class="toggle"><input type="checkbox" id="hideNorth">한강 북쪽 숨기기</label>
 </div>
-<div class="filters" style="margin-top:10px">
-<div class="field" style="grid-column:1/-1"><label>단지/주소 검색</label><input id="q" placeholder="예: 송파, 천호, 목동, 해가온"></div>
+<div class="filters">
+<div class="field" style="grid-column:1/-1"><label>단지명 / 주소 검색</label><input id="q" placeholder="예: 송파, 잠실, 목동, 개포"></div>
 <div class="field"><label>자치구</label><select id="district"><option value="">전체</option></select></div>
-<div class="field"><label>구조</label><select id="structure"><option value="">전체</option><option>개방형원룸</option><option>분리형원룸</option><option>투룸</option><option>쓰리룸</option></select></div>
+<div class="field"><label>구조 / 주택유형</label><select id="structure"><option value="">전체</option></select></div>
 <div class="field"><label>최대 보증금</label><select id="maxDeposit"><option value="">제한 없음</option><option value="20000000">2천만원</option><option value="30000000">3천만원</option><option value="50000000">5천만원</option><option value="70000000">7천만원</option><option value="100000000">1억원</option></select></div>
 <div class="field"><label>최대 월 임대료</label><select id="maxRent"><option value="">제한 없음</option><option value="200000">20만원</option><option value="300000">30만원</option><option value="400000">40만원</option><option value="500000">50만원</option><option value="700000">70만원</option></select></div>
-<div class="field"><label>최소 전용면적</label><select id="minArea"><option value="">제한 없음</option><option value="25">25㎡</option><option value="30">30㎡</option><option value="40">40㎡</option><option value="50">50㎡</option></select></div>
+<div class="field"><label>최소 전용면적</label><select id="minArea"><option value="">제한 없음</option><option value="20">20㎡</option><option value="25">25㎡</option><option value="30">30㎡</option><option value="40">40㎡</option><option value="50">50㎡</option></select></div>
 <div class="field"><label>최소 공급호수</label><select id="minUnits"><option value="">제한 없음</option><option value="2">2호+</option><option value="5">5호+</option><option value="10">10호+</option><option value="20">20호+</option></select></div>
 <div class="field"><label>승강기</label><select id="elevator"><option value="">전체</option><option value="yes">설치</option><option value="no">미설치</option></select></div>
-<div class="field"><label>정렬</label><select id="sort"><option value="unitsDesc">공급호수 많은순</option><option value="rentAsc">월세 낮은순</option><option value="depositAsc">보증금 낮은순</option><option value="areaDesc">면적 큰순</option><option value="competitionAsc">예상 경쟁부담 낮은순</option><option value="district">자치구순</option></select></div>
+<div class="field"><label>예상 경쟁부담</label><select id="competition"><option value="">전체</option><option value="낮음">낮음</option><option value="보통">보통</option><option value="높음">높음</option></select></div>
 </div>
-<div class="actions"><button class="btn" id="reset">필터 초기화</button><a class="btn primary" href="https://housing.seoul.go.kr/site/main/sh/publicLease/view?seq=6" target="_blank" rel="noopener">공식 수정공고 보기</a></div>
-<div class="notice">경쟁률은 아직 실제 접수결과가 아니므로 숫자로 꾸며내지 않습니다. 대신 공급호수·가격·면적·지역 수요를 이용한 <b>비공식 예상 경쟁부담(낮음/보통/높음)</b>만 표시합니다.</div>
+<div class="actions"><button class="btn" id="reset">필터 초기화</button><span class="sub" id="dataNote"></span></div>
+<div class="notice">경쟁률 숫자는 실제 접수결과가 나오기 전에는 표시하지 않습니다. 현재 표시는 공급량·가격·면적·지역수요를 이용한 비공식 예상 경쟁부담입니다.</div>
 </section>
 </div>
-<section class="panel compare" id="comparePanel">
-<div class="resultsHead"><h2>선택 비교</h2><button class="btn small" id="clearCompare">비교 비우기</button></div>
-<div class="compareGrid" id="compareGrid"></div>
+<section class="sortBar"><b>빠른 정렬</b>
+<button class="sortBtn on" data-sort="unitsDesc">공급 많은순</button>
+<button class="sortBtn" data-sort="rentAsc">월세 낮은순</button>
+<button class="sortBtn" data-sort="depositAsc">보증금 낮은순</button>
+<button class="sortBtn" data-sort="areaDesc">넓은순</button>
+<button class="sortBtn" data-sort="competitionAsc">예상 경쟁 낮은순</button>
+<button class="sortBtn" data-sort="district">지역순</button>
 </section>
+<section class="panel compare" id="comparePanel"><div class="resultsHead"><h2>선택 비교</h2><button class="btn" id="clearCompare">비우기</button></div><div class="compareGrid" id="compareGrid"></div></section>
 <div class="resultsHead"><h2 id="resultTitle">단지 목록</h2><div class="sub" id="resultMeta"></div></div>
 <section class="cards" id="cards"></section>
-<div class="foot">가격·면적·주소는 SH 2026년 2차 장기미임대 수정공고의 [별첨1] 주택목록 수정2를 구조화한 값입니다. 연번 131~133은 공식 수정사항에 따라 공급제외했습니다. 실제 신청 전에는 SH 원문을 다시 확인하세요.</div>
+<div class="foot" id="foot"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (()=>{
-const root={data:null,mode:'base',selectedDistrict:'',compare:new Set(),map:null,geo:null};
-const $=id=>document.getElementById(id);
-const fmt=n=>n==null?'—':new Intl.NumberFormat('ko-KR').format(n);
-const won=n=>n==null?'—':fmt(n)+'원';
-const range=(a,b,unit='')=>a==null?'—':(a===b?fmt(a):fmt(a)+'~'+fmt(b))+unit;
-const priceKeys=()=>root.mode==='jeonse'?['jeonseDepositMin','jeonseDepositMax','jeonseRentMin','jeonseRentMax']:root.mode==='wolse'?['wolseDepositMin','wolseDepositMax','wolseRentMin','wolseRentMax']:['baseDepositMin','baseDepositMax','baseRentMin','baseRentMax'];
-function normStructure(s){return (s||'').replace(/\s/g,'')}
-function bandClass(b){return b==='낮음'?'low':b==='보통'?'mid':'high'}
-function mapLinks(c){const a=c.addresses?.[0]||c.complexName;const q=encodeURIComponent(a);return '<a class="btn small" target="_blank" rel="noopener" href="https://map.naver.com/p/search/'+q+'">네이버 지도</a><a class="btn small" target="_blank" rel="noopener" href="https://map.kakao.com/link/search/'+q+'">카카오 지도</a>'}
-function filters(){
- const [dmin,dmax,rmin,rmax]=priceKeys(); const q=$('q').value.trim().toLowerCase(); const district=$('district').value||root.selectedDistrict; const st=normStructure($('structure').value);
- const md=+$('maxDeposit').value||Infinity,mr=+$('maxRent').value||Infinity,ma=+$('minArea').value||0,mu=+$('minUnits').value||0,el=$('elevator').value;
- let arr=root.data.complexes.filter(c=>{
-   const hay=(c.district+' '+c.complexName+' '+(c.addresses||[]).join(' ')).toLowerCase();
-   if(q&&!hay.includes(q))return false;if(district&&c.district!==district)return false;if(st&&!c.structures.some(x=>normStructure(x).includes(st)))return false;
-   if((c[dmin]??Infinity)>md||(c[rmin]??Infinity)>mr||(c.areaMax??0)<ma||c.units<mu)return false;
-   if(el==='yes'&&!c.elevators.some(x=>x.includes('설치')&&!x.includes('미설치')))return false;if(el==='no'&&!c.elevators.some(x=>x.includes('미설치')))return false;return true;
+const CFG={
+ sh:{url:'./data/sh-long-unsold-2026.json',official:'https://housing.seoul.go.kr/site/main/sh/publicLease/view?seq=6',
+ modes:[
+  {id:'base',label:'기준 보증금·월세',g:['baseDepositMin','baseDepositMax','baseRentMin','baseRentMax'],u:['baseDeposit','baseRent']},
+  {id:'jeonse',label:'전세전환 80%',g:['jeonseDepositMin','jeonseDepositMax','jeonseRentMin','jeonseRentMax'],u:['jeonseDeposit','jeonseRent']},
+  {id:'wolse',label:'월세전환 60%',g:['wolseDepositMin','wolseDepositMax','wolseRentMin','wolseRentMax'],u:['wolseDeposit','wolseRent']}
+ ]},
+ lh:{url:'./data/lh-youth-seoul-2026-3.json',official:'https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020759&uppAisTpCd=13',
+ modes:[
+  {id:'r1',label:'1순위 기본',g:['rank1DepositMin','rank1DepositMax','rank1RentMin','rank1RentMax'],u:['rank1Deposit','rank1Rent']},
+  {id:'r1c',label:'1순위 최대전환',g:['rank1ConvDepositMin','rank1ConvDepositMax','rank1ConvRentMin','rank1ConvRentMax'],u:['rank1ConvDeposit','rank1ConvRent']},
+  {id:'r23',label:'2·3순위 기본',g:['rank23DepositMin','rank23DepositMax','rank23RentMin','rank23RentMax'],u:['rank23Deposit','rank23Rent']},
+  {id:'r23c',label:'2·3순위 최대전환',g:['rank23ConvDepositMin','rank23ConvDepositMax','rank23ConvRentMin','rank23ConvRentMax'],u:['rank23ConvDeposit','rank23ConvRent']}
+ ]}
+};
+const NORTH=new Set(['강북구','도봉구','노원구','성북구','은평구','서대문구','마포구','종로구','중구','용산구','성동구','광진구','동대문구','중랑구']);
+const S={key:'sh',data:null,cache:{},mode:'base',view:'group',district:'',sort:'unitsDesc',compare:new Set(),map:null,geo:null,marker:null,activeKey:'',geocache:new Map()};
+const $=id=>document.getElementById(id), fmt=n=>n==null?'—':new Intl.NumberFormat('ko-KR').format(Math.round(n));
+const range=(a,b,s='')=>a==null?'—':(a===b?fmt(a):fmt(a)+'~'+fmt(b))+s;
+const modeCfg=()=>CFG[S.key].modes.find(x=>x.id===S.mode)||CFG[S.key].modes[0];
+const cleanStruct=s=>(s||'').replace(/\s/g,'');
+function bandClass(b){return b==='낮음'?'low':b==='보통'?'mid':''}
+function districtFromUnit(u){return u.district||''}
+function normalizeUnit(u){
+ if(S.key==='sh')return {type:'unit',key:'u'+u.row,row:u.row,district:u.district,name:u.complexName,code:u.complexCode,unit:u.unit,address:u.address,areaMin:u.area,areaMax:u.area,units:1,structures:[u.structure],elevators:[u.elevator],competitionBand:findGroup(u)?.competitionBand||'보통',competitionScore:findGroup(u)?.competitionScore||3,raw:u};
+ return {type:'unit',key:'u'+u.row,row:u.row,district:u.district,name:u.groupName,code:u.categoryName,unit:u.unit,address:u.address,areaMin:u.area,areaMax:u.area,units:1,structures:[u.housingType],elevators:[u.elevator==='Y'?'설치':u.elevator==='N'?'미설치':u.elevator],competitionBand:findGroup(u)?.competitionBand||'보통',competitionScore:findGroup(u)?.competitionScore||3,raw:u};
+}
+function findGroup(u){return S.data.complexes.find(c=>S.key==='sh'?(c.district===u.district&&c.complexCode===u.complexCode&&c.complexName===u.complexName):(c.district===u.district&&c.complexName===u.groupName))}
+function entities(){
+ if(S.view==='group')return S.data.complexes.map(c=>({...c,type:'group',key:'g'+c.district+'|'+c.complexCode+'|'+c.complexName,name:c.complexName,address:c.addresses?.[0]||''}));
+ return S.data.units.map(normalizeUnit);
+}
+function price(e){
+ const m=modeCfg();
+ if(e.type==='group')return {d1:e[m.g[0]],d2:e[m.g[1]],r1:e[m.g[2]],r2:e[m.g[3]]};
+ const u=e.raw; return {d1:u[m.u[0]],d2:u[m.u[0]],r1:u[m.u[1]],r2:u[m.u[1]]};
+}
+function visible(){
+ const q=$('q').value.trim().toLowerCase(),district=$('district').value||S.district,st=cleanStruct($('structure').value),maxD=+$('maxDeposit').value||Infinity,maxR=+$('maxRent').value||Infinity,minA=+$('minArea').value||0,minU=+$('minUnits').value||0,el=$('elevator').value,comp=$('competition').value,hideNorth=$('hideNorth').checked;
+ let arr=entities().filter(e=>{const p=price(e),hay=(e.district+' '+e.name+' '+e.address+' '+(e.structures||[]).join(' ')).toLowerCase();
+  if(q&&!hay.includes(q))return false;if(district&&e.district!==district)return false;if(hideNorth&&NORTH.has(e.district))return false;if(st&&!(e.structures||[]).some(x=>cleanStruct(x).includes(st)))return false;
+  if((p.d1??Infinity)>maxD||(p.r1??Infinity)>maxR||(e.areaMax??0)<minA||e.units<minU)return false;if(comp&&e.competitionBand!==comp)return false;
+  if(el==='yes'&&!(e.elevators||[]).some(x=>x.includes('설치')&&!x.includes('미설치')&&x!=='N'))return false;if(el==='no'&&!(e.elevators||[]).some(x=>x.includes('미설치')||x==='N'))return false;return true;
  });
- const sort=$('sort').value;
- arr.sort((a,b)=>sort==='unitsDesc'?b.units-a.units:sort==='rentAsc'?(a[rmin]??1e15)-(b[rmin]??1e15):sort==='depositAsc'?(a[dmin]??1e15)-(b[dmin]??1e15):sort==='areaDesc'?(b.areaMax??0)-(a.areaMax??0):sort==='competitionAsc'?a.competitionScore-b.competitionScore:a.district.localeCompare(b.district,'ko'));
+ arr.sort((a,b)=>{const A=price(a),B=price(b);return S.sort==='unitsDesc'?b.units-a.units:S.sort==='rentAsc'?(A.r1??1e15)-(B.r1??1e15):S.sort==='depositAsc'?(A.d1??1e15)-(B.d1??1e15):S.sort==='areaDesc'?(b.areaMax??0)-(a.areaMax??0):S.sort==='competitionAsc'?(a.competitionScore??9)-(b.competitionScore??9):a.district.localeCompare(b.district,'ko')});
  return arr;
 }
-function card(c){
- const [dmin,dmax,rmin,rmax]=priceKeys(); const key=c.district+'|'+c.complexCode+'|'+c.complexName; const checked=root.compare.has(key)?'checked':'';
- return '<article class="card"><div class="cardTop"><div><h3>'+c.complexName+'</h3><div class="meta">'+c.district+' · '+c.complexCode+'</div></div><span class="tag '+bandClass(c.competitionBand)+'">예상 '+c.competitionBand+'</span></div>'+
- '<div class="money"><div><span>보증금</span><b>'+range(c[dmin],c[dmax],'원')+'</b></div><div><span>월 임대료</span><b>'+range(c[rmin],c[rmax],'원')+'</b></div></div>'+
- '<div class="row"><span>공급</span><b>'+c.units+'호</b></div><div class="row"><span>전용면적</span><b>'+range(c.areaMin,c.areaMax,'㎡')+'</b></div>'+
- '<div class="row"><span>구조</span><b>'+c.structures.join(', ')+'</b></div><div class="row"><span>승강기</span><b>'+c.elevators.join(', ')+'</b></div>'+
- '<div class="row"><span>주소</span><b style="text-align:right">'+(c.addresses?.[0]||'—')+'</b></div>'+
- '<div class="cardActions">'+mapLinks(c)+'<label class="check"><input type="checkbox" class="cmp" data-key="'+encodeURIComponent(key)+'" '+checked+'> 비교</label></div></article>'
+function mapLinks(e){const q=encodeURIComponent(e.address||e.name);return '<a class="btn navBtn" target="_blank" rel="noopener" href="https://map.naver.com/p/search/'+q+'">네이버지도</a><a class="btn navBtn" target="_blank" rel="noopener" href="https://map.kakao.com/link/search/'+q+'">카카오지도</a>'}
+function card(e,i){
+ const p=price(e),selected=S.compare.has(e.key),active=S.activeKey===e.key;const supply=e.type==='group'?e.units+'호':'개별 호실';const unit=e.type==='unit'&&e.unit?' · '+e.unit+'호':'';
+ return '<article class="card '+(active?'active':'')+'" data-key="'+encodeURIComponent(e.key)+'">'+
+ '<div class="cardTop"><div><div class="rankNo">#'+(i+1)+' · '+e.district+unit+'</div><h3>'+e.name+'</h3><div class="meta">'+(e.code||'')+'</div></div><span class="tag '+bandClass(e.competitionBand)+'">예상 '+e.competitionBand+'</span></div>'+
+ '<div class="priceBox"><div class="price"><span>보증금</span><b>'+range(p.d1,p.d2,'원')+'</b></div><div class="price"><span>월 임대료</span><b>'+range(p.r1,p.r2,'원')+'</b></div></div>'+
+ '<div class="infoChips"><span class="infoChip">공급 <strong>'+supply+'</strong></span><span class="infoChip">전용 <strong>'+range(e.areaMin,e.areaMax,'㎡')+'</strong></span><span class="infoChip">'+((e.structures||[]).join(' · ')||'구조 확인')+'</span><span class="infoChip">'+((e.elevators||[]).join(' · ')||'승강기 확인')+'</span></div>'+
+ '<div class="address"><b>주소</b><br>'+(e.address||'주소 확인 필요')+'</div><div class="clickHint">카드를 누르면 이 위치를 지도에서 확대</div>'+
+ '<div class="cardActions">'+mapLinks(e)+'<label class="check"><input class="cmp" type="checkbox" data-key="'+encodeURIComponent(e.key)+'" '+(selected?'checked':'')+'> 비교</label></div></article>';
 }
 function render(){
- const arr=filters(); $('cards').innerHTML=arr.length?arr.map(card).join(''):'<div class="empty">조건에 맞는 단지가 없습니다.</div>';
- $('resultMeta').textContent=arr.length+'개 단지 · '+fmt(arr.reduce((s,c)=>s+c.units,0))+'호';
- $('resultTitle').textContent=(root.selectedDistrict||$('district').value||'전체')+' 단지 목록';
- document.querySelectorAll('.cmp').forEach(el=>el.addEventListener('change',e=>{const key=decodeURIComponent(e.target.dataset.key);if(e.target.checked){if(root.compare.size>=4){e.target.checked=false;alert('비교는 최대 4곳까지 가능합니다.');return}root.compare.add(key)}else root.compare.delete(key);renderCompare()}));
+ const arr=visible();$('cards').innerHTML=arr.length?arr.map(card).join(''):'<div class="empty">조건에 맞는 주택이 없습니다.</div>';
+ $('resultTitle').textContent=(S.district||$('district').value||'전체')+' '+(S.view==='group'?'단지 목록':'개별 호실');
+ $('resultMeta').textContent=arr.length+(S.view==='group'?'개 단지':'개 호실')+' · 공급 '+fmt(arr.reduce((s,e)=>s+e.units,0))+'호';
+ document.querySelectorAll('.card').forEach(el=>el.addEventListener('click',ev=>{if(ev.target.closest('a,input,label,button'))return;const key=decodeURIComponent(el.dataset.key);const e=visible().find(x=>x.key===key);if(e)focusEntity(e)}));
+ document.querySelectorAll('.cmp').forEach(x=>x.addEventListener('change',ev=>{const k=decodeURIComponent(ev.target.dataset.key);if(ev.target.checked){if(S.compare.size>=4){ev.target.checked=false;alert('비교는 최대 4곳입니다.');return}S.compare.add(k)}else S.compare.delete(k);renderCompare()}));
  updateMapStyle();
 }
 function renderCompare(){
- const p=$('comparePanel'),g=$('compareGrid'); const chosen=root.data.complexes.filter(c=>root.compare.has(c.district+'|'+c.complexCode+'|'+c.complexName));
- p.classList.toggle('on',chosen.length>0); const [dmin,dmax,rmin,rmax]=priceKeys();
- g.innerHTML=chosen.map(c=>'<div class="compareCard"><h3>'+c.complexName+'</h3><div class="row"><span>지역</span><b>'+c.district+'</b></div><div class="row"><span>공급</span><b>'+c.units+'호</b></div><div class="row"><span>면적</span><b>'+range(c.areaMin,c.areaMax,'㎡')+'</b></div><div class="row"><span>보증금</span><b>'+range(c[dmin],c[dmax],'원')+'</b></div><div class="row"><span>월세</span><b>'+range(c[rmin],c[rmax],'원')+'</b></div><div class="row"><span>예상 경쟁</span><b>'+c.competitionBand+'</b></div>'+mapLinks(c)+'</div>').join('');
+ const all=entities(),chosen=all.filter(e=>S.compare.has(e.key)),pnl=$('comparePanel');pnl.classList.toggle('on',chosen.length>0);
+ $('compareGrid').innerHTML=chosen.map(e=>{const p=price(e);return '<div class="compareCard"><h3>'+e.name+'</h3><div class="cmpRow"><span>지역</span><b>'+e.district+'</b></div><div class="cmpRow"><span>공급</span><b>'+e.units+'호</b></div><div class="cmpRow"><span>면적</span><b>'+range(e.areaMin,e.areaMax,'㎡')+'</b></div><div class="cmpRow"><span>보증금</span><b>'+range(p.d1,p.d2,'원')+'</b></div><div class="cmpRow"><span>월세</span><b>'+range(p.r1,p.r2,'원')+'</b></div>'+mapLinks(e)+'</div>'}).join('');
 }
-function selectDistrict(d){root.selectedDistrict=(root.selectedDistrict===d?'':d);$('district').value=root.selectedDistrict;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.d===root.selectedDistrict));render()}
-function updateMapStyle(){if(!root.geo)return;root.geo.eachLayer(l=>{const d=l.feature?.properties?.sggnm||'';const active=!root.selectedDistrict||d===root.selectedDistrict;l.setStyle({fillOpacity:active?.45:.08,weight:d===root.selectedDistrict?2.5:.7,opacity:active?1:.35})})}
-function initMap(){
- root.map=L.map('map',{zoomControl:true,attributionControl:true}).setView([37.5665,126.978],11);
- L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(root.map);
- fetch('https://cdn.jsdelivr.net/gh/codeforamerica/click_that_hood@48ba05ad/public/data/seoul.geojson').then(r=>r.json()).then(g=>{
-   const sm=Object.fromEntries(root.data.districtSummary.map(x=>[x.district,x]));
-   root.geo=L.geoJSON(g,{style:f=>{const d=f.properties.sggnm||'';const n=sm[d]?.units||0;return {color:'#64748b',weight:.7,fillColor:n>=100?'#4f46e5':n>=40?'#6366f1':n>=10?'#818cf8':n>0?'#c7d2fe':'#e5e7eb',fillOpacity:n>0?.45:.12}},onEachFeature:(f,l)=>{const d=f.properties.sggnm||'';const s=sm[d];if(s){l.bindTooltip(d+' · '+s.units+'호 / '+s.complexes+'단지');l.on('click',()=>selectDistrict(d))}}}).addTo(root.map);
-   root.map.fitBounds(root.geo.getBounds(),{padding:[8,8]});updateMapStyle();
- }).catch(()=>{$('map').innerHTML='<div class="empty">지도 경계를 불러오지 못했습니다. 아래 자치구 버튼으로 동일하게 필터할 수 있습니다.</div>'});
+async function focusEntity(e){
+ S.activeKey=e.key;render();const raw=(e.address||'').replace(/\s+(?:[A-Za-z가-힣]+동\s*)?\d+호\s*$/,'').trim();if(!raw)return;
+ $('mapStatus').textContent='정확한 위치 찾는 중: '+raw;
+ try{let g=S.geocache.get(raw);if(!g){const u='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=kr&q='+encodeURIComponent(raw);const j=await fetch(u).then(r=>r.json());g=j?.[0]||null;S.geocache.set(raw,g)}
+  if(!g){$('mapStatus').textContent='자동 위치검색 실패 · 네이버/카카오지도 버튼으로 확인';return}
+  const lat=+g.lat,lon=+g.lon;if(S.marker)S.map.removeLayer(S.marker);S.marker=L.marker([lat,lon]).addTo(S.map).bindPopup('<b>'+e.name+'</b><br>'+e.address).openPopup();S.map.setView([lat,lon],17);$('mapStatus').textContent='선택 위치: '+e.name+' · '+e.address;
+ }catch(err){$('mapStatus').textContent='자동 위치검색 실패 · 네이버/카카오지도 버튼으로 확인'}
 }
-async function init(){
- root.data=await fetch('./data/sh-long-unsold-2026.json',{cache:'no-store'}).then(r=>r.json());
- const rents=root.data.complexes.map(c=>c.baseRentMin).filter(Boolean),deps=root.data.complexes.map(c=>c.baseDepositMin).filter(Boolean),areas=root.data.complexes.map(c=>c.areaMax).filter(Boolean);
- $('stats').innerHTML='<div class="stat"><b>'+root.data.officialSupplyUnits+'호</b><span>총 공급</span></div><div class="stat"><b>'+root.data.complexes.length+'곳</b><span>주택단지</span></div><div class="stat"><b>'+Math.min(...rents).toLocaleString()+'원~</b><span>기준 월세 최저</span></div><div class="stat"><b>'+Math.min(...deps).toLocaleString()+'원~</b><span>기준 보증금 최저</span></div><div class="stat"><b>'+Math.max(...areas).toFixed(1)+'㎡</b><span>최대 전용면적</span></div>';
- const ds=root.data.districtSummary.slice().sort((a,b)=>b.units-a.units);$('district').innerHTML='<option value="">전체</option>'+ds.map(x=>'<option value="'+x.district+'">'+x.district+' ('+x.units+'호)</option>').join('');
- $('districtChips').innerHTML='<button class="chip on" data-d="">전체 473호</button>'+ds.map(x=>'<button class="chip" data-d="'+x.district+'">'+x.district+' '+x.units+'</button>').join('');
- document.querySelectorAll('.chip').forEach(x=>x.addEventListener('click',()=>selectDistrict(x.dataset.d)));document.querySelectorAll('.seg').forEach(x=>x.addEventListener('click',()=>{root.mode=x.dataset.mode;document.querySelectorAll('.seg').forEach(y=>y.classList.toggle('on',y===x));render();renderCompare()}));
- ['q','district','structure','maxDeposit','maxRent','minArea','minUnits','elevator','sort'].forEach(id=>$(id).addEventListener(id==='q'?'input':'change',()=>{if(id==='district')root.selectedDistrict=$('district').value;render()}));
- $('reset').addEventListener('click',()=>{['q','district','structure','maxDeposit','maxRent','minArea','minUnits','elevator'].forEach(id=>$(id).value='');$('sort').value='unitsDesc';root.selectedDistrict='';document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.d===''));render()});
- $('clearCompare').addEventListener('click',()=>{root.compare.clear();render();renderCompare()});
- render();initMap();
+function selectDistrict(d){S.district=S.district===d?'':d;$('district').value=S.district;renderDistrictChips();render()}
+function renderDistrictChips(){const ds=S.data.districtSummary.slice().sort((a,b)=>b.units-a.units);$('districtChips').innerHTML='<button class="chip '+(!S.district?'on':'')+'" data-d="">전체 '+S.data.officialSupplyUnits+'호</button>'+ds.map(x=>'<button class="chip '+(S.district===x.district?'on':'')+'" data-d="'+x.district+'">'+x.district+' '+x.units+'</button>').join('');document.querySelectorAll('.chip').forEach(x=>x.addEventListener('click',()=>selectDistrict(x.dataset.d)))}
+function updateMapStyle(){if(!S.geo)return;S.geo.eachLayer(l=>{const d=l.feature?.properties?.sggnm||'',sum=S.data.districtSummary.find(x=>x.district===d),active=!S.district||d===S.district;const n=sum?.units||0;l.setStyle({color:'#64748b',weight:d===S.district?2.4:.7,fillColor:n>=100?'#4f46e5':n>=50?'#6366f1':n>=20?'#818cf8':n>0?'#c7d2fe':'#e5e7eb',fillOpacity:n?(active?.48:.09):.05,opacity:active?1:.35})})}
+function rebuildMap(){if(!S.map)return;if(S.geo){S.map.removeLayer(S.geo);S.geo=null}fetch('https://cdn.jsdelivr.net/gh/codeforamerica/click_that_hood@48ba05ad/public/data/seoul.geojson').then(r=>r.json()).then(g=>{const sm=Object.fromEntries(S.data.districtSummary.map(x=>[x.district,x]));S.geo=L.geoJSON(g,{style:f=>{const d=f.properties.sggnm||'',n=sm[d]?.units||0;return {color:'#64748b',weight:.7,fillColor:n>=100?'#4f46e5':n>=50?'#6366f1':n>=20?'#818cf8':n>0?'#c7d2fe':'#e5e7eb',fillOpacity:n?.48:.05}},onEachFeature:(f,l)=>{const d=f.properties.sggnm||'',s=sm[d];if(s){l.bindTooltip(d+' · '+s.units+'호 / '+s.complexes+'단지');l.on('click',()=>selectDistrict(d))}}}).addTo(S.map);S.map.fitBounds(S.geo.getBounds(),{padding:[8,8]});updateMapStyle()})}
+function setupMap(){S.map=L.map('map').setView([37.5665,126.978],11);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(S.map)}
+function renderControls(){
+ const cfg=CFG[S.key];$('officialLink').href=cfg.official;$('priceMode').innerHTML=cfg.modes.map((m,i)=>'<button class="seg '+(m.id===S.mode?'on':'')+'" data-mode="'+m.id+'">'+m.label+'</button>').join('');
+ document.querySelectorAll('#priceMode .seg').forEach(x=>x.addEventListener('click',()=>{S.mode=x.dataset.mode;renderControls();render();renderCompare()}));
+ const ds=S.data.districtSummary.slice().sort((a,b)=>b.units-a.units);$('district').innerHTML='<option value="">전체</option>'+ds.map(x=>'<option value="'+x.district+'">'+x.district+' ('+x.units+'호)</option>').join('');$('district').value=S.district;
+ const types=[...new Set(S.data.complexes.flatMap(c=>c.structures||[]).map(cleanStruct).filter(Boolean))].sort();$('structure').innerHTML='<option value="">전체</option>'+types.map(x=>'<option value="'+x+'">'+x+'</option>').join('');
+ $('dataNote').textContent=S.key==='sh'?'SH 수정공고 473호':'LH 공식 공급목록 420호';
+ renderDistrictChips();
 }
-init().catch(e=>{$('cards').innerHTML='<div class="empty">데이터를 불러오지 못했습니다. '+String(e)+'</div>'});
+function renderStats(){const es=S.data.complexes,ms=modeCfg(),rents=es.map(x=>x[ms.g[2]]).filter(x=>x!=null),deps=es.map(x=>x[ms.g[0]]).filter(x=>x!=null),areas=es.map(x=>x.areaMax).filter(x=>x!=null);$('stats').innerHTML='<div class="stat"><b>'+S.data.officialSupplyUnits+'호</b><span>총 공급</span></div><div class="stat"><b>'+es.length+'곳</b><span>단지/주택군</span></div><div class="stat"><b>'+fmt(Math.min(...rents))+'원~</b><span>월세 최저</span></div><div class="stat"><b>'+fmt(Math.min(...deps))+'원~</b><span>보증금 최저</span></div><div class="stat"><b>'+Math.max(...areas).toFixed(1)+'㎡</b><span>최대 전용</span></div>'}
+async function load(key){
+ S.key=key;if(!S.cache[key])S.cache[key]=await fetch(CFG[key].url,{cache:'no-store'}).then(r=>r.json());S.data=S.cache[key];S.mode=CFG[key].modes[0].id;S.view='group';S.district='';S.sort='unitsDesc';S.compare.clear();S.activeKey='';$('q').value='';$('hideNorth').checked=false;renderControls();renderStats();render();renderCompare();rebuildMap();$('foot').textContent=S.data.sourceNote+' 실제 신청 전 공식 공고와 원본 공급목록을 다시 확인하세요.'}
+setupMap();
+$('announcement').addEventListener('change',e=>load(e.target.value));
+document.querySelectorAll('#viewMode .seg').forEach(x=>x.addEventListener('click',()=>{S.view=x.dataset.view;S.compare.clear();document.querySelectorAll('#viewMode .seg').forEach(y=>y.classList.toggle('on',y===x));render();renderCompare()}));
+['q','district','structure','maxDeposit','maxRent','minArea','minUnits','elevator','competition','hideNorth'].forEach(id=>$(id).addEventListener(id==='q'?'input':'change',()=>{if(id==='district')S.district=$('district').value;render()}));
+document.querySelectorAll('.sortBtn').forEach(x=>x.addEventListener('click',()=>{S.sort=x.dataset.sort;document.querySelectorAll('.sortBtn').forEach(y=>y.classList.toggle('on',y===x));render()}));
+$('reset').addEventListener('click',()=>{['q','district','structure','maxDeposit','maxRent','minArea','minUnits','elevator','competition'].forEach(id=>$(id).value='');$('hideNorth').checked=false;S.district='';renderDistrictChips();render()});
+$('resetMap').addEventListener('click',()=>{if(S.geo)S.map.fitBounds(S.geo.getBounds(),{padding:[8,8]});if(S.marker){S.map.removeLayer(S.marker);S.marker=null}S.activeKey='';$('mapStatus').textContent='자치구를 누르면 필터됩니다. 아래 단지를 누르면 정확한 주소를 찾아 지도에 표시합니다.';render()});
+$('clearCompare').addEventListener('click',()=>{S.compare.clear();render();renderCompare()});
+load('sh').catch(e=>{$('cards').innerHTML='<div class="empty">데이터를 불러오지 못했습니다: '+e+'</div>'});
 })();
 </script>
-</body>
-</html>
+</body></html>
