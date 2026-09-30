@@ -1,8 +1,8 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-09-30T07:52:55+09:00",
+  "updatedAt": "2026-10-01T03:52:05+09:00",
   "title": "현재 검토 공고",
-  "notice": "2026-09-30 07:52 KST 공식 공고 재검증. 송파해링턴타워는 비용필터에 따라 활성 추천·행동후보·지도에서 제외. LH 서울 3차 청년 매입임대는 9월 30일 마감, 강서염창 통합공공임대는 10월 1일까지.",
+  "notice": "2026-10-01 03:52 KST 공식 소스 재검증. 강서염창 통합공공임대는 오늘 17:00까지 접수중이며, LH 서울 3차 청년 매입임대와 SH 2차 장기미임대는 9월 30일 접수 종료 후 후속 추적 단계. 고가 민간 청년안심주택은 공식 임대조건 검증 전 활성 추천하지 않음.",
   "passes": [
     {
       "name": "SH 2026년 국민임대주택",
@@ -807,7 +807,7 @@
     },
     {
       "id": "sh-long-unsold-2026-2",
-      "status": "🔴⏰🔥🟢",
+      "status": "📄",
       "agency": "SH",
       "category": "장기미임대 매입임대",
       "region": "서울 다지역",
@@ -815,12 +815,12 @@
       "period": "2026-09-28 10:00~2026-09-30 17:00",
       "units": "수정공고 기준 총 473호",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🟢 현재 접수 중",
-        "reason": "서울 거주 성년 무주택세대구성원 기본자격. 개별 주택 및 소득·자산 등 세부기준은 공고문 최종 확인.",
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 추적",
+        "reason": "2026-09-30 17:00 접수 마감 후 결과·서류 단계 추적 대상",
         "check": "주택목록에서 희망 지역·면적·임대조건 선택"
       },
-      "next": "9월 30일 17:00 청약 마감",
+      "next": "접수 종료 · 결과/서류 후속 일정 추적",
       "source": "https://housing.seoul.go.kr/site/main/sh/publicLease/view?seq=6",
       "addresses": []
     },
@@ -845,7 +845,7 @@
     },
     {
       "id": "lh-seoul-youth-buy-2026-3",
-      "status": "🔴⏰🔥🟢",
+      "status": "📄",
       "agency": "LH 서울지역본부",
       "category": "청년 매입임대",
       "region": "서울특별시",
@@ -853,12 +853,12 @@
       "period": "2026-09-28 10:00~2026-09-30 16:00",
       "units": "총 420호 · 예비 1,260명",
       "eligibility": {
-        "level": "conditional",
-        "title": "🟠 현재 접수 중 · 중복신청 주의",
-        "reason": "청년 매입임대 동일유형 기존 신청이 서류제출까지 완료된 경우 예비순번 발표 전 타 동일유형 신청 제한이 적용될 수 있음.",
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 추적",
+        "reason": "2026-09-30 접수 마감 후 결과·서류 단계 추적 대상",
         "check": "기존 청년 매입임대 신청 상태 확인 후 신청 여부 결정"
       },
-      "next": "9월 30일 16:00 마감 · 10월 2일 서류대상 발표",
+      "next": "접수 종료 · 결과/서류 후속 일정 추적",
       "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020759&uppAisTpCd=13",
       "addresses": []
     },
