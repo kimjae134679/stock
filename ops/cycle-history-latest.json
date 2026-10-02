@@ -1,12 +1,5 @@
 {
   "version": "0.5.4",
-  "run_id": 36800565565,
-  "status": "success",
-  "assets": 89,
-  "full_assets": 13,
-  "wave_assets": 13,
-  "daily_assets": 13,
-  "errors": 0,
-  "qqq_wave_templates": 22,
-  "combined_bytes": 5502259
+  "run_id": 36952249257,
+  "status": "building"
 }
