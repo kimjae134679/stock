@@ -1,8 +1,8 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-10-01T03:52:05+09:00",
+  "updatedAt": "2026-10-06T06:48:43+09:00",
   "title": "현재 검토 공고",
-  "notice": "2026-10-01 03:52 KST 공식 소스 재검증. 강서염창 통합공공임대는 오늘 17:00까지 접수중이며, LH 서울 3차 청년 매입임대와 SH 2차 장기미임대는 9월 30일 접수 종료 후 후속 추적 단계. 고가 민간 청년안심주택은 공식 임대조건 검증 전 활성 추천하지 않음.",
+  "notice": "2026-10-06 06:48 KST 공식 소스 재검증. 신정도시마을은 오늘 10:00 선순위 접수 시작, 10월 7일 17:00 마감입니다. HUG 든든전세 제12차는 10월 12일 17:00까지 접수 중이며 LH 서울·경기북부·경기남부 든든전세 공고를 라이브 목록에 동기화했습니다. 강서염창 통합공공임대는 접수 종료 후 10월 13일 서류대상 발표를 추적합니다. 센텀힐스한강은 실제 접수종료일을 10월 4일 17:00으로 정정했습니다. 고가 민간 청년안심주택은 공식 임대조건 검증 결과에 따라 활성 추천·행동후보·지도에서 제외하며, 공개 데이터에서 개인 보류/신청 상태 표현을 제거했습니다.",
   "passes": [
     {
       "name": "SH 2026년 국민임대주택",
@@ -28,7 +28,7 @@
   "items": [
     {
       "id": "youth-soco-board-6685",
-      "status": "🔥🔵",
+      "status": "⏸",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "종로구",
@@ -36,12 +36,12 @@
       "period": "‘26. 10. 06. (화) 00:00 ~ 23:00",
       "units": "총 139세대 중 금회 추가모집 공공지원민간임대 2세대 (일반공급 2세대)",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "level": "excluded",
+        "title": "⏸ 고가 민간임대 필터 제외",
+        "reason": "이번 회차 공식 임대조건표 검증 결과 비교 가능한 공공 대안보다 자기자금 또는 월 부담이 뚜렷하게 높아 활성 추천·행동후보·지도에서 제외합니다.",
+        "check": "특정 단지를 다시 검토할 때만 이번 회차 공식 보증금·월세·관리비/추가부담을 재확인"
       },
-      "next": "‘26. 10. 07. (수) 서류심사 대상자 발표",
+      "next": "활성 추천 제외 · 10월 7일 서류심사 대상자 발표(신청자 후속)",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6685&menuNo=400008&optn1=2026-10-01",
       "addresses": [
         "서울특별시 종로구 숭인동 240-1 외 (1호선, 6호선 동묘앞역 3번 출구)"
@@ -51,7 +51,7 @@
     },
     {
       "id": "youth-soco-board-6684",
-      "status": "🔥🔵",
+      "status": "🔵",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "용산구",
@@ -60,11 +60,11 @@
       "units": "총 265세대 중 금회 추가공급 공공지원민간임대 3세대 (일반공급 3세대)",
       "eligibility": {
         "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "title": "🔵 10월 13일 접수 예정 · 가격검증 전 추천 제외",
+        "reason": "민간 공공지원임대이며 이번 회차 공식 임대조건표의 보증금·월세·관리비/추가부담 검증 전에는 활성 추천하지 않습니다.",
+        "check": "이번 회차 공식 임대조건표 확인 후 공공 대안과 실부담 비교"
       },
-      "next": "‘26. 10. 19. (월) 14:00 서류심사 대상자 발표",
+      "next": "10월 13일 09:00 접수 시작 예정 · 가격검증 전 활성 추천 제외",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6684&menuNo=400008&optn1=2026-10-01",
       "addresses": [
         "서울특별시 용산구 서계동 100-1번지 (1,4호선 서울역 15번 출구)"
@@ -74,20 +74,20 @@
     },
     {
       "id": "youth-soco-board-6683",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "광진구",
       "name": "강변역 센텀힐스한강 청년안심주택 추가모집",
-      "period": "‘~26. 10. 05. (월) 23:00",
+      "period": "2026-10-02 10:00~2026-10-04 17:00",
       "units": "총 52세대 중 금회 추가공급 공공지원민간임대 2세대 (일반공급 2세대)",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "10월 7일 14:00 서류심사 대상자 발표 확인"
       },
-      "next": "‘26. 10. 07. (수) 14:00 서류심사 대상자 발표",
+      "next": "10월 7일 14:00 서류심사 대상자 발표 · 10월 8일 서류 · 10월 9일부터 계약",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6683&menuNo=400008&optn1=2026-10-01",
       "addresses": [
         "서울특별시 광진구 구의동 587-62 (2호선 강변역 4번 출구)"
@@ -97,7 +97,7 @@
     },
     {
       "id": "youth-soco-board-6682",
-      "status": "🔥🔵",
+      "status": "⏸",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "중랑구",
@@ -105,12 +105,12 @@
       "period": "‘26. 10. 05. (월) 00:00 ~ 23:00",
       "units": "총 782세대 중 금회 추가모집 공공지원민간임대 2세대 (일반공급 2세대)",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "level": "excluded",
+        "title": "⏸ 접수 종료 · 고가 민간임대 필터 제외",
+        "reason": "이번 회차 공식 임대조건표 검증 결과 비교 가능한 공공 대안보다 자기자금 또는 월 부담이 뚜렷하게 높아 활성 추천·행동후보·지도에서 제외합니다.",
+        "check": "특정 단지를 다시 검토할 때만 이번 회차 공식 보증금·월세·관리비/추가부담을 재확인"
       },
-      "next": "‘26. 10. 06. (화) 서류심사 대상자 발표",
+      "next": "10월 6일 17:00 서류심사 대상자 발표 · 이후 서류/계약 개별 안내",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6682&menuNo=400008&optn1=2026-10-01",
       "addresses": [
         "서울특별시 중랑구 상봉동 503 (7호선 상봉역 4번 출구)"
@@ -120,7 +120,7 @@
     },
     {
       "id": "youth-soco-board-6681",
-      "status": "🔥🔵",
+      "status": "⏸",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "강남구",
@@ -128,12 +128,12 @@
       "period": "‘26. 10. 04. (일) 00:00 ~ 10. 05. (월) 23:00",
       "units": "총 299세대 중 공공지원민간임대 217세대 중 금회 추가모집 3세대 (특별공급 0세대,",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "level": "excluded",
+        "title": "⏸ 접수 종료 · 고가 민간임대 필터 제외",
+        "reason": "이번 회차 공식 임대조건표 검증 결과 비교 가능한 공공 대안보다 자기자금 또는 월 부담이 뚜렷하게 높아 활성 추천·행동후보·지도에서 제외합니다.",
+        "check": "특정 단지를 다시 검토할 때만 이번 회차 공식 보증금·월세·관리비/추가부담을 재확인"
       },
-      "next": "‘26. 10. 07. (수) 서류심사 대상자 발표",
+      "next": "10월 7일 14:00 서류심사 대상자 발표 · 10월 8일 서류 · 10월 15~22일 계약",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6681&menuNo=400008&optn1=2026-10-01",
       "addresses": [
         "서울시 강남구 삼성동 140-32 (2호선 선릉역 10번 출구)"
@@ -143,7 +143,7 @@
     },
     {
       "id": "youth-soco-board-6680",
-      "status": "🔥🔵",
+      "status": "⏸",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "광진구",
@@ -151,12 +151,12 @@
       "period": "‘26. 10. 05. (월) ~ 10. 06. (화) 00:00 ~ 23:00",
       "units": "총480세대 중 금회 추가모집 공공지원민간임대 1세대 (일반공급 1세대)",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "level": "excluded",
+        "title": "⏸ 고가 민간임대 필터 제외",
+        "reason": "이번 회차 공식 임대조건표 검증 결과 비교 가능한 공공 대안보다 자기자금 또는 월 부담이 뚜렷하게 높아 활성 추천·행동후보·지도에서 제외합니다.",
+        "check": "특정 단지를 다시 검토할 때만 이번 회차 공식 보증금·월세·관리비/추가부담을 재확인"
       },
-      "next": "‘26. 10. 07. (수) 17:00 예정 서류심사 대상자 발표",
+      "next": "활성 추천 제외 · 10월 7일 17:00 발표 · 10월 8~9일 서류 · 10월 13~16일 계약",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6680&menuNo=400008&optn1=2026-10-01",
       "addresses": [
         "서울특별시 광진구 아차산로 212 (2, 7호선 건대입구역 6번 출구)"
@@ -176,10 +176,10 @@
       "eligibility": {
         "level": "excluded",
         "title": "⏸ 고가 민간임대 필터 제외",
-        "reason": "이번 회차 공식 임대조건 확인 결과 공공 대안보다 보증금·월세·관리비 부담이 뚜렷하게 높아 활성 추천·행동후보·지도에서 제외.",
-        "check": "사용자가 이 단지를 직접 다시 요청할 때만 재검토"
+        "reason": "이번 회차 공식 임대조건 확인 결과 비교 가능한 공공 대안보다 보증금·월세·관리비 부담이 뚜렷하게 높아 활성 추천·행동후보·지도에서 제외합니다.",
+        "check": "특정 단지를 다시 검토할 때만 이번 회차 공식 임대조건을 재확인"
       },
-      "next": "활성 추천 제외 · 사용자 직접 요청 시 재검토",
+      "next": "활성 추천 제외",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6679&menuNo=400008&optn1=2026-09-22",
       "addresses": [
         "서울특별시 송파구 장지동 842-1"
@@ -189,7 +189,7 @@
     },
     {
       "id": "youth-soco-board-6678",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "마포구",
@@ -197,12 +197,12 @@
       "period": "2026-10-01 10:00~2026-10-04 18:00",
       "units": "공공지원민간임대 425세대 · 특별 86 + 일반 339",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 10월 1일 접수 시작",
-        "reason": "청년안심주택 공공지원민간임대 최초모집.",
-        "check": "청년 특별·일반 유형별 임대조건 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "10월 1일 10:00 시작 · 10월 7일 17:00 서류대상 발표",
+      "next": "10월 7일 17:00 서류심사 대상자 발표",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6678&menuNo=400008&optn1=2026-09-22",
       "addresses": [
         "서울특별시 마포구 염리동 534"
@@ -212,7 +212,7 @@
     },
     {
       "id": "youth-soco-board-6671",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "영등포구",
@@ -220,12 +220,12 @@
       "period": "‘26. 09. 21. (월) 09:00 ~ 21:00",
       "units": "총 576세대 중 금회 추가공급 공공지원민간임대 8세대 (특별공급 5세대, 일반공급 3세대)",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "‘ 26. 09. 22. (화) 17:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6671&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 영등포구 신길동 3608번지 외 (7호선 신풍역 2번 출구)"
@@ -235,7 +235,7 @@
     },
     {
       "id": "youth-soco-board-6666",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "마포구",
@@ -243,12 +243,12 @@
       "period": "‘26. 09. 22. (화) 09:00 ~ 09. 28. (월) 23:00",
       "units": "총 299세대 중 공공지원민간임대 175세대 (특별공급 36세대, 일반공급 139세대)",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 공식 신규 공고 자동발견",
-        "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-        "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "‘26. 09. 29. (화) 17:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6666&menuNo=400008&optn1=2026-09-15",
       "addresses": [
         "서울특별시 마포구 염리동 172-10번지 (5호선, 6호선, 경의중앙선, 공항철도 공덕역 1번 출구)"
@@ -258,7 +258,7 @@
     },
     {
       "id": "youth-soco-vivahills-gangbyeon-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "광진구",
@@ -266,12 +266,12 @@
       "period": "2026-09-21 10:00~2026-09-21 16:00",
       "units": "1세대 · 특별공급 1세대",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 21일 접수",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "특별공급 자격·임대조건 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 15:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6667&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 광진구 구의동 593-11"
@@ -279,7 +279,7 @@
     },
     {
       "id": "youth-soco-im2030-deungchon-2026-09-17",
-      "status": "🔥🟢",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "강서구",
@@ -287,12 +287,12 @@
       "period": "2026-09-17 16:00~2026-09-21 23:00",
       "units": "1세대 · 일반공급 1세대",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🟢 현재 접수 중",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "일반공급 임대조건·자격 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 14:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6668&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 강서구 공항대로59가길 14"
@@ -300,7 +300,7 @@
     },
     {
       "id": "youth-soco-bx201-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "관악구",
@@ -308,12 +308,12 @@
       "period": "2026-09-21 10:00~2026-09-21 16:00",
       "units": "2세대 · 일반공급 2세대",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 21일 접수",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "일반공급 임대조건·자격 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 16:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6669&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 관악구 남부순환로224길 25"
@@ -321,7 +321,7 @@
     },
     {
       "id": "youth-soco-choegang-sillim-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "관악구",
@@ -329,12 +329,12 @@
       "period": "2026-09-19 00:00~2026-09-21 23:59",
       "units": "1세대 · 특별공급 1세대",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 19일 접수 시작",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "특별공급 자격·정확 접수시각 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 11:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6670&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 관악구 남부순환로180길 6"
@@ -342,7 +342,7 @@
     },
     {
       "id": "youth-soco-lumino816-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "은평구",
@@ -350,12 +350,12 @@
       "period": "2026-09-21 00:00~2026-09-21 23:00",
       "units": "5세대 · 일반공급 5세대",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 21일 접수",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "일반공급 임대조건·자격 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 17:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6672&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 은평구 불광동 302-13번지 외 1필지"
@@ -363,7 +363,7 @@
     },
     {
       "id": "youth-soco-labom-seongdong-2026-09-17",
-      "status": "🔥🟢",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "성동구",
@@ -371,12 +371,12 @@
       "period": "2026-09-18 10:00~2026-09-21 16:00",
       "units": "예비자 모집",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🟢 현재 접수 중",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "예비자 모집 타입·청년 자격·임대조건 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 12:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6673&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 성동구 마장동 836일원"
@@ -384,7 +384,7 @@
     },
     {
       "id": "youth-soco-raon-jongam-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "성북구",
@@ -392,12 +392,12 @@
       "period": "2026-09-21 10:00~2026-09-21 16:00",
       "units": "1세대 · 특별공급 1세대",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 21일 접수",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "특별공급 자격·임대조건 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 16:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6674&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 성북구 종암동 83-3 일원"
@@ -405,7 +405,7 @@
     },
     {
       "id": "youth-soco-queensw-cheongnyangni-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "동대문구",
@@ -413,12 +413,12 @@
       "period": "2026-09-21 00:00~2026-09-22 23:00",
       "units": "예비자 모집",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 21일 접수 시작",
-        "reason": "서울시 공식 9월 17일 새 추가모집공고 확인.",
-        "check": "새 회차 타입별 청년 자격·임대조건 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 23일 17:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6675&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 동대문구 전농동 127-359"
@@ -426,7 +426,7 @@
     },
     {
       "id": "youth-soco-heartium-hoegi-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "동대문구",
@@ -434,12 +434,12 @@
       "period": "2026-09-21 09:00~2026-09-21 17:00",
       "units": "9세대 · 특별 2세대 + 일반 7세대",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 21일 접수",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "특별·일반 타입별 자격·임대조건 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 22일 16:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6676&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 동대문구 망우로 46"
@@ -447,7 +447,7 @@
     },
     {
       "id": "youth-soco-elandpeer-sinchon-2026-09-17",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "마포구",
@@ -455,12 +455,12 @@
       "period": "2026-09-20 09:00~2026-09-21 17:00",
       "units": "예비자 모집",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 20일 접수 시작",
-        "reason": "서울시 공식 9월 17일 추가모집공고 확인.",
-        "check": "예비자 모집 타입·청년 자격·임대조건 PDF 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 23일 17:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6677&menuNo=400008&optn1=2026-09-17",
       "addresses": [
         "서울특별시 마포구 창전동 450"
@@ -529,7 +529,7 @@
     },
     {
       "id": "youth-soco-gusan-house-2026-09-10",
-      "status": "🔥🟢",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "은평구",
@@ -537,12 +537,12 @@
       "period": "2026-09-13 00:00~09-15 23:00",
       "units": "청년 17A/17B 특별·일반 및 청년 신청가능 33A/33B 혼합유형 예비자",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🟢 현재 접수 중",
-        "reason": "공식 PDF에서 청년 지원 가능 유형과 9월 13일 00:00 접수 시작을 확인.",
-        "check": "17A/17B 및 혼합 33A/33B 임대조건 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 15일 23:00 마감",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6658&menuNo=400008&optn1=2026-09-10",
       "addresses": [
         "서울특별시 은평구 서오릉로 165, 구산주택"
@@ -588,7 +588,7 @@
     },
     {
       "id": "youth-soco-queensw-cheongnyangni-2026-09-10",
-      "status": "🔥🟢",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "동대문구",
@@ -596,12 +596,12 @@
       "period": "2026-09-14 00:00~09-15 23:00",
       "units": "청년 일반 25A 및 청년 신청가능 52A/51B/53A 혼합유형",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🟢 현재 접수 중",
-        "reason": "공식 공고에서 2026년 9월 14일 00:00 접수 시작을 확인했고 현재시각이 경과함.",
-        "check": "청년·혼합 유형별 자격과 임대조건 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 16일 17:00 서류심사 대상자 발표",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6662&menuNo=400008&optn1=2026-09-10",
       "addresses": []
     },
@@ -647,7 +647,7 @@
     },
     {
       "id": "youth-soco-inhere-ssangmun-2026-09-10",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "도봉구",
@@ -655,12 +655,12 @@
       "period": "2026-09-16 00:00~23:00",
       "units": "8세대 · 청년 19㎡·20㎡·22㎡ 및 청년가능 36㎡ 혼합유형 포함",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 16일 00:00 접수 시작",
-        "reason": "공식 PDF에서 청년 특별·일반 및 청년 신청 가능한 혼합유형 확인.",
-        "check": "청년 유형별 임대조건 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 17일 17:00 발표 · 9월 21일 서류 · 9월 22~30일 계약",
+      "next": "접수 종료 · 결과/서류/계약 후속 일정 공식 확인",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6660&menuNo=400008&optn1=2026-09-10",
       "addresses": [
         "서울특별시 도봉구 도봉로 445, 인히어쌍문"
@@ -668,7 +668,7 @@
     },
     {
       "id": "youth-soco-mangrove-changcheon-2026-09-08",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "서울시 청년안심주택",
       "category": "공공지원민간임대",
       "region": "서대문구",
@@ -676,10 +676,10 @@
       "period": "2026-09-17 00:00~09-20 23:00",
       "units": "196세대 · 청년 특별 40 + 일반 156",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 9월 17일 접수 시작",
-        "reason": "공식 공고와 PDF에서 공공지원민간임대 196세대 전부 청년 공급 확인.",
-        "check": "특별공급 세부순위·대출·관리비 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
       "next": "9월 23일 17:00 발표 · 9월 28일~10월 2일 서류 · 10월 15~18일 계약",
       "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6654&menuNo=400008&optn1=2026-09-03",
@@ -689,7 +689,7 @@
     },
     {
       "id": "geumcheon-youth-custom-2026-h2",
-      "status": "⏸",
+      "status": "📄",
       "agency": "금천구",
       "category": "청년 맞춤형주택",
       "region": "금천구",
@@ -697,12 +697,12 @@
       "period": "~2026-09-17 18:00",
       "units": "12세대",
       "eligibility": {
-        "level": "review",
-        "title": "⏸ 보류",
-        "reason": "사용자 보류 상태 유지.",
-        "check": "보류 해제 시 제출서류·등기 일정 재확인"
+        "level": "followup",
+        "title": "📄 접수 종료",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아닙니다.",
+        "check": "공식 결과·후속 일정 확인"
       },
-      "next": "보류 유지",
+      "next": "접수 종료 · 공식 후속 일정 확인",
       "source": "https://www.geumcheon.go.kr/portal/tblSeolGosiDetailView.do?key=294&notAncmtMgtNo=39192",
       "addresses": [
         "서울특별시 금천구 시흥대로145길 67"
@@ -718,12 +718,12 @@
       "period": "2026-09-09 10:00~09-11 17:00",
       "units": "전체 1,484호",
       "eligibility": {
-        "level": "review",
-        "title": "📄 서류제출 기간",
-        "reason": "서류심사 대상자 발표는 9월 21일 16시 이후 완료. 대상자만 9월 28~30일 등기우편 제출.",
-        "check": "대상자 여부 확인 후 9월 30일 우체국 소인 마감"
+        "level": "followup",
+        "title": "📄 접수·서류기간 종료 · 당첨발표 추적",
+        "reason": "접수와 서류심사 대상자 서류제출 기간이 종료되어 후속 발표만 추적합니다.",
+        "check": "2027년 1월 29일 당첨자 발표 확인"
       },
-      "next": "서류심사 대상자에 한해 9월 28~30일 등기우편 서류제출",
+      "next": "2027년 1월 29일 당첨자 발표",
       "source": "https://housing.seoul.go.kr/site/main/sh/publicLease/view?seq=7",
       "addresses": []
     },
@@ -737,18 +737,18 @@
       "period": "공고 2026-09-07 · LH 공고목록상 2026-09-21까지",
       "units": "공급 50호 · 예비 150명",
       "eligibility": {
-        "level": "review",
-        "title": "📄 서류제출 기간",
-        "reason": "서류제출대상자 발표는 9월 23일 완료. 대상자만 9월 28~30일 서류제출.",
-        "check": "LH청약플러스 서류제출대상자 명단 확인"
+        "level": "followup",
+        "title": "📄 서류기간 종료 · 결과 추적",
+        "reason": "서류제출대상자 제출기간이 종료되었습니다.",
+        "check": "12월 9일 결과 확인"
       },
-      "next": "서류제출대상자에 한해 9월 28일 10:00~30일 16:00 서류제출 · 12월 9일 결과",
+      "next": "12월 9일 결과",
       "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020699&uppAisTpCd=13",
       "addresses": []
     },
     {
       "id": "lh-national-rental-bucheon-2026-09-07",
-      "status": "🔵",
+      "status": "📄",
       "agency": "LH",
       "category": "국민임대",
       "region": "부천시",
@@ -756,12 +756,12 @@
       "period": "2026-09-21~09-22",
       "units": "부천범박1·부천여월2 예비입주자 모집",
       "eligibility": {
-        "level": "review",
-        "title": "🔵 1인가구 주택형 추가확인",
-        "reason": "LH 공식 공고에서 9월 21~22일 접수 확인.",
-        "check": "1인가구 신청가능 주택형·순위·임대조건 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "10월 14일 서류대상 · 2027년 1월 22일 당첨발표",
+      "next": "10월 14일 서류대상 발표 · 2027년 1월 22일 당첨발표",
       "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=07&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020652&uppAisTpCd=06",
       "addresses": [
         "경기도 부천시 오정구 여월로 65, 여월휴먼시아2단지아파트"
@@ -769,7 +769,7 @@
     },
     {
       "id": "lh-deundeun-incheon-bucheon-2026-09-09",
-      "status": "🔵",
+      "status": "📄",
       "agency": "LH",
       "category": "든든전세주택",
       "region": "부천시",
@@ -777,18 +777,18 @@
       "period": "2026-09-21~09-22",
       "units": "정정공고 · 인천·부천 전체 공고 중 부천시 공급분 확인",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 부천 공급분 검토",
-        "reason": "LH 공식 공고목록에서 2026-09-09 정정공고 및 부천 포함을 확인. 인천 공급분은 패스하고 부천 공급분만 검토.",
-        "check": "공식 PDF·공급대상주택목록에서 부천 세대수·정확주소·보증금·접수 마감시각 최종 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "9월 21~22일 접수 예정 · 정확한 접수시각과 서류/당첨 일정은 공식 PDF 재확인",
+      "next": "접수 종료 · 부천 공급분 결과/서류 후속 일정 공식 확인",
       "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020725&uppAisTpCd=13",
       "addresses": []
     },
     {
       "id": "sh-redevelopment-rental-2026-09-09",
-      "status": "🔥🔵",
+      "status": "🟠",
       "agency": "SH",
       "category": "재개발임대주택",
       "region": "서울 20개 자치구",
@@ -797,11 +797,11 @@
       "units": "총 3,821세대 · 공가 1,675 + 예비 2,146 · 162개 단지",
       "eligibility": {
         "level": "conditional",
-        "title": "🟠 순위별 접수",
-        "reason": "1인가구 1순위 소득상한 2,669,354원, 2순위 상한 3,432,027원. 순위에 따라 접수일이 다름.",
-        "check": "신청자 소득순위 및 40㎡ 이하 단독세대주 제한 확인"
+        "title": "🟠 10월 8일 후순위 조건부 접수",
+        "reason": "1순위 접수는 종료됐으며 1순위 신청결과에 따라 10월 8일 후순위 접수가 실시되지 않을 수 있습니다.",
+        "check": "10월 8일 후순위 접수 실시 여부 공지 확인"
       },
-      "next": "1순위 오늘 10:00 시작 · 2순위 신청여부 10월 8일 게시",
+      "next": "10월 8일 후순위 접수 여부 확인 · 10월 23일 서류심사대상자 발표",
       "source": "https://housing.seoul.go.kr/site/main/sh/publicLease/03/view?seq=1",
       "addresses": []
     },
@@ -816,17 +816,17 @@
       "units": "수정공고 기준 총 473호",
       "eligibility": {
         "level": "followup",
-        "title": "📄 접수 종료 · 후속 추적",
-        "reason": "2026-09-30 17:00 접수 마감 후 결과·서류 단계 추적 대상",
-        "check": "주택목록에서 희망 지역·면적·임대조건 선택"
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "접수 종료 · 결과/서류 후속 일정 추적",
+      "next": "12월 28일 당첨자 발표",
       "source": "https://housing.seoul.go.kr/site/main/sh/publicLease/view?seq=6",
       "addresses": []
     },
     {
       "id": "sh-longterm-51-2026-08-31",
-      "status": "🔴⏰🔥🟢",
+      "status": "📄",
       "agency": "서울주택도시개발공사(SH)",
       "category": "장기전세주택",
       "region": "서울 전역",
@@ -834,12 +834,12 @@
       "period": "2026-09-14 10:00~09-17 17:00 (순위별)",
       "units": "총 1,381세대 · 신규공급 291호 + 재공급 예비 1,090명 · 60㎡ 이하 공급 포함",
       "eligibility": {
-        "level": "review",
-        "title": "🔴⏰🔥🟢 순위별 접수 진행 중",
-        "reason": "공식 모집공고에서 순위별 접수 일정과 60㎡ 이하 공급, 1인가구 소득기준을 확인. 신청 주택형·소득·청약통장 납입횟수·거주지역에 따라 순위가 달라짐.",
-        "check": "1순위는 9월 15일 17:00 마감 · 2순위 9월 16일 10:00~17:00 · 3·4순위 9월 17일 10:00~17:00"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "1순위 9월 15일 17:00 마감 · 2순위 9월 16일 · 3·4순위 9월 17일",
+      "next": "2027년 3월 5일 당첨자 발표",
       "source": "https://www.i-sh.co.kr/main/lay2/program/S1T294C295/www/brd/m_241/view.do?seq=309467",
       "addresses": []
     },
@@ -855,16 +855,16 @@
       "eligibility": {
         "level": "followup",
         "title": "📄 접수 종료 · 후속 추적",
-        "reason": "2026-09-30 접수 마감 후 결과·서류 단계 추적 대상",
-        "check": "기존 청년 매입임대 신청 상태 확인 후 신청 여부 결정"
+        "reason": "9월 30일 접수가 종료되어 신규 신청 대상이 아닙니다.",
+        "check": "공식 결과·서류 후속 일정 확인"
       },
-      "next": "접수 종료 · 결과/서류 후속 일정 추적",
+      "next": "접수 종료 · 공식 결과/서류 후속 일정 확인",
       "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020759&uppAisTpCd=13",
       "addresses": []
     },
     {
       "id": "lh-gangseo-yeomchang-integrated-2026-09-17",
-      "status": "🔴⏰🔥🟢",
+      "status": "📄",
       "agency": "LH",
       "category": "통합공공임대",
       "region": "강서구",
@@ -872,12 +872,12 @@
       "period": "일반공급 2026-09-29 10:00~2026-10-01 17:00",
       "units": "59A 14호 · 일반공급 10호 + 우선공급 4호",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🟢 청년 일반공급 신청 가능",
-        "reason": "만 18~39세 미혼 무주택 청년, 1인가구 기준 중위소득 170% 이하 등 공고요건 적용.",
-        "check": "소득구간별 임대료와 자산·자동차 기준 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 서류대상 발표 추적",
+        "reason": "일반공급 접수가 10월 1일 17:00 종료되었습니다.",
+        "check": "10월 13일 서류제출대상자 발표 확인"
       },
-      "next": "오늘 10:00 일반공급 시작 · 10월 13일 서류대상 발표",
+      "next": "10월 13일 서류제출대상자 발표 · 10월 14~19일 서류제출 · 2027년 1월 28일 당첨발표",
       "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=48&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020807&uppAisTpCd=06",
       "addresses": [
         "서울특별시 강서구 공항대로81길 14"
@@ -885,7 +885,7 @@
     },
     {
       "id": "lh-incheon-youth-buy-2026-7-bucheon",
-      "status": "🔥🔵",
+      "status": "📄",
       "agency": "LH 인천지역본부",
       "category": "청년 매입임대",
       "region": "부천시",
@@ -893,18 +893,18 @@
       "period": "2026-09-17 공고 · 공고마감 09-30",
       "units": "부천 공급분만 활성 검토",
       "eligibility": {
-        "level": "review",
-        "title": "🔥🔵 신규 공고",
-        "reason": "LH청약플러스 2026-09-17 신규 공고에서 인천·부천 청년 매입임대 확인. 인천권은 제외.",
-        "check": "부천 실제 주택목록·공급호수·임대조건 확인"
+        "level": "followup",
+        "title": "📄 접수 종료 · 후속 일정 추적",
+        "reason": "공식 접수기간이 종료되어 신규 신청 대상이 아니며 결과·서류·계약 등 후속 일정만 추적합니다.",
+        "check": "공식 공고의 다음 후속 일정 확인"
       },
-      "next": "부천 공급표 세부 검증",
+      "next": "접수 종료 · 부천 공급분 결과/서류 일정 공식 확인",
       "source": "https://apply.lh.or.kr/lhapply/apply/main.do",
       "addresses": []
     },
     {
       "id": "sh-hopehouse-2026-2",
-      "status": "🔵",
+      "status": "📄",
       "agency": "SH",
       "category": "희망하우징(공공기숙사)",
       "region": "서울 다지역",
@@ -912,17 +912,17 @@
       "period": "2026-10-01 10:00~2026-10-02 17:00",
       "units": "총 31호",
       "eligibility": {
-        "level": "impossible",
-        "title": "❌ 현재 직장인 기준 대상 아님",
-        "reason": "서울 소재 대학교 재학생인 미혼 무주택자 대상.",
-        "check": "재학생 신분이 있는 경우에만 재검토"
+        "level": "closed",
+        "title": "📄 접수 종료",
+        "reason": "2026년 10월 2일 17:00 접수가 종료되었습니다.",
+        "check": "대학생 대상 공공기숙사 공고 · 12월 14일 당첨자 발표 확인"
       },
-      "next": "10월 1일 10:00 접수 시작",
+      "next": "12월 14일 당첨자 발표",
       "source": "https://housing.seoul.go.kr/site/main/sh/publicLease/05/view?seq=2"
     },
     {
       "id": "sh-sinjeong-cityvillage-2026",
-      "status": "🔵",
+      "status": "🔴⏰🔥🟢",
       "agency": "SH",
       "category": "도시형생활주택",
       "region": "양천구",
@@ -931,15 +931,91 @@
       "units": "총 13호",
       "eligibility": {
         "level": "review",
-        "title": "🔵 10월 6일 접수 예정",
-        "reason": "서울 거주 성년 무주택세대구성원이며 공급구분별 소득·자산·자동차 기준 적용.",
-        "check": "일반/우선 공급별 세부자격 및 선·후순위 확인"
+        "title": "🔴⏰ 오늘 10:00 선순위 접수 시작",
+        "reason": "서울 거주 성년 무주택세대구성원 대상이며 공급구분별 소득·자산·자동차 기준을 적용합니다.",
+        "check": "선순위 일반공급 소득 70% 이하 / 우선공급 90% 이하 등 세부 공급구분 확인"
       },
-      "next": "10월 6일 10:00 선순위 접수 시작",
+      "next": "오늘 10:00 선순위 시작 · 10월 7일 17:00 마감 · 10월 8일 후순위 조건부",
       "source": "https://housing.seoul.go.kr/site/main/sh/publicSale/view?seq=1",
       "addresses": [
         "서울특별시 양천구 신정로13가길 6"
       ]
+    },
+    {
+      "id": "hug-deundeun-12-2026-09-30",
+      "status": "🔥🟢",
+      "agency": "HUG",
+      "category": "든든전세주택",
+      "region": "서울·경기·인천·부산",
+      "name": "HUG 든든전세주택 제12차",
+      "period": "2026-09-30 10:00~2026-10-12 17:00",
+      "units": "총 900호 · 서울 420 · 경기 116 · 인천 360 · 부산 4",
+      "eligibility": {
+        "level": "review",
+        "title": "🔥🟢 접수 중",
+        "reason": "HUG 제12차 든든전세 모집 일정에 따라 접수 중입니다.",
+        "check": "공식 주택목록에서 희망 주택의 주소·보증금·세부 신청조건 확인"
+      },
+      "next": "10월 12일 17:00 접수 마감 · 10월 13일 서류대상 발표",
+      "source": "https://www.khug.or.kr/jeonse/web/s07/s070301.jsp",
+      "addresses": []
+    },
+    {
+      "id": "lh-deundeun-gyeonggi-north-2026-4",
+      "status": "🔵",
+      "agency": "LH 경기북부지역본부",
+      "category": "든든전세주택",
+      "region": "경기북부",
+      "name": "LH 경기북부 2026년 4차 비분양전환형 든든전세주택",
+      "period": "공고 2026-10-01 · 공고마감 2026-10-15",
+      "units": "공식 페이지 모집인원 402명 표기 · 정정공고 재확인 필요",
+      "eligibility": {
+        "level": "review",
+        "title": "🔵 공고 중",
+        "reason": "LH 공식 공고목록에서 10월 1일 게시·10월 15일 마감을 확인했습니다.",
+        "check": "정정공고 PDF와 공급대상주택목록에서 접수기간·주소·보증금 최종 확인"
+      },
+      "next": "10월 15일 공고마감 · 정정공고 세부 접수일정 확인",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&panId=2015122300020755&uppAisTpCd=13",
+      "addresses": []
+    },
+    {
+      "id": "lh-deundeun-seoul-2026-2",
+      "status": "🔵",
+      "agency": "LH 서울지역본부",
+      "category": "든든전세주택",
+      "region": "서울특별시",
+      "name": "LH 서울지역본부 26년 2차 비분양전환형 든든전세주택",
+      "period": "공고 2026-10-01 · 공고마감 2026-10-16",
+      "units": "공식 공급대상주택목록 세부확인 필요",
+      "eligibility": {
+        "level": "review",
+        "title": "🔵 공고 중",
+        "reason": "LH 공식 공고목록에서 10월 1일 게시·10월 16일 마감을 확인했습니다.",
+        "check": "공고 PDF·공급대상주택목록에서 접수기간·주소·보증금 세부확인"
+      },
+      "next": "10월 16일 공고마감 · 세부 접수일정 공식 공고 확인",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+      "addresses": []
+    },
+    {
+      "id": "lh-deundeun-gyeonggi-south-2026-09-30",
+      "status": "🔵",
+      "agency": "LH 경기남부지역본부",
+      "category": "든든전세주택",
+      "region": "경기남부",
+      "name": "LH 경기남부 든든전세 매입임대주택 예비입주자 모집(비분양전환)",
+      "period": "공고 2026-09-30 · 공고마감 2026-10-23",
+      "units": "공식 PDF·공급주택목록 첨부",
+      "eligibility": {
+        "level": "review",
+        "title": "🔵 공고 중",
+        "reason": "LH 공식 공고목록에서 9월 30일 게시·10월 23일 마감을 확인했습니다.",
+        "check": "공급대상주택 XLSX에서 희망 지역·주소·보증금·접수일정 확인"
+      },
+      "next": "10월 23일 공고마감 · 세부 접수/후속 일정 공식 공고 확인",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=26&ccrCnntSysDsCd=03&panId=2015122300020802&uppAisTpCd=13",
+      "addresses": []
     }
   ]
 }
