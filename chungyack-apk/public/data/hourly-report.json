@@ -1,8 +1,21 @@
 {
   "schema": "chungyack-hourly-report-v1",
   "updatedAt": "2026-10-06T06:48:43+09:00",
-  "title": "ChungYack live report",
-  "status": "updated",
-  "notice": "See current-opportunities.json for current public opportunities.",
-  "groups": []
+  "title": "청약2 시간별 보고",
+  "status": "2026-10-06 06:48 KST 공식 일정 동기화",
+  "notice": "신정도시마을은 10월 6일 10:00 시작, 10월 7일 17:00 마감입니다.",
+  "groups": [
+    {
+      "id": "today-tomorrow",
+      "title": "오늘·내일",
+      "icon": "🔴⏰",
+      "items": [
+        {
+          "name": "2026년 신정도시마을 잔여세대 입주자 모집",
+          "status": "10월 6일 10:00 시작 · 10월 7일 17:00 마감",
+          "address": ""
+        }
+      ]
+    }
+  ]
 }
