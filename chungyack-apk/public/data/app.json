@@ -1,1 +1,83 @@
-{"version":"0.8.0-live","updatedAt":"2026-10-08T06:48:11+09:00","summary":{"urgent":2,"catalog":61,"note":"2026-10-08 06:48 KST 공식 신규·접수·후속 점검. SH 10/8 후순위 2건 실시 확인 전 조건부. 민간 임대의 가격 미검증 회차를 고가로 단정하지 않고 활성 추천/지도에서 검증 보류 처리."},"trackingSeed":[],"insights":[{"matchName":"장지지구 송파파인타운","type":39,"competition":"45~90:1","confidence":"중간","label":"과거 참고","reason":"과거 국민임대 비교 참고용 레거시 데이터","warning":"SH 국민임대는 이번 회차 패스","weight":100},{"matchName":"오금지구 송파레미니스","type":39,"competition":"60~110:1","confidence":"중간","label":"과거 참고","reason":"과거 SH 국민임대 비교 참고용 레거시 데이터","warning":"현재 행동후보에서 사용하지 않음","weight":95}],"history":[{"year":"2022 1차","average":14.2,"detail":"과거 SH 국민임대 비교 참고"},{"year":"2023 1차","average":25,"detail":"과거 SH 국민임대 비교 참고"},{"year":"2024 1차","average":31.96,"detail":"과거 SH 국민임대 비교 참고"}],"sources":[{"label":"서울시 청년안심주택 모집공고","url":"https://soco.seoul.go.kr/youth/main/main.do"},{"label":"LH 공식 청약캘린더","url":"https://apply.lh.or.kr/lhapply/apply/sc/list.do"},{"label":"LH 임대주택 공식 공고","url":"https://apply.lh.or.kr/lhapply/apply/main.do"},{"label":"SH 공공임대 공식 목록","url":"https://housing.seoul.go.kr/site/main/sh/publicLease/list"},{"label":"서울주거포털 재개발임대주택 공식 안내","url":"https://housing.seoul.go.kr/site/main/content/sh01_030700"},{"label":"GH 공식 주택청약·임대센터","url":"https://apply.gh.or.kr/"},{"label":"서울주거포털","url":"https://housing.seoul.go.kr/"},{"label":"HUG 든든전세주택 공지사항","url":"https://www.khug.or.kr/jeonse/web/s07/s070301.jsp"}]}
+{
+  "version": "0.8.0-live",
+  "updatedAt": "2026-10-08T18:49:32+09:00",
+  "summary": {
+    "urgent": 0,
+    "catalog": 61,
+    "note": "2026-10-08 18:49 KST 공고시각 갱신: SH 10/8 신정도시마을·재개발임대 조건부 후순위 17시 종료, 실제 실시 여부 공식 미확인으로 접수가능 표기 금지. HUG 12차 10/12 17시 마감 예정. 민간 고가 여부 미검증 시 보류·지도 제외."
+  },
+  "trackingSeed": [],
+  "insights": [
+    {
+      "matchName": "장지지구 송파파인타운",
+      "type": 39,
+      "competition": "45~90:1",
+      "confidence": "중간",
+      "label": "과거 참고",
+      "reason": "과거 국민임대 비교 참고용 레거시 데이터",
+      "warning": "SH 국민임대는 이번 회차 패스",
+      "weight": 100
+    },
+    {
+      "matchName": "오금지구 송파레미니스",
+      "type": 39,
+      "competition": "60~110:1",
+      "confidence": "중간",
+      "label": "과거 참고",
+      "reason": "과거 SH 국민임대 비교 참고용 레거시 데이터",
+      "warning": "현재 행동후보에서 사용하지 않음",
+      "weight": 95
+    }
+  ],
+  "history": [
+    {
+      "year": "2022 1차",
+      "average": 14.2,
+      "detail": "과거 SH 국민임대 비교 참고"
+    },
+    {
+      "year": "2023 1차",
+      "average": 25,
+      "detail": "과거 SH 국민임대 비교 참고"
+    },
+    {
+      "year": "2024 1차",
+      "average": 31.96,
+      "detail": "과거 SH 국민임대 비교 참고"
+    }
+  ],
+  "sources": [
+    {
+      "label": "서울시 청년안심주택 모집공고",
+      "url": "https://soco.seoul.go.kr/youth/main/main.do"
+    },
+    {
+      "label": "LH 공식 청약캘린더",
+      "url": "https://apply.lh.or.kr/lhapply/apply/sc/list.do"
+    },
+    {
+      "label": "LH 임대주택 공식 공고",
+      "url": "https://apply.lh.or.kr/lhapply/apply/main.do"
+    },
+    {
+      "label": "SH 공공임대 공식 목록",
+      "url": "https://housing.seoul.go.kr/site/main/sh/publicLease/list"
+    },
+    {
+      "label": "서울주거포털 재개발임대주택 공식 안내",
+      "url": "https://housing.seoul.go.kr/site/main/content/sh01_030700"
+    },
+    {
+      "label": "GH 공식 주택청약·임대센터",
+      "url": "https://apply.gh.or.kr/"
+    },
+    {
+      "label": "서울주거포털",
+      "url": "https://housing.seoul.go.kr/"
+    },
+    {
+      "label": "HUG 든든전세주택 공지사항",
+      "url": "https://www.khug.or.kr/jeonse/web/s07/s070301.jsp"
+    }
+  ]
+}
