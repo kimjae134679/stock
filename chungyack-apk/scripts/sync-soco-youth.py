@@ -58,7 +58,8 @@ def parse_notice(board_id, text):
     posted = find_line(text, r"공고게시일\s*(20\d{2}-\d{2}-\d{2})")
     if posted:
         try:
-            if datetime.strptime(posted, "%Y-%m-%d").date() < (NOW.date() - timedelta(days=7)):
+            posted_date = datetime.strptime(posted, "%Y-%m-%d").date()
+            if posted_date > NOW.date() or posted_date < (NOW.date() - timedelta(days=7)):
                 return None
         except ValueError:
             pass
@@ -79,7 +80,7 @@ def parse_notice(board_id, text):
     source = BASE.format(board_id=board_id) + (f"&optn1={posted}" if posted else "")
     return {
         "id": f"youth-soco-board-{board_id}",
-        "status": "🔥🔵",
+        "status": "⏸",
         "agency": "서울시 청년안심주택",
         "category": "공공지원민간임대",
         "region": region or "서울",
@@ -87,14 +88,15 @@ def parse_notice(board_id, text):
         "period": period,
         "units": units or "공식 공고 공급호수 확인",
         "eligibility": {
-            "level": "review",
-            "title": "🔥🔵 공식 신규 공고 자동발견",
-            "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-            "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+            "level": "hold",
+            "title": "⏸ 민간임대 공식 신규 후보 · 검증 대기",
+            "reason": "서울시 공식 게시판에서 신규 boardId를 자동 감지했습니다. 실제 게시상태·이번 회차 청년 자격·보증금·월세·관리비·추가부담·공공대안 비교 전에는 고가로 판정하지 않으며 활성 추천과 지도에서 제외합니다.",
+            "check": "금회 공식 PDF 청년 신청유형별 공급·보증금·월세·관리비·추가부담을 확인한 뒤 공공 대안과 비교"
         },
         "next": (screening + " 서류심사 대상자 발표") if screening and "발표" not in screening else (screening or "공식 일정 확인"),
         "source": source,
-        "addresses": [address] if address else [],
+        "addresses": [],
+        "unverifiedAddress": address or "",
         "autoDiscovered": True,
         "sourceBoardId": board_id
     }, apply_date
@@ -151,13 +153,13 @@ def main():
     new_items = [x[0] for x in sorted(found, key=lambda z: z[0]["sourceBoardId"], reverse=True)]
     current["items"] = new_items + current.get("items", [])
     current["updatedAt"] = NOW.isoformat(timespec="seconds")
-    current["notice"] = f"{NOW:%Y-%m-%d %H:%M} KST 자동감시: 서울시 청년안심주택 공식 boardId 신규 {len(new_items)}건 발견·추가. 자동발견 건은 공식 PDF 세부 검증 후 보강."
+    current["notice"] = f"{NOW:%Y-%m-%d %H:%M} KST 자동감시: 서울시 민간 청년안심주택 공식 boardId 신규 {len(new_items)}건을 공식 게시·PDF 가격 검증 대기 후보로 등록. 활성 추천·지도 제외."
     save(CURRENT, current)
 
     hourly = load(HOURLY)
     groups = {g.get("id"): g for g in hourly.get("groups", [])}
     for item, apply_date in found:
-        gid = group_for(apply_date)
+        gid = "private-rent-review"
         g = groups.get(gid)
         if not g:
             continue
@@ -165,18 +167,18 @@ def main():
             continue
         g.setdefault("items", []).insert(0, {
             "name": item["name"],
-            "status": f"🔥🔵 공식 신규공고 자동발견 · {item['period']}",
-            "address": item["addresses"][0] if item["addresses"] else ""
+            "status": f"⏸ 공식 신규 민간임대 후보 · 게시·금회 가격 검증 전 활성 제외 · {item['period']}",
+            "address": ""
         })
     hourly["updatedAt"] = NOW.isoformat(timespec="seconds")
     hourly["status"] = f"{NOW:%Y-%m-%d %H:%M} KST 서울시 청년안심주택 신규공고 자동동기화"
-    hourly["notice"] = f"서울시 공식 boardId 감시에서 신규 {len(new_items)}건을 발견해 공개 후보에 추가했습니다. 세부 임대조건은 공식 PDF 재검증 대상입니다."
+    hourly["notice"] = f"서울시 공식 boardId 신규 민간임대 {len(new_items)}건은 공식 PDF·청년자격·보증금/월세·관리비/추가부담 검증 전 보류 후보이며 활성 추천·지도에서 제외합니다."
     save(HOURLY, hourly)
 
     app = load(APP)
     app["updatedAt"] = NOW.isoformat(timespec="seconds")
     app.setdefault("summary", {})["catalog"] = len(current.get("items", []))
-    app["summary"]["note"] = f"{NOW:%Y-%m-%d %H:%M} KST. 서울시 청년안심주택 신규 boardId 자동감시 반영. 새 공고는 누락 방지를 위해 먼저 후보로 추가한 뒤 공식 PDF로 세부 검증."
+    app["summary"]["note"] = f"{NOW:%Y-%m-%d %H:%M} KST. 서울시 신규 민간 청년안심주택은 공식 게시·이번 회차 금액 검증 전 보류 후보로만 기록합니다."
     save(APP, app)
 
     print("Added boardIds:", ", ".join(str(x[0]["sourceBoardId"]) for x in found))

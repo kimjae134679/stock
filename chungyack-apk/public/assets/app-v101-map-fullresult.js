@@ -12,7 +12,10 @@ function cyV101Address(x,opp){
   return String(x?.address||opp?.address||opp?.referenceAddress||(Array.isArray(opp?.addresses)?opp.addresses.find(Boolean):'')||'').trim();
 }
 function cyV101MapUrl(x,opp){
-  const q=cyV101Address(x,opp)||String(x?.name||opp?.name||'').trim();
+  // Map links only for explicitly located, non-held notices. Never geocode a name or generic city.
+  if(!opp||['hold','excluded','impossible'].includes(String(opp?.eligibility?.level||'')))return '';
+  const addresses=Array.isArray(opp.addresses)?opp.addresses:[];
+  const q=addresses.find(a=>/^(서울특별시|경기도|인천광역시)\s+/.test(String(a||'').trim())&&/\d/.test(String(a)))||'';
   return q?`https://map.naver.com/p/search/${encodeURIComponent(q)}`:'';
 }
 function cyV101MapLink(x,opp,label='지도'){
