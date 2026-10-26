@@ -378,3 +378,18 @@ LH 서울지역본부 26년 3차 청년 매입임대 공식 공고 페이지에�
 - 지도 점 클릭 시 아래 카드/표는 선택만 하고 자동 스크롤하지 않는 기존 규칙 유지.
 
 수정 파일: chungyack-apk/public/long-unsold-compare.html
+
+
+
+## 21. 2026-10-27 기존 신청 기록 보관 및 새 출발
+
+- 사용자 명시 지시: **과거 신청 이력 전체를 활성 신청/결과 추적 목록에서 제외**하고 신규 신청 추적을 빈 상태에서 다시 시작한다.
+- 중요: 과거 신청 기록을 완전 폐기하지 말고 **양식·입력방법·상태 변화 참고용**으로 보관한다.
+- 과거 개인 기록의 실제 내용은 비공개 Supabase `public.chungyack_client_state.state.archivedTracking`과 개인 기기의 `chungyack.tracking.archive.20261027.v1`에 보존한다. 공개 GitHub에 개인 신청·이력·상세주소·연락처를 기록하지 않는다.
+- `chungyack-apk/public/assets/app-v88-sync.js`에서 resetVersion `20261027` 적용. 첫 실행 시 기존 로컬 tracking을 기록 보관 후 active tracking을 빈 배열로 초기화하고, cloud archivedTracking과 병합한다.
+- 클라우드 개인 상태 3개 행의 기존 tracking은 0건으로 초기화하고, 종전 14건은 archivedTracking에 이동시켜 확인했다. 앱 내 최신 로컬 전용 이력이 있으면 앱을 새로 열 때 추가 보관되고 다음 클라우드 동기화로 합쳐진다.
+- 구버전 클라이언트가 이전 신청 데이터를 다시 전송할 경우 resetVersion 검사를 통해 과거 기록을 보관본으로 이동하고 활성 목록에서 되살리지 않는 방식으로 보완했다.
+- 공개 `app.json`의 `trackingSeed: []` 유지. `current-opportunities.json`의 공고 목록은 신청 기록이 아니며 공식 공고 데이터 갱신 대상으로 남긴다.
+- 과거 신청 단지는 더 이상 현재 신청/서류/결과 후속 알림 대상이 아니다. 앞으로 사용자가 명시적으로 새 신청 사실을 알려준 경우에만 새로운 활성 기록을 만든다.
+- 추적 기록 양식 참고 필드: `id, name, type, appliedAt, status, next, detail, address` (개별 값은 비공개 보관본에서만 확인).
+- 6시간 공고 갱신 예약도 위 reset 정책을 따르도록 수정한다. 기존 신청을 자동 복원하지 않는다.
