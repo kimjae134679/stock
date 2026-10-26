@@ -4,6 +4,41 @@ const CY_V88_VERSION='0.8.9-live';
 const CY_V88_LOCAL_STAMP='chungyack.sync.localUpdatedAt.v1';
 const CY_V88_LAST_PULL='chungyack.sync.lastPullAt.v1';
 const CY_V88_ASSISTANT_CACHE='chungyack.sync.assistantState.v1';
+// 2026-10-27: Retire all pre-reset applications but keep a private, reusable archive.
+const CY_V88_RESET_VERSION=20261027;
+const CY_V88_ARCHIVE_KEY='chungyack.tracking.archive.20261027.v1';
+const CY_V88_RESET_KEY='chungyack.tracking.reset.version';
+function cyV88JsonArray(key){
+  try{const arr=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(arr)?arr:[]}
+  catch{return []}
+}
+function cyV88MergeArchives(items){
+  const existing=cyV88JsonArray(CY_V88_ARCHIVE_KEY);
+  const known=new Set(existing.map(x=>String(x?.id||x?.name||'')+'|'+String(x?.appliedAt||'')));
+  for(const x of (Array.isArray(items)?items:[])){
+    if(!x||typeof x!=='object')continue;
+    const key=String(x.id||x.name||'')+'|'+String(x.appliedAt||'');
+    if(!known.has(key)){known.add(key);existing.push(x)}
+  }
+  localStorage.setItem(CY_V88_ARCHIVE_KEY,JSON.stringify(existing));
+  return existing;
+}
+function cyV88ArchiveResetLocal(remoteState){
+  if(remoteState&&typeof remoteState==='object'){
+    cyV88MergeArchives(remoteState.archivedTracking);
+    if(Number(remoteState.trackingResetVersion||0)<CY_V88_RESET_VERSION)
+      cyV88MergeArchives(remoteState.tracking);
+  }
+  if(Number(localStorage.getItem(CY_V88_RESET_KEY)||0)<CY_V88_RESET_VERSION){
+    cyV88MergeArchives(cyV88JsonArray(TRACK_KEY));
+    localStorage.setItem(TRACK_KEY,'[]');
+    if(typeof TRACKING!=='undefined')TRACKING=[];
+    localStorage.setItem(CY_V88_RESET_KEY,String(CY_V88_RESET_VERSION));
+    localStorage.setItem(CY_V88_LOCAL_STAMP,new Date().toISOString());
+  }
+}
+cyV88ArchiveResetLocal(null);
+
 let CY_V88_CLIENT=null;
 let CY_V88_USER=null;
 let CY_V88_SYNCING=false;
@@ -21,6 +56,8 @@ function cyV88State(){
     appVersion:CY_V88_VERSION,
     updatedAt:localStorage.getItem(CY_V88_LOCAL_STAMP)||cyV88Now(),
     tracking:Array.isArray(TRACKING)?TRACKING:[],
+    archivedTracking:cyV88JsonArray(CY_V88_ARCHIVE_KEY),
+    trackingResetVersion:CY_V88_RESET_VERSION,
     savedOpportunities:typeof CY_V7_SAVED!=='undefined'?[...CY_V7_SAVED]:[],
     hiddenOpportunities:typeof CY_V7_HIDDEN!=='undefined'?[...CY_V7_HIDDEN]:[],
     filters:typeof FILTERS!=='undefined'?FILTERS:null
@@ -92,16 +129,21 @@ async function cyV88InitialSync(){
   const cfg=cyV88Config();
   const {data,error}=await CY_V88_CLIENT.from(cfg.clientTable).select('state,updated_at').eq('user_id',CY_V88_USER.id).maybeSingle();
   if(error)throw error;
+  cyV88ArchiveResetLocal(data?.state);
   const localStamp=localStorage.getItem(CY_V88_LOCAL_STAMP)||'';
   const remoteStamp=data?.state?.updatedAt||data?.updated_at||'';
-  if(data?.state&&cyV88ParseTime(remoteStamp)>cyV88ParseTime(localStamp))cyV88ApplyClientState(data.state);
+  if(data?.state&&Number(data.state.trackingResetVersion||0)>=CY_V88_RESET_VERSION&&cyV88ParseTime(remoteStamp)>cyV88ParseTime(localStamp))
+    cyV88ApplyClientState(data.state);
   else await cyV88Push();
   await cyV88PullAssistant();
 }
 function cyV88ApplyClientState(state){
   if(!state||typeof state!=='object')return;
+  cyV88ArchiveResetLocal(state);
+  if(Number(state.trackingResetVersion||0)<CY_V88_RESET_VERSION)return;
   CY_V88_SUPPRESS=true;
   try{
+    cyV88MergeArchives(state.archivedTracking);
     if(Array.isArray(state.tracking)){TRACKING=state.tracking;localStorage.setItem(TRACK_KEY,JSON.stringify(TRACKING))}
     if(Array.isArray(state.savedOpportunities)&&typeof CY_V7_SAVED!=='undefined'){
       CY_V7_SAVED=new Set(state.savedOpportunities);localStorage.setItem(CY_V7_SAVED_KEY,JSON.stringify(state.savedOpportunities));
@@ -135,19 +177,30 @@ function cyV88QueuePush(){
 }
 async function cyV88Pull(){
   if(CY_V88_SYNCING||!CY_V88_CLIENT||!CY_V88_USER)return;
+  let mustRepairLegacy=false;
   CY_V88_SYNCING=true;cyV88RenderStatus();
   try{
     const cfg=cyV88Config();
     const {data,error}=await CY_V88_CLIENT.from(cfg.clientTable).select('state,updated_at').eq('user_id',CY_V88_USER.id).maybeSingle();
     if(error)throw error;
+    if(data?.state){
+      cyV88ArchiveResetLocal(data.state);
+      if(Number(data.state.trackingResetVersion||0)<CY_V88_RESET_VERSION){
+        mustRepairLegacy=true;
+        localStorage.setItem(CY_V88_LOCAL_STAMP,cyV88Now());
+      }
+    }
     const localStamp=localStorage.getItem(CY_V88_LOCAL_STAMP)||'';
     const remoteStamp=data?.state?.updatedAt||data?.updated_at||'';
-    if(data?.state&&cyV88ParseTime(remoteStamp)>cyV88ParseTime(localStamp))cyV88ApplyClientState(data.state);
+    if(data?.state&&!mustRepairLegacy&&cyV88ParseTime(remoteStamp)>cyV88ParseTime(localStamp))cyV88ApplyClientState(data.state);
     await cyV88PullAssistant();
     localStorage.setItem(CY_V88_LAST_PULL,cyV88Now());
     cyV88SetStatus('동기화됨','최신 상태 확인');
   }catch(e){console.warn('cloud pull failed',e);cyV88SetStatus('로컬 저장 유지','클라우드 확인 실패')}
-  finally{CY_V88_SYNCING=false;cyV88RenderStatus()}
+  finally{
+    CY_V88_SYNCING=false;cyV88RenderStatus();
+    if(mustRepairLegacy)cyV88QueuePush();
+  }
 }
 async function cyV88PullAssistant(){
   if(!CY_V88_CLIENT||!CY_V88_USER)return;
