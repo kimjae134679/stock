@@ -1,9 +1,9 @@
 {
   "schema": "chungyack-hourly-report-v1",
-  "updatedAt": "2026-10-28T00:11:42.053+09:00",
+  "updatedAt": "2026-10-28T06:10:18.483+09:00",
   "title": "청약2 시간별 보고",
-  "status": "2026-10-27 18:08 KST 서울시 청년안심주택 신규공고 자동동기화",
-  "notice": "2026-10-28 00:11 KST 공식 공고 점검: 10/28 LH 경기남부 방문접수 16시, GH 경기행복주택 인터넷접수 17시 마감. 10/29 LH 김포·포천 방문접수 최종일(조기마감 가능). LH 화성 동탄 10/27 신규공고 조건부 등록. 민간 2개 공식 임대료 확인 후 고부담 제외.",
+  "status": "2026-10-28 06:10 KST LH 공식 PDF 일정·가격 검증 및 신규 조건부 공고 반영",
+  "notice": "2026-10-28 06:10 KST 10/28 LH 경기남부 일반매입 방문접수 16시·GH 경기행복주택 인터넷접수 17시 마감. LH 동탄 행복주택 공식 PDF 검증 결과 11/10 10:00~11/12 17:00 청약(청년형 포함), 12/9 결과. 구리갈매 S1 예비 12명 11/3(1순위)·11/4(2순위 조건부) 온라인 접수 신규 추가. 실제 신규 신청 없는 과거 개인기록 추적 금지.",
   "groups": [
     {
       "id": "today-tomorrow",
@@ -32,14 +32,14 @@
     },
     {
       "id": "new-public-notices",
-      "title": "새 공공임대 공고 · 세부 검증 전",
+      "title": "LH 청년형 행복주택 · 신규 확인",
       "icon": "🔵",
       "items": [
         {
-          "name": "화성시 동탄지역 행복주택(입주자격완화·선계약후검증)",
-          "status": "LH 10/27(화) 신규 공고 확인 · LH 목록상 11/12(목) 게시마감(청약 접수마감과 다름) · 청년형 모집수·임대료·접수기간은 공식 PDF 확인 대기",
+          "name": "화성시 동탄지역 행복주택 입주자 모집(입주자격완화·선계약후검증)",
+          "status": "11/10(화) 10:00~11/12(목) 17:00 인터넷·모바일 청약. 동탄2 8개 블록 공가 2호+예비 829명(계층 혼합). 예: A4-1 16A 청년 소득 있음 기준 보증금 2,232만원·월 94,860원(관리비 제외). 공고일 기준 19~39세 미혼 등 요건, 1블록·1주택형만 신청",
           "address": "",
-          "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?cnpCd=41&mi=1026"
+          "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=10&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020958&uppAisTpCd=06"
         }
       ]
     },
@@ -53,6 +53,19 @@
           "status": "10/30(금)까지 · 창업자/예비창업/창업기업 종사자 등 특별 요건 · 일반 청년 자격만으로는 신청 불가",
           "address": "",
           "source": "https://apply.gh.or.kr/sb/sr/sr7150/selectPbancDetailView.do?pbancNo=823"
+        }
+      ]
+    },
+    {
+      "id": "next-week-conditional",
+      "title": "11월 초 신규 확인 · 자격·비용 조건부",
+      "icon": "🟠",
+      "items": [
+        {
+          "name": "구리갈매 S1 10년 공공임대 예비입주자 12명",
+          "status": "11/3(화) 09~16시 1순위·11/4(수) 09~16시 2순위(1순위 미달 시에만) 온라인 접수. 청약저축 2년·24회(1순위) 또는 6개월·6회(2순위). 전용 59.97㎡ 기본 보증금 5,763.6만원·월세 565,050원, 공가 즉시 공급 0호",
+          "address": "경기도 구리시 갈매중앙로 25",
+          "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=08&ccrCnntSysDsCd=02&mi=1026&panId=0000061190&uppAisTpCd=06"
         }
       ]
     },
