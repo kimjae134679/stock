@@ -28,7 +28,7 @@
   "items": [
     {
       "id": "gh-happy-h2-2026-10-16",
-      "status": "🔥🔵",
+      "status": "🔥🟢",
       "agency": "GH 경기주택도시공사",
       "category": "경기행복주택·공공임대",
       "region": "경기도",
@@ -49,7 +49,7 @@
     },
     {
       "id": "lh-gyeonggi-south-general-buy-2026-09-10",
-      "status": "🔥🔵",
+      "status": "🔥🟢",
       "agency": "LH 경기남부지역본부",
       "category": "일반 매입임대주택·현장접수",
       "region": "경기남부(수원·용인·평택·안산·화성 등)",
@@ -70,7 +70,7 @@
     },
     {
       "id": "lh-gyeonggi-north-youth-firstcome-2026-10-16",
-      "status": "🔥🔵",
+      "status": "🔥🟢",
       "agency": "LH 경기북부지역본부",
       "category": "청년 매입임대·현장 선착순",
       "region": "김포시·포천시",
