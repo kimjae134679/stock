@@ -15,6 +15,8 @@ BASE = "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId={board_id}&
 KST = timezone(timedelta(hours=9))
 NOW = datetime.now(KST)
 UA = "Mozilla/5.0 ChungYackRadar/1.0 (+GitHub Actions; official notice freshness check)"
+# These IDs were previously falsely attributed to unrelated notices; never re-import without manual verification.
+REJECTED_BOARD_IDS = {6712, 6713, 6715}
 
 class TextParser(HTMLParser):
     def __init__(self):
@@ -50,24 +52,37 @@ def find_line(text, pattern):
     return re.sub(r"\s+", " ", m.group(1)).strip() if m else ""
 
 def parse_notice(board_id, text):
+    if board_id in REJECTED_BOARD_IDS:
+        return None
     if not text or "[민간임대]" not in text or "청년안심주택" not in text:
         return None
     title = find_line(text, r"\[민간임대\]\s*([^\n]+?(?:추가|최초)모집공고)")
     if not title:
         return None
     posted = find_line(text, r"공고게시일\s*(20\d{2}-\d{2}-\d{2})")
-    if posted:
-        try:
-            if datetime.strptime(posted, "%Y-%m-%d").date() < (NOW.date() - timedelta(days=7)):
-                return None
-        except ValueError:
-            pass
+    # A missing post date is a common sign that the server returned a generic/fallback
+    # page for an invalid boardId. Do not turn such snippets into a public notice.
+    if not posted:
+        return None
+    try:
+        post_date = datetime.strptime(posted, "%Y-%m-%d").date()
+        if not (NOW.date() - timedelta(days=7) <= post_date <= NOW.date() + timedelta(days=1)):
+            return None
+    except ValueError:
+        return None
     region = find_line(text, r"카테고리\s*([^\n]+?구)")
     address = find_line(text, r"주택위치\s*:\s*([^\n]+)")
     units = find_line(text, r"공급호수\s*:\s*([^\n]+)")
     apply_raw = find_line(text, r"청약신청\s*:\s*([^\n]+)")
     apply_date = find_line(text, r"청약신청일\s*(20\d{2}-\d{2}-\d{2})")
     screening = find_line(text, r"서류심사\s*대상자\s*발표\s*:\s*([^\n]+)")
+    # Require one coherent notice body, not mixed text from search/navigation
+    # fallbacks. Example: a QueensW title with an unrelated Guro address.
+    if not (region and address and units and apply_raw):
+        return None
+    address_region = re.search(r"(?:서울특별시|서울시)\s+([가-힣]+구)", address)
+    if not address_region or region != address_region.group(1):
+        return None
 
     # Preserve the official schedule text when extraction succeeds.
     # If only the official application date is available, keep that date rather than inventing an end time.
@@ -79,7 +94,7 @@ def parse_notice(board_id, text):
     source = BASE.format(board_id=board_id) + (f"&optn1={posted}" if posted else "")
     return {
         "id": f"youth-soco-board-{board_id}",
-        "status": "🔥🔵",
+        "status": "⏸",
         "agency": "서울시 청년안심주택",
         "category": "공공지원민간임대",
         "region": region or "서울",
@@ -87,10 +102,10 @@ def parse_notice(board_id, text):
         "period": period,
         "units": units or "공식 공고 공급호수 확인",
         "eligibility": {
-            "level": "review",
-            "title": "🔥🔵 공식 신규 공고 자동발견",
-            "reason": "서울시 청년안심주택 공식 모집공고에서 신규 boardId를 자동 감지했습니다.",
-            "check": "공고 PDF의 유형별 청년 신청자격·임대조건 최종 검증"
+            "level": "hold",
+            "title": "⏸ 신규 공고 자동발견 · 공식 PDF 검증 전 보류",
+            "reason": "공식 사이트에서 텍스트 후보를 감지했지만 원본 PDF의 실제 회차·접수기한·임대조건을 아직 교차검증하지 못했습니다. 지금은 신청 추천 대상이 아닙니다.",
+            "check": "공식 상세 페이지와 PDF에서 제목·날짜·주소·공급형·보증금·월세를 확인한 뒤에만 활성화"
         },
         "next": (screening + " 서류심사 대상자 발표") if screening and "발표" not in screening else (screening or "공식 일정 확인"),
         "source": source,
@@ -151,7 +166,7 @@ def main():
     new_items = [x[0] for x in sorted(found, key=lambda z: z[0]["sourceBoardId"], reverse=True)]
     current["items"] = new_items + current.get("items", [])
     current["updatedAt"] = NOW.isoformat(timespec="seconds")
-    current["notice"] = f"{NOW:%Y-%m-%d %H:%M} KST 자동감시: 서울시 청년안심주택 공식 boardId 신규 {len(new_items)}건 발견·추가. 자동발견 건은 공식 PDF 세부 검증 후 보강."
+    current["notice"] = f"{NOW:%Y-%m-%d %H:%M} KST 자동감시: 서울시 청년안심주택 텍스트 후보 {len(new_items)}건을 검증 보류로 추가. 공식 PDF와 임대조건 검증 전에는 신규 신청 추천에서 제외."
     save(CURRENT, current)
 
     hourly = load(HOURLY)
@@ -165,18 +180,18 @@ def main():
             continue
         g.setdefault("items", []).insert(0, {
             "name": item["name"],
-            "status": f"🔥🔵 공식 신규공고 자동발견 · {item['period']}",
+            "status": f"⏸ 자동발견 후보 · 원문 PDF/임대료 미검증 · {item['period']}",
             "address": item["addresses"][0] if item["addresses"] else ""
         })
     hourly["updatedAt"] = NOW.isoformat(timespec="seconds")
-    hourly["status"] = f"{NOW:%Y-%m-%d %H:%M} KST 서울시 청년안심주택 신규공고 자동동기화"
-    hourly["notice"] = f"서울시 공식 boardId 감시에서 신규 {len(new_items)}건을 발견해 공개 후보에 추가했습니다. 세부 임대조건은 공식 PDF 재검증 대상입니다."
+    hourly["status"] = f"{NOW:%Y-%m-%d %H:%M} KST 서울시 청년안심주택 자동 후보 점검"
+    hourly["notice"] = f"서울시 게시판 텍스트에서 새 후보 {len(new_items)}건을 탐지했습니다. 공식 PDF/임대조건이 검증되기 전까지 보류이며 긴급 접수 안내에 포함하지 않습니다."
     save(HOURLY, hourly)
 
     app = load(APP)
     app["updatedAt"] = NOW.isoformat(timespec="seconds")
     app.setdefault("summary", {})["catalog"] = len(current.get("items", []))
-    app["summary"]["note"] = f"{NOW:%Y-%m-%d %H:%M} KST. 서울시 청년안심주택 신규 boardId 자동감시 반영. 새 공고는 누락 방지를 위해 먼저 후보로 추가한 뒤 공식 PDF로 세부 검증."
+    app["summary"]["note"] = f"{NOW:%Y-%m-%d %H:%M} KST. 청년안심주택 자동발견 항목은 검증 보류로만 등록. 공식 PDF 교차검증 전 긴급 추천 불가."
     save(APP, app)
 
     print("Added boardIds:", ", ".join(str(x[0]["sourceBoardId"]) for x in found))
