@@ -16,7 +16,7 @@ KST = timezone(timedelta(hours=9))
 NOW = datetime.now(KST)
 UA = "Mozilla/5.0 ChungYackRadar/1.0 (+GitHub Actions; official notice freshness check)"
 # These IDs were previously falsely attributed to unrelated notices; never re-import without manual verification.
-REJECTED_BOARD_IDS = {6712, 6713, 6715}
+REJECTED_BOARD_IDS = {6712, 6713}
 
 class TextParser(HTMLParser):
     def __init__(self):
@@ -78,11 +78,14 @@ def parse_notice(board_id, text):
     screening = find_line(text, r"서류심사\s*대상자\s*발표\s*:\s*([^\n]+)")
     # Require one coherent notice body, not mixed text from search/navigation
     # fallbacks. Example: a QueensW title with an unrelated Guro address.
-    if not (region and address and units and apply_raw):
+    if not (address and units and apply_raw):
         return None
     address_region = re.search(r"(?:서울특별시|서울시)\s+([가-힣]+구)", address)
-    if not address_region or region != address_region.group(1):
+    if not address_region or (region and region != address_region.group(1)):
         return None
+    # Official notices occasionally omit the category; a grounded address may supply the district.
+    if not region:
+        region = address_region.group(1)
 
     # Preserve the official schedule text when extraction succeeds.
     # If only the official application date is available, keep that date rather than inventing an end time.
