@@ -173,19 +173,29 @@ def main():
     save(CURRENT, current)
 
     hourly = load(HOURLY)
-    groups = {g.get("id"): g for g in hourly.get("groups", [])}
+    # The live hourly report groups have titles, not the old date-bucket IDs.
+    # Keep fresh unverified candidates visible without merging them into recommended/verified notices.
+    pending_id = "unverified-youth-notices"
+    g = next((group for group in hourly.get("groups", []) if group.get("id") == pending_id), None)
+    if g is None:
+        g = {
+            "id": pending_id,
+            "title": "서울시 신규 후보 · 공식 PDF/임대료 검증 대기 (추천 제외)",
+            "icon": "",
+            "items": []
+        }
+        hourly.setdefault("groups", []).append(g)
     for item, apply_date in found:
-        gid = group_for(apply_date)
-        g = groups.get(gid)
-        if not g:
+        if any(x.get("id") == item["id"] for x in g.get("items", [])):
             continue
-        if any(x.get("name") == item["name"] for x in g.get("items", [])):
-            continue
-        g.setdefault("items", []).insert(0, {
+        g.setdefault("items", []).append({
+            "id": item["id"],
             "name": item["name"],
-            "status": f"⏸ 자동발견 후보 · 원문 PDF/임대료 미검증 · {item['period']}",
-            "address": item["addresses"][0] if item["addresses"] else ""
+            "status": "공식 게시판 텍스트 후보 · PDF/공급표 미검증 · 접수일·가격 확정 전",
+            "address": "",
+            "source": item["source"]
         })
+    g["items"].sort(key=lambda x: int(str(x.get("id", "0")).rsplit("-", 1)[-1]) if str(x.get("id", "")).rsplit("-", 1)[-1].isdigit() else 0, reverse=True)
     hourly["updatedAt"] = NOW.isoformat(timespec="seconds")
     hourly["status"] = f"{NOW:%Y-%m-%d %H:%M} KST 서울시 청년안심주택 자동 후보 점검"
     hourly["notice"] = f"서울시 게시판 텍스트에서 새 후보 {len(new_items)}건을 탐지했습니다. 공식 PDF/임대조건이 검증되기 전까지 보류이며 긴급 접수 안내에 포함하지 않습니다."
