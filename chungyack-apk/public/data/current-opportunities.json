@@ -1,8 +1,8 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-11-01T18:22:02+09:00",
+  "updatedAt": "2026-11-01T18:50:42+09:00",
   "title": "현재 접수·접수 예정 청약 공고",
-  "notice": "접수 지난 공고 82건을 현재 목록에서 제외. 보증금과 월세는 반드시 동일 주택형·보증금 전환 선택의 한 쌍으로 표시. 원문 미검증 가격은 별도 표기.",
+  "notice": "현재·예정 공고 16건 전체 표시. 공공 4건 · 특별자격 및 잔여확인 4건 · 고가 민간임대(추천 제외) 8건. 순위 조건이 있는 공고는 구리갈매 S1 통장조건을 기준으로 개인 기기에서 계산하며 공식 자격 확인 필요.",
   "passes": [],
   "items": [
     {
@@ -181,7 +181,29 @@
           "to": "2026-11-04T16:00:00+09:00",
           "conditional": true
         }
-      ]
+      ],
+      "rankRules": {
+        "kind": "subscription_months",
+        "announcementDate": "2026-10-22",
+        "options": [
+          {
+            "rank": 1,
+            "latestJoinDate": "2024-10-22",
+            "minPayments": 24,
+            "when": "11/3(화) 09:00~16:00"
+          },
+          {
+            "rank": 2,
+            "latestJoinDate": "2026-04-22",
+            "minPayments": 6,
+            "when": "11/4(수) 09:00~16:00",
+            "conditionalOnPreviousNotFilled": true
+          }
+        ],
+        "sharedRequirement": "공고일 현재 만 19세 이상 수도권 거주 무주택세대구성원",
+        "disclosure": "청약통장 가입일·인정 납입횟수로만 순위 판정. LH 공식 공고에서 세부 자격 확인.",
+        "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=08&ccrCnntSysDsCd=02&mi=1026&panId=0000061190&uppAisTpCd=06"
+      }
     },
     {
       "id": "lh-youth-jeonse-first-2026",
