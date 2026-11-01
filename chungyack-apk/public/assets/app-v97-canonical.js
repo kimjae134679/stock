@@ -58,6 +58,7 @@ function cyV97LoadV104(){cyV97Css('cyV104PcMobileCss','assets/app-v104-pc-mobile
 function cyV97LoadV105(){cyV97Css('cyV105PcWideCss','assets/app-v105-pc-wide.css?v=1070');cyV97Js('cyV105PcWideScript','assets/app-v105-pc-wide.js?v=1070')}
 function cyV97LoadV106(){cyV97Js('cyV106ExpiredHomeScript','assets/app-v106-expired-home.js?v=1070')}
 function cyV97LoadV107(){cyV97Js('cyV107AdditiveStateScript','assets/app-v107-additive-state.js?v=1070')}
+function cyV97LoadV108(){cyV97Css('cyV108ClarityCss','assets/app-v108-clarity.css?v=1080');cyV97Js('cyV108ClarityScript','assets/app-v108-clarity.js?v=1080')}
 
 function cyV97Boot(){
   cyV97Stamp();
@@ -73,6 +74,7 @@ function cyV97Boot(){
   cyV97LoadV105();
   cyV97LoadV106();
   cyV97LoadV107();
+  cyV97LoadV108();
   cyV97Stamp();
 }
 cyV97Boot();
