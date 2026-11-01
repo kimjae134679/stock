@@ -142,3 +142,100 @@
   const refresh=()=>{try{if(typeof renderRecommendations==='function')renderRecommendations()}catch(err){console.error('[ChungYack] concise card',err)}};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh,{once:true});else refresh();
 })();
+
+// v0.10.9 exact paired-price display & strict application dates.
+// Live cards present a matching deposit/rent pair; other choices remain behind details.
+(function(){
+  'use strict';
+  const e=v=>typeof esc==='function'?esc(v):String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function won(n){
+    if(!Number.isFinite(n))return '미검증';
+    if(n===0)return '없음';
+    const b=Math.floor(n/100000000),m=Math.floor((n%100000000)/10000),r=n%10000,arr=[];
+    if(b)arr.push(b+'억');if(m)arr.push(m.toLocaleString('ko-KR')+'만');if(r)arr.push(r.toLocaleString('ko-KR'));
+    return arr.join(' ')+'원';
+  }
+  const options=item=>Array.isArray(item?.rentDetails?.offers)?item.rentDetails.offers:[];
+  function finance(item){
+    const p=options(item)[0];
+    if(p&&Number.isFinite(p.depositWon)&&Number.isFinite(p.monthlyRentWon))return {d:won(p.depositWon),r:won(p.monthlyRentWon),label:p.chargeLabel||'월세',type:[p.type,p.tier].filter(Boolean).join(' · '),hasPrice:true};
+    if(item?.rentDetails?.noFixedPrice)return {d:'주택별 상이',r:'주택별 상이',label:'월 부담액',type:'임대주택 선택 및 계약 후 결정',hasPrice:false};
+    return {d:'미검증',r:'미검증',label:'월세',type:'공식 임대료 확인 필요',hasPrice:false};
+  }
+  if(typeof cyV84Finance==='function')cyV84Finance=function(item){const f=finance(item);return {deposit:f.hasPrice?f.d:'',rent:f.hasPrice?f.r:'',summary:f.hasPrice?'보증금 '+f.d+' · 월 '+f.r:'',pairs:[]}};
+  function priceTable(item){
+    const list=options(item);
+    if(list.length<2)return null;
+    const wrap=document.createElement('div');wrap.className='cy-v109-scroll';
+    const table=document.createElement('table');table.className='cy-v109-price-table';
+    table.innerHTML='<thead><tr><th>주택형·조건</th><th>보증금</th><th>월 부담액</th></tr></thead><tbody>'+
+      list.map(p=>'<tr><td>'+e([p.type,p.tier].filter(Boolean).join(' / '))+'</td><td>'+e(won(p.depositWon))+'</td><td>'+e(won(p.monthlyRentWon))+(p.chargeLabel==='기숙사비'?' (기숙사비)':'')+'</td></tr>').join('')+'</tbody>';
+    wrap.appendChild(table);return wrap;
+  }
+  function noticeStatus(item){
+    const now=Date.now(),kind=item?.applicationKind||'';
+    if(item?.applyEnd&&Date.parse(item.applyEnd)<now)return ['closed','접수 마감'];
+    if(kind==='private')return ['hold','민간임대 · 추천 제외'];
+    if(kind==='private-special')return ['hold','신혼부부 전용'];
+    if(kind==='special'||kind==='special-secondary')return ['hold','특별 자격 필요'];
+    if(kind==='unverified-secondary')return ['hold','잔여·신청 여부 확인'];
+    if(Array.isArray(item?.applicationWindows)){
+      const slot=item.applicationWindows.find(w=>now>=Date.parse(w.from)&&now<=Date.parse(w.to));
+      return slot?['action',slot.conditional?'2순위 조건부 접수':'1순위 접수 중']:['conditional','순위별 접수 예정'];
+    }
+    if(item?.applyStart&&now<Date.parse(item.applyStart))return ['conditional','접수 예정'];
+    if(item?.applyStart&&item?.applyEnd)return ['action','접수 중'];
+    return ['conditional','접수 재확인'];
+  }
+  const previous=cyV8Card;
+  cyV8Card=function(item){
+    const html=previous(item);
+    const temp=document.createElement('template');temp.innerHTML=html.trim();
+    const root=temp.content.firstElementChild;
+    if(!root)return html;
+    const f=finance(item),facts=[...root.querySelectorAll('.cy-v108-facts>div')];
+    if(facts.length>=4){
+      facts[0].querySelector('b').textContent=item.applicationPeriodText||'접수일 확인';
+      facts[1].querySelector('b').textContent=item.summaryUnits||'모집 규모 확인';
+      facts[2].querySelector('b').textContent=f.d;
+      facts[3].querySelector('small').textContent=f.label;
+      facts[3].querySelector('b').textContent=f.r;
+    }
+    const [cls,label]=noticeStatus(item),status=root.querySelector('.cy-v108-status');
+    if(status){status.className='cy-v108-status '+cls;status.textContent=label}
+    root.querySelectorAll('.cy-v108-sub,.cy-v108-note').forEach(el=>el.remove());
+    const factsElement=root.querySelector('.cy-v108-facts');
+    if(factsElement&&f.type){
+      const description=document.createElement('div');description.className='cy-v108-sub';description.textContent=f.type+' 기준';factsElement.insertAdjacentElement('afterend',description);
+    }
+    const verification=item?.rentDetails?.verification==='secondary-crosscheck'?'공개 공급표 교차확인 · 공식 PDF 원문 대조 필요':item?.applicationKind==='private'?'관리비·보증료 별도 · 일반 추천 제외':item?.applicationKind==='private-special'?'신혼부부 특별공급 · 단독 청년 제외':'';
+    if(verification&&factsElement){
+      const warning=document.createElement('p');warning.className='cy-v108-note';warning.textContent=verification;
+      const after=root.querySelector('.cy-v108-sub')||factsElement;after.insertAdjacentElement('afterend',warning);
+    }
+    const table=priceTable(item),more=root.querySelector('.cy-v108-more');
+    if(table){
+      if(more){
+        const body=more.querySelector('.cy-v108-more-body');
+        const heading=document.createElement('b');heading.textContent='보증금·월 부담액 ('+options(item).length+'개 조합)';
+        body?.prepend(table);body?.prepend(heading);
+        const summary=more.querySelector('summary');if(summary)summary.textContent='주택형별 가격·자격·일정';
+      }else{
+        const container=document.createElement('details');container.className='cy-v108-more';
+        container.innerHTML='<summary>주택형별 가격</summary><div class="cy-v108-more-body"></div>';
+        container.querySelector('.cy-v108-more-body').appendChild(table);
+        (root.querySelector('.cy-v8-actions')||root).before(container);
+      }
+    }
+    return temp.innerHTML;
+  };
+  if(typeof cyV7Items==='function'){
+    const base=cyV7Items;
+    cyV7Items=function(){return (base.apply(this,arguments)||[]).filter(x=>!x.applyEnd||Date.parse(x.applyEnd)>=Date.now())};
+  }
+  // Default to all current notices, including clearly marked special/expensive options.
+  if(typeof CY_V7_LEVEL!=='undefined'&&CY_V7_LEVEL==='action')CY_V7_LEVEL='all';
+  window.CY_LATEST_VERSION='0.10.9-live';
+  const refresh=()=>{try{renderRecommendations()}catch(ex){console.error('[ChungYack] price card',ex)}};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh,{once:true});else refresh();
+})();

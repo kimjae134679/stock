@@ -26,3 +26,9 @@
 .cy-v108-actions>*{min-width:0;flex:1 1 auto!important;max-width:100%;font-size:12px!important;text-align:center!important}
 .cy-v108-actions .cy-v101-map-action{min-width:56px!important;border-radius:13px!important}
 @media(max-width:360px){.cy-v108-facts{grid-template-columns:1fr 1fr}.cy-v108-facts>div{padding:8px}.cy-v108-facts b{font-size:12px}}
+
+.cy-v109-scroll{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cy-v109-price-table{width:100%;min-width:320px;border-collapse:collapse;font-size:11px}
+.cy-v109-price-table th,.cy-v109-price-table td{text-align:left;padding:8px 6px;border-bottom:1px solid #e3eaf0;white-space:nowrap}
+.cy-v109-price-table th{background:#f1f6fa;font-size:10px;color:#5c7182}
+.cy-v109-price-table td:nth-child(2),.cy-v109-price-table td:nth-child(3){font-weight:800;font-variant-numeric:tabular-nums}

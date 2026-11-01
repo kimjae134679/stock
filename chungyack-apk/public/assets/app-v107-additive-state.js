@@ -1,10 +1,10 @@
 // v0.10.7 live: 찜/신청/결과는 서로 배타적인 '이동'이 아니라 중첩되는 상태입니다.
 const CY_V107_VERSION='0.10.7-live';
-window.CY_LATEST_VERSION=CY_V107_VERSION;
+window.CY_LATEST_VERSION=window.CY_LATEST_VERSION||CY_V107_VERSION;
 
 function cyV107Stamp(){
-  const v=document.getElementById('appVersion');if(v)v.textContent='v'+CY_V107_VERSION;
-  const s=document.getElementById('settingsVersion');if(s)s.textContent=CY_V107_VERSION;
+  const v=document.getElementById('appVersion');if(v)v.textContent='v'+(window.CY_LATEST_VERSION||CY_V107_VERSION);
+  const s=document.getElementById('settingsVersion');if(s)s.textContent=window.CY_LATEST_VERSION||CY_V107_VERSION;
 }
 function cyV107ApplicationRows(){
   return (Array.isArray(TRACKING)?TRACKING:[]).filter(x=>x?.status!=='취소/추적중단');
