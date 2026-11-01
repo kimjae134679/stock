@@ -46,7 +46,10 @@ jobs:
           grep -q "chungyack.opportunity.hidden.v1" _pages-site/chungyack/assets/app-v7.js
           grep -q "networkFirst" _pages-site/chungyack/sw.js
           grep -q "app-v97-canonical.js" _pages-site/chungyack/index.html
-          grep -q "0.10.7-live" _pages-site/chungyack/assets/app-v97-canonical.js
+          grep -q "CY_LATEST_VERSION" _pages-site/chungyack/assets/app-v97-canonical.js
+          grep -q "cyV97LoadV108" _pages-site/chungyack/assets/app-v97-canonical.js
+          node --check _pages-site/chungyack/assets/app-v108-clarity.js
+          node -e "const o=require('./_pages-site/chungyack/data/current-opportunities.json');const a=require('./_pages-site/chungyack/data/app.json');const h=require('./_pages-site/chungyack/data/hourly-report.json');if(a.summary.catalog!==o.items.length)throw Error('catalog count mismatch');if(a.updatedAt!==o.updatedAt||h.updatedAt!==o.updatedAt)throw Error('JSON timestamps mismatch');if(o.items.some(x=>x.applyEnd&&Date.parse(x.applyEnd)<Date.now()))throw Error('expired notice present');for(const x of o.items)for(const p of x.rentDetails?.offers||[])if(!Number.isInteger(p.depositWon)||!Number.isInteger(p.monthlyRentWon)||p.depositWon<0||p.monthlyRentWon<0)throw Error('invalid paired price');"
           grep -q "app-v96-expired-filter.js" _pages-site/chungyack/index.html
           test -s _pages-site/chungyack/assets/app-v105-pc-wide.css
           test -s _pages-site/chungyack/assets/app-v105-pc-wide.js

@@ -231,10 +231,16 @@
   };
   if(typeof cyV7Items==='function'){
     const base=cyV7Items;
-    cyV7Items=function(){return (base.apply(this,arguments)||[]).filter(x=>!x.applyEnd||Date.parse(x.applyEnd)>=Date.now())};
+    cyV7Items=function(){
+      // Initial "검토" filter: current public options only. "전체/보류" still exposes special or costly items for comparison.
+      const publicOnly=typeof CY_V7_VIEW!=='undefined'&&CY_V7_VIEW==='active'&&typeof CY_V7_LEVEL!=='undefined'&&CY_V7_LEVEL==='action';
+      if(publicOnly)CY_V7_LEVEL='all';
+      let rows;
+      try{rows=base.apply(this,arguments)||[]}
+      finally{if(publicOnly)CY_V7_LEVEL='action'}
+      return rows.filter(x=>(!x.applyEnd||Date.parse(x.applyEnd)>=Date.now())&&(!publicOnly||x.applicationKind==='public'));
+    };
   }
-  // Default to all current notices, including clearly marked special/expensive options.
-  if(typeof CY_V7_LEVEL!=='undefined'&&CY_V7_LEVEL==='action')CY_V7_LEVEL='all';
   window.CY_LATEST_VERSION='0.10.9-live';
   const refresh=()=>{try{renderRecommendations()}catch(ex){console.error('[ChungYack] price card',ex)}};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh,{once:true});else refresh();
