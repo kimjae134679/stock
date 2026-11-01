@@ -17,6 +17,8 @@
       const rent=between(options.map(x=>Number(x.monthlyRent)));
       if(deposit||rent)return {deposit:deposit||'미확인',rent:rent||'미확인',note:youth.length?'청년 '+youth.map(x=>x.type+'형').join('·')+' 기준':'유형별 금액 상이',verified:true};
     }
+    // Explicit full price pairs from previously verified LH PDF notes; never parse loose price fragments.
+    if(/^lh-/.test(item?.id||'')){const reason=plain(item?.eligibility?.reason);const a=reason.match(/16A\s*([\d,]+)만원\s*\/\s*([\d,]+)원/);const b=reason.match(/16A[^.]{0,90}보증금\s*([\d,]+)만원\s*[·\/]\s*월세\s*([\d,]+)원/);const m=a||b;if(m&&/공식\s*(?:공고|PDF)|모집공고\s*PDF/.test(reason))return {deposit:m[1]+'만원',rent:m[2]+'원',note:'16A · 청년 소득자 기본형 기준',verified:true};}
     const published=typeof CY_V102_FINANCE!=='undefined'?CY_V102_FINANCE[item?.id]:null;
     if(published)return {deposit:plain(published.deposit)||'미확인',rent:plain(published.rent)||'미확인',note:'유형·호실별 차이 가능',verified:true};
     const deposit=plain(item?.depositText||item?.deposit||item?.rental?.deposit);
@@ -29,7 +31,7 @@
   }
   function parsePart(s,inheritedYear){
     const raw=String(s||'');
-    const v=raw.replace(/[‘’']/g,'').replace(/\((?:월|화|수|목|금|토|일)\)/g,'')
+    const v=raw.replace(/[‘’']/g,'').replace(/(\d{1,2})\.\s*\((?:월|화|수|목|금|토|일)\)/g,'$1 ').replace(/\((?:월|화|수|목|금|토|일)\)/g,'')
       .replace(/(20\d{2}|\d{2})\s*[.\/]\s*(\d{1,2})\s*[.\/]\s*(\d{1,2})\.?/g,'$1-$2-$3')
       .replace(/(20\d{2})년\s*(\d{1,2})월\s*(\d{1,2})일/g,'$1-$2-$3')
       .replace(/(\d{1,2})월\s*(\d{1,2})일/g,'$1-$2')
@@ -64,6 +66,8 @@
   function unitText(item){
     const s=plain(item?.units);
     if(!s)return '모집 수 확인';
+    const youth=s.match(/청년[\s\S]{0,28}?(\d[\d,]*)호/);if(youth)return '청년 공급 '+youth[1]+'호';
+    const mixed=s.match(/공가\s*(\d[\d,]*)호[^.]{0,25}예비입주자\s*(\d[\d,]*)명/);if(mixed)return '전체 공가 '+mixed[1]+'호 · 예비 '+mixed[2]+'명';
     const room=s.match(/(?:모집\s*)?(\d{3,4})호[^.]*?(\d{1,3})실/);
     if(room)return room[1]+'호 · '+room[2]+'실';
     if(/예비자|예비입주자|예비\s*모집/.test(s))return '예비입주자';
