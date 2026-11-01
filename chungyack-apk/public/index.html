@@ -155,15 +155,15 @@
 <script id="cyV94LayoutScript" src="assets/app-v94-layout.js?v=0970"></script>
 <script id="cyV95ResultActionsScript" src="assets/app-v95-result-actions.js?v=0970"></script>
 <script id="cyV96ExpiredFilterScript" src="assets/app-v96-expired-filter.js?v=0970"></script>
-<script id="cyV97CanonicalScript" src="assets/app-v97-canonical.js?v=0970"></script>
+<script id="cyV97CanonicalScript" src="assets/app-v97-canonical.js?v=1080"></script>
 <script>
 if('serviceWorker' in navigator){
   let reloaded=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(reloaded||sessionStorage.getItem('cy.sw.0970')==='1')return;
-    reloaded=true;sessionStorage.setItem('cy.sw.0970','1');location.reload();
+    if(reloaded||sessionStorage.getItem('cy.sw.1080')==='1')return;
+    reloaded=true;sessionStorage.setItem('cy.sw.1080','1');location.reload();
   });
-  navigator.serviceWorker.register('sw.js?v=0970',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+  navigator.serviceWorker.register('sw.js?v=1080',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 }
 </script>
 </body>
