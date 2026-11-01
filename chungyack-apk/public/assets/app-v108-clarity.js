@@ -88,7 +88,7 @@
     if(item?.rentDetails?.managementFee&&/미확인|별도/.test(item.rentDetails.managementFee))return '관리비·실제 계약금액 별도 확인';
     if(f.deposit==='미확인'||f.rent==='미확인')return '금회 보증금·월세 및 잔여 여부 확인 필요';
     if(item?.rentDetails?.activeRecommendation===false)return '비용 확인 전 추천 보류';
-    return f.note||'';
+    return '';
   }
   function details(item){
     const parts=[];
@@ -112,10 +112,11 @@
     const address=Array.isArray(item.addresses)?plain(item.addresses[0]):'';
     const map=address?'https://map.naver.com/p/search/'+encodeURIComponent(address):'';
     const category=plain(item.category).replace(/토지지원리츠\s*/g,'').replace(/·청년/g,'').replace(/공공지원민간임대/g,'민간임대');
+    const a=plain(item.agency);const agency=/운영기관.*어울리/.test(a)?'어울리 운영':/LH/.test(a)?'LH':/^SH/.test(a)?'SH':/GH/.test(a)?'GH':'';
     return '<article data-cy-v82-card-id="'+id+'" class="cy-v8-card cy-v108-card '+e(level)+(saved?' is-saved':'')+(hidden?' is-hidden':'')+'">'+
       '<div class="cy-v108-top"><span class="cy-v108-status '+e(s[0])+'">'+e(s[1])+'</span><button class="cy-v8-hide" data-cy-v8-hide="'+id+'">'+(hidden?'복원':'숨기기')+'</button></div>'+
       '<h3 class="cy-v8-title">'+e(plain(item.name).replace(/_/g,' · '))+'</h3>'+
-      '<div class="cy-v108-meta">'+e([item.region,category].filter(Boolean).join(' · '))+'</div>'+
+      '<div class="cy-v108-meta">'+e([item.region,agency,category].filter(Boolean).join(' · '))+'</div>'+
       '<div class="cy-v108-facts">'+
       '<div><small>접수</small><b>'+e(p.label)+'</b></div>'+
       '<div><small>모집</small><b>'+e(unitText(item))+'</b></div>'+
