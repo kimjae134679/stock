@@ -1,9 +1,9 @@
 {
   "schema": "chungyack-hourly-report-v1",
-  "updatedAt": "2026-11-02T06:02:50+09:00",
+  "updatedAt": "2026-11-02T12:02:25+09:00",
   "title": "현재 접수·예정 공고",
-  "status": "2026-11-02 06:02 KST LH·SH·GH·HUG·서울시 및 자치구 공고 확인",
-  "notice": "공개 목록 18건 중 서울시 자동탐지 2건(송정역 케이제이타워·효창공원앞역 해링턴 플레이스 용산 리버뷰)은 공식 PDF·임대료 미검증으로 별도 보류. 기존 공공임대 일정에 변경 없음. 오늘 접수 민간 청년안심주택은 가격 부담으로 일반 추천 제외.",
+  "status": "2026-11-02 12:02 KST LH·SH·GH·서울시 청년안심주택 및 지자체 공고 점검 (HUG·구별 일부 원문 접근 제한)",
+  "notice": "현재·예정/수시 공고 19건. LH 오산세교2 7단지 영구임대 11/16~11/18 신규 공식 공급목록 확인(금회 70명), 임대료·세부 자격 PDF 확인 전 검토 보류. 서울 청년안심주택 최초모집 후보 2건(6718·6719)은 공식 첨부·가격 미확인 보류. 11/2 접수 민간 8건은 비용부담으로 일반 추천 제외; LH 구리갈매 S1 1순위 접수 11/3 09~16시 유지.",
   "groups": [
     {
       "title": "LH 공공임대",
@@ -36,6 +36,20 @@
           "status": "수시 접수 · 선착순 종료 가능 · 청년 1순위 7,000호 · 실제 선택 주택별 임대조건 결정",
           "address": "",
           "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?panId=2015122300019376&ccrCnntSysDsCd=03&uppAisTpCd=13&aisTpCd=17&mi=1026"
+        }
+      ]
+    },
+    {
+      "id": "lh-new-permanent-review",
+      "title": "LH 영구임대 · 신규 공고/가격·자격 검증 보류",
+      "icon": "",
+      "items": [
+        {
+          "id": "lh-osan-segyo2-a6-permanent-2026-11-02",
+          "name": "오산세교2 7단지(A-6BL) 영구임대 입주자격완화 예비입주자 모집",
+          "status": "2026.11.02 공식 공고 · 11/16~11/18 접수(시각 미확인) · 26D 60명 + 주거약자용 10명 · 보증금·월세·자격 PDF 미확인(일반 추천 보류)",
+          "address": "경기도 오산시 송로 11(청학동)",
+          "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=09&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020896&uppAisTpCd=06"
         }
       ]
     },

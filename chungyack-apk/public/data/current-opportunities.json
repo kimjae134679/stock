@@ -1,8 +1,8 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-11-02T06:02:50+09:00",
+  "updatedAt": "2026-11-02T12:02:25+09:00",
   "title": "현재 접수·접수 예정 청약 공고",
-  "notice": "2026-11-02 06:02 KST 공식 공고 점검: 현재·예정/수시 목록 18건(기존 16건 + 서울시 게시판 자동탐지 2건 검증 보류). 새 후보 6718·6719는 공고 PDF 및 정확한 임대조건 미확인으로 신청 추천 제외. 과거 개인 신청 이력 복원 금지.",
+  "notice": "2026-11-02 12:02 KST: LH 오산세교2 7단지 영구임대 자격완화 공식 신규 공고 1건을 공급목록 근거로 보류 등록(11/16~11/18, 26D 60+주거약자용 10). 임대료·세부 신청자격은 PDF 미검증으로 추천 제외. 청년안심주택 자동탐지 2건(6718·6719)도 PDF/가격 미검증 보류. 과거 신청 이력 복원 금지.",
   "passes": [],
   "items": [
     {
@@ -50,6 +50,41 @@
       ],
       "autoDiscovered": true,
       "sourceBoardId": 6718
+    },
+    {
+      "id": "lh-osan-segyo2-a6-permanent-2026-11-02",
+      "status": "⏸",
+      "agency": "LH",
+      "category": "영구임대·소득기준완화",
+      "region": "경기도 오산시",
+      "name": "오산세교2 7단지(A-6BL) 영구임대 입주자격완화 예비입주자 모집",
+      "period": "11/16~11/18 · 접수시각 공고문 확인",
+      "applicationPeriodText": "11/16(월)~11/18(수) · 시각 확인 필요",
+      "units": "26D(26.35㎡) 금회 60명 · 주거약자용 10명(총 70명)",
+      "summaryUnits": "26D 60명 · 주거약자용 10명",
+      "eligibility": {
+        "level": "hold",
+        "title": "공식 LH 공급목록 검증 · 세부 자격/임대료 확인 전 추천 보류",
+        "reason": "2026-11-02 LH 공식 공고로 접수기간·공급형·모집인원을 확인했습니다. 영구임대는 무주택·소득·자산 등 별도 선정기준이 있고 이번 완화기준과 신청자 자격, 보증금/월세의 PDF 원문 재확인이 필요합니다.",
+        "check": "영구임대 150% 완화 적용대상, 청년 단독가구의 지원 가능 여부, 신청순위·임대보증금·월임대료, 인터넷 신청시간을 공식 첨부 PDF에서 검증"
+      },
+      "next": "11/26 서류제출대상자 발표 → 11/27~12/3 서류 접수 → 2027/2/23 당첨자 발표",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=09&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020896&uppAisTpCd=06",
+      "addresses": [
+        "경기도 오산시 송로 11(청학동)"
+      ],
+      "applicationKind": "special",
+      "applyStart": null,
+      "applyEnd": null,
+      "rentDetails": {
+        "verification": "official-supply-only",
+        "offers": [],
+        "sourceType": "LH 청약플러스 공식 공급목록에서 모집규모·공급일정 확인; 임대금액은 첨부 PDF 미검증"
+      },
+      "reviewPending": [
+        "2026-11-02 공식 PDF 첨부 파일 원문 자격 조건 및 주택형별 임대보증금·월세",
+        "접수 시작·마감 시간"
+      ]
     },
     {
       "id": "lh-gwacheon-s12-happy-2026-10-28",
