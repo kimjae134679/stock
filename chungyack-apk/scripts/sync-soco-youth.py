@@ -47,6 +47,44 @@ def fetch_text(board_id):
         return None
     return "\n".join(p.parts)
 
+def application_deadline_from_text(period, apply_date=""):
+    """Extract an end timestamp conservatively; unknown formats remain unverified."""
+    normalized = str(period or "").replace("‘", "").replace("’", "")
+    parts = re.split(r"\s*[~∼～]\s*", normalized)
+    full = r"(?<!\d)(?P<year>20\d{2}|\d{2})\s*\.\s*(?P<month>\d{1,2})\s*\.\s*(?P<day>\d{1,2})(?!\d)"
+    start = re.search(full, parts[0])
+    if start:
+        year = int(start["year"])
+        if year < 100:
+            year += 2000
+        month, day = int(start["month"]), int(start["day"])
+    elif re.fullmatch(r"\d{4}-\d{2}-\d{2}", apply_date):
+        d = datetime.strptime(apply_date, "%Y-%m-%d")
+        year, month, day = d.year, d.month, d.day
+    else:
+        return None
+    final = parts[-1]
+    end_full = re.search(full, final)
+    if end_full:
+        year = int(end_full["year"])
+        if year < 100:
+            year += 2000
+        month, day = int(end_full["month"]), int(end_full["day"])
+    elif len(parts) > 1:
+        end_partial = re.search(r"(?<!\d)(?P<month>1[0-2]|0?[1-9])\s*\.\s*(?P<day>3[01]|[12]\d|0?[1-9])(?!\d)", final)
+        if end_partial:
+            new_month = int(end_partial["month"])
+            if month == 12 and new_month == 1:
+                year += 1
+            month, day = new_month, int(end_partial["day"])
+    hours = re.findall(r"(?<!\d)([01]?\d|2[0-3]):([0-5]\d)", final)
+    hour, minute = map(int, hours[-1]) if hours else (23, 59)
+    try:
+        return datetime(year, month, day, hour, minute, 59, tzinfo=KST)
+    except ValueError:
+        return None
+
+
 def find_line(text, pattern):
     m = re.search(pattern, text, re.I)
     return re.sub(r"\s+", " ", m.group(1)).strip() if m else ""
@@ -66,7 +104,7 @@ def parse_notice(board_id, text):
         return None
     try:
         post_date = datetime.strptime(posted, "%Y-%m-%d").date()
-        if not (NOW.date() - timedelta(days=7) <= post_date <= NOW.date() + timedelta(days=1)):
+        if not (NOW.date() - timedelta(days=7) <= post_date <= NOW.date()):
             return None
     except ValueError:
         return None
@@ -75,6 +113,10 @@ def parse_notice(board_id, text):
     units = find_line(text, r"공급호수\s*:\s*([^\n]+)")
     apply_raw = find_line(text, r"청약신청\s*:\s*([^\n]+)")
     apply_date = find_line(text, r"청약신청일\s*(20\d{2}-\d{2}-\d{2})")
+    # Do not resurrect notices that were removed at their official deadline.
+    deadline = application_deadline_from_text(apply_raw, apply_date)
+    if deadline is not None and deadline < NOW:
+        return None
     screening = find_line(text, r"서류심사\s*대상자\s*발표\s*:\s*([^\n]+)")
     # Require one coherent notice body, not mixed text from search/navigation
     # fallbacks. Example: a QueensW title with an unrelated Guro address.

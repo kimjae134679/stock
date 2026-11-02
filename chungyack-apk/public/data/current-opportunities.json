@@ -1,8 +1,8 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-11-02T12:02:25+09:00",
+  "updatedAt": "2026-11-02T18:03:53+09:00",
   "title": "현재 접수·접수 예정 청약 공고",
-  "notice": "2026-11-02 12:02 KST: LH 오산세교2 7단지 영구임대 자격완화 공식 신규 공고 1건을 공급목록 근거로 보류 등록(11/16~11/18, 26D 60+주거약자용 10). 임대료·세부 신청자격은 PDF 미검증으로 추천 제외. 청년안심주택 자동탐지 2건(6718·6719)도 PDF/가격 미검증 보류. 과거 신청 이력 복원 금지.",
+  "notice": "2026-11-02 18:03 KST 공식 공고 점검: 청년안심주택 신청 종료 3건(강변역 비바힐스강변 16시, 노량진역 한강더퍼스트타워·더써밋타워 18시)을 활성 목록에서 제외하여 19→16건. 서울시 게시판 자동탐지 후보 2건(6718·6719)은 게시일 11/3, PDF·가격 미검증으로 신청 추천 제외. LH 오산세교2 영구임대는 11/16~11/18 공식 접수일·모집 70명 확인, 임대조건·상세 자격은 원문 미검증. 개인 신청 이력 복원 없음.",
   "passes": [],
   "items": [
     {
@@ -803,56 +803,6 @@
       }
     },
     {
-      "id": "youth-soco-board-6714",
-      "status": "⏸",
-      "agency": "서울시 청년안심주택",
-      "category": "공공지원민간임대",
-      "region": "광진구",
-      "name": "강변역 비바힐스강변 청년안심주택 추가모집",
-      "period": "‘26. 11. 02. (월) 10:00 ~ 16:00",
-      "units": "총 98세대 중 금회 추가모집 공공지원민간임대 2세대 (일반공급 2세대)",
-      "eligibility": {
-        "level": "hold",
-        "title": "고가 민간임대 · 추천 제외",
-        "reason": "11/02(월) 10:00~16:00 접수, 일반공급 2호. 32.05㎡: 보증금 1억 2,825만원/월세 62만 7,000원; 31.93㎡: 보증금 1억 4,760만원/월세 54만 8,000원. 관리비·임대보증금 보증료 등 부대비용은 별도 확인 필요. 민간임대 비용 부담으로 일반 추천에서 제외합니다.",
-        "check": "계약 검토 시 호실별 실제 보증금·월세 및 관리비, 보증보험·대출 가능 여부 재확인."
-      },
-      "next": "‘26. 11. 03. (화) 11:00 서류심사 대상자 발표",
-      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6714&menuNo=400008&optn1=2026-10-29",
-      "addresses": [
-        "서울특별시 광진구 구의동 593-11 (2호선 강변역 4번 출구)"
-      ],
-      "autoDiscovered": true,
-      "sourceBoardId": 6714,
-      "verification": "2026-10-29 서울시 청년안심주택 공식 모집페이지 및 첨부 PDF 공급표 직접 확인",
-      "pdfSource": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=1b2d0a4fdb9f4a0ea4b6a49c8974702f&fileSn=1",
-      "applyStart": "2026-11-02T10:00:00+09:00",
-      "applyEnd": "2026-11-02T16:00:00+09:00",
-      "applicationPeriodText": "11/2 10:00~16:00",
-      "summaryUnits": "일반공급 2실",
-      "applicationKind": "private",
-      "rentDetails": {
-        "offers": [
-          {
-            "type": "510호 32.05㎡",
-            "tier": "일반",
-            "depositWon": 128250000,
-            "monthlyRentWon": 627000
-          },
-          {
-            "type": "901호 31.93㎡",
-            "tier": "일반",
-            "depositWon": 147600000,
-            "monthlyRentWon": 548000
-          }
-        ],
-        "sourceType": "서울시 2026-10-29 비바힐스강변 공식 PDF",
-        "verification": "official",
-        "noFixedPrice": false,
-        "billingNote": "관리비·보증료 별도"
-      }
-    },
-    {
       "id": "youth-soco-board-6711",
       "status": "⏸",
       "agency": "서울시 청년안심주택",
@@ -1045,126 +995,6 @@
         "verification": "official",
         "noFixedPrice": false,
         "billingNote": "임대조건은 주택형별로 다름"
-      }
-    },
-    {
-      "id": "youth-soco-board-6709",
-      "status": "⏸",
-      "agency": "서울시 청년안심주택",
-      "category": "공공지원민간임대",
-      "region": "동작구",
-      "name": "노량진역 한강더퍼스트타워 청년안심주택 추가모집",
-      "period": "‘26. 11. 02. (월) 10:00 ~ 18:00",
-      "units": "총 260세대 중 금회 추가모집 공공지원민간임대 2세대 (일반공급 2세대)",
-      "eligibility": {
-        "level": "hold",
-        "title": "고가 민간임대 · 추천 제외",
-        "reason": "2026-10-29 서울시 공식 상세·첨부 PDF의 금회 청년 일반공급 18.01㎡ 2호(1211·1501호) 임대조건 검증. 보증금 30%형 7,300만원/월세 66만원, 35%형 8,500만원/월세 61만원, 40%형 9,700만원/월세 56만원. 11/02(월) 10:00~18:00 신청, 11/03(화) 14:00 당첨자 발표. 관리비·보증보험 수수료 등 별도. 민간임대 비용 부담으로 일반 추천 제외.",
-        "check": "호실별 계약 조건, 관리비·보증보험 수수료, 실제 자격과 선택 가능한 보증금 비율 재확인"
-      },
-      "next": "‘26. 11. 03. (화) 서류심사 대상자 발표",
-      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6709&menuNo=400008&optn1=2026-10-29",
-      "addresses": [
-        "서울특별시 동작구 노량진동 39-20번지 (1,9호선 노량진역 6번 출구)"
-      ],
-      "autoDiscovered": true,
-      "sourceBoardId": 6709,
-      "applyStart": "2026-11-02T10:00:00+09:00",
-      "applyEnd": "2026-11-02T18:00:00+09:00",
-      "applicationPeriodText": "11/2 10:00~18:00",
-      "summaryUnits": "청년 일반 2실",
-      "applicationKind": "private",
-      "rentDetails": {
-        "offers": [
-          {
-            "type": "18㎡",
-            "tier": "보증금 30%",
-            "depositWon": 73000000,
-            "monthlyRentWon": 660000
-          },
-          {
-            "type": "18㎡",
-            "tier": "보증금 35%",
-            "depositWon": 85000000,
-            "monthlyRentWon": 610000
-          },
-          {
-            "type": "18㎡",
-            "tier": "보증금 40%",
-            "depositWon": 97000000,
-            "monthlyRentWon": 560000
-          }
-        ],
-        "sourceType": "서울시 2026-10-29 한강더퍼스트 공식 PDF",
-        "verification": "official",
-        "noFixedPrice": false,
-        "billingNote": "관리비·보증료 별도"
-      }
-    },
-    {
-      "id": "youth-soco-board-6708",
-      "status": "⏸",
-      "agency": "서울시 청년안심주택",
-      "category": "공공지원민간임대",
-      "region": "동작구",
-      "name": "노량진역 더써밋타워 청년안심주택 추가모집",
-      "period": "‘26. 11. 02. (월) 10:00 ~ 18:00",
-      "units": "총 299세대 중 금회 추가모집 공공지원민간임대 5세대 (특별공급 1세대, 일반공급 4세대)",
-      "eligibility": {
-        "level": "hold",
-        "title": "고가 민간임대 · 추천 제외",
-        "reason": "2026-10-29 서울시 공식 상세·첨부 PDF의 금회 5호(청년·신혼 특별공급 1호, 일반공급 4호) 임대조건 검증. 특별공급 23㎡ 2303호 보증금 1억2,900만원/월세 56만2,000원. 일반공급 13㎡ 607·1304·1502호 보증금 1억6,600만원/월세 71만1,000~71만3,000원, 23㎡ 2301호 보증금 1억500만원/월세 98만원. 11/02(월) 10:00~18:00 신청. 관리비 및 보증보험 수수료 등 별도. 민간임대 비용 부담으로 일반 추천 제외.",
-        "check": "최초 계약이 아닌 경우 기존 호실의 임대료가 적용될 수 있으며, 실제 계약 전 호실별 금액·관리비·보증료와 자격 재확인"
-      },
-      "next": "‘26. 11. 03. (화) 14:00 서류심사 대상자 발표",
-      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6708&menuNo=400008&optn1=2026-10-29",
-      "addresses": [
-        "서울특별시 동작구 장승배기로 174 (9호선 노량진역 4번 출구)"
-      ],
-      "autoDiscovered": true,
-      "sourceBoardId": 6708,
-      "applyStart": "2026-11-02T10:00:00+09:00",
-      "applyEnd": "2026-11-02T18:00:00+09:00",
-      "applicationPeriodText": "11/2 10:00~18:00",
-      "summaryUnits": "특별 1·일반 4실",
-      "applicationKind": "private",
-      "rentDetails": {
-        "offers": [
-          {
-            "type": "2303호 23㎡",
-            "tier": "특별",
-            "depositWon": 129000000,
-            "monthlyRentWon": 562000
-          },
-          {
-            "type": "607호 13㎡",
-            "tier": "일반",
-            "depositWon": 166000000,
-            "monthlyRentWon": 711000
-          },
-          {
-            "type": "1304호 13㎡",
-            "tier": "일반",
-            "depositWon": 166000000,
-            "monthlyRentWon": 713000
-          },
-          {
-            "type": "1502호 13㎡",
-            "tier": "일반",
-            "depositWon": 166000000,
-            "monthlyRentWon": 711000
-          },
-          {
-            "type": "2301호 23㎡",
-            "tier": "일반",
-            "depositWon": 105000000,
-            "monthlyRentWon": 980000
-          }
-        ],
-        "sourceType": "서울시 2026-10-29 더써밋타워 공식 PDF",
-        "verification": "official",
-        "noFixedPrice": false,
-        "billingNote": "관리비·보증료 별도"
       }
     }
   ]
