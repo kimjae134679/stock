@@ -1,8 +1,8 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-11-17T00:00:34+09:00",
+  "updatedAt": "2026-11-17T18:01:30.709+09:00",
   "title": "현재 접수·접수 예정 청약 공고",
-  "notice": "2026-11-17 00:00 KST 기준 서울시 공식 모집공고·PDF에서 11/16 접수 종료된 민간 청년안심주택 4건(동묘앞역 청계로벤하임·상봉역 세이지움 상봉·라온프라이빗 종암·서울대입구역 BX201)을 활성 목록에서 제외(13→9건). LH·SH·GH·서울 청년안심주택 최신 확인 가능 목록 및 서울·경기 관련 공고 검색에서 적합한 저가 청년 행복주택·청년매입임대 신규/사전예고/중요 접수변경 미확인. LH 11/16 파주운정A20 10년 공공임대 등은 청년전용 저가 행복·매입 아님. 고가 민간·청년전세임대·특수자격은 일반 추천 제외. HUG 공식 원문 접속 실패 및 서울 25개 자치구·모든 첨부PDF 전수검증 미완료. 개인 신청 추적 없음.",
+  "notice": "2026-11-17 18:00 KST 서울시 공식 모집 PDF로 접수마감 확인된 상봉역 상봉생활 청년안심주택(11/17 18:00)을 활성 목록에서 제외(9→8건). 성북펠릭스는 11/17 23:00까지 접수, 화곡 보눔하우스는 11/18 00:00 접수 시작, 공덕 e·seo는 11/18 23:00 마감(모두 고가 공공지원민간임대, 일반 추천 제외). LH·SH·GH 및 서울/인접 경기 공식 목록 점검에서 추천 가능한 저가 행복주택·청년매입임대 신규 또는 공식 사전예고는 확인 가능한 범위에서 미발견. HUG 원문과 서울 25개 구·공식 PDF 전체 전수검증 미완료. 개인 신청이력 초기화 유지.",
   "passes": [],
   "items": [
     {
@@ -179,108 +179,6 @@
         "billingNote": "가격은 명시된 동일 호실·동일 전환율의 보증금/월세 쌍이며 계약 호실에 따라 차이 가능"
       },
       "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=55b21d2979264373a7208e404289d521&fileSn=1",
-      "verifiedAt": "2026-11-13T12:03:47.643+09:00"
-    },
-    {
-      "id": "youth-soco-board-6731",
-      "status": "⏸",
-      "agency": "서울시 청년안심주택",
-      "category": "공공지원민간임대",
-      "region": "중랑구",
-      "name": "상봉역 상봉생활 청년안심주택 추가모집",
-      "period": "‘26. 11. 16. (월) 09:00 ~ 11. 17. (화) 18:00",
-      "units": "총 299세대 중 금회 추가모집 공공지원민간임대 11세대 (특별공급 6세대, 일반공급 5세대)",
-      "eligibility": {
-        "level": "hold",
-        "title": "공식 PDF 검증 · 고가 공공지원민간임대 추천 제외",
-        "reason": "2026-11-12 서울시 공식 모집 PDF의 공급형·보증금·월세를 확인했습니다. 예: 청년 특별 25형 20.20㎡ 보증금 30% 보증금 6,000만원·월세 57만원. 저가 청년 공공임대 선호 조건에 맞지 않아 일반 추천에서 제외합니다.",
-        "check": "개인 신청자격 미확정. 관리비·보증보험료 별도 확인. 특별공급과 일반공급을 구분하고 계약 호실의 실제 금액을 재확인하세요."
-      },
-      "next": "‘26. 11. 18. (수) 16:00 서류심사 대상자 발표",
-      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6731&menuNo=400008&optn1=2026-11-12",
-      "addresses": [
-        "서울특별시 중랑구 상봉동 116-49번지 (7호선, 경의중앙선 상봉역 6번 출구)"
-      ],
-      "autoDiscovered": true,
-      "sourceBoardId": 6731,
-      "applicationKind": "private",
-      "applyStart": "2026-11-16T09:00:00+09:00",
-      "applyEnd": "2026-11-17T18:00:00+09:00",
-      "applicationPeriodText": "‘26. 11. 16. (월) 09:00 ~ 11. 17. (화) 18:00",
-      "rentDetails": {
-        "verification": "official",
-        "sourceType": "서울시 청년안심주택 2026-11-12 게시 공식 모집 PDF 공급현황표",
-        "managementFee": "관리비·보증료 별도(금액 미확인)",
-        "activeRecommendation": false,
-        "noFixedPrice": false,
-        "offers": [
-          {
-            "type": "청년 특별 25형 20.20㎡",
-            "tier": "보증금 30%",
-            "depositWon": 60000000,
-            "monthlyRentWon": 570000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 특별 25형 20.20㎡",
-            "tier": "보증금 50%",
-            "depositWon": 100000000,
-            "monthlyRentWon": 400000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 특별 25형 20.20㎡",
-            "tier": "보증금 70%",
-            "depositWon": 140000000,
-            "monthlyRentWon": 240000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 특별 54형 43.61㎡",
-            "tier": "보증금 30%",
-            "depositWon": 107900000,
-            "monthlyRentWon": 900000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 특별 54형 43.61㎡",
-            "tier": "보증금 50%",
-            "depositWon": 179900000,
-            "monthlyRentWon": 640000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 특별 54형 43.61㎡",
-            "tier": "보증금 70%",
-            "depositWon": 251900000,
-            "monthlyRentWon": 380000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 일반 84A형 59.97㎡",
-            "tier": "보증금 30%",
-            "depositWon": 162300000,
-            "monthlyRentWon": 1320000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 일반 84A형 59.97㎡",
-            "tier": "보증금 50%",
-            "depositWon": 270500000,
-            "monthlyRentWon": 940000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 일반 84A형 59.97㎡",
-            "tier": "보증금 70%",
-            "depositWon": 378700000,
-            "monthlyRentWon": 560000,
-            "chargeLabel": "월세"
-          }
-        ],
-        "billingNote": "가격은 명시된 동일 호실·동일 전환율의 보증금/월세 쌍이며 계약 호실에 따라 차이 가능"
-      },
-      "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=2d8a22718a544172a52bbe1ce0ab304d&fileSn=1",
       "verifiedAt": "2026-11-13T12:03:47.643+09:00"
     },
     {
