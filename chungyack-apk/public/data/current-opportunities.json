@@ -1,10 +1,48 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-11-17T23:55:54+09:00",
+  "updatedAt": "2026-11-18T17:56:36+09:00",
   "title": "현재 접수·접수 예정 청약 공고",
-  "notice": "2026-11-17 23:55 KST 서울시 공식 공고에서 성북펠릭스 청년안심주택의 11/17 23:00 접수 종료를 확인하여 활성 목록에서 제외(8→7건). 화곡 보눔하우스 11/18 00:00 접수 시작·11/19 18:00 마감, 공덕 e·seo 11/18 23:00 마감 예정(고가 민간임대 모두 추천 제외). LH·SH·GH·서울시·경기주거복지포털의 확인 가능한 최신 공식 모집목록에서 서울 및 인접 경기의 저가 청년 행복주택·청년매입임대 신규 적합 공고/공식 사전예고 없음. HUG 공식 직접 접속과 서울 25개 구·전체 PDF 전수검증 미완료. LH 11/16 안산 영구임대는 별도 자격·임대료 확인 필요로 일반 청년 추천 보류. 2026-10-27 신청 초기화 유지.",
+  "notice": "2026-11-18 17:56 KST. LH 공식 공고목록에서 '수원당수 1·2단지 행복주택 입주자격완화 동호지정(선계약/후검증)' 2026.11.18 신규 확인해 보류 항목에 등록. 목록상 마감일 12/02는 실제 접수일 여부 미확인, 공식 PDF/공급표·임대보증금/월세·청년 자격 검증 전 적극 추천 금지. LH 오산세교2 7단지 영구임대는 11/18 접수 종료 및 공식 공고상 '접수마감' 확인 후 활성 목록 제외. SH 최신 11/16 홀몸어르신·GH 임대/매입 최신 11/13·서울 청년안심주택 최신 11/12 확인; 적합한 신규 저가 청년매입임대 미확인. HUG 원문 접속 시간초과, 서울 25개 구/첨부 PDF 전수 검증 미완료. 과거 신청 복원 없음, trackingSeed=[].",
   "passes": [],
   "items": [
+    {
+      "id": "lh-suwon-dangsu1-2-happy-unitselect-2026-11-18",
+      "status": "⏸",
+      "agency": "LH",
+      "category": "행복주택·입주자격완화·동호지정",
+      "region": "경기도 수원시",
+      "name": "수원당수 1, 2단지 행복주택 입주자격완화 동호지정 입주자 모집[선계약/후검증]('26.11.18.)",
+      "period": "2026.11.18 공식 공고 게시 · LH 목록 마감일 2026.12.02 표기(실제 접수/동호지정 마감일 여부 미검증)",
+      "units": "모집 주택형·호수는 공식 PDF·공급표 검증 전",
+      "eligibility": {
+        "level": "hold",
+        "title": "중요: 행복주택 신규 공고 · 자격·비용·접수일 미확인",
+        "reason": "LH 청약플러스 공식 임대주택 공고목록 2026.11.18 신규 행복주택 게시를 확인. '입주자격완화', '동호지정', '선계약/후검증'은 공식 제목으로 확인되나 청년 신청 가능 유형·대상자별 자격·계약/접수일·임대료와 모집 호수는 공식 첨부 PDF 및 공급표에 직접 접근하지 못해 확정할 수 없음. 목록의 2026.12.02 '마감일'을 접수 마감으로 단정하지 않음. 서울 서남권 출퇴근 거리와 가격을 검토할 때까지 적극 추천 보류.",
+        "check": "LH 원문 PDF·공급호수·청년 계층 자격, 공식 신청일/동호지정 방식과 선계약 후검증 유의사항, 동일 주택형·전환비율의 보증금+월세를 확인. 개인 자격 미확정."
+      },
+      "next": "공식 LH 첨부 PDF 및 공급표에서 청년 신청 가능 여부, 실제 접수 일정, 금액을 우선 확인",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+      "addresses": [],
+      "applyStart": null,
+      "applyEnd": null,
+      "applicationPeriodText": "2026.11.18 공고일 확인 · 정확한 청약/방문/계약 일정은 공식 공고문 직접 확인 전",
+      "summaryUnits": "모집 호수·청년 배정 수량 공식 공급표 확인 전",
+      "applicationKind": "general-conditional",
+      "rentDetails": {
+        "verification": "unverified",
+        "sourceType": "LH 청약플러스 공식 공고목록(신규 공고 존재 확인). 공식 원문 PDF·공급표 직접 미열람",
+        "managementFee": "미확인",
+        "activeRecommendation": false,
+        "offers": [],
+        "billingNote": "주택형별 임대보증금·월임대료 공식 공급표 미검증: 이전 회차 또는 주변 단지의 금액 재사용 금지."
+      },
+      "reviewPending": [
+        "공식 PDF/공급표 확보 및 주택형·청년 대상 공급수 검증",
+        "공고목록의 12/02 표시가 실제 접수마감인지 확인",
+        "동호지정·선계약/후검증의 자격/일정/보증금 위험 확인",
+        "가격 검증 후 서울 서남권 통근 접근성 고려하여 추천 여부 결정"
+      ]
+    },
     {
       "id": "gh-dasanmetro3-national-2026-11-13",
       "status": "⏸",
@@ -254,41 +292,6 @@
       },
       "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=44d9f9f27efc49ac8c4b7425e5428242&fileSn=1",
       "verifiedAt": "2026-11-13T12:03:47.643+09:00"
-    },
-    {
-      "id": "lh-osan-segyo2-a6-permanent-2026-11-02",
-      "status": "⏸",
-      "agency": "LH",
-      "category": "영구임대·소득기준완화",
-      "region": "경기도 오산시",
-      "name": "오산세교2 7단지(A-6BL) 영구임대 입주자격완화 예비입주자 모집",
-      "period": "11/16~11/18 · 접수시각 공고문 확인",
-      "applicationPeriodText": "11/16(월)~11/18(수) · 시각 확인 필요",
-      "units": "26D(26.35㎡) 금회 60명 · 주거약자용 10명(총 70명)",
-      "summaryUnits": "26D 60명 · 주거약자용 10명",
-      "eligibility": {
-        "level": "hold",
-        "title": "공식 LH 공급목록 검증 · 세부 자격/임대료 확인 전 추천 보류",
-        "reason": "2026-11-02 LH 공식 공고로 접수기간·공급형·모집인원을 확인했습니다. 영구임대는 무주택·소득·자산 등 별도 선정기준이 있고 이번 완화기준과 신청자 자격, 보증금/월세의 PDF 원문 재확인이 필요합니다.",
-        "check": "영구임대 150% 완화 적용대상, 청년 단독가구의 지원 가능 여부, 신청순위·임대보증금·월임대료, 인터넷 신청시간을 공식 첨부 PDF에서 검증"
-      },
-      "next": "11/26 서류제출대상자 발표 → 11/27~12/3 서류 접수 → 2027/2/23 당첨자 발표",
-      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=09&ccrCnntSysDsCd=03&mi=1026&panId=2015122300020896&uppAisTpCd=06",
-      "addresses": [
-        "경기도 오산시 송로 11(청학동)"
-      ],
-      "applicationKind": "special",
-      "applyStart": null,
-      "applyEnd": null,
-      "rentDetails": {
-        "verification": "official-supply-only",
-        "offers": [],
-        "sourceType": "LH 청약플러스 공식 공급목록에서 모집규모·공급일정 확인; 임대금액은 첨부 PDF 미검증"
-      },
-      "reviewPending": [
-        "2026-11-02 공식 PDF 첨부 파일 원문 자격 조건 및 주택형별 임대보증금·월세",
-        "접수 시작·마감 시간"
-      ]
     },
     {
       "id": "lh-youth-jeonse-first-2026",
