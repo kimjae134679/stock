@@ -1,47 +1,53 @@
 {
   "schema": "chungyack-current-opportunities-v2",
-  "updatedAt": "2026-11-19T12:01:44+09:00",
+  "updatedAt": "2026-11-19T18:07:33+09:00",
   "title": "현재 접수·접수 예정 청약 공고",
-  "notice": "2026-11-19 12:01 KST. LH청약플러스에 '2026년 서울특별시 영구임대주택 예비입주자 모집'이 11/19 신규 게시·공고중으로 확인되어 특수자격 참고 항목으로 추가(활성 카탈로그 8건). 서울양원 S1BL 26.75㎡, 서울대방1 26.37~31.32㎡가 표시되며 서울양원 상세 접수는 11/30~12/04, 당첨발표 2027/03/25. 서울 거주 무주택세대구성원 중 영구임대 적격자 대상이며 주민센터 현장접수(인터넷 불가); 청년 전용이 아니므로 일반 청년 추천 제외. LH 상세 주택형 임대조건표가 비어 있어 보증금·월세는 미기재하고 PDF 검증 대기. SH 마포구 청년 수요자맞춤형 공고는 서울주거포털 공식 목록에서 11/18 게시·모집중 재확인했으나 SH 원문 PDF 접근 제한으로 청년 배정·가격·접수기간 확정 불가. 2차 자료의 11/25~12/04·청년 2세대 등은 비공식 참고만 유지. LH 수원당수 행복주택 11/30~12/02, GH 다산 국민임대 11/23~25 예정 유지(다산은 청년 전용 아님). GH 창업특화주택은 특수자격 별도 참고. HUG 최신 공지는 11/02, 서울 청년안심주택 최신 모집목록은 11/12. 서울 25개 자치구·경기도 전체 PDF 전수검증은 미완료. 과거 신청 복원 없음, trackingSeed=[].",
+  "notice": "2026-11-19 18:07 KST. LH 서울삼전·강동천호·수서A1·수서A2 행복주택 예비입주자 신규 공고(11/19)를 추가했습니다. 공식 LH 상세 페이지에서 청년형 예비공급 290명(강동천호 10, 수서A1 130, 수서A2 150)을 확인했고, 2차 PDF 분석자료상 접수는 11/30 10:00~12/01 17:00입니다. 청년형 14A 14.69㎡는 보증금 4,930만~5,220만원·월 17만2,550~18만2,700원으로 2차 자료에서 교차확인했으나 LH 원본 PDF 임대조건표 직접 대조 전이므로 확정가격/적극추천으로 표기하지 않습니다. D-7 마일스톤은 11/23 10:00 1회 알림 예정. GH 공식 목록의 안성공도 참아름2 국민임대(11/9 게시·11/26 마감)를 일반 국민임대 참고로 추가했으며 청년 전용·서울 생활권 공고가 아니므로 추천 제외. 서울 청년안심주택 11/19 신규 민간 5건은 공식 PDF의 가격·일정을 확인했으며 유벤투스240 1억1,200만~1억8,000만원/월 51만~81만원, 현대프라힐스 9,700만원/월 53만원, 제이스타상봉 5,300만~7,600만원/월 42만6천~61만5천원, 인히어쌍문 2,880만~4,704만원/월 27만8,430~38만2,420원, 청계로벤하임 1억8,870만원/월 25만7천원으로 확인했으나 민간임대 비용/월세 부담으로 적극추천·긴급알림에서 제외했습니다. 11/19 18:00 종료된 화곡역 보눔하우스와 11/02 모집 종료된 에어스페이스 신림 사회주택은 활성 목록에서 제거했습니다. SH 서울주거포털 최신 공공임대 목록은 11/18 마포 청년 수요자맞춤형이며 SH 원문 PDF는 접근 제한으로 계속 검증 대기. SH 영구임대 신규로 보이는 2차 자료는 공식 원문 확인이 안 되어 카탈로그 미반영. GH 청년매입임대 최신 1차 공고(4/17)는 마감, SH 청년매입임대 1차(6/26)는 모집마감이며 11/20은 발표일로 확인되어 재활성화하지 않았습니다. HUG 든든전세 최신 공지는 11/02. 서울 25개 자치구 및 경기도 시군 전체 PDF 전수검증은 미완료. 과거 신청 복원 없음, trackingSeed=[].",
   "passes": [],
   "items": [
     {
-      "id": "lh-seoul-permanent-2026-11-19",
-      "status": "⏸",
+      "id": "lh-seoul-happy-4sites-2026-11-19",
+      "status": "🔵",
       "agency": "LH",
-      "category": "영구임대·특수자격",
-      "region": "서울특별시(동작구·중랑구 등)",
-      "name": "2026년 서울특별시 영구임대주택 예비입주자 모집",
-      "period": "2026.11.19 공고·공고중 · LH 목록상 마감 12.04 · 서울양원 S1BL 상세 접수 11.30~12.04 · 서울대방1 단지별 세부일정 PDF 확인 필요",
-      "units": "서울양원 S1BL 전용 26.75㎡(총 100세대 단지) · 서울대방1 전용 26.37~31.32㎡(총 925세대 단지) · 금회 모집호수/주택형별 공급수 미확인",
+      "category": "행복주택·예비입주자",
+      "region": "서울특별시 강남구·강동구",
+      "name": "서울삼전,강동천호,LH수서1,LH수서2 행복주택 예비입주자 모집공고",
+      "period": "2026.11.30(월) 10:00 ~ 12.01(화) 17:00 · 온라인 접수 · 예비입주자",
+      "units": "청년 계층 가능 예비 290명: 강동천호 36B 10명, 수서A1 14A 100명·36A/B 30명, 수서A2 14A 50명·26A 10명·36A/B 90명. 서울삼전 26·41형 20명은 신혼부부·한부모가족형으로 청년 공급 아님.",
       "eligibility": {
         "level": "hold",
-        "title": "영구임대 특수자격 · 일반 청년 대상 공고 아님",
-        "reason": "LH 공식 상세 페이지에 따르면 2026.11.19 현재 서울특별시 거주 무주택세대구성원 중 영구임대아파트 입주 적격자만 신청 가능. 청년 전용 공고가 아니며 수급자·국가유공자·장애인 등 공고상 자격유형과 소득·자산 기준을 별도 충족해야 함. 서울양원 S1BL은 11/30~12/04 접수 및 2027/03/25 발표가 표시되며, 서울대방1의 단지별 일정은 공고 PDF 확인 필요. 사용자 개인 자격 미확인.",
-        "check": "공식 PDF에서 단지별 금회 모집호수, 자격유형·소득·자산·배점, 서울대방1 접수일정, 동일 주택형의 보증금·월임대료를 확인. LH와 SH 동일자 영구임대는 중복신청 불가. 접수는 거주지 관할 동 주민센터 현장접수이며 인터넷 신청 불가."
+        "title": "중요: 서울 행복주택 신규 · 청년형 예비입주자 · 개인자격 조건부",
+        "reason": "LH 공식 개별 공고가 2026.11.19 게시·공고중이며, 공식 상세 주택형 안내에서 강동천호 36B(청년 등) 10명, 수서A1 14A(대학생/청년) 100명·36A/B(청년 등) 30명, 수서A2 14A 50명·26A(청년) 10명·36A/B(청년 등) 90명을 확인했습니다. 서울삼전은 이번 공고에서 신혼부부형만 공급합니다. 2차 PDF 분석자료상 청년은 만 19~39세·미혼·무주택, 가구소득·총자산·차량 기준 및 입주 전 청약통장 가입 증명이 필요하나 LH 원본 PDF의 청년 자격표와 임대료표를 직접 대조하기 전 확정 판정하지 않습니다. 사용자 개인 자격 미확인. 예비입주자이므로 당첨 즉시 입주가 보장되지 않습니다.",
+        "check": "LH 공식 PDF에서 청년 연령·혼인·무주택·소득·총자산·자동차·지역순위·청약통장 요건, 단지별 접수시간, 동일 주택형·소득구간의 보증금/월세 쌍과 보증금 전환조건을 직접 재확인. 예비자 대기기간 및 계약 시 임대조건 변동 가능성 확인."
       },
-      "next": "특수자격 충족 여부가 확인되는 경우에만 검토; 공식 PDF에서 단지별 임대료·모집호수와 서울대방1 일정 확인",
-      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=09&ccrCnntSysDsCd=03&mi=1026&panId=2015122300021109&uppAisTpCd=06",
+      "next": "11/23 D-7 안내 1회 예정 · 11/30 10:00 접수 시작 · 12/01 17:00 마감 · 예비입주자 대기 가능",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=10&ccrCnntSysDsCd=03&mi=1026&panId=2015122300021098&uppAisTpCd=06",
       "addresses": [
-        "서울특별시 동작구 여의대방로44길 47",
-        "서울특별시 중랑구 양원역로 92"
+        "서울특별시 강동구 천호동 555",
+        "서울특별시 강남구 밤고개로 165",
+        "서울특별시 강남구 자곡로11길 28",
+        "서울특별시 송파구 백제고분로32길 40-5"
       ],
-      "applyStart": null,
-      "applyEnd": null,
-      "applicationPeriodText": "LH 공고중 · 목록 마감 12/04 · 서울양원 S1BL 11/30~12/04 · 서울대방1 세부일정 PDF 확인",
-      "summaryUnits": "서울양원 S1BL·서울대방1 · 금회 모집호수 미확인",
-      "applicationKind": "special",
+      "applyStart": "2026-11-30T10:00:00+09:00",
+      "applyEnd": "2026-12-01T17:00:00+09:00",
+      "applicationPeriodText": "11/30(월) 10:00 ~ 12/01(화) 17:00 · LH청약플러스 PC/모바일 온라인. 접수시간은 공고 PDF 재확인 필요",
+      "summaryUnits": "청년 계층 가능 예비 290명 · 강동천호·수서A1·수서A2 (서울삼전은 청년형 없음)",
+      "applicationKind": "general-conditional",
       "rentDetails": {
+        "verification": "secondary-crosscheck",
+        "sourceType": "LH 공식 개별 공고 페이지에서 4개 단지·청년 주택형·예비공급수 확인. 보증금/월세 범위는 2026.11.19 공고 PDF를 재구성한 2차 공개표 교차확인으로, LH 원본 PDF 표 직접 판독 전 확정가격으로 사용 금지",
+        "sourceDocument": "https://jugeo.co.kr/announcements/cdb2e77a-e94c-465a-a768-ae0554a6a4cb",
+        "managementFee": "미확인",
+        "activeRecommendation": false,
+        "noFixedPrice": false,
         "offers": [],
-        "sourceType": "LH 공식 공고 상세 페이지의 주택형별 임대조건표에 데이터가 표시되지 않아 공식 PDF/임대조건표 확인 필요",
-        "verification": "unverified",
-        "noFixedPrice": true,
-        "billingNote": "보증금·월임대료 미확인; 추정 금액 미기재"
+        "billingNote": "청년형 14A 14.69㎡(수서A1/A2): 보증금 4,930만~5,220만원·월 172,550~182,700원. 수서A2 26A 26.54㎡: 8,908만~9,432만원·월 311,780~330,120원. 청년 36A/B 36.60~36.84㎡: 1억1,934만~1억4,440만원·월 417,690~505,400원. 강동천호 36B 36.33㎡: 1억234만~1억2,040만원·월 383,770~451,500원. 이는 주택형별 범위이며 최저·최고값을 개별 계약쌍으로 임의 짝짓지 않음. 관리비·전환조건 별도."
       },
       "reviewPending": [
-        "영구임대 적격자에 해당하는지 공고문 자격유형 확인",
-        "서울대방1 단지별 접수일정 및 금회 모집호수 확인",
-        "공식 PDF의 동일 주택형·공급대상별 보증금/월임대료 확인"
+        "LH 원본 PDF의 청년 계층 자격·지역순위·소득/자산/자동차·청약통장 요건 직접 확인",
+        "LH 원본 PDF에서 주택형·소득구간별 보증금/월세 쌍과 전환조건 확인",
+        "단지별 접수시간 및 실제 공급·예비자 구분 확인",
+        "예비입주자 대기기간·계약 시점 임대조건 변동 가능성 확인"
       ]
     },
     {
@@ -82,6 +88,45 @@
         "공고일 기준 서울 거주·마포구 및 마포구 외 서울 순위·무주택·소득·자산 자격 확인",
         "접수기간·접수방법·제출서류 확인",
         "동일 주택형·소득구간의 보증금/월세와 전환조건 확인"
+      ]
+    },
+    {
+      "id": "lh-seoul-permanent-2026-11-19",
+      "status": "⏸",
+      "agency": "LH",
+      "category": "영구임대·특수자격",
+      "region": "서울특별시(동작구·중랑구 등)",
+      "name": "2026년 서울특별시 영구임대주택 예비입주자 모집",
+      "period": "2026.11.19 공고·공고중 · LH 목록상 마감 12.04 · 서울양원 S1BL 상세 접수 11.30~12.04 · 서울대방1 단지별 세부일정 PDF 확인 필요",
+      "units": "서울양원 S1BL 전용 26.75㎡(총 100세대 단지) · 서울대방1 전용 26.37~31.32㎡(총 925세대 단지) · 금회 모집호수/주택형별 공급수 미확인",
+      "eligibility": {
+        "level": "hold",
+        "title": "영구임대 특수자격 · 일반 청년 대상 공고 아님",
+        "reason": "LH 공식 상세 페이지에 따르면 2026.11.19 현재 서울특별시 거주 무주택세대구성원 중 영구임대아파트 입주 적격자만 신청 가능. 청년 전용 공고가 아니며 수급자·국가유공자·장애인 등 공고상 자격유형과 소득·자산 기준을 별도 충족해야 함. 서울양원 S1BL은 11/30~12/04 접수 및 2027/03/25 발표가 표시되며, 서울대방1의 단지별 일정은 공고 PDF 확인 필요. 사용자 개인 자격 미확인.",
+        "check": "공식 PDF에서 단지별 금회 모집호수, 자격유형·소득·자산·배점, 서울대방1 접수일정, 동일 주택형의 보증금·월임대료를 확인. LH와 SH 동일자 영구임대는 중복신청 불가. 접수는 거주지 관할 동 주민센터 현장접수이며 인터넷 신청 불가."
+      },
+      "next": "특수자격 충족 여부가 확인되는 경우에만 검토; 공식 PDF에서 단지별 임대료·모집호수와 서울대방1 일정 확인",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?aisTpCd=09&ccrCnntSysDsCd=03&mi=1026&panId=2015122300021109&uppAisTpCd=06",
+      "addresses": [
+        "서울특별시 동작구 여의대방로44길 47",
+        "서울특별시 중랑구 양원역로 92"
+      ],
+      "applyStart": null,
+      "applyEnd": null,
+      "applicationPeriodText": "LH 공고중 · 목록 마감 12/04 · 서울양원 S1BL 11/30~12/04 · 서울대방1 세부일정 PDF 확인",
+      "summaryUnits": "서울양원 S1BL·서울대방1 · 금회 모집호수 미확인",
+      "applicationKind": "special",
+      "rentDetails": {
+        "offers": [],
+        "sourceType": "LH 공식 공고 상세 페이지의 주택형별 임대조건표에 데이터가 표시되지 않아 공식 PDF/임대조건표 확인 필요",
+        "verification": "unverified",
+        "noFixedPrice": true,
+        "billingNote": "보증금·월임대료 미확인; 추정 금액 미기재"
+      },
+      "reviewPending": [
+        "영구임대 적격자에 해당하는지 공고문 자격유형 확인",
+        "서울대방1 단지별 접수일정 및 금회 모집호수 확인",
+        "공식 PDF의 동일 주택형·공급대상별 보증금/월임대료 확인"
       ]
     },
     {
@@ -259,168 +304,42 @@
       ]
     },
     {
-      "id": "youth-soco-board-6727",
+      "id": "gh-anseong-gongdo-charaeum2-national-2026-11-09",
       "status": "⏸",
-      "agency": "서울시 청년안심주택",
-      "category": "공공지원민간임대",
-      "region": "강서구",
-      "name": "화곡역 보눔하우스 화곡 청년안심주택 추가모집",
-      "period": "2026.11.18(수) 00:00 ~ 11.19(목) 18:00",
-      "units": "총 57세대 중 금회 추가공급 공공지원민간임대 5세대 (일반공급 5세대)",
+      "agency": "GH",
+      "category": "국민임대·예비입주자",
+      "region": "경기도 안성시",
+      "name": "안성공도 참아름 2단지 국민임대주택 예비입주자 모집공고",
+      "period": "GH 공식 목록상 마감 11/26 · 2차 GH 안내에는 11/24~11/26으로 표시(접수시간 PDF 확인 필요)",
+      "units": "국민임대 예비입주자 모집 · 금회 주택형/예비인원 공식 PDF 확인 대기",
       "eligibility": {
         "level": "hold",
-        "title": "공식 PDF 검증 · 고가 공공지원민간임대 추천 제외",
-        "reason": "2026-11-12 서울시 공식 모집 PDF의 공급형·보증금·월세를 확인했습니다. 예: 청년 일반 705호 14.93㎡ 고정형 보증금 4,950만원·월세 34만원. 저가 청년 공공임대 선호 조건에 맞지 않아 일반 추천에서 제외합니다.",
-        "check": "개인 신청자격 미확정. 관리비·보증보험료 별도 확인. 특별공급과 일반공급을 구분하고 계약 호실의 실제 금액을 재확인하세요."
+        "title": "일반 국민임대 · 청년 전용 아님 · 원자료 참고",
+        "reason": "GH 공식 임대주택 목록에서 2026.11.09 게시, 11.26 마감, 공고중 상태를 확인했습니다. 청년 전용 공고가 아닌 일반 국민임대로 무주택 세대구성원·소득·자산 및 순위 요건을 별도 충족해야 하며 사용자 개인 자격 미확인. 안성은 서울 서남권 생활권과 거리가 있어 적극 추천에서 제외합니다.",
+        "check": "GH 공식 첨부 PDF에서 주택형·모집호수·순위·접수 시작일/시간·보증금·월임대료를 확인. 개인 무주택·소득·자산 요건 확인."
       },
-      "next": "‘26. 11. 20. (금) 18:00 서류심사 대상자 발표",
-      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6727&menuNo=400008&optn1=2026-11-12",
-      "addresses": [
-        "서울특별시 강서구 강서로 145 (5호선 화곡역 5번 출구)"
-      ],
-      "autoDiscovered": true,
-      "sourceBoardId": 6727,
-      "applicationKind": "private",
-      "applyStart": "2026-11-18T00:00:00+09:00",
-      "applyEnd": "2026-11-19T18:00:00+09:00",
-      "applicationPeriodText": "‘26. 11. 18. (수) ~ 11. 19. (목) 00:00 ~ 18:00",
-      "rentDetails": {
-        "verification": "official",
-        "sourceType": "서울시 청년안심주택 2026-11-12 게시 공식 모집 PDF 공급현황표",
-        "managementFee": "관리비·보증료 별도(금액 미확인)",
-        "activeRecommendation": false,
-        "noFixedPrice": false,
-        "offers": [
-          {
-            "type": "청년 일반 703호 30.01㎡",
-            "tier": "고정형",
-            "depositWon": 65000000,
-            "monthlyRentWon": 478000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 일반 705호 14.93㎡",
-            "tier": "고정형",
-            "depositWon": 49500000,
-            "monthlyRentWon": 344000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 일반 804호 31.42㎡",
-            "tier": "고정형",
-            "depositWon": 80000000,
-            "monthlyRentWon": 432000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 일반 905호 14.35㎡",
-            "tier": "고정형",
-            "depositWon": 65000000,
-            "monthlyRentWon": 305000,
-            "chargeLabel": "월세"
-          },
-          {
-            "type": "청년 일반 1103호 30.03㎡",
-            "tier": "고정형",
-            "depositWon": 91000000,
-            "monthlyRentWon": 432000,
-            "chargeLabel": "월세"
-          }
-        ],
-        "billingNote": "가격은 명시된 동일 호실·동일 전환율의 보증금/월세 쌍이며 계약 호실에 따라 차이 가능"
-      },
-      "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=44d9f9f27efc49ac8c4b7425e5428242&fileSn=1",
-      "verifiedAt": "2026-11-13T12:03:47.643+09:00"
-    },
-    {
-      "id": "lh-youth-jeonse-first-2026",
-      "status": "⏸",
-      "agency": "LH",
-      "category": "청년 전세임대",
-      "region": "전국",
-      "name": "2026년 청년 전세임대 1순위 입주자 수시모집",
-      "period": "수시모집 · 현재 접수중 (공급호수 대비 신청 초과 시 조기 종료 가능)",
-      "units": "공급호수 7,000호",
-      "eligibility": {
-        "level": "hold",
-        "title": "사용자가 전세임대 제외 지정 · 원자료 참고용",
-        "reason": "신청일 현재 무주택·미혼인 대학생·취업준비생·19~39세 청년 중 수급자·보호대상 한부모가족·차상위계층 등 공고상 1순위 요건 충족자 대상입니다. 사용자가 전세임대를 추천 및 긴급 알림에서 제외하도록 요청했습니다.",
-        "check": "본인이 공고상 청년 전세임대 1순위 유형에 해당하는지 확인"
-      },
-      "next": "현재 수시 접수중 · 공급호수 대비 신청 초과 시 조기 종료 가능",
-      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?panId=2015122300019376&ccrCnntSysDsCd=03&uppAisTpCd=13&aisTpCd=17&mi=1026",
+      "next": "공식 PDF 임대조건·모집호수 확인 전 추천 보류 · 지역 접근성 때문에 일반 추천 제외",
+      "source": "https://apply.gh.or.kr/sb/sr/sr7150/selectPbancRentHouseList.do",
       "addresses": [],
       "applyStart": null,
       "applyEnd": null,
-      "applicationPeriodText": "수시 접수 · 선착순 종료 가능",
-      "summaryUnits": "청년 1순위 7,000호",
-      "applicationKind": "public",
+      "applicationPeriodText": "GH 공식 목록은 11/26 마감·공고중 표시. 2차 GH 안내는 11/24~11/26으로 표기하나 접수시간 및 원문 PDF 확인 대기",
+      "summaryUnits": "국민임대 예비입주자 · 주택형/금회 모집수 미확인",
+      "applicationKind": "general-conditional",
       "rentDetails": {
-        "offers": [],
-        "sourceType": "LH 청년 전세임대 1순위 공식 수시모집",
-        "verification": "official",
+        "verification": "unverified",
+        "sourceType": "GH 공식 임대주택 목록에서 게시일·마감일·공고중 상태 확인. 공식 첨부 PDF 임대조건표 직접 확인 전",
+        "managementFee": "미확인",
+        "activeRecommendation": false,
         "noFixedPrice": true,
-        "billingNote": "임대조건은 주택형별로 다름"
-      }
-    },
-    {
-      "id": "sh-airspace-sillim3-social-2026-10-02",
-      "status": "⏸",
-      "agency": "SH 게시·운영기관 주식회사 어울리",
-      "category": "토지지원리츠 사회주택·청년",
-      "region": "관악구",
-      "name": "에어스페이스 신림3호점_어울리 잔여 202호 모집",
-      "period": "2026-10-02 공고 · 선착순/조기마감 가능 · 게시 종료 2026-11-02 (접수 마감일과 구분)",
-      "units": "금회 모집 202호 원룸 1실(기존 단지 전체 12호와 구분)",
-      "eligibility": {
-        "level": "hold",
-        "title": "잔여·임대조건 원문 확인 필요",
-        "reason": "SH에 공개된 운영기관 안내에 따르면 서울 거주 무주택 청년 대상이며 민간 사업자가 선정·계약·보증금반환을 책임집니다. 공식 안내의 '단지 총 12호'는 이번 회차 1실과 다릅니다. 실제 보증금·월세·관리비 확인 전 추천·행동후보·지도 제외.",
-        "check": "운영기관 첨부 금회 모집 PDF의 임대료표, 추가비용, 소득/자산 요건, 계약·보증금 반환 위험 검증"
+        "offers": [],
+        "billingNote": "보증금·월임대료 미확인; 추정 금액 미기재"
       },
-      "next": "이번 회차 202호 1실 · 신청자 많으면 조기 마감 가능 · 모집 PDF/계약금액 및 접수 확인",
-      "source": "https://www.i-sh.co.kr/app/lay2/program/S1T294C297/www/brd/m_247/view.do?multi_itm_seq=2&seq=311005",
-      "addresses": [
-        "서울특별시 관악구 신림로7길 25"
-      ],
-      "autoDiscovered": true,
-      "applyStart": null,
-      "applyEnd": null,
-      "applicationPeriodText": "선착순 · 잔여·마감 확인",
-      "summaryUnits": "202호 원룸 1실",
-      "applicationKind": "unverified-secondary",
-      "rentDetails": {
-        "offers": [
-          {
-            "type": "202호",
-            "tier": "보증금 40%형",
-            "depositWon": 121682000,
-            "monthlyRentWon": 607000
-          },
-          {
-            "type": "202호",
-            "tier": "보증금 50%형",
-            "depositWon": 152103000,
-            "monthlyRentWon": 506000
-          },
-          {
-            "type": "202호",
-            "tier": "보증금 60%형",
-            "depositWon": 182523000,
-            "monthlyRentWon": 405000
-          },
-          {
-            "type": "202호",
-            "tier": "보증금 70%형",
-            "depositWon": 202840000,
-            "monthlyRentWon": 337000
-          }
-        ],
-        "sourceType": "SH 공식 모집 게시·공개 공급표 교차확인(금회 PDF 접근 제한)",
-        "verification": "secondary-crosscheck",
-        "noFixedPrice": false,
-        "billingNote": "임대조건은 주택형별로 다름"
-      }
+      "reviewPending": [
+        "GH 공식 PDF에서 금회 공급 주택형·예비입주자 수 확인",
+        "동일 주택형의 보증금·월임대료 및 접수시간 확인",
+        "일반 국민임대 무주택·소득·자산·순위 조건 확인"
+      ]
     },
     {
       "id": "gh-suwon-startup-special-2026-11-12",
@@ -482,6 +401,331 @@
         "2026.11.12 첨부 PDF에서 금회 실제 잔여 공급호수와 접수시간 재검증",
         "개인별 창업자격·소득·자산 요건 미확인"
       ]
+    },
+    {
+      "id": "youth-soco-board-6802-juventus240-2026-11-19",
+      "status": "⏸",
+      "agency": "서울시 청년안심주택",
+      "category": "청년안심주택·공공지원민간임대",
+      "region": "서울특별시 관악구",
+      "name": "구로디지털단지역 유벤투스 240 청년안심주택 추가모집",
+      "period": "11/23(월) 00:00~23:00",
+      "units": "청년/신혼부부 일반 32타입 31.70㎡ 예비자 모집(금회 공급 1유형; 타입별 예비자 50명 선정)",
+      "eligibility": {
+        "level": "hold",
+        "title": "민간 청년안심주택 · 가격 공식 PDF 확인 · 일반 추천 제외",
+        "reason": "서울시 청년안심주택 공식 2026.11.19 모집 PDF의 공급현황표에서 금회 공급호수·보증금·월임대료를 확인했습니다. 민간임대이며 공공임대가 아닙니다. PDF상 신청자 만 19~39세, 신청자 및 입주예정 세대원 전원 무주택, 자동차가액 4,542만원 이하 등의 기준이 있으나 최초 모집공고의 세부 자격도 적용됩니다. 공식 PDF 가격은 보증금 40% 1억1,200만원/월 81만원, 50% 1억4,100만원/월 68만원, 60% 1억8,000만원/월 51만원입니다. 사용자가 선호하는 저보증금·저월세 공공임대와 비교해 비용 부담이 매우 커 추천 제외합니다. 사용자 개인 자격 미확인. 보증금·월세 부담 및 민간임대 추가비용 때문에 적극 추천하지 않습니다.",
+        "check": "관리비·보증보험료·계약 호실별 실제 금액, 보증보험 유효기간, 계약·해지 조건을 별도 확인. 사용자 선호에 따라 일반 추천 및 긴급 알림 제외."
+      },
+      "next": "공식 PDF 가격 확인 완료 · 민간임대 비용 부담으로 적극 추천/긴급 알림 제외",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6802&menuNo=400008&optn1=2026-11-19",
+      "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=733e22b5e4b04589a91ac3f20487d5ad&fileSn=1",
+      "addresses": [
+        "서울특별시 관악구 신림동 1644-3"
+      ],
+      "applyStart": "2026-11-23T00:00:00+09:00",
+      "applyEnd": "2026-11-23T23:00:00+09:00",
+      "applicationPeriodText": "11/23(월) 00:00~23:00",
+      "summaryUnits": "32타입 31.70㎡ · 보증금 40/50/60% 선택형",
+      "applicationKind": "private",
+      "rentDetails": {
+        "verification": "official",
+        "sourceType": "서울시 청년안심주택 공식 2026.11.19 모집 PDF 공급현황표",
+        "managementFee": "관리비·보증보험료 별도, 금액 미확인",
+        "activeRecommendation": false,
+        "noFixedPrice": false,
+        "offers": [
+          {
+            "type": "청년/신혼 일반 32타입 31.70㎡",
+            "tier": "보증금 40%",
+            "depositWon": 112000000,
+            "monthlyRentWon": 810000,
+            "chargeLabel": "월세"
+          },
+          {
+            "type": "청년/신혼 일반 32타입 31.70㎡",
+            "tier": "보증금 50%",
+            "depositWon": 141000000,
+            "monthlyRentWon": 680000,
+            "chargeLabel": "월세"
+          },
+          {
+            "type": "청년/신혼 일반 32타입 31.70㎡",
+            "tier": "보증금 60%",
+            "depositWon": 180000000,
+            "monthlyRentWon": 510000,
+            "chargeLabel": "월세"
+          }
+        ],
+        "billingNote": "공식 PDF에 기재된 동일 호실·주택형·보증금 비율의 보증금/월세 쌍. 관리비 및 보증보험료 등 추가비용 별도; 최초 계약이 아닌 호실은 실제 계약금액이 다를 수 있음."
+      },
+      "reviewPending": [
+        "실제 계약 호실의 보증금·월세 및 관리비·보증보험료 확인",
+        "민간임대 보증보험 유효기간·등기부 권리관계·해지 조건 확인"
+      ],
+      "verifiedAt": "2026-11-19T18:07:33+09:00"
+    },
+    {
+      "id": "youth-soco-board-6806-modern-prahills-2026-11-19",
+      "status": "⏸",
+      "agency": "서울시 청년안심주택",
+      "category": "청년안심주택·공공지원민간임대",
+      "region": "서울특별시 노원구",
+      "name": "광운대역 현대프라힐스 청년안심주택 추가모집",
+      "period": "11/23(월) 00:00~23:00",
+      "units": "40A형 36.12㎡ 923호 일반공급 1세대",
+      "eligibility": {
+        "level": "hold",
+        "title": "민간 청년안심주택 · 가격 공식 PDF 확인 · 일반 추천 제외",
+        "reason": "서울시 청년안심주택 공식 2026.11.19 모집 PDF의 공급현황표에서 금회 공급호수·보증금·월임대료를 확인했습니다. 민간임대이며 공공임대가 아닙니다. PDF상 신청자 만 19~39세, 신청자 및 입주예정 세대원 전원 무주택, 자동차가액 4,542만원 이하 등의 기준이 있으나 최초 모집공고의 세부 자격도 적용됩니다. 공식 PDF 공급표에서 보증금 9,700만원·월세 53만원을 확인했습니다. 단일 호실이며 민간임대 비용 부담으로 추천 제외합니다. 사용자 개인 자격 미확인. 보증금·월세 부담 및 민간임대 추가비용 때문에 적극 추천하지 않습니다.",
+        "check": "관리비·보증보험료·계약 호실별 실제 금액, 보증보험 유효기간, 계약·해지 조건을 별도 확인. 사용자 선호에 따라 일반 추천 및 긴급 알림 제외."
+      },
+      "next": "공식 PDF 가격 확인 완료 · 민간임대 비용 부담으로 적극 추천/긴급 알림 제외",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6806&menuNo=400008&optn1=2026-11-19",
+      "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=78f3aa6df7454dad8367131ca942b47b&fileSn=1",
+      "addresses": [
+        "서울특별시 노원구 월계동 410-3"
+      ],
+      "applyStart": "2026-11-23T00:00:00+09:00",
+      "applyEnd": "2026-11-23T23:00:00+09:00",
+      "applicationPeriodText": "11/23(월) 00:00~23:00",
+      "summaryUnits": "40A형 36.12㎡ · 1세대",
+      "applicationKind": "private",
+      "rentDetails": {
+        "verification": "official",
+        "sourceType": "서울시 청년안심주택 공식 2026.11.19 모집 PDF 공급현황표",
+        "managementFee": "관리비·보증보험료 별도, 금액 미확인",
+        "activeRecommendation": false,
+        "noFixedPrice": false,
+        "offers": [
+          {
+            "type": "청년/신혼 일반 40A 36.12㎡ (923호)",
+            "tier": "기본 임대조건",
+            "depositWon": 97000000,
+            "monthlyRentWon": 530000,
+            "chargeLabel": "월세"
+          }
+        ],
+        "billingNote": "공식 PDF에 기재된 동일 호실·주택형·보증금 비율의 보증금/월세 쌍. 관리비 및 보증보험료 등 추가비용 별도; 최초 계약이 아닌 호실은 실제 계약금액이 다를 수 있음."
+      },
+      "reviewPending": [
+        "실제 계약 호실의 보증금·월세 및 관리비·보증보험료 확인",
+        "민간임대 보증보험 유효기간·등기부 권리관계·해지 조건 확인"
+      ],
+      "verifiedAt": "2026-11-19T18:07:33+09:00"
+    },
+    {
+      "id": "youth-soco-board-6804-jstar-sangbong-2026-11-19",
+      "status": "⏸",
+      "agency": "서울시 청년안심주택",
+      "category": "청년안심주택·공공지원민간임대",
+      "region": "서울특별시 중랑구",
+      "name": "상봉역 제이스타상봉 청년안심주택 추가모집",
+      "period": "11/23(월) 10:00~23:00",
+      "units": "청년 일반 17.75㎡ 510호 1세대 + 청년/신혼부부 일반 31.65㎡ 502호 1세대",
+      "eligibility": {
+        "level": "hold",
+        "title": "민간 청년안심주택 · 가격 공식 PDF 확인 · 일반 추천 제외",
+        "reason": "서울시 청년안심주택 공식 2026.11.19 모집 PDF의 공급현황표에서 금회 공급호수·보증금·월임대료를 확인했습니다. 민간임대이며 공공임대가 아닙니다. PDF상 신청자 만 19~39세, 신청자 및 입주예정 세대원 전원 무주택, 자동차가액 4,542만원 이하 등의 기준이 있으나 최초 모집공고의 세부 자격도 적용됩니다. 공식 PDF 공급표에서 청년 일반 17.75㎡ 보증금 5,300만원/월 42만6천원, 청년·신혼 일반 31.65㎡ 보증금 7,600만원/월 61만5천원을 확인했습니다. 월세 부담 때문에 추천 제외합니다. 사용자 개인 자격 미확인. 보증금·월세 부담 및 민간임대 추가비용 때문에 적극 추천하지 않습니다.",
+        "check": "관리비·보증보험료·계약 호실별 실제 금액, 보증보험 유효기간, 계약·해지 조건을 별도 확인. 사용자 선호에 따라 일반 추천 및 긴급 알림 제외."
+      },
+      "next": "공식 PDF 가격 확인 완료 · 민간임대 비용 부담으로 적극 추천/긴급 알림 제외",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6804&menuNo=400008&optn1=2026-11-19",
+      "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=194ae339dbb742859f2ca15fb996defe&fileSn=1",
+      "addresses": [
+        "서울특별시 중랑구 상봉동 109-34"
+      ],
+      "applyStart": "2026-11-23T10:00:00+09:00",
+      "applyEnd": "2026-11-23T23:00:00+09:00",
+      "applicationPeriodText": "11/23(월) 10:00~23:00",
+      "summaryUnits": "청년 일반 17.75㎡·31.65㎡ 각 1세대",
+      "applicationKind": "private",
+      "rentDetails": {
+        "verification": "official",
+        "sourceType": "서울시 청년안심주택 공식 2026.11.19 모집 PDF 공급현황표",
+        "managementFee": "관리비·보증보험료 별도, 금액 미확인",
+        "activeRecommendation": false,
+        "noFixedPrice": false,
+        "offers": [
+          {
+            "type": "청년 일반 17.75㎡ (510호)",
+            "tier": "기본 임대조건",
+            "depositWon": 53000000,
+            "monthlyRentWon": 426000,
+            "chargeLabel": "월세"
+          },
+          {
+            "type": "청년/신혼부부 일반 31.65㎡ (502호)",
+            "tier": "기본 임대조건",
+            "depositWon": 76000000,
+            "monthlyRentWon": 615000,
+            "chargeLabel": "월세"
+          }
+        ],
+        "billingNote": "공식 PDF에 기재된 동일 호실·주택형·보증금 비율의 보증금/월세 쌍. 관리비 및 보증보험료 등 추가비용 별도; 최초 계약이 아닌 호실은 실제 계약금액이 다를 수 있음."
+      },
+      "reviewPending": [
+        "실제 계약 호실의 보증금·월세 및 관리비·보증보험료 확인",
+        "민간임대 보증보험 유효기간·등기부 권리관계·해지 조건 확인"
+      ],
+      "verifiedAt": "2026-11-19T18:07:33+09:00"
+    },
+    {
+      "id": "youth-soco-board-6803-inhere-ssangmun-2026-11-19",
+      "status": "⏸",
+      "agency": "서울시 청년안심주택",
+      "category": "청년안심주택·공공지원민간임대",
+      "region": "서울특별시 도봉구",
+      "name": "쌍문역 인히어쌍문 청년안심주택 추가모집",
+      "period": "11/25(수) 00:00~23:00",
+      "units": "금회 5세대(청년 특별공급 3세대·청년 일반공급 2세대)",
+      "eligibility": {
+        "level": "hold",
+        "title": "민간 청년안심주택 · 가격 공식 PDF 확인 · 일반 추천 제외",
+        "reason": "서울시 청년안심주택 공식 2026.11.19 모집 PDF의 공급현황표에서 금회 공급호수·보증금·월임대료를 확인했습니다. 민간임대이며 공공임대가 아닙니다. PDF상 신청자 만 19~39세, 신청자 및 입주예정 세대원 전원 무주택, 자동차가액 4,542만원 이하 등의 기준이 있으나 최초 모집공고의 세부 자격도 적용됩니다. 공식 PDF에서 청년 특별 1506호 17.94㎡ 3,520만원/월 278,430원, 1403호 25.65㎡ 4,160만원/월 335,040원, 311호 20.06㎡ 2,880만원/월 360,870원; 청년 일반 1115호 19.17㎡ 4,704만원/월 379,720원, 309호 22.55㎡ 4,704만원/월 382,420원을 확인했습니다. 다른 민간안심주택보다 보증금은 낮지만 월세가 공공 행복주택보다 높고 민간임대이므로 일반 추천은 보류합니다. 사용자 개인 자격 미확인. 보증금·월세 부담 및 민간임대 추가비용 때문에 적극 추천하지 않습니다.",
+        "check": "관리비·보증보험료·계약 호실별 실제 금액, 보증보험 유효기간, 계약·해지 조건을 별도 확인. 사용자 선호에 따라 일반 추천 및 긴급 알림 제외."
+      },
+      "next": "공식 PDF 가격 확인 완료 · 민간임대 비용 부담으로 적극 추천/긴급 알림 제외",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6803&menuNo=400008&optn1=2026-11-19",
+      "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=1df6d02f550948769f4d931c7a7e6af2&fileSn=1",
+      "addresses": [
+        "서울특별시 도봉구 쌍문동 103-6"
+      ],
+      "applyStart": "2026-11-25T00:00:00+09:00",
+      "applyEnd": "2026-11-25T23:00:00+09:00",
+      "applicationPeriodText": "11/25(수) 00:00~23:00",
+      "summaryUnits": "청년 특별 3세대·일반 2세대 · 보증금 2,880만~4,704만원 / 월 27만8,430~38만2,420원",
+      "applicationKind": "private",
+      "rentDetails": {
+        "verification": "official",
+        "sourceType": "서울시 청년안심주택 공식 2026.11.19 모집 PDF 공급현황표",
+        "managementFee": "관리비·보증보험료 별도, 금액 미확인",
+        "activeRecommendation": false,
+        "noFixedPrice": false,
+        "offers": [
+          {
+            "type": "청년 특별 1506호 17.94㎡ (A2)",
+            "tier": "보증금 40%",
+            "depositWon": 35200000,
+            "monthlyRentWon": 278430,
+            "chargeLabel": "월세"
+          },
+          {
+            "type": "청년 특별 1403호 25.65㎡ (A4)",
+            "tier": "보증금 40%",
+            "depositWon": 41600000,
+            "monthlyRentWon": 335040,
+            "chargeLabel": "월세"
+          },
+          {
+            "type": "청년 특별 311호 20.06㎡ (B1)",
+            "tier": "보증금 30%",
+            "depositWon": 28800000,
+            "monthlyRentWon": 360870,
+            "chargeLabel": "월세"
+          },
+          {
+            "type": "청년 일반 1115호 19.17㎡ (A1)",
+            "tier": "보증금 40%",
+            "depositWon": 47040000,
+            "monthlyRentWon": 379720,
+            "chargeLabel": "월세"
+          },
+          {
+            "type": "청년 일반 309호 22.55㎡ (C1)",
+            "tier": "보증금 40%",
+            "depositWon": 47040000,
+            "monthlyRentWon": 382420,
+            "chargeLabel": "월세"
+          }
+        ],
+        "billingNote": "공식 PDF에 기재된 동일 호실·주택형·보증금 비율의 보증금/월세 쌍. 관리비 및 보증보험료 등 추가비용 별도; 최초 계약이 아닌 호실은 실제 계약금액이 다를 수 있음."
+      },
+      "reviewPending": [
+        "실제 계약 호실의 보증금·월세 및 관리비·보증보험료 확인",
+        "민간임대 보증보험 유효기간·등기부 권리관계·해지 조건 확인"
+      ],
+      "verifiedAt": "2026-11-19T18:07:33+09:00"
+    },
+    {
+      "id": "youth-soco-board-6805-cheonggye-robenheim-2026-11-19",
+      "status": "⏸",
+      "agency": "서울시 청년안심주택",
+      "category": "청년안심주택·공공지원민간임대",
+      "region": "서울특별시 종로구",
+      "name": "동묘앞역 청계로벤하임 청년안심주택 추가모집",
+      "period": "11/23(월) 00:00~23:00",
+      "units": "청년 또는 신혼부부 일반공급 30㎡ 1304호 1세대",
+      "eligibility": {
+        "level": "hold",
+        "title": "민간 청년안심주택 · 가격 공식 PDF 확인 · 일반 추천 제외",
+        "reason": "서울시 청년안심주택 공식 2026.11.19 모집 PDF의 공급현황표에서 금회 공급호수·보증금·월임대료를 확인했습니다. 민간임대이며 공공임대가 아닙니다. PDF상 신청자 만 19~39세, 신청자 및 입주예정 세대원 전원 무주택, 자동차가액 4,542만원 이하 등의 기준이 있으나 최초 모집공고의 세부 자격도 적용됩니다. 공식 PDF 공급표에서 30㎡ 1304호 보증금 1억8,870만원·월세 25만7천원을 확인했습니다. 월세는 낮지만 보증금이 매우 높아 사용자의 저보증금 우선 조건과 맞지 않아 추천 제외합니다. 사용자 개인 자격 미확인. 보증금·월세 부담 및 민간임대 추가비용 때문에 적극 추천하지 않습니다.",
+        "check": "관리비·보증보험료·계약 호실별 실제 금액, 보증보험 유효기간, 계약·해지 조건을 별도 확인. 사용자 선호에 따라 일반 추천 및 긴급 알림 제외."
+      },
+      "next": "공식 PDF 가격 확인 완료 · 민간임대 비용 부담으로 적극 추천/긴급 알림 제외",
+      "source": "https://soco.seoul.go.kr/youth/bbs/BMSR00015/view.do?boardId=6805&menuNo=400008&optn1=2026-11-19",
+      "sourcePdf": "https://soco.seoul.go.kr/coHouse/cmmn/file/fileDown.do?atchFileId=60819321f26f470b8ff627f57b3fdee7&fileSn=1",
+      "addresses": [
+        "서울특별시 종로구 숭인동 240-1"
+      ],
+      "applyStart": "2026-11-23T00:00:00+09:00",
+      "applyEnd": "2026-11-23T23:00:00+09:00",
+      "applicationPeriodText": "11/23(월) 00:00~23:00",
+      "summaryUnits": "30㎡ 1304호 1세대 · 보증금 1억8,870만원 / 월 25만7천원",
+      "applicationKind": "private",
+      "rentDetails": {
+        "verification": "official",
+        "sourceType": "서울시 청년안심주택 공식 2026.11.19 모집 PDF 공급현황표",
+        "managementFee": "관리비·보증보험료 별도, 금액 미확인",
+        "activeRecommendation": false,
+        "noFixedPrice": false,
+        "offers": [
+          {
+            "type": "청년/신혼부부 일반 30㎡ (1304호)",
+            "tier": "기준 임대조건",
+            "depositWon": 188700000,
+            "monthlyRentWon": 257000,
+            "chargeLabel": "월세"
+          }
+        ],
+        "billingNote": "공식 PDF에 기재된 동일 호실·주택형·보증금 비율의 보증금/월세 쌍. 관리비 및 보증보험료 등 추가비용 별도; 최초 계약이 아닌 호실은 실제 계약금액이 다를 수 있음."
+      },
+      "reviewPending": [
+        "실제 계약 호실의 보증금·월세 및 관리비·보증보험료 확인",
+        "민간임대 보증보험 유효기간·등기부 권리관계·해지 조건 확인"
+      ],
+      "verifiedAt": "2026-11-19T18:07:33+09:00"
+    },
+    {
+      "id": "lh-youth-jeonse-first-2026",
+      "status": "⏸",
+      "agency": "LH",
+      "category": "청년 전세임대",
+      "region": "전국",
+      "name": "2026년 청년 전세임대 1순위 입주자 수시모집",
+      "period": "수시모집 · 현재 접수중 (공급호수 대비 신청 초과 시 조기 종료 가능)",
+      "units": "공급호수 7,000호",
+      "eligibility": {
+        "level": "hold",
+        "title": "사용자가 전세임대 제외 지정 · 원자료 참고용",
+        "reason": "신청일 현재 무주택·미혼인 대학생·취업준비생·19~39세 청년 중 수급자·보호대상 한부모가족·차상위계층 등 공고상 1순위 요건 충족자 대상입니다. 사용자가 전세임대를 추천 및 긴급 알림에서 제외하도록 요청했습니다.",
+        "check": "본인이 공고상 청년 전세임대 1순위 유형에 해당하는지 확인"
+      },
+      "next": "현재 수시 접수중 · 공급호수 대비 신청 초과 시 조기 종료 가능",
+      "source": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancInfo.do?panId=2015122300019376&ccrCnntSysDsCd=03&uppAisTpCd=13&aisTpCd=17&mi=1026",
+      "addresses": [],
+      "applyStart": null,
+      "applyEnd": null,
+      "applicationPeriodText": "수시 접수 · 선착순 종료 가능",
+      "summaryUnits": "청년 1순위 7,000호",
+      "applicationKind": "public",
+      "rentDetails": {
+        "offers": [],
+        "sourceType": "LH 청년 전세임대 1순위 공식 수시모집",
+        "verification": "official",
+        "noFixedPrice": true,
+        "billingNote": "임대조건은 주택형별로 다름"
+      }
     }
   ]
 }
